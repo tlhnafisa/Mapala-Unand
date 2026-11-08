@@ -1,0 +1,1014 @@
+{
+  "users": [
+    {
+      "id": "USR-001",
+      "username": "admin",
+      "nama": "Administrator Mapala UNAND",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeS7ZcEsveQT6S5HyV6MVruKqkT.3D1AG",
+      "role": "admin",
+      "status_aktif": true,
+      "must_change_password": false,
+      "last_login": "2026-11-07T16:48:06.580Z"
+    },
+    {
+      "id": "USR-100",
+      "username": "MU 280 RGM",
+      "nama": "Rahmat Hidayat",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-101",
+      "username": "MU 285 PCT",
+      "nama": "Fajar Nugraha",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-11-04T18:30:23.460Z"
+    },
+    {
+      "id": "USR-102",
+      "username": "MU 292 CAV",
+      "nama": "Dian Permata Sari",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-11-03T18:30:23.460Z"
+    },
+    {
+      "id": "USR-103",
+      "username": "MU 301 OLA",
+      "nama": "Ilham Syahputra",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-104",
+      "username": "MU 310 RGM",
+      "nama": "Budi Santoso",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-11-01T18:30:23.460Z"
+    },
+    {
+      "id": "USR-105",
+      "username": "MU 315 RGM",
+      "nama": "Reza Pratama",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-31T18:30:23.460Z"
+    },
+    {
+      "id": "USR-106",
+      "username": "MU 320 CAV",
+      "nama": "Siti Nurhaliza",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-107",
+      "username": "MU 325 PCT",
+      "nama": "Arif Gunawan",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-29T18:30:23.460Z"
+    },
+    {
+      "id": "USR-108",
+      "username": "MU 330 OLA",
+      "nama": "Taufik Hidayat",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-28T18:30:23.460Z"
+    },
+    {
+      "id": "USR-109",
+      "username": "MU 335 CAV",
+      "nama": "Aulia Rahman",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-110",
+      "username": "MU 120 RGM",
+      "nama": "Indra Wijaya",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-26T18:30:23.460Z"
+    },
+    {
+      "id": "USR-111",
+      "username": "MU 145 PCT",
+      "nama": "Yusuf Mansur",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-25T18:30:23.460Z"
+    },
+    {
+      "id": "USR-112",
+      "username": "MU 180 CAV",
+      "nama": "Zulham Efendi",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-113",
+      "username": "MU 215 OLA",
+      "nama": "Hendri Marlis",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-23T18:30:23.460Z"
+    },
+    {
+      "id": "USR-114",
+      "username": "MU 250 RGM",
+      "nama": "Doni Arman",
+      "password_hash": "$2b$10$1hfAQBLRjW0mIlxh8YtiAeyXHmNx.SE7FLVZj663mjyheKPN5av5C",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": "2026-10-22T18:30:23.460Z"
+    },
+    {
+      "id": "USR-1793903423811",
+      "username": "MU 399 PCT",
+      "nama": "Testing Format Valid",
+      "password_hash": "$2b$10$BLLa3TBTHrsJgHad3fZcfesFaxM2EJ5i/IwcIujrbTc9i28c6dRCm",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    },
+    {
+      "id": "USR-002",
+      "username": "admin2",
+      "nama": "Ketua Umum (Admin 2)",
+      "password_hash": "$2b$10$Bq5j/rUOoaW7AVtqioLWLePUhQn3Scya3rqVJBRAem83Da3wFvGwe",
+      "role": "admin",
+      "status_aktif": true,
+      "must_change_password": false,
+      "last_login": null
+    },
+    {
+      "id": "USR-1794074436221",
+      "username": "MU 700 Opm.",
+      "nama": "mk",
+      "password_hash": "$2b$10$D1ijJgblyQ0010SOTf752.uIaBGy2xsyp9ojmf6cXikjEOUTtxOUy",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null
+    }
+  ],
+  "members": [
+    {
+      "id": "MBR-100",
+      "no_register": "MU 280 RGM",
+      "nama": "Rahmat Hidayat",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2018,
+      "tempat_lahir": "Kota Padang",
+      "tanggal_lahir": "1991-01-15",
+      "golongan_darah": "O",
+      "nama_ayah": "Ayahanda Rahmat",
+      "nama_ibu": "Ibunda Rahmat",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-101",
+      "no_register": "MU 285 PCT",
+      "nama": "Fajar Nugraha",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2018,
+      "tempat_lahir": "Kota Bukittinggi",
+      "tanggal_lahir": "1992-02-15",
+      "golongan_darah": "A",
+      "nama_ayah": "Ayahanda Fajar",
+      "nama_ibu": "Ibunda Fajar",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-102",
+      "no_register": "MU 292 CAV",
+      "nama": "Dian Permata Sari",
+      "divisi": "Caving",
+      "angkatan": 2019,
+      "tempat_lahir": "Kota Solok",
+      "tanggal_lahir": "1993-03-15",
+      "golongan_darah": "B",
+      "nama_ayah": "Ayahanda Dian",
+      "nama_ibu": "Ibunda Dian",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-103",
+      "no_register": "MU 301 OLA",
+      "nama": "Ilham Syahputra",
+      "divisi": "Olahraga Air",
+      "angkatan": 2019,
+      "tempat_lahir": "Kota Payakumbuh",
+      "tanggal_lahir": "1994-04-15",
+      "golongan_darah": "AB",
+      "nama_ayah": "Ayahanda Ilham",
+      "nama_ibu": "Ibunda Ilham",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-104",
+      "no_register": "MU 310 RGM",
+      "nama": "Budi Santoso",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2020,
+      "tempat_lahir": "Kabupaten Pesisir Selatan",
+      "tanggal_lahir": "1995-05-15",
+      "golongan_darah": "O",
+      "nama_ayah": "Ayahanda Budi",
+      "nama_ibu": "Ibunda Budi",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-105",
+      "no_register": "MU 315 RGM",
+      "nama": "Reza Pratama",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2020,
+      "tempat_lahir": "Kota Pekanbaru",
+      "tanggal_lahir": "1996-06-15",
+      "golongan_darah": "A",
+      "nama_ayah": "Ayahanda Reza",
+      "nama_ibu": "Ibunda Reza",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-106",
+      "no_register": "MU 320 CAV",
+      "nama": "Siti Nurhaliza",
+      "divisi": "Caving",
+      "angkatan": 2021,
+      "tempat_lahir": "Jakarta Selatan",
+      "tanggal_lahir": "1997-07-15",
+      "golongan_darah": "B",
+      "nama_ayah": "Ayahanda Siti",
+      "nama_ibu": "Ibunda Siti",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-107",
+      "no_register": "MU 325 PCT",
+      "nama": "Arif Gunawan",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2021,
+      "tempat_lahir": "Kota Bandung",
+      "tanggal_lahir": "1998-08-15",
+      "golongan_darah": "O",
+      "nama_ayah": "Ayahanda Arif",
+      "nama_ibu": "Ibunda Arif",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-108",
+      "no_register": "MU 330 OLA",
+      "nama": "Taufik Hidayat",
+      "divisi": "Olahraga Air",
+      "angkatan": 2022,
+      "tempat_lahir": "Kota Medan",
+      "tanggal_lahir": "1999-09-15",
+      "golongan_darah": "A",
+      "nama_ayah": "Ayahanda Taufik",
+      "nama_ibu": "Ibunda Taufik",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-109",
+      "no_register": "MU 335 CAV",
+      "nama": "Aulia Rahman",
+      "divisi": "Caving",
+      "angkatan": 2022,
+      "tempat_lahir": "Kota Padang",
+      "tanggal_lahir": "1991-01-15",
+      "golongan_darah": "AB",
+      "nama_ayah": "Ayahanda Aulia",
+      "nama_ibu": "Ibunda Aulia",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-110",
+      "no_register": "MU 120 RGM",
+      "nama": "Indra Wijaya",
+      "divisi": "Rimba Gunung",
+      "angkatan": 1995,
+      "tempat_lahir": "Kota Bukittinggi",
+      "tanggal_lahir": "1992-02-15",
+      "golongan_darah": "O",
+      "nama_ayah": "Ayahanda Indra",
+      "nama_ibu": "Ibunda Indra",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-111",
+      "no_register": "MU 145 PCT",
+      "nama": "Yusuf Mansur",
+      "divisi": "Panjat Tebing",
+      "angkatan": 1998,
+      "tempat_lahir": "Kota Solok",
+      "tanggal_lahir": "1993-03-15",
+      "golongan_darah": "B",
+      "nama_ayah": "Ayahanda Yusuf",
+      "nama_ibu": "Ibunda Yusuf",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-112",
+      "no_register": "MU 180 CAV",
+      "nama": "Zulham Efendi",
+      "divisi": "Caving",
+      "angkatan": 2003,
+      "tempat_lahir": "Kota Payakumbuh",
+      "tanggal_lahir": "1994-04-15",
+      "golongan_darah": "A",
+      "nama_ayah": "Ayahanda Zulham",
+      "nama_ibu": "Ibunda Zulham",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-113",
+      "no_register": "MU 215 OLA",
+      "nama": "Hendri Marlis",
+      "divisi": "Olahraga Air",
+      "angkatan": 2008,
+      "tempat_lahir": "Kabupaten Pesisir Selatan",
+      "tanggal_lahir": "1995-05-15",
+      "golongan_darah": "O",
+      "nama_ayah": "Ayahanda Hendri",
+      "nama_ibu": "Ibunda Hendri",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-114",
+      "no_register": "MU 250 RGM",
+      "nama": "Doni Arman",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2014,
+      "tempat_lahir": "Kota Pekanbaru",
+      "tanggal_lahir": "1996-06-15",
+      "golongan_darah": "B",
+      "nama_ayah": "Ayahanda Doni",
+      "nama_ibu": "Ibunda Doni",
+      "status_aktif": true,
+      "created_at": "2026-01-10T00:00:00.000Z",
+      "updated_at": "2026-11-05T18:30:23.460Z"
+    },
+    {
+      "id": "MBR-1793903423811",
+      "no_register": "MU 399 PCT",
+      "nama": "Testing Format Valid",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2023,
+      "tempat_lahir": "-",
+      "tanggal_lahir": "",
+      "golongan_darah": "-",
+      "nama_ayah": "-",
+      "nama_ibu": "-",
+      "status_aktif": true,
+      "created_at": "2026-11-05T18:30:23.811Z",
+      "updated_at": "2026-11-05T18:30:23.811Z"
+    },
+    {
+      "id": "MBR-1794074436221",
+      "no_register": "MU 700 Opm.",
+      "nama": "mk",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2026,
+      "tempat_lahir": "padang",
+      "tanggal_lahir": "2006-10-20",
+      "golongan_darah": "A",
+      "nama_ayah": "oi",
+      "nama_ibu": "po",
+      "status_aktif": true,
+      "created_at": "2026-11-07T18:00:36.221Z",
+      "updated_at": "2026-11-07T18:00:36.221Z"
+    }
+  ],
+  "reRegistrations": [
+    {
+      "id": "REG-2026-101",
+      "no_register": "MU 285 PCT",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 11, Kel. Anduring",
+      "kota_kabupaten": "Kota Bukittinggi",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "081378901234",
+      "email": "fajarnugraha@gmail.com",
+      "media_sosial": "@fajarnugraha",
+      "alamat_ortu": "Komp. Griya Indah Blok C/2, Kota Bukittinggi",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "admin",
+      "input_by": "admin (admin)",
+      "submitted_at": "2026-11-03T18:30:23.460Z",
+      "updated_at": "2026-11-06T05:48:11.719Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-102",
+      "no_register": "MU 292 CAV",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 12, Kel. Anduring",
+      "kota_kabupaten": "Kota Solok",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "085267123456",
+      "email": "dianpermatasari@gmail.com",
+      "media_sosial": "@dianpermatasari",
+      "alamat_ortu": "Komp. Griya Indah Blok C/3, Kota Solok",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "admin",
+      "input_by": "admin (admin)",
+      "submitted_at": "2026-11-02T18:30:23.460Z",
+      "updated_at": "2026-11-06T05:48:31.399Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "foto": "/uploads/attrFile_ATR-001-1793944111368-279907155.png"
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-104",
+      "no_register": "MU 310 RGM",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 14, Kel. Anduring",
+      "kota_kabupaten": "Kabupaten Pesisir Selatan",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "081234567890",
+      "email": "budisantoso@gmail.com",
+      "media_sosial": "@budisantoso",
+      "alamat_ortu": "Komp. Griya Indah Blok C/5, Kabupaten Pesisir Selatan",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "admin",
+      "input_by": "admin (override)",
+      "submitted_at": "2026-10-31T18:30:23.460Z",
+      "updated_at": "2026-10-31T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-105",
+      "no_register": "MU 315 RGM",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 15, Kel. Anduring",
+      "kota_kabupaten": "Kota Pekanbaru",
+      "provinsi": "Riau",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "085378901234",
+      "email": "rezapratama@gmail.com",
+      "media_sosial": "@rezapratama",
+      "alamat_ortu": "Komp. Griya Indah Blok C/6, Kota Pekanbaru",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Reza Pratama",
+      "submitted_at": "2026-10-30T18:30:23.460Z",
+      "updated_at": "2026-10-30T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-107",
+      "no_register": "MU 325 PCT",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 17, Kel. Anduring",
+      "kota_kabupaten": "Kota Bandung",
+      "provinsi": "Jawa Barat",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "081987654321",
+      "email": "arifgunawan@gmail.com",
+      "media_sosial": "@arifgunawan",
+      "alamat_ortu": "Komp. Griya Indah Blok C/8, Kota Bandung",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Arif Gunawan",
+      "submitted_at": "2026-10-28T18:30:23.460Z",
+      "updated_at": "2026-10-28T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-108",
+      "no_register": "MU 330 OLA",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 18, Kel. Anduring",
+      "kota_kabupaten": "Kota Medan",
+      "provinsi": "Sumatera Utara",
+      "pekerjaan": "Mahasiswa",
+      "no_hp": "081345678912",
+      "email": "taufikhidayat@gmail.com",
+      "media_sosial": "@taufikhidayat",
+      "alamat_ortu": "Komp. Griya Indah Blok C/9, Kota Medan",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "admin",
+      "input_by": "admin (override)",
+      "submitted_at": "2026-10-27T18:30:23.460Z",
+      "updated_at": "2026-10-27T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-110",
+      "no_register": "MU 120 RGM",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 20, Kel. Anduring",
+      "kota_kabupaten": "Kota Bukittinggi",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Wiraswasta / Pegawai",
+      "no_hp": "081122334455",
+      "email": "indrawijaya@gmail.com",
+      "media_sosial": "@indrawijaya",
+      "alamat_ortu": "Komp. Griya Indah Blok C/11, Kota Bukittinggi",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Indra Wijaya",
+      "submitted_at": "2026-10-25T18:30:23.460Z",
+      "updated_at": "2026-10-25T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-111",
+      "no_register": "MU 145 PCT",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 21, Kel. Anduring",
+      "kota_kabupaten": "Kota Solok",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Wiraswasta / Pegawai",
+      "no_hp": "081299887766",
+      "email": "yusufmansur@gmail.com",
+      "media_sosial": "@yusufmansur",
+      "alamat_ortu": "Komp. Griya Indah Blok C/12, Kota Solok",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Yusuf Mansur",
+      "submitted_at": "2026-10-24T18:30:23.460Z",
+      "updated_at": "2026-10-24T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-113",
+      "no_register": "MU 215 OLA",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 23, Kel. Anduring",
+      "kota_kabupaten": "Kabupaten Pesisir Selatan",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Wiraswasta / Pegawai",
+      "no_hp": "081377889900",
+      "email": "hendrimarlis@gmail.com",
+      "media_sosial": "@hendrimarlis",
+      "alamat_ortu": "Komp. Griya Indah Blok C/14, Kabupaten Pesisir Selatan",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Hendri Marlis",
+      "submitted_at": "2026-10-22T18:30:23.460Z",
+      "updated_at": "2026-10-22T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    },
+    {
+      "id": "REG-2026-114",
+      "no_register": "MU 250 RGM",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/default-avatar.png",
+      "alamat_rumah": "Jl. Melati No. 24, Kel. Anduring",
+      "kota_kabupaten": "Kota Pekanbaru",
+      "provinsi": "Riau",
+      "pekerjaan": "Wiraswasta / Pegawai",
+      "no_hp": "087811223344",
+      "email": "doniarman@gmail.com",
+      "media_sosial": "@doniarman",
+      "alamat_ortu": "Komp. Griya Indah Blok C/15, Kota Pekanbaru",
+      "status_registrasi": "Sudah Registrasi Ulang",
+      "sumber_input": "mandiri",
+      "input_by": "Doni Arman",
+      "submitted_at": "2026-10-21T18:30:23.460Z",
+      "updated_at": "2026-10-21T18:30:23.460Z",
+      "atribut": [
+        {
+          "atribut_id": "ATR-001",
+          "nama": "Topi Rimba",
+          "status": "Ada",
+          "foto": null
+        },
+        {
+          "atribut_id": "ATR-002",
+          "nama": "Baju Lapangan",
+          "status": "Ada",
+          "foto": null
+        }
+      ]
+    }
+  ],
+  "periodes": [
+    {
+      "id": "PRD-2026",
+      "tahun": 2026,
+      "nama_periode": "Registrasi Ulang Tahunan 2026",
+      "tanggal_buka": "2026-01-01",
+      "tanggal_tutup": "2026-12-31",
+      "is_active": false,
+      "deskripsi": "Periode aktif pendataan berkala dan pembaruan domisili anggota seumur hidup Mapala UNAND."
+    },
+    {
+      "id": "PRD-2025",
+      "tahun": 2025,
+      "nama_periode": "Registrasi Ulang Tahunan 2025",
+      "tanggal_buka": "2025-01-01",
+      "tanggal_tutup": "2025-12-31",
+      "is_active": false,
+      "deskripsi": "Periode registrasi ulang tahun 2025 (Arsip)."
+    }
+  ],
+  "divisions": [
+    {
+      "id": "DIV-001",
+      "nama_divisi": "Rimba Gunung",
+      "kode": "RGM",
+      "deskripsi": "Spesialisasi penjelajahan rimba belantara dan pendakian gunung"
+    },
+    {
+      "id": "DIV-002",
+      "nama_divisi": "Panjat Tebing",
+      "kode": "PCT",
+      "deskripsi": "Spesialisasi panjat tebing alam dan panjat dinding (rock climbing)"
+    },
+    {
+      "id": "DIV-003",
+      "nama_divisi": "Olahraga Air",
+      "kode": "OLA",
+      "deskripsi": "Spesialisasi arung jeram (rafting), kayak, dan navigasi sungai deras"
+    },
+    {
+      "id": "DIV-004",
+      "nama_divisi": "Caving",
+      "kode": "CAV",
+      "deskripsi": "Spesialisasi susur gua alam dan eksplorasi speleologi"
+    }
+  ],
+  "atributs": [
+    {
+      "id": "ATR-001",
+      "nama_atribut": "Topi Rimba",
+      "wajib": true,
+      "keterangan": "Topi rimba resmi lapangan Mapala UNAND"
+    },
+    {
+      "id": "ATR-002",
+      "nama_atribut": "Baju Lapangan",
+      "wajib": true,
+      "keterangan": "Baju dinas lapangan (PDL) resmi Mapala UNAND"
+    }
+  ],
+  "articles": [
+    {
+      "id": "ART-001",
+      "judul": "Ekspedisi Tiga Puncak: Penjelajahan Alam Pegunungan Bukit Barisan",
+      "kategori": "ekspedisi",
+      "foto": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+      "tanggal": "2026-10-15",
+      "status": "terbit",
+      "penulis": "Bidang Humas & Publikasi",
+      "isi": "Kegiatan ekspedisi tahunan penjelajahan gugusan Bukit Barisan sukses dilaksanakan oleh anggota muda dan senior Mapala UNAND dengan memetakan titik keanekaragaman hayati dan konservasi sumber air."
+    },
+    {
+      "id": "ART-002",
+      "judul": "Aksi Bersih Goa Ngalau Indah & Edukasi Karst Ramah Lingkungan",
+      "kategori": "caving",
+      "foto": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80",
+      "tanggal": "2026-09-22",
+      "status": "terbit",
+      "penulis": "Divisi Caving",
+      "isi": "Divisi Susur Gua Mapala UNAND mengadakan aksi bersih gua dan pemetaan lorong karst untuk menjaga ekosistem endemik serta biota gua dari ancaman sampah plastik."
+    },
+    {
+      "id": "ART-003",
+      "judul": "Pelatihan Navigasi Darat dan Survival Anggota Muda 2026",
+      "kategori": "kegiatan lapangan",
+      "foto": "https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=1200&q=80",
+      "tanggal": "2026-11-01",
+      "status": "draf",
+      "penulis": "Bidang Operasional",
+      "isi": "Draf dokumentasi persiapan materi orientasi medan, kompas bidik, peta resection, dan penanganan darurat di hutan hujan tropis."
+    }
+  ],
+  "pengurus": [
+    {
+      "id": "PGR-001",
+      "nama": "Fajar Nugraha (MU 285 PCT)",
+      "jabatan": "Ketua Umum",
+      "bidang": "Badan Pengurus Harian",
+      "foto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "periode": "2025/2026"
+    },
+    {
+      "id": "PGR-002",
+      "nama": "Dian Permata Sari (MU 292 CAV)",
+      "jabatan": "Sekretaris Umum",
+      "bidang": "Kesekretariatan",
+      "foto": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+      "periode": "2025/2026"
+    },
+    {
+      "id": "PGR-003",
+      "nama": "Ilham Syahputra (MU 301 OLA)",
+      "jabatan": "Bendahara Umum",
+      "bidang": "Kebendaharaan",
+      "foto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "periode": "2025/2026"
+    },
+    {
+      "id": "PGR-004",
+      "nama": "Reza Pratama (MU 315 RGM)",
+      "jabatan": "Ketua Bidang Organisasi",
+      "bidang": "Organisasi & Keanggotaan",
+      "foto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "periode": "2025/2026"
+    }
+  ],
+  "prestasi": [
+    {
+      "id": "PRS-001",
+      "judul": "Juara 1 Kejuaraan Nasional Panjat Dinding Mahasiswa se-Indonesia",
+      "tahun": "2025",
+      "deskripsi": "Pencapaian medali emas kategori Lead Climbing Putra tingkat universitas nasional.",
+      "foto": "https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "PRS-002",
+      "judul": "Penghargaan Kalpataru Lingkungan Hidup Tingkat Provinsi",
+      "tahun": "2024",
+      "deskripsi": "Atas dedikasi konservasi mata air dan penghijauan lereng Gunung Singgalang.",
+      "foto": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80"
+    }
+  ],
+  "kontenStatis": {
+    "tentang_kami": {
+      "sejarah": "Mapala UNAND didirikan pada era 1980-an oleh para mahasiswa Universitas Andalas yang memiliki dedikasi tinggi terhadap pelestarian alam, penjelajahan alam bebas, kemanusiaan, dan kecintaan pada tanah air.",
+      "visi": "Menjadi wadah pembinaan karakter generasi muda yang tangguh, berwawasan lingkungan, berintegritas, dan berkontribusi nyata bagi pelestarian alam serta masyarakat.",
+      "misi": "1. Mengembangkan potensi kepeloporan dan keahlian di alam bebas.\n2. Melaksanakan riset dan advokasi konservasi sumber daya alam.\n3. Mempererat persaudaraan seumur hidup antar-anggota lintas generasi."
+    },
+    "kontak": {
+      "email": "sekretariat@mapalaunand.org",
+      "whatsapp": "6281234567890",
+      "alamat": "Gedung Pusat Kegiatan Mahasiswa (PKM) Lt. 1, Universitas Andalas, Limau Manis, Padang, Sumatera Barat 25163",
+      "instagram": "@mapalaunand",
+      "youtube": "Mapala UNAND Official",
+      "facebook": "https://facebook.com/mapalaunand",
+      "tiktok": "https://tiktok.com/@mapalaunand"
+    },
+    "beranda": {
+      "headline": "Menjelajah Rimba, Menjaga Lestari, Mengabdi Sepanjang Hayat",
+      "subheadline": "Sistem Informasi Manajemen Keanggotaan & Portal Resmi Mahasiswa Pecinta Alam Universitas Andalas.",
+      "hero_image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80"
+    }
+  },
+  "logs": [
+    {
+      "id": "LOG-1794074436227",
+      "waktu": "2026-11-07T18:00:36.227Z",
+      "admin": "admin",
+      "aksi": "TAMBAH_ANGGOTA",
+      "detail": "Menambahkan anggota baru: mk (MU 700 Opm.)"
+    },
+    {
+      "id": "LOG-1793944111401",
+      "waktu": "2026-11-06T05:48:31.401Z",
+      "admin": "admin",
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Dian Permata Sari (MU 292 CAV)"
+    },
+    {
+      "id": "LOG-1793944091723",
+      "waktu": "2026-11-06T05:48:11.723Z",
+      "admin": "admin",
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Fajar Nugraha (MU 285 PCT)"
+    },
+    {
+      "id": "LOG-1793903664965",
+      "waktu": "2026-11-05T18:34:24.965Z",
+      "admin": "admin",
+      "aksi": "UPDATE_PERIODE",
+      "detail": "Mengubah status Registrasi Ulang Tahunan 2026 (2026) menjadi DITUTUP"
+    },
+    {
+      "id": "LOG-1793903521931",
+      "waktu": "2026-11-05T18:32:01.931Z",
+      "admin": "admin",
+      "aksi": "DELETE_DIVISI",
+      "detail": "Menghapus divisi: Konservasi Alam"
+    },
+    {
+      "id": "LOG-1793903423840",
+      "waktu": "2026-11-05T18:30:23.840Z",
+      "admin": "admin",
+      "aksi": "CREATE_DIVISI",
+      "detail": "Menambahkan divisi baru: Konservasi Alam (KNS)"
+    },
+    {
+      "id": "LOG-1793903423812",
+      "waktu": "2026-11-05T18:30:23.812Z",
+      "admin": "admin",
+      "aksi": "TAMBAH_ANGGOTA",
+      "detail": "Menambahkan anggota baru: Testing Format Valid (MU 399 PCT)"
+    },
+    {
+      "id": "LOG-001",
+      "waktu": "2026-11-05T16:30:23.460Z",
+      "admin": "admin",
+      "aksi": "UPDATE_PERIODE",
+      "detail": "Membuka periode Registrasi Ulang Tahunan 2026"
+    },
+    {
+      "id": "LOG-002",
+      "waktu": "2026-11-05T13:30:23.460Z",
+      "admin": "admin",
+      "aksi": "INPUT_RE_REGISTRATION",
+      "detail": "Admin override: Input data registrasi ulang atas nama Arif Gunawan (MU 325 PCT)"
+    },
+    {
+      "id": "LOG-003",
+      "waktu": "2026-11-04T18:30:23.460Z",
+      "admin": "admin",
+      "aksi": "CREATE_ARTICLE",
+      "detail": "Menerbitkan artikel baru: Ekspedisi Tiga Puncak Bukit Barisan"
+    }
+  ]
+}

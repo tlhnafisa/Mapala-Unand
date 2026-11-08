@@ -1,0 +1,202 @@
+// Prisma Schema for Mapala UNAND
+// Database: PostgreSQL / MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  anggota
+}
+
+enum RegistrationSource {
+  mandiri
+  admin
+}
+
+enum ArticleStatus {
+  draf
+  terbit
+}
+
+// 1. Akun Pengguna [FR-09, FR-10, FR-11, FR-12, FR-13]
+model User {
+  id                   String        @id @default(uuid())
+  username             String        @unique // No. Register anggota atau 'admin'
+  password_hash        String
+  role                 Role          @default(anggota)
+  status_aktif         Boolean       @default(true)
+  must_change_password Boolean       @default(true)
+  last_login           DateTime?
+  created_at           DateTime      @default(now())
+  updated_at           DateTime      @updatedAt
+
+  memberProfile        Member?       @relation(fields: [username], references: [no_register])
+  activityLogs         ActivityLog[]
+
+  @@map("users")
+}
+
+// 2. Data Tetap Anggota [FR-17, FR-18, FR-29, FR-30]
+model Member {
+  id              String            @id @default(uuid())
+  no_register     String            @unique
+  nama            String
+  divisi          String            // Rimba Gunung, Caving, Panjat Tebing, Arung Jeram, Konservasi & LH
+  angkatan        Int               // Tahun angkatan (e.g., 2021)
+  tempat_lahir    String?
+  tanggal_lahir   DateTime?
+  golongan_darah  String?           // A, B, AB, O
+  nama_ayah       String?
+  nama_ibu        String?
+  status_aktif    Boolean           @default(true)
+  created_at      DateTime          @default(now())
+  updated_at      DateTime          @updatedAt
+
+  user            User?
+  registrations   ReRegistration[]
+
+  @@map("members")
+}
+
+// 3. Periode Registrasi Ulang [FR-33]
+model RegistrationPeriod {
+  id             String            @id @default(uuid())
+  tahun          Int               @unique
+  nama_periode   String
+  tanggal_buka   DateTime
+  tanggal_tutup  DateTime
+  is_active      Boolean           @default(false)
+  deskripsi      String?
+
+  registrations  ReRegistration[]
+
+  @@map("registration_periods")
+}
+
+// 4. Data Berkala Registrasi Ulang Tahunan [FR-21 s.d. FR-27, FR-32, FR-34]
+model ReRegistration {
+  id                String             @id @default(uuid())
+  no_register       String
+  periode_id        String
+  foto_terbaru      String?
+  alamat_rumah      String
+  kota_kabupaten    String
+  provinsi          String
+  pekerjaan         String?
+  no_hp             String             // Format WhatsApp: 08xxx
+  email             String?
+  media_sosial      String?
+  alamat_ortu       String?
+  status_registrasi String             @default("Sudah Registrasi Ulang")
+  sumber_input      RegistrationSource @default(mandiri)
+  input_by          String             // Nama anggota atau "admin (username)"
+  submitted_at      DateTime           @default(now())
+  updated_at        DateTime           @updatedAt
+
+  member            Member             @relation(fields: [no_register], references: [no_register], onDelete: Cascade)
+  period            RegistrationPeriod @relation(fields: [periode_id], references: [id])
+  attributes        MemberAttribute[]
+
+  @@unique([no_register, periode_id])
+  @@map("re_registrations")
+}
+
+// 5. Atribut Organisasi [FR-33]
+model OrganizationAttribute {
+  id           String            @id @default(uuid())
+  nama_atribut String            // Syal, KTA, PDH, Badge, dll.
+  wajib        Boolean           @default(true)
+  keterangan   String?
+
+  memberAttrs  MemberAttribute[]
+
+  @@map("organization_attributes")
+}
+
+model MemberAttribute {
+  id                 String                @id @default(uuid())
+  re_registration_id String
+  attribute_id       String
+  status_kepemilikan String                // Ada, Tidak Ada, Hilang/Rusak
+  foto_atribut       String?
+
+  reRegistration     ReRegistration        @relation(fields: [re_registration_id], references: [id], onDelete: Cascade)
+  attribute          OrganizationAttribute @relation(fields: [attribute_id], references: [id])
+
+  @@unique([re_registration_id, attribute_id])
+  @@map("member_attributes")
+}
+
+// 6. CMS Artikel & Dokumentasi [FR-39]
+model Article {
+  id         String        @id @default(uuid())
+  judul      String
+  slug       String        @unique
+  kategori   String        // Berita, Ekspedisi, Pendakian, Caving, Arung Jeram, Kegiatan Lapangan
+  foto       String?
+  tanggal    DateTime      @default(now())
+  status     ArticleStatus @default(draf)
+  penulis    String
+  isi        String        @db.Text
+  created_at DateTime      @default(now())
+  updated_at DateTime      @updatedAt
+
+  @@map("articles")
+}
+
+// 7. CMS Susunan Pengurus [FR-40]
+model BoardMember {
+  id         String   @id @default(uuid())
+  nama       String
+  jabatan    String
+  bidang     String
+  foto       String?
+  periode    String   // Contoh: "2025/2026"
+  created_at DateTime @default(now())
+
+  @@map("board_members")
+}
+
+// 8. CMS Prestasi [FR-41]
+model Achievement {
+  id         String   @id @default(uuid())
+  judul      String
+  tahun      String
+  deskripsi  String   @db.Text
+  foto       String?
+  created_at DateTime @default(now())
+
+  @@map("achievements")
+}
+
+// 9. CMS Konten Statis & Kontak [FR-42]
+model StaticContent {
+  id         String   @id @default(uuid())
+  section    String   @unique // tentang_kami, kontak, beranda
+  content    Json
+  updated_at DateTime @updatedAt
+
+  @@map("static_contents")
+}
+
+// 10. Audit Trail Log Aktivitas [FR-36]
+model ActivityLog {
+  id         String   @id @default(uuid())
+  waktu      DateTime @default(now())
+  user_id    String?
+  admin      String   // Username admin
+  aksi       String   // CREATE_MEMBER, RESET_PASSWORD, OVERRIDE_REG, dll
+  detail     String   @db.Text
+
+  user       User?    @relation(fields: [user_id], references: [id], onDelete: SetNull)
+
+  @@map("activity_logs")
+}
+

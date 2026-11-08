@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Sistem Informasi Keanggotaan Mapala UNAND</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#07090C',
+            card: '#11161B',
+            cardHover: '#161D24',
+            primaryOrange: '#FF6B00',
+            primaryOrangeHover: '#FFA143',
+            borderDark: '#1C2530',
+            mutedLabel: '#8C9BAE',
+            textSecondary: '#94A3B8'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Alpine/Outdoor CSS -->
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="bg-[#07090C] text-white min-h-screen">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-[99999] flex flex-col-reverse gap-2 pointer-events-none"></div>
+
+  <!-- LOGIN MODAL (FR-09, FR-15) -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-content !max-w-md bg-[#11161B] border border-white/10 p-8 rounded-3xl shadow-2xl">
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center mx-auto mb-3 text-[#FF6B00]">
+          <i data-lucide="compass" class="w-8 h-8"></i>
+        </div>
+        <h2 class="text-xl font-bold text-white">MAPALA UNAND</h2>
+        <p class="text-xs text-[#8C9BAE] mt-1">Portal Otentikasi Administrator Sistem</p>
+      </div>
+
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="form-label">No. Register / Username Admin</label>
+          <div class="relative">
+            <i data-lucide="user" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+            <input id="loginUsername" type="text" class="form-input !pl-10" value="admin" required placeholder="Contoh: admin">
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Kata Sandi</label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+            <input id="loginPassword" type="password" class="form-input !pl-10" value="admin123" required placeholder="••••••••">
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-white/5 border border-white/5 text-[11px] text-[#94A3B8]">
+          <span class="font-bold text-[#FF6B00]">Info Akses Pengujian:</span> Akun demo telah disiapkan dengan username: <code class="text-white">admin</code> dan password: <code class="text-white">admin123</code>.
+        </div>
+        <button type="submit" class="btn-primary w-full !py-3 !rounded-xl !mt-2">
+          <i data-lucide="log-in" class="w-4 h-4"></i> Masuk ke Dashboard Admin
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <div id="appContainer" class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="w-72 bg-[#0A0E13] border-r border-[#1C2530] flex flex-col justify-between p-5 shrink-0 select-none">
+      <div>
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3 px-3 py-3 mb-6 border-b border-white/5 pb-5">
+          <img src="/images/logo-mapala.jpg" alt="Logo Mapala UNAND" class="w-10 h-10 rounded-xl object-contain shadow-lg shadow-[#FF6B00]/30 bg-[#FF6B00]">
+          <div>
+            <h1 class="font-extrabold text-sm tracking-wide text-white">MAPALA UNAND</h1>
+            <p class="text-[11px] text-[#FF6B00] font-semibold tracking-wider uppercase">ADMIN DASHBOARD</p>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="space-y-1">
+          <a id="nav-overview" onclick="switchTab('overview')" class="nav-link active">
+            <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            <span>Ringkasan Dashboard</span>
+          </a>
+          <a id="nav-members" onclick="switchTab('members')" class="nav-link">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span>Data Anggota</span>
+          </a>
+          <a id="nav-monitoring" onclick="switchTab('monitoring')" class="nav-link">
+            <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+            <span>Monitoring Registrasi</span>
+          </a>
+          <a id="nav-settings" onclick="switchTab('settings')" class="nav-link">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Periode & Divisi</span>
+          </a>
+          <a id="nav-cms" onclick="switchTab('cms')" class="nav-link">
+            <i data-lucide="newspaper" class="w-4 h-4"></i>
+            <span>Manajemen Konten (CMS)</span>
+          </a>
+          <a id="nav-logs" onclick="switchTab('logs')" class="nav-link">
+            <i data-lucide="history" class="w-4 h-4"></i>
+            <span>Log Audit & Akun</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- User Profile & Logout -->
+      <div class="pt-4 border-t border-white/5">
+        <div class="flex items-center justify-between px-3 py-2 bg-[#11161B] rounded-2xl border border-white/5">
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <div class="w-8 h-8 rounded-full bg-[#FF6B00]/20 text-[#FF6B00] flex items-center justify-center font-bold text-xs shrink-0">
+              AD
+            </div>
+            <div class="overflow-hidden">
+              <p id="currentAdminName" class="text-xs font-bold text-white truncate">Administrator</p>
+              <span class="text-[10px] text-[#8C9BAE]">Bidang Organisasi</span>
+            </div>
+          </div>
+          <button onclick="logout()" title="Keluar dari Sistem" class="p-1.5 rounded-lg hover:bg-white/10 text-[#8C9BAE] hover:text-[#EF4444] transition-colors">
+            <i data-lucide="log-out" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-1 flex flex-col min-h-screen overflow-y-auto">
+
+      <!-- TOP HEADER BAR -->
+      <header class="h-20 bg-[#07090C]/90 backdrop-blur-md border-b border-[#1C2530] flex items-center justify-between px-8 sticky top-0 z-40">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            Sistem Informasi Manajemen Keanggotaan & Website Resmi
+          </h2>
+          <p class="text-xs text-[#8C9BAE]">Kelompok 3 • TB Manajemen Proyek Sistem Informasi (MPSI)</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <span id="activePeriodBadge" class="badge-pill badge-orange font-medium">
+            Memuat Periode Aktif...
+          </span>
+          <div class="h-6 w-[1px] bg-white/10"></div>
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-xs font-bold text-white">Admin Operasional</div>
+              <div class="text-[11px] text-[#10B981] flex items-center justify-end gap-1">
+                <span class="w-2 h-2 rounded-full bg-[#10B981]"></span> Terhubung
+              </div>
+            </div>
+            <!-- Tombol Ganti Tema (Terang & Gelap) di sebelah kanan tulisan terhubung -->
+            <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Ganti Mode Tema (Terang / Gelap)">
+              <i id="themeIcon" data-lucide="sun" class="w-4 h-4"></i>
+              <span id="themeLabel" class="hidden sm:inline">Tema Terang</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEWPORT BODY -->
+      <div class="p-8 space-y-8 flex-1">
+
+        <!-- ========================================== -->
+        <!-- 1. TAB OVERVIEW (FR-28) -->
+        <!-- ========================================== -->
+        <section id="tab-overview" class="tab-content space-y-8">
+          <!-- Metric Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div class="card-alpine relative overflow-hidden group">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="form-label !mb-1">Total Anggota Terdaftar</p>
+                  <h3 id="statTotalMembers" class="text-3xl font-extrabold text-white">0</h3>
+                  <p class="text-xs text-[#8C9BAE] mt-1">Anggota seumur hidup lintas angkatan</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/20 flex items-center justify-center text-[#FF6B00]">
+                  <i data-lucide="users" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B00] to-transparent"></div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-alpine relative overflow-hidden group">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="form-label !mb-1">Sudah Registrasi Ulang</p>
+                  <h3 id="statSudahReg" class="text-3xl font-extrabold text-[#10B981]">0</h3>
+                  <p class="text-xs text-[#8C9BAE] mt-1">Periode aktif tahun berjalan</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#10B981]/10 border border-[#10B981]/20 flex items-center justify-center text-[#10B981]">
+                  <i data-lucide="user-check" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#10B981] to-transparent"></div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-alpine relative overflow-hidden group">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="form-label !mb-1">Belum Registrasi Ulang</p>
+                  <h3 id="statBelumReg" class="text-3xl font-extrabold text-[#F59E0B]">0</h3>
+                  <p class="text-xs text-[#8C9BAE] mt-1">Perlu pendataan atau kontak</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 flex items-center justify-center text-[#F59E0B]">
+                  <i data-lucide="user-x" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F59E0B] to-transparent"></div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card-alpine relative overflow-hidden group">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="form-label !mb-1">% Kelengkapan Data</p>
+                  <h3 id="statPersentase" class="text-3xl font-extrabold text-[#FF6B00]">0%</h3>
+                  <div class="w-36 bg-[#1C2530] rounded-full h-2 mt-2">
+                    <div id="progressKelengkapan" class="bg-[#FF6B00] h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/20 flex items-center justify-center text-[#FF6B00]">
+                  <i data-lucide="pie-chart" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF6B00] to-transparent"></div>
+            </div>
+          </div>
+
+          <!-- Charts & Analytics Section -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Division Distribution -->
+            <div class="card-alpine lg:col-span-2">
+              <div class="flex items-center justify-between mb-5">
+                <div>
+                  <h3 class="font-bold text-white text-base">Distribusi Anggota Berdasarkan Divisi</h3>
+                  <p class="text-xs text-[#8C9BAE]">Jumlah anggota penuh pada tiap peminatan spesialisasi alam bebas</p>
+                </div>
+                <span id="divisionCountBadge" class="badge-pill badge-orange font-bold">– Divisi</span>
+              </div>
+              <div id="chartDivisionBars" class="space-y-4 pt-2">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <!-- Angkatan & Recent Logs -->
+            <div class="space-y-6">
+              <!-- Angkatan Quick Stats -->
+              <div class="card-alpine">
+                <h3 class="font-bold text-white text-base mb-2">Sebaran Angkatan Teratas</h3>
+                <p class="text-xs text-[#8C9BAE] mb-4">Representasi generasi anggota Mapala UNAND</p>
+                <div id="chartAngkatanBars" class="space-y-2">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Quick Activity Widget -->
+              <div class="card-alpine">
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="font-bold text-white text-base">Aktivitas Terkini</h3>
+                  <button onclick="switchTab('logs')" class="text-xs text-[#FF6B00] hover:underline">Semua</button>
+                </div>
+                <div id="recentLogsList" class="space-y-2">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 2. TAB MEMBERS MANAGEMENT (FR-29 s.d. FR-33, FR-35, FR-38) -->
+        <!-- ========================================== -->
+        <section id="tab-members" class="tab-content hidden space-y-6">
+          <!-- Control Bar -->
+          <div class="card-alpine !p-5">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-4">
+              <!-- Search Box -->
+              <div class="relative w-full lg:w-96">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+                <input id="searchMember" type="text" oninput="loadMembers()" placeholder="Cari Nama atau No. Register (contoh: MU 325 LTN)..." class="form-input !pl-10">
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center gap-3 w-full lg:w-auto justify-end flex-wrap">
+                <button onclick="openAddMemberModal()" class="btn-primary !text-xs !py-2.5">
+                  <i data-lucide="user-plus" class="w-4 h-4"></i> Tambah Anggota
+                </button>
+                <button onclick="openImportModal()" class="btn-secondary !text-xs !py-2.5">
+                  <i data-lucide="file-spreadsheet" class="w-4 h-4 text-[#10B981]"></i> Impor Excel/CSV
+                </button>
+                <button onclick="exportMembersFiltered()" class="btn-secondary !text-xs !py-2.5">
+                  <i data-lucide="download" class="w-4 h-4 text-[#38BDF8]"></i> Ekspor Data
+                </button>
+                <a href="/api/admin/members/template" download class="btn-secondary !text-xs !py-2.5 text-[#8C9BAE]">
+                  <i data-lucide="file-down" class="w-4 h-4"></i> Unduh Templat
+                </a>
+              </div>
+            </div>
+
+            <!-- Filters Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-3 border-t border-white/5">
+              <div>
+                <label class="form-label">Filter Angkatan</label>
+                <select id="filterAngkatan" onchange="loadMembers()" class="form-select !py-2 !text-xs">
+                  <option value="">Semua Angkatan</option>
+                  <option value="2023">Angkatan 2023</option>
+                  <option value="2022">Angkatan 2022</option>
+                  <option value="2021">Angkatan 2021</option>
+                  <option value="2020">Angkatan 2020</option>
+                  <option value="2019">Angkatan 2019</option>
+                  <option value="2018">Angkatan 2018</option>
+                  <option value="2014">Angkatan 2014</option>
+                  <option value="2008">Angkatan 2008</option>
+                  <option value="1998">Angkatan 1998</option>
+                  <option value="1995">Angkatan 1995</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Filter Divisi</label>
+                <select id="filterDivisi" onchange="loadMembers()" class="form-select !py-2 !text-xs">
+                  <option value="">Semua Divisi</option>
+                  <option value="Rimba Gunung">Rimba Gunung</option>
+                  <option value="Panjat Tebing">Panjat Tebing</option>
+                  <option value="Olahraga Air">Olahraga Air</option>
+                  <option value="Caving">Caving</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Status Registrasi Ulang</label>
+                <select id="filterStatusReg" onchange="loadMembers()" class="form-select !py-2 !text-xs">
+                  <option value="">Semua Status</option>
+                  <option value="sudah">Sudah Registrasi Ulang</option>
+                  <option value="belum">Belum Registrasi Ulang</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Filter Domisili</label>
+                <input id="filterDomisili" type="text" oninput="loadMembers()" placeholder="Kota / Provinsi..." class="form-input !py-2 !text-xs">
+              </div>
+            </div>
+          </div>
+
+          <!-- Members Table -->
+          <div class="card-alpine !p-0 overflow-hidden">
+            <div class="p-4 border-b border-[#1C2530] flex items-center justify-between">
+              <span id="membersCountLabel" class="text-xs font-semibold text-[#8C9BAE]">Memuat data anggota...</span>
+              <div class="flex items-center gap-2 text-xs text-[#8C9BAE]">
+                <span>Aksi Tersedia:</span>
+                <span class="badge-pill text-[10px]">Detail</span>
+                <span class="badge-pill text-[10px]">Cetak Biodata</span>
+                <span class="badge-pill text-[10px]">Reset Password</span>
+                <span class="badge-pill text-[10px]">WhatsApp</span>
+              </div>
+            </div>
+
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>No. Register</th>
+                    <th>Nama Anggota</th>
+                    <th>Divisi</th>
+                    <th>Domisili Terkini</th>
+                    <th>Status</th>
+                    <th>Tindakan Admin</th>
+                  </tr>
+                </thead>
+                <tbody id="membersTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. TAB MONITORING REGISTRASI ULANG (FR-34, FR-32) -->
+        <!-- ========================================== -->
+        <section id="tab-monitoring" class="tab-content hidden space-y-6">
+          <div class="card-alpine !p-5">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-bold text-white text-base">Monitoring Status Registrasi Ulang Tahunan</h3>
+                <p class="text-xs text-[#8C9BAE]">Pantau progres pengisian data berkala per tahun dan lakukan override input untuk anggota senior/offline</p>
+              </div>
+
+              <!-- Mini Stats -->
+              <div class="flex items-center gap-3">
+                <div class="p-2 px-3 rounded-xl bg-[#10B981]/10 border border-[#10B981]/20 text-xs">
+                  <span class="text-[#8C9BAE]">Sudah Reg: </span>
+                  <strong id="monTotalSudah" class="text-[#10B981] font-bold">0</strong>
+                </div>
+                <div class="p-2 px-3 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-xs">
+                  <span class="text-[#8C9BAE]">Belum Reg: </span>
+                  <strong id="monTotalBelum" class="text-[#F59E0B] font-bold">0</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 pt-3 border-t border-white/5">
+              <div>
+                <label class="form-label">Tahun Periode</label>
+                <select id="monitoringPeriodFilter" onchange="loadMonitoringList()" class="form-select !py-2 !text-xs">
+                  <option value="2026">Periode 2026 (Aktif)</option>
+                  <option value="2025">Periode 2025</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Status Registrasi</label>
+                <select id="monitoringStatusFilter" onchange="loadMonitoringList()" class="form-select !py-2 !text-xs">
+                  <option value="">Semua Status</option>
+                  <option value="sudah">Sudah Registrasi</option>
+                  <option value="belum">Belum Registrasi</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Sumber Input (FR-34)</label>
+                <select id="monitoringSourceFilter" onchange="loadMonitoringList()" class="form-select !py-2 !text-xs">
+                  <option value="">Semua Sumber</option>
+                  <option value="mandiri">Mandiri oleh Anggota</option>
+                  <option value="admin">Diinput oleh Admin</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Pencarian</label>
+                <input id="monitoringSearch" type="text" oninput="loadMonitoringList()" placeholder="Nama atau No. Register..." class="form-input !py-2 !text-xs">
+              </div>
+            </div>
+          </div>
+
+          <div class="card-alpine !p-0 overflow-hidden">
+            <div class="table-container">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>No. Register</th>
+                    <th>Nama Anggota</th>
+                    <th>Status Registrasi</th>
+                    <th>Sumber Input</th>
+                    <th>Domisili & Kontak</th>
+                    <th>Waktu Update</th>
+                    <th>Override Admin</th>
+                  </tr>
+                </thead>
+                <tbody id="monitoringTableBody">
+                  <!-- Injected via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. TAB SETTINGS: PERIODE & KELOLA DIVISI (FR-33) -->
+        <!-- ========================================== -->
+        <section id="tab-settings" class="tab-content hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Period Management & Info Atribut Tetap -->
+            <div class="space-y-6">
+              <div class="card-alpine space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                  <div>
+                    <h3 class="font-bold text-white text-base">Periode Registrasi Ulang</h3>
+                    <p class="text-xs text-[#8C9BAE]">Buka atau tutup periode pendataan tahunan anggota [FR-33]</p>
+                  </div>
+                  <button type="button" onclick="openAddPeriodModal()" class="btn-primary !py-1.5 !px-3 !text-xs">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Periode Baru
+                  </button>
+                </div>
+
+                <div id="periodeListContainer" class="space-y-3">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+
+              <!-- Atribut Registrasi Baku (Fixed: Topi Rimba & Baju Lapangan) -->
+              <div class="card-alpine space-y-3">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                  <div>
+                    <h4 class="font-bold text-white text-sm">Atribut Registrasi Baku</h4>
+                    <p class="text-[11px] text-[#8C9BAE]">Atribut fisik yang diverifikasi pada registrasi ulang tahunan</p>
+                  </div>
+                  <span class="badge-pill badge-orange text-[10px]">Atribut Tetap</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-[#FF6B00]/10 text-[#FF6B00] flex items-center justify-center font-bold">
+                      <i data-lucide="shield" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white">Topi Rimba</div>
+                      <span class="text-[10px] text-[#10B981]">Wajib Diverifikasi</span>
+                    </div>
+                  </div>
+                  <div class="p-3 rounded-2xl bg-white/5 border border-white/5 flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-[#FF6B00]/10 text-[#FF6B00] flex items-center justify-center font-bold">
+                      <i data-lucide="shirt" class="w-4 h-4"></i>
+                    </div>
+                    <div>
+                      <div class="text-xs font-bold text-white">Baju Lapangan</div>
+                      <span class="text-[10px] text-[#10B981]">Wajib Diverifikasi</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-[11px] text-[#8C9BAE] italic">Catatan: Sesuai ketentuan organisasi, atribut fisik dibakukan menjadi 2 jenis utama di atas.</p>
+              </div>
+            </div>
+
+            <!-- Division Management (Permanen, Hanya Diedit & Ditambah) -->
+            <div class="card-alpine space-y-4">
+              <div class="flex items-center justify-between border-b border-white/5 pb-3">
+                <div>
+                  <h3 class="font-bold text-white text-base">Kelola Divisi Organisasi</h3>
+                  <p class="text-xs text-[#8C9BAE]">Divisi bersifat permanen untuk integritas keanggotaan. Penamaan dapat diedit jika terjadi typo.</p>
+                </div>
+                <span id="totalDivisiBadge" class="badge-pill badge-orange font-bold">4 Divisi Aktif</span>
+              </div>
+
+              <!-- Form Tambah Divisi Baru (Dengan Pop-up Validasi Konfirmasi) -->
+              <form onsubmit="promptAddDivision(event)" class="space-y-3 p-4 rounded-2xl bg-white/5 border border-white/5">
+                <div class="text-xs font-bold text-[#FF6B00] uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="layers" class="w-3.5 h-3.5"></i> Tambah Divisi Baru
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <label class="form-label !text-[10px]">Nama Divisi *</label>
+                    <input id="newDivName" type="text" placeholder="Contoh: Konservasi Alam" required class="form-input !text-xs">
+                  </div>
+                  <div>
+                    <label class="form-label !text-[10px]">Kode 3 Huruf *</label>
+                    <input id="newDivKode" type="text" placeholder="Contoh: KNS" maxlength="3" required class="form-input !text-xs uppercase">
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label !text-[10px]">Deskripsi Singkat</label>
+                  <input id="newDivDesc" type="text" placeholder="Spesialisasi dan fokus kegiatan divisi" class="form-input !text-xs">
+                </div>
+                <div class="flex justify-end pt-1">
+                  <button type="submit" class="btn-primary !py-2 !px-4 !text-xs">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Divisi
+                  </button>
+                </div>
+              </form>
+
+              <!-- Tabel Daftar Divisi -->
+              <div class="table-container">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Nama Divisi</th>
+                      <th>Kode</th>
+                      <th>Deskripsi</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="divisionTableBody">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-[11px] text-[#8C9BAE] italic"><i data-lucide="info" class="w-3 h-3 inline text-[#FF6B00]"></i> Divisi tidak dapat dihapus. Anda dapat mengedit nama jika terdapat salah ketik (typo), dan data anggota akan disinkronkan otomatis.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. TAB CMS WEBSITE (FR-39 s.d. FR-42) -->
+        <!-- ========================================== -->
+        <section id="tab-cms" class="tab-content hidden space-y-6">
+          <!-- CMS Sub-Navigation -->
+          <div class="flex items-center gap-2 border-b border-[#1C2530] pb-4">
+            <button id="cmsBtn-articles" onclick="switchCmsSubTab('articles')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-[#FF6B00] text-white transition-all">
+              Artikel & Kegiatan [FR-39]
+            </button>
+            <button id="cmsBtn-pengurus" onclick="switchCmsSubTab('pengurus')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
+              Struktur Organisasi [FR-40]
+            </button>
+            <button id="cmsBtn-prestasi" onclick="switchCmsSubTab('prestasi')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
+              Prestasi [FR-41]
+            </button>
+            <button id="cmsBtn-static" onclick="switchCmsSubTab('static')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
+              Tentang Kami & Kontak [FR-42]
+            </button>
+          </div>
+
+          <!-- SUBTAB 1: ARTICLES -->
+          <div id="cmsSub-articles" class="cms-sub-content space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-white text-base">Manajemen Artikel & Dokumentasi Kegiatan</h3>
+                <p class="text-xs text-[#8C9BAE]">Publikasikan berita ekspedisi, pendakian, caving, arung jeram, dan kegiatan divisi ke portal publik</p>
+              </div>
+              <button onclick="document.getElementById('articleModal').classList.add('active')" class="btn-primary !text-xs !py-2.5">
+                <i data-lucide="plus" class="w-4 h-4"></i> Buat Artikel Baru
+              </button>
+            </div>
+
+            <div class="card-alpine !p-0 overflow-hidden">
+              <div class="table-container">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Judul Artikel</th>
+                      <th>Kategori</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cmsArticlesTableBody">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 2: STRUKTUR ORGANISASI (P-01, FR-04, FR-40) -->
+          <div id="cmsSub-pengurus" class="cms-sub-content hidden space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-white text-base">Bagan Struktur Organisasi Pengurus</h3>
+                <p class="text-xs text-[#8C9BAE]">Unggah gambar bagan/organigram struktur organisasi resmi Mapala UNAND periode berjalan [P-01]</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <!-- Upload Form Card -->
+              <div class="card-alpine space-y-4">
+                <form id="strukturOrgForm" onsubmit="handleSaveStrukturOrganisasi(event)" class="space-y-4">
+                  <div class="text-xs font-bold text-[#FF6B00] uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="upload" class="w-3.5 h-3.5"></i> Unggah Bagan Struktur
+                  </div>
+
+                  <div>
+                    <label class="form-label">Periode Kepengurusan *</label>
+                    <input id="strukturPeriode" type="text" required placeholder="Contoh: 2025/2026" class="form-input">
+                  </div>
+
+                  <div>
+                    <label class="form-label">Keterangan / Judul Bagan</label>
+                    <input id="strukturKeterangan" type="text" placeholder="Bagan Struktur Organisasi Periode 2025/2026" class="form-input">
+                  </div>
+
+                  <div>
+                    <label class="form-label">Pilih Berkas Gambar Bagan *</label>
+                    <label for="strukturFile" class="attr-file-label">
+                      <i data-lucide="image" class="w-4 h-4 attr-file-icon"></i>
+                      <span id="strukturFileLabelText" class="attr-file-text">Pilih berkas JPG / PNG / WEBP</span>
+                    </label>
+                    <input id="strukturFile" type="file" accept="image/jpeg,image/png,image/webp" class="hidden" onchange="previewStrukturFile(this)">
+                    <p class="text-[11px] text-[#8C9BAE] mt-1">Maksimal 5 MB. Format: JPG, PNG, atau WEBP.</p>
+                  </div>
+
+                  <div class="pt-2">
+                    <button type="submit" class="btn-primary !w-full !py-2.5 !text-xs">
+                      <i data-lucide="save" class="w-3.5 h-3.5"></i> Simpan & Publikasikan Bagan
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Preview Card -->
+              <div class="card-alpine lg:col-span-2 space-y-3">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                  <h4 class="font-bold text-white text-sm">Pratinjau Gambar Struktur Aktif</h4>
+                  <span id="strukturPeriodeBadge" class="badge-pill badge-orange text-[10px]">Periode 2025/2026</span>
+                </div>
+                <div class="w-full min-h-[300px] max-h-[500px] rounded-2xl overflow-hidden bg-black/40 border border-white/5 flex items-center justify-center p-2">
+                  <img id="strukturPreviewImg" src="" alt="Pratinjau Bagan Struktur Organisasi" class="max-h-[460px] w-auto max-w-full object-contain rounded-xl">
+                </div>
+                <p id="strukturPreviewKet" class="text-xs text-[#CBD5E1] text-center italic"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 3: PRESTASI -->
+          <div id="cmsSub-prestasi" class="cms-sub-content hidden space-y-4">
+            <div class="flex justify-between items-center">
+              <div>
+                <h3 class="font-bold text-white text-base">Daftar Prestasi & Penghargaan</h3>
+                <p class="text-xs text-[#8C9BAE]">Catatan kejuaraan panjat tebing, kalpataru, dan pencapaian lainnya</p>
+              </div>
+              <button onclick="document.getElementById('prestasiModal').classList.add('active')" class="btn-primary !text-xs !py-2.5">
+                <i data-lucide="plus" class="w-4 h-4"></i> Tambah Prestasi
+              </button>
+            </div>
+
+            <div class="card-alpine !p-0 overflow-hidden">
+              <div class="table-container">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Tahun</th>
+                      <th>Judul Pencapaian</th>
+                      <th>Deskripsi</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cmsPrestasiTableBody">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBTAB 4: STATIS & KONTAK -->
+          <div id="cmsSub-static" class="cms-sub-content hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Tentang Kami Form -->
+              <div class="card-alpine space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                  <h4 class="font-bold text-white text-base">Halaman Tentang Kami</h4>
+                  <button onclick="saveStaticContent('tentang_kami')" class="btn-primary !py-1.5 !px-3 !text-xs">Simpan Perubahan</button>
+                </div>
+                <div>
+                  <label class="form-label">Sejarah Organisasi</label>
+                  <textarea id="staticSejarah" rows="3" class="form-textarea"></textarea>
+                </div>
+                <div>
+                  <label class="form-label">Visi Organisasi</label>
+                  <textarea id="staticVisi" rows="2" class="form-textarea"></textarea>
+                </div>
+                <div>
+                  <label class="form-label">Misi Organisasi</label>
+                  <textarea id="staticMisi" rows="3" class="form-textarea"></textarea>
+                </div>
+              </div>
+
+              <!-- Kontak Resmi Form -->
+              <div class="card-alpine space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                  <h4 class="font-bold text-white text-base">Informasi Kontak Resmi</h4>
+                  <button onclick="saveStaticContent('kontak')" class="btn-primary !py-1.5 !px-3 !text-xs">Simpan Perubahan</button>
+                </div>
+                <div>
+                  <label class="form-label">Surel (Email)</label>
+                  <input id="staticEmail" type="email" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Nomor WhatsApp Resmi (Tanpa +)</label>
+                  <input id="staticWA" type="text" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Alamat Sekretariat</label>
+                  <textarea id="staticAlamat" rows="2" class="form-textarea"></textarea>
+                </div>
+                <div>
+                  <label class="form-label">Akun Instagram</label>
+                  <input id="staticInstagram" type="text" placeholder="@mapalaunand" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Tautan Facebook (P-04)</label>
+                  <input id="staticFacebook" type="url" placeholder="https://facebook.com/mapalaunand" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Tautan TikTok (P-04)</label>
+                  <input id="staticTikTok" type="url" placeholder="https://tiktok.com/@mapalaunand" class="form-input">
+                </div>
+              </div>
+
+              <!-- Highlight Beranda (K-04) -->
+              <div class="card-alpine lg:col-span-2 space-y-4">
+                <div class="flex items-center justify-between border-b border-white/5 pb-2">
+                  <div>
+                    <h4 class="font-bold text-white text-base">Teks Highlight Beranda Publik [K-04]</h4>
+                    <p class="text-xs text-[#8C9BAE]">Kelola teks judul utama (headline) dan sub-judul pada landing page beranda website</p>
+                  </div>
+                  <button onclick="saveStaticContent('beranda')" class="btn-primary !py-1.5 !px-3 !text-xs">Simpan Highlight</button>
+                </div>
+                <div>
+                  <label class="form-label">Headline / Judul Utama Beranda</label>
+                  <input id="staticHeadline" type="text" placeholder="Menjelajah Rimba, Menjaga Lestari..." class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Subheadline / Keterangan Penjelas</label>
+                  <textarea id="staticSubHeadline" rows="2" placeholder="Sistem Informasi Manajemen Keanggotaan..." class="form-textarea"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. TAB LOG AKTIVITAS & AKUN ADMIN (FR-36, FR-12) -->
+        <!-- ========================================== -->
+        <section id="tab-logs" class="tab-content hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Audit Trail Table -->
+            <div class="card-alpine lg:col-span-2 !p-0 overflow-hidden">
+              <div class="p-4 border-b border-[#1C2530] flex items-center justify-between">
+                <div>
+                  <h3 class="font-bold text-white text-base">Audit Trail Log Aktivitas Admin [FR-36]</h3>
+                  <p class="text-xs text-[#8C9BAE]">Rekam jejak setiap tindakan admin: siapa, apa yang diubah, dan kapan</p>
+                </div>
+                <button onclick="loadLogs()" class="btn-secondary !text-xs !py-1.5">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Segarkan
+                </button>
+              </div>
+
+              <div class="table-container max-h-[500px]">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Waktu</th>
+                      <th>Admin</th>
+                      <th>Tindakan</th>
+                      <th>Detail Perubahan</th>
+                    </tr>
+                  </thead>
+                  <tbody id="logsTableBody">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Ganti Password Admin Form (FR-12) -->
+            <div class="card-alpine space-y-4">
+              <div class="border-b border-white/5 pb-2">
+                <h3 class="font-bold text-white text-base">Ganti Kata Sandi Admin [FR-12]</h3>
+                <p class="text-xs text-[#8C9BAE]">Perbarui password akun administrator yang sedang login</p>
+              </div>
+
+              <form id="changePasswordForm" onsubmit="handleChangePassword(event)" class="space-y-3">
+                <div>
+                  <label class="form-label">Kata Sandi Saat Ini</label>
+                  <input id="adminOldPass" type="password" required class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Kata Sandi Baru</label>
+                  <input id="adminNewPass" type="password" minlength="6" required class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Konfirmasi Kata Sandi Baru</label>
+                  <input id="adminConfirmPass" type="password" minlength="6" required class="form-input">
+                </div>
+                <button type="submit" class="btn-primary w-full !mt-2">
+                  <i data-lucide="check" class="w-4 h-4"></i> Simpan Password Baru
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: DETAIL BIODATA ANGGOTA (FR-30, FR-38) -->
+  <!-- ========================================== -->
+  <div id="memberDetailModal" class="modal-overlay">
+    <div class="modal-content !max-w-2xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <div>
+          <h3 class="font-bold text-white text-lg flex items-center gap-2">
+            <span id="detailNoReg" class="text-[#FF6B00]">MU-000</span> - <span id="detailNama">-</span>
+          </h3>
+          <p class="text-xs text-[#8C9BAE]">Pratinjau Data Lengkap Keanggotaan</p>
+        </div>
+        <button onclick="closeModal('memberDetailModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <!-- Data Tetap -->
+        <div class="p-4 rounded-2xl bg-[#0D1217] border border-white/5 space-y-2">
+          <div class="text-[11px] font-bold text-[#FF6B00] uppercase tracking-wider">I. Data Tetap (Permanen)</div>
+          <div class="grid grid-cols-2 gap-2">
+            <div><span class="text-[#8C9BAE]">Divisi Spesialisasi:</span> <strong id="detailDivisi" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Tahun Angkatan:</span> <strong id="detailAngkatan" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Tempat/Tgl Lahir:</span> <strong id="detailTTL" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Golongan Darah:</span> <strong id="detailGoldar" class="text-white block">-</strong></div>
+            <div class="col-span-2"><span class="text-[#8C9BAE]">Nama Orang Tua:</span> <strong id="detailOrtu" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Status Keanggotaan:</span> <strong id="detailStatus" class="text-white block">-</strong></div>
+          </div>
+        </div>
+
+        <!-- Data Berkala -->
+        <div class="p-4 rounded-2xl bg-[#0D1217] border border-white/5 space-y-2">
+          <div class="text-[11px] font-bold text-[#10B981] uppercase tracking-wider">II. Data Domisili & Kontak Terkini</div>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="col-span-2"><span class="text-[#8C9BAE]">Alamat Rumah:</span> <strong id="detailAlamat" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Kota / Provinsi:</span> <strong id="detailKotaProv" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Nomor HP / WA:</span> <strong id="detailHP" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Surel (Email):</span> <strong id="detailEmail" class="text-white block">-</strong></div>
+            <div><span class="text-[#8C9BAE]">Pekerjaan:</span> <strong id="detailPekerjaan" class="text-white block">-</strong></div>
+            <div class="col-span-2"><span class="text-[#8C9BAE]">Sumber Data:</span> <span id="detailSumber" class="text-[#8C9BAE] block">-</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-white/10">
+        <a id="detailPrintBtn" href="#" target="_blank" class="btn-primary !py-2.5 !px-5 !text-xs">
+          <i data-lucide="printer" class="w-4 h-4"></i> Cetak / Simpan PDF Biodata (FR-38)
+        </a>
+        <button onclick="closeModal('memberDetailModal')" class="btn-secondary !py-2.5 !px-5 !text-xs">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: TAMBAH ANGGOTA BARU (FR-30) -->
+  <!-- ========================================== -->
+  <div id="addMemberModal" class="modal-overlay">
+    <div class="modal-content !max-w-xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <h3 class="font-bold text-white text-lg">Tambah Anggota Baru</h3>
+        <button onclick="closeModal('addMemberModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="addMemberForm" onsubmit="handleAddMember(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">No. Register *</label>
+            <input id="addNoReg" type="text" required placeholder="MU 340 Rgm." class="form-input">
+            <p class="text-[10px] text-[#FF6B00] mt-1 font-semibold">Format: MU XXX(3 angka) Xxx., contoh: MU 325 Ltn.</p>
+          </div>
+          <div>
+            <label class="form-label">Tahun Angkatan *</label>
+            <input id="addAngkatan" type="number" required placeholder="2023" class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Nama Lengkap *</label>
+          <input id="addNama" type="text" required placeholder="Nama Lengkap Anggota" class="form-input">
+        </div>
+
+        <div>
+          <label class="form-label">Divisi Spesialisasi *</label>
+          <select id="addDivisi" required class="form-select">
+            <option value="Rimba Gunung">Rimba Gunung</option>
+            <option value="Panjat Tebing">Panjat Tebing</option>
+            <option value="Olahraga Air">Olahraga Air</option>
+            <option value="Caving">Caving</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="form-label">Tempat Lahir</label>
+            <input id="addTempatLahir" type="text" placeholder="Kota Padang" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Tanggal Lahir</label>
+            <input id="addTanggalLahir" type="date" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Golongan Darah</label>
+            <select id="addGoldar" class="form-select">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+              <option value="-">-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Nama Ayah</label>
+            <input id="addAyah" type="text" placeholder="Nama Ayah" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Nama Ibu</label>
+            <input id="addIbu" type="text" placeholder="Nama Ibu" class="form-input">
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-white/5 text-[11px] text-[#94A3B8]">
+          <span class="font-bold text-[#FF6B00]">Password Awal:</span> Akun anggota akan dibuat otomatis dengan password default <code class="text-white">mapala123</code> dan diwajibkan ganti password saat login pertama [FR-10, FR-11].
+        </div>
+
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('addMemberModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Daftarkan Anggota</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: EDIT ANGGOTA (FR-30) -->
+  <!-- ========================================== -->
+  <div id="editMemberModal" class="modal-overlay">
+    <div class="modal-content !max-w-xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <h3 class="font-bold text-white text-lg">Edit Biodata Tetap Anggota</h3>
+        <button onclick="closeModal('editMemberModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="editMemberForm" onsubmit="handleEditMember(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">No. Register (Terkunci)</label>
+            <input id="editNoReg" type="text" readonly class="form-input !bg-white/5 opacity-80 cursor-not-allowed">
+          </div>
+          <div>
+            <label class="form-label">Tahun Angkatan</label>
+            <input id="editAngkatan" type="number" required class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Nama Lengkap</label>
+          <input id="editNama" type="text" required class="form-input">
+        </div>
+
+        <div>
+          <label class="form-label">Divisi</label>
+          <select id="editDivisi" class="form-select">
+            <option value="Rimba Gunung">Rimba Gunung</option>
+            <option value="Panjat Tebing">Panjat Tebing</option>
+            <option value="Olahraga Air">Olahraga Air</option>
+            <option value="Caving">Caving</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="form-label">Tempat Lahir</label>
+            <input id="editTempatLahir" type="text" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Tanggal Lahir</label>
+            <input id="editTanggalLahir" type="date" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Gol. Darah</label>
+            <select id="editGoldar" class="form-select">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O">O</option>
+              <option value="-">-</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Nama Ayah</label>
+            <input id="editAyah" type="text" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Nama Ibu</label>
+            <input id="editIbu" type="text" class="form-input">
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('editMemberModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Perbarui Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: IMPOR EXCEL DENGAN PRATINJAU (FR-31) -->
+  <!-- ========================================== -->
+  <div id="importModal" class="modal-overlay">
+    <div class="modal-content !max-w-3xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <div>
+          <h3 class="font-bold text-white text-lg">Impor Data Anggota Massal [FR-31]</h3>
+          <p class="text-xs text-[#8C9BAE]">Unggah file Excel/CSV (±355 anggota) dengan sistem validasi duplikat & format</p>
+        </div>
+        <button onclick="closeModal('importModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- File Dropzone -->
+      <div class="border-2 border-dashed border-[#1C2530] hover:border-[#FF6B00] rounded-2xl p-6 text-center transition-colors">
+        <i data-lucide="upload-cloud" class="w-10 h-10 text-[#FF6B00] mx-auto mb-2"></i>
+        <p class="text-sm font-semibold text-white">Pilih File Spreadsheet (.xlsx atau .csv)</p>
+        <p class="text-xs text-[#8C9BAE] mt-1">Gunakan format kolom sesuai templat resmi Mapala UNAND</p>
+        <input id="importFile" type="file" accept=".xlsx, .xls, .csv" onchange="handleImportFileSelected(this)" class="mt-4 text-xs text-[#CBD5E1] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#FF6B00] file:text-white hover:file:bg-[#FFA143] cursor-pointer">
+      </div>
+
+      <!-- Preview Section -->
+      <div id="importPreviewContainer" class="hidden mt-6 space-y-4">
+        <!-- Stats Badges -->
+        <div class="grid grid-cols-4 gap-3 text-center">
+          <div class="p-2.5 rounded-xl bg-white/5 border border-white/5">
+            <div class="text-[10px] text-[#8C9BAE]">TOTAL BARIS</div>
+            <div id="importStatTotal" class="font-bold text-base text-white">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-[#10B981]/10 border border-[#10B981]/20">
+            <div class="text-[10px] text-[#10B981]">VALID</div>
+            <div id="importStatValid" class="font-bold text-base text-[#10B981]">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-[#EF4444]/10 border border-[#EF4444]/20">
+            <div class="text-[10px] text-[#EF4444]">ERROR FORMAT</div>
+            <div id="importStatError" class="font-bold text-base text-[#EF4444]">0</div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20">
+            <div class="text-[10px] text-[#F59E0B]">DUPLIKAT</div>
+            <div id="importStatDuplicate" class="font-bold text-base text-[#F59E0B]">0</div>
+          </div>
+        </div>
+
+        <div class="table-container max-h-60 overflow-y-auto">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Baris</th>
+                <th>No. Register</th>
+                <th>Nama Lengkap</th>
+                <th>Divisi & Angkatan</th>
+                <th>Status Validasi</th>
+              </tr>
+            </thead>
+            <tbody id="importPreviewTableBody">
+              <!-- Injected via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-4 mt-6 border-t border-white/10">
+        <a href="/api/admin/members/template" download class="text-xs text-[#FF6B00] hover:underline flex items-center gap-1.5">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh Templat Excel
+        </a>
+        <div class="flex gap-2">
+          <button onclick="closeModal('importModal')" class="btn-secondary !text-xs">Tutup</button>
+          <button id="btnCommitImport" onclick="commitImportData()" class="btn-primary !text-xs hidden">
+            Simpan Data Valid ke Database
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADMIN OVERRIDE INPUT REGISTRASI (FR-32) -->
+  <!-- ========================================== -->
+  <div id="overrideModal" class="modal-overlay">
+    <div class="modal-content !max-w-2xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <div>
+          <h3 class="font-bold text-white text-lg">Input Registrasi Ulang atas nama Anggota [FR-32]</h3>
+          <p class="text-xs text-[#8C9BAE]">Data akan ditandai secara otomatis sebagai "diinput admin" beserta identitas admin dan waktu</p>
+        </div>
+        <button onclick="closeModal('overrideModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="overrideForm" onsubmit="handleSaveOverride(event)" class="space-y-4">
+        <input id="overrideNoReg" type="hidden">
+        
+        <div class="p-3 rounded-xl bg-[#FF6B00]/10 border border-[#FF6B00]/20 flex items-center gap-2">
+          <i data-lucide="user" class="w-4 h-4 text-[#FF6B00]"></i>
+          <span class="text-xs text-white">Target Anggota: <strong id="overrideMemberDisplay" class="text-[#FF6B00]">-</strong></span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Nomor WhatsApp / HP Aktif *</label>
+            <input id="overrideHP" type="text" required placeholder="081234567890" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Alamat Surel (Email)</label>
+            <input id="overrideEmail" type="email" placeholder="nama@gmail.com" class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Alamat Domisili Sekarang *</label>
+          <input id="overrideAlamat" type="text" required placeholder="Jl. Melati No. 12, Kel. Limau Manis" class="form-input">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Kota / Kabupaten *</label>
+            <input id="overrideKota" type="text" required placeholder="Kota Padang" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Provinsi *</label>
+            <input id="overrideProvinsi" type="text" required placeholder="Sumatera Barat" class="form-input">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Pekerjaan / Instansi Saat Ini</label>
+            <input id="overridePekerjaan" type="text" placeholder="Wiraswasta / Pegawai / Mahasiswa" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Akun Media Sosial</label>
+            <input id="overrideMedsos" type="text" placeholder="@instagram_anggota" class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Alamat Kontak Orang Tua / Darurat</label>
+          <input id="overrideOrtu" type="text" placeholder="Alamat atau kontak darurat keluarga" class="form-input">
+        </div>
+
+        <!-- Verification of Attributes -->
+        <div>
+          <label class="form-label">Foto Bukti Atribut Fisik</label>
+          <p class="text-[11px] text-[#8C9BAE] mb-2">Unggah foto bukti kepemilikan untuk setiap atribut (format: JPG, PNG — maks. 5 MB per berkas).</p>
+          <div id="overrideAttributesList" class="space-y-2">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+          <button type="button" onclick="closeModal('overrideModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan Registrasi via Admin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: BUAT ARTIKEL / KEGIATAN (FR-39) -->
+  <!-- ========================================== -->
+  <div id="articleModal" class="modal-overlay">
+    <div class="modal-content !max-w-2xl">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <h3 class="font-bold text-white text-lg">Buat Artikel & Dokumentasi Kegiatan</h3>
+        <button onclick="closeModal('articleModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleCreateArticle(event)" class="space-y-4">
+        <div>
+          <label class="form-label">Judul Artikel / Kegiatan *</label>
+          <input id="artJudul" type="text" required placeholder="Contoh: Ekspedisi Singgalang 2026" class="form-input">
+        </div>
+
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="form-label">Kategori *</label>
+            <select id="artKategori" class="form-select">
+              <option value="berita">Berita Organisasi</option>
+              <option value="ekspedisi">Ekspedisi</option>
+              <option value="pendakian">Pendakian Gunung</option>
+              <option value="caving">Susur Gua (Caving)</option>
+              <option value="rafting">Arung Jeram</option>
+              <option value="kegiatan lapangan">Kegiatan Lapangan</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Tanggal Terbit</label>
+            <input id="artTanggal" type="date" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Status Publikasi</label>
+            <select id="artStatus" class="form-select">
+              <option value="terbit">Terbit (Publik)</option>
+              <option value="draf">Simpan Draf</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Nama Penulis / Tim</label>
+            <input id="artPenulis" type="text" value="Bidang Kesekretariatan" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">URL Foto Dokumentasi Utama (Opsional)</label>
+            <input id="artFotoUrl" type="url" placeholder="https://images.unsplash.com/..." class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Unggah Foto Dokumentasi (P-02: Dapat memilih lebih dari 1 foto)</label>
+          <input id="artFileMulti" type="file" multiple accept="image/jpeg,image/png,image/webp" class="form-input">
+          <p class="text-[11px] text-[#8C9BAE] mt-1">Dapat memilih lebih dari satu gambar sekaligus untuk slide foto (JPG/PNG, maks. 5 MB per foto).</p>
+        </div>
+
+        <div>
+          <label class="form-label">Isi Narasi / Berita *</label>
+          <textarea id="artIsi" rows="6" required placeholder="Tuliskan dokumentasi kegiatan di sini..." class="form-textarea"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('articleModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan Konten</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: TAMBAH PENGURUS (FR-40) -->
+  <!-- ========================================== -->
+  <div id="pengurusModal" class="modal-overlay">
+    <div class="modal-content !max-w-md">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <h3 class="font-bold text-white text-lg">Tambah Pengurus Periode Berjalan</h3>
+        <button onclick="closeModal('pengurusModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleCreatePengurus(event)" class="space-y-4">
+        <div>
+          <label class="form-label">Nama & No. Register *</label>
+          <input id="pgrNama" type="text" required placeholder="Rahmat Hidayat (MU-280-RG)" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Jabatan Struktural *</label>
+          <input id="pgrJabatan" type="text" required placeholder="Ketua Umum / Sekretaris Umum" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Bidang / Divisi *</label>
+          <input id="pgrBidang" type="text" required placeholder="Badan Pengurus Harian / Kesekretariatan" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Periode Kepengurusan</label>
+          <input id="pgrPeriode" type="text" value="2025/2026" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">URL Foto Profil</label>
+          <input id="pgrFotoUrl" type="url" placeholder="https://..." class="form-input">
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('pengurusModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan Pengurus</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: TAMBAH PRESTASI (FR-41) -->
+  <!-- ========================================== -->
+  <div id="prestasiModal" class="modal-overlay">
+    <div class="modal-content !max-w-md">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <h3 class="font-bold text-white text-lg">Tambah Catatan Prestasi</h3>
+        <button onclick="closeModal('prestasiModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleCreatePrestasi(event)" class="space-y-4">
+        <div>
+          <label class="form-label">Tahun Perolehan *</label>
+          <input id="prsTahun" type="number" required value="2026" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Judul Prestasi / Kejuaraan *</label>
+          <input id="prsJudul" type="text" required placeholder="Juara 1 Wall Climbing Mahasiswa" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Deskripsi Penghargaan *</label>
+          <textarea id="prsDeskripsi" rows="3" required placeholder="Tingkat kompetisi, instansi penyelenggara, dsb..." class="form-textarea"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('prestasiModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan Prestasi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: KONFIRMASI TAMBAH DIVISI (POP-UP VALIDASI) -->
+  <!-- ========================================== -->
+  <div id="confirmAddDivisionModal" class="modal-overlay">
+    <div class="modal-content !max-w-md bg-[#11161B] border border-white/10 p-6 rounded-3xl shadow-2xl">
+      <div class="flex items-center gap-3 text-[#FF6B00] mb-3">
+        <div class="w-10 h-10 rounded-2xl bg-[#FF6B00]/10 flex items-center justify-center">
+          <i data-lucide="help-circle" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base">Konfirmasi Penambahan Divisi</h3>
+          <p class="text-xs text-[#8C9BAE]">Validasi sebelum menyimpan divisi baru</p>
+        </div>
+      </div>
+      <div class="p-4 rounded-2xl bg-white/5 border border-white/5 space-y-2 mb-4 text-xs">
+        <p class="text-[#CBD5E1]">Apakah Anda yakin ingin menambahkan divisi berikut ke dalam sistem?</p>
+        <div class="font-bold text-white text-sm" id="confirmDivNamaDisplay">-</div>
+        <div class="text-[#8C9BAE]">Kode Singkat: <span id="confirmDivKodeDisplay" class="font-mono text-[#FF6B00] font-bold">-</span></div>
+        <p class="text-[11px] text-[#F59E0B] mt-2 italic"><i data-lucide="alert-triangle" class="w-3.5 h-3.5 inline"></i> Divisi yang sudah dibuat akan langsung terhubung ke dashboard dan bersifat permanen (tidak dapat dihapus, hanya dapat diedit).</p>
+      </div>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeModal('confirmAddDivisionModal')" class="btn-secondary !text-xs">Batal</button>
+        <button type="button" onclick="executeAddDivision()" class="btn-primary !text-xs">Ya, Tambahkan Divisi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: EDIT NAMA DIVISI (CEGAH TYPO) -->
+  <!-- ========================================== -->
+  <div id="editDivisionModal" class="modal-overlay">
+    <div class="modal-content !max-w-md">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <div>
+          <h3 class="font-bold text-white text-lg">Edit Penamaan Divisi</h3>
+          <p class="text-xs text-[#8C9BAE]">Koreksi salah ketik (typo) nama divisi organisasi</p>
+        </div>
+        <button onclick="closeModal('editDivisionModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="editDivisionForm" onsubmit="handleEditDivisionSubmit(event)" class="space-y-4">
+        <input id="editDivId" type="hidden">
+        <div>
+          <label class="form-label">Nama Divisi *</label>
+          <input id="editDivName" type="text" required class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Kode 3 Huruf *</label>
+          <input id="editDivKode" type="text" maxlength="3" required class="form-input uppercase">
+        </div>
+        <div>
+          <label class="form-label">Deskripsi</label>
+          <input id="editDivDesc" type="text" class="form-input">
+        </div>
+        <p class="text-[11px] text-[#8C9BAE] italic"><i data-lucide="info" class="w-3.5 h-3.5 inline text-[#FF6B00]"></i> Seluruh anggota yang sebelumnya terdaftar pada divisi ini akan otomatis diselaraskan ke nama baru.</p>
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('editDivisionModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: TAMBAH PERIODE REGISTRASI ULANG BARU (2027, dst) -->
+  <!-- ========================================== -->
+  <div id="addPeriodModal" class="modal-overlay">
+    <div class="modal-content !max-w-md">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+        <div>
+          <h3 class="font-bold text-white text-lg">Tambah Periode Registrasi Ulang</h3>
+          <p class="text-xs text-[#8C9BAE]">Buka tahun periode pendaftaran baru (contoh: 2027)</p>
+        </div>
+        <button onclick="closeModal('addPeriodModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="addPeriodForm" onsubmit="handleAddPeriod(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Tahun Periode *</label>
+            <input id="addPeriodTahun" type="number" required placeholder="2027" class="form-input" oninput="autoFillPeriodName(this.value)">
+          </div>
+          <div>
+            <label class="form-label">Nama Periode *</label>
+            <input id="addPeriodNama" type="text" required placeholder="Registrasi Ulang Tahunan 2027" class="form-input">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Tanggal Buka *</label>
+            <input id="addPeriodBuka" type="date" required class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Tanggal Tutup *</label>
+            <input id="addPeriodTutup" type="date" required class="form-input">
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Deskripsi Periode</label>
+          <textarea id="addPeriodDesc" rows="2" placeholder="Catatan atau informasi pembukaan periode pendaftaran..." class="form-textarea"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeModal('addPeriodModal')" class="btn-secondary !text-xs">Batal</button>
+          <button type="submit" class="btn-primary !text-xs">Simpan & Buat Periode</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Core App Logic -->
+  <script src="/js/admin-app.js"></script>
+</body>
+</html>
+
