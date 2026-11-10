@@ -1,34 +1,42 @@
 {
   "name": "mapala-unand",
   "version": "1.0.0",
-  "description": "Sistem Informasi Manajemen Keanggotaan dan Website Resmi Mapala UNAND - TB MPSI",
-  "main": "server.js",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js",
-    "test": "node scripts/test-server.js"
+    "start": "node index.js",
+    "test": "node test-db.js",
+    "test:members": "node test-admin-members.js",
+    "test:import-export": "node test-import-export-print.js",
+    "test:periods": "node test-periods-monitoring-override.js",
+    "test:cms": "node test-cms-landing-integration.js",
+    "test:e2e": "node test-e2e-admin-flow.js",
+    "test:e2e:member": "node test-e2e-member-admin.js",
+    "test:activation": "node test-activation-wizard.js",
+    "test:cms:sync": "node test-admin-landing-sync.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tlhnafisa/Mapala-Unand.git"
   },
-  "keywords": [
-    "mapala-unand",
-    "mpsi",
-    "admin-dashboard",
-    "express",
-    "nodejs"
-  ],
-  "author": "Kelompok 3 TB MPSI",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlhnafisa/Mapala-Unand/issues"
+  },
+  "homepage": "https://github.com/tlhnafisa/Mapala-Unand#readme",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
-    "dotenv": "^18.0.9",
+    "dotenv": "^18.0.10",
     "express": "^5.3.0",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.5.0",
-    "pdfkit": "^0.20.2",
+    "mysql2": "^3.24.6",
     "xlsx": "^0.18.5"
   }
 }

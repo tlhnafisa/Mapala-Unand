@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Kegiatan - Mapala Universitas Andalas</title>
+  <meta name="description" content="Detail liputan ekspedisi dan riset ilmiah Mapala Universitas Andalas.">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="site-navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand-logo">
+        <img src="/images/logo.svg" alt="Logo Mapala UNAND">
+        <div class="brand-text">
+          <span class="brand-title">MAPALA UNAND</span>
+          <span class="brand-subtitle">UKM UNIVERSITAS ANDALAS</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Beranda</a></li>
+          <li><a href="/kegiatan-artikel" class="nav-link active">Kegiatan & Artikel</a></li>
+          <li><a href="/prestasi" class="nav-link">Prestasi</a></li>
+          <li><a href="/tentang-kami" class="nav-link">Tentang Kami</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="/login" class="btn-login">
+          <span>LOGIN</span>
+          <span class="login-icon">↗</span>
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation"><img src="/images/icons/menu.svg" alt="Menu" style="width: 20px; height: 20px;"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DETAIL ARTIKEL CONTENT -->
+  <main class="section-padding" style="padding-top: 130px;" id="articleDetailContent">
+    <div class="container article-detail-content">
+      <div class="breadcrumb">
+        <a href="/">Beranda</a>
+        <span>/</span>
+        <a href="/kegiatan-artikel">Kegiatan & Artikel</a>
+        <span>/</span>
+        <span style="color: var(--text-white);" id="detailCategoryBadge">EKSPEDISI</span>
+      </div>
+
+      <h1 class="page-title" id="detailTitle" style="font-size: clamp(2rem, 3.5vw, 2.8rem); margin-bottom: 20px;">
+        Ekspedisi Gunung Kerinci 3.805 MDPL
+      </h1>
+
+      <div class="article-header-meta">
+        <div><img src="/images/icons/calendar.svg" alt="Tanggal" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;"> <span id="detailDate">14 Oktober 2024</span></div>
+        <div><img src="/images/icons/pin.svg" alt="Lokasi" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;"> <span id="detailLocation">Atap Sumatera • 3.805 MDPL</span></div>
+        <div><img src="/images/icons/user.svg" alt="Penulis" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;"> <span id="detailAuthor">Divisi Gunung Hutan</span></div>
+      </div>
+
+      <img id="detailHeroImg" class="article-hero-img" src="/images/kerinci-expedition.jpg" alt="Foto Ekspedisi">
+
+      <div class="article-body" id="detailBodyContent">
+        <!-- Injected via JavaScript from data.js -->
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 32px; border-top: 1px solid var(--border-subtle); margin-top: 48px;">
+        <a href="/kegiatan-artikel" class="btn btn-dark btn-pill">
+          <span>← Kembali ke Semua Kegiatan</span>
+        </a>
+        <button class="btn btn-primary btn-pill" onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan artikel berhasil disalin!');">
+          <span>Bagikan Artikel</span>
+          <img src="/images/icons/share.svg" alt="Bagikan" style="width: 16px; height: 16px; vertical-align: middle; margin-left: 6px;">
+        </button>
+      </div>
+
+      <!-- Related Activities -->
+      <div style="margin-top: 80px;">
+        <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--text-white); margin-bottom: 24px;">
+          Kegiatan & Ekspedisi Terkait
+        </h3>
+        <div id="relatedArticlesGrid" class="cards-grid-3">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="/" class="brand-logo">
+            <img src="/images/logo.svg" alt="Logo Mapala UNAND">
+            <div class="brand-text">
+              <span class="brand-title">MAPALA UNAND</span>
+              <span class="brand-subtitle">UKM UNIVERSITAS ANDALAS</span>
+            </div>
+          </a>
+          <p class="footer-col-desc">
+            Organisasi kepencintaalaman tertua di lingkungan Universitas Andalas. Menjunjung tinggi kode etik pecinta alam Indonesia dan kelestarian alam nusantara.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">
+              <img src="/images/icons/instagram.svg" alt="Instagram" style="width: 18px; height: 18px;">
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube">
+              <img src="/images/icons/youtube.svg" alt="YouTube" style="width: 18px; height: 18px;">
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="X / Twitter">
+              <img src="/images/icons/x-twitter.svg" alt="X / Twitter" style="width: 16px; height: 16px;">
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">DIVISI OPERASIONAL</h4>
+          <ul class="footer-links-list">
+            <li><a href="/kegiatan-artikel" class="footer-link">Gunung Hutan</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Speleologi (Susur Gua)</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Panjat Tebing (Rock Climbing)</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Arung Jeram & Selam</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Konservasi Lingkungan Hidup</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">NAVIGASI</h4>
+          <ul class="footer-links-list">
+            <li><a href="/" class="footer-link">Beranda</a></li>
+            <li><a href="/tentang-kami" class="footer-link">Tentang Kami</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Kegiatan & Artikel</a></li>
+            <li><a href="/prestasi" class="footer-link">Prestasi</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">SEKRETARIAT</h4>
+          <div class="footer-contact-info">
+            <p>Gedung Pusat Kegiatan Mahasiswa (PKM) Lantai 1, Universitas Andalas</p>
+            <p>Limau Manis, Pauh, Kota Padang, Sumatera Barat 25163</p>
+            <p>Email: <a href="mailto:mapala@unand.ac.id" class="footer-email-link">mapala@unand.ac.id</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2024 Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Hak Cipta Dilindungi.</div>
+        <div class="footer-legal-links">
+          <a href="#" class="footer-link">Syarat & Ketentuan</a>
+          <a href="#" class="footer-link">Kebijakan Privasi</a>
+          <a href="https://www.unand.ac.id" target="_blank" rel="noopener" class="footer-link">Universitas Andalas</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

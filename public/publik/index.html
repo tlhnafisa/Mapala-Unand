@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapala Universitas Andalas - Official Website</title>
+  <meta name="description" content="Website Resmi Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Menjelajahi dan Menelusuri Alam dengan Cinta sejak 1984.">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       NAVBAR
+       ======================================================================== -->
+  <header class="site-navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand-logo">
+        <img src="/images/logo.svg" alt="Logo Mapala UNAND">
+        <div class="brand-text">
+          <span class="brand-title">MAPALA UNAND</span>
+          <span class="brand-subtitle">UKM UNIVERSITAS ANDALAS</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link active">Beranda</a></li>
+          <li><a href="/kegiatan-artikel" class="nav-link">Kegiatan & Artikel</a></li>
+          <li><a href="/struktur-organisasi" class="nav-link">Struktur Organisasi</a></li>
+          <li><a href="/prestasi" class="nav-link">Prestasi</a></li>
+          <li><a href="/tentang-kami" class="nav-link">Tentang Kami</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="/login" class="btn-login">
+          <span>LOGIN</span>
+          <span class="login-icon">↗</span>
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation"><img src="/images/icons/menu.svg" alt="Menu" style="width: 20px; height: 20px;"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       HERO SECTION
+       ======================================================================== -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <h1 class="hero-main-title">MAPALA<br>UNAND</h1>
+
+      <div class="hero-subrow">
+        <h2 class="hero-tagline">Menjelajahi dan<br>Menelusuri Alam dengan<br>Cinta.</h2>
+        <p class="hero-description">
+          Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati, dan dedikasi petualangan ilmiah rimba Nusantara sejak 1984.
+        </p>
+      </div>
+
+      <!-- Search / Quick Filter Bar -->
+      <form class="hero-search-bar" action="/kegiatan-artikel" method="GET">
+        <div class="search-field">
+          <label class="search-label" for="heroDivisi">DIVISI KEGIATAN</label>
+          <select id="heroDivisi" name="divisi" class="search-select">
+            <option value="all">Semua Divisi</option>
+            <option value="gunung">Gunung Hutan</option>
+            <option value="speleologi">Speleologi (Gua)</option>
+            <option value="panjat">Panjat Tebing</option>
+            <option value="konservasi">Konservasi Lingkungan</option>
+          </select>
+        </div>
+
+        <div class="search-field">
+          <label class="search-label" for="heroLokasi">LOKASI / JALUR</label>
+          <select id="heroLokasi" name="lokasi" class="search-select">
+            <option value="all">Sumatera Barat & Nasional</option>
+            <option value="kerinci">Taman Nasional Kerinci</option>
+            <option value="harau">Lembah Harau & Cagar Alam</option>
+            <option value="ngalau">Kawasan Karst Halaban</option>
+          </select>
+        </div>
+
+        <div class="search-field">
+          <label class="search-label" for="heroJadwal">JADWAL OPERASIONAL</label>
+          <select id="heroJadwal" name="jadwal" class="search-select">
+            <option value="all">Semester Ganjil 2024/2025</option>
+            <option value="2024">Tahun Anggaran 2024</option>
+            <option value="arsip">Arsip Ekspedisi Riset</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="padding: 14px 28px; white-space: nowrap;">
+          <span>Cari Kegiatan</span>
+          <span>→</span>
+        </button>
+      </form>
+
+      <!-- Stats Row -->
+      <div class="hero-stats-row">
+        <div class="stat-item reveal stagger-1">
+          <div class="stat-icon">
+            <img src="/images/icons/compass.svg" alt="Icon Compass" style="width: 20px; height: 20px;">
+          </div>
+          <div class="stat-info">
+            <span class="stat-number counter-number" data-target="40" data-suffix="+ Tahun">0 Tahun</span>
+            <span class="stat-label">Eksplorasi Rimba & Karst</span>
+          </div>
+        </div>
+
+        <div class="stat-item reveal stagger-2">
+          <div class="stat-icon">
+            <img src="/images/icons/mountain.svg" alt="Icon Mountain" style="width: 20px; height: 20px;">
+          </div>
+          <div class="stat-info">
+            <span class="stat-number counter-number" data-target="120" data-suffix="+ Puncak">0 Puncak</span>
+            <span class="stat-label">Sumatera & Seven Summits</span>
+          </div>
+        </div>
+
+        <div class="stat-item reveal stagger-3">
+          <div class="stat-icon">
+            <img src="/images/icons/users.svg" alt="Icon Members" style="width: 20px; height: 20px;">
+          </div>
+          <div class="stat-info">
+            <span class="stat-number counter-number" data-target="600" data-suffix="+ Anggota">0 Anggota</span>
+            <span class="stat-label">Keluarga Besar Lintas Generasi</span>
+          </div>
+        </div>
+
+        <div class="stat-item reveal stagger-4">
+          <div class="stat-icon">
+            <img src="/images/icons/shield.svg" alt="Icon Shield" style="width: 20px; height: 20px;">
+          </div>
+          <div class="stat-info">
+            <span class="stat-number counter-number" data-target="50" data-suffix="+ Konservasi">0 Konservasi</span>
+            <span class="stat-label">Riset & Keanekaragaman Hayati</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       JELAJAH ALAM & EKSPEDISI RISET (KEGIATAN & ARTIKEL)
+       ======================================================================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="section-header-row reveal">
+        <div class="section-header-left">
+          <span class="section-subtitle">KEGIATAN & PRESTASI TERKINI</span>
+          <h2 class="section-title">Jelajah Alam & Ekspedisi Riset</h2>
+        </div>
+        <a href="/kegiatan-artikel" class="btn btn-dark btn-pill">
+          <span>Lihat Semua Kegiatan</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <!-- Activity Cards Container -->
+      <div id="activityCardsContainer" class="cards-grid-3 reveal">
+        <!-- Dynamic Cards rendered via main.js and data.js -->
+      </div>
+
+      <!-- Carousel Navigation Controls -->
+      <div class="carousel-controls reveal">
+        <button id="activityPrevBtn" class="carousel-btn" aria-label="Previous Activity">‹</button>
+        <div class="carousel-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <button id="activityNextBtn" class="carousel-btn" aria-label="Next Activity">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       STRUKTUR ORGANISASI & DEWAN PENGURUS
+       ======================================================================== -->
+  <section id="struktur-organisasi" class="section-padding org-section" style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="org-header reveal">
+        <h2 class="section-title">Struktur Organisasi & Dewan Pengurus</h2>
+        <p class="org-subtitle">Kepemimpinan terstruktur berlandaskan komitmen kelestarian alam dan profesionalisme rimba.</p>
+      </div>
+
+      <!-- 16:9 Image of Organizational Structure -->
+      <div class="org-image-wrapper reveal-zoom">
+        <img src="/images/struktur-organisasi.svg" alt="Bagan Struktur Organisasi Mapala Universitas Andalas Periode 2024/2025">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       PRESTASI & PENCAPAIAN TERTINGGI
+       ======================================================================== -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="prestasi-grid">
+        <div class="reveal-left">
+          <h2 class="prestasi-title">Pencapaian Tertinggi<br>Ekspedisi Rimba &<br>Konservasi Ilmiah</h2>
+          <p class="prestasi-desc">
+            Melalui konsistensi latihan fisik, kedisiplinan mental, dan etika kepetualangan yang teguh, Mapala Universitas Andalas telah membuktikan dedikasinya di berbagai puncak tertinggi nusantara serta kompetisi navigasi dan konservasi tingkat nasional.
+          </p>
+          <p class="prestasi-desc">
+            Setiap ekspedisi bukan sekadar menaklukkan rute geografis, melainkan wujud tanggung jawab ilmiah: menghasilkan peta kontur presisi, inventarisasi vegetasi langka, hingga advokasi kelestarian karst bagi masyarakat lingkar hutan.
+          </p>
+
+          <!-- 2x2 Achievement Stat Boxes -->
+          <div class="prestasi-stats-grid">
+            <div class="prestasi-box reveal stagger-1">
+              <div class="prestasi-box-title">Juara 1</div>
+              <div class="prestasi-box-sub">Ekspedisi Navigasi Nasional</div>
+              <div class="prestasi-box-detail">Kategori Kerapatan Jalur Rimba</div>
+            </div>
+
+            <div class="prestasi-box reveal stagger-2">
+              <div class="prestasi-box-title">Kalpataru</div>
+              <div class="prestasi-box-sub">Apresiasi Konservasi Kampus</div>
+              <div class="prestasi-box-detail">Pelestarian Sumber Air Hutan Lindung</div>
+            </div>
+
+            <div class="prestasi-box reveal stagger-3">
+              <div class="prestasi-box-title">7 Summits</div>
+              <div class="prestasi-box-sub">Jalur Ekspedisi Nusantara</div>
+              <div class="prestasi-box-detail">Puncak Tertinggi di Kepulauan Indonesia</div>
+            </div>
+
+            <div class="prestasi-box reveal stagger-4">
+              <div class="prestasi-box-title counter-number" data-target="30" data-suffix="+ Riset">0 Riset</div>
+              <div class="prestasi-box-sub">Publikasi Ilmiah & Speleologi</div>
+              <div class="prestasi-box-detail">Jurnal Akreditasi Hayati Sumatera</div>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <button id="prestasiNextBtn" class="btn-circle-arrow" title="Lihat Prestasi Berikutnya">→</button>
+            <a href="/prestasi" class="btn btn-dark btn-pill" style="font-size: 0.8rem; padding: 10px 20px;">
+              <span>Arsip Semua Penghargaan</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="prestasi-image-card reveal-right">
+          <img id="prestasiMainImg" src="/images/trophy-achievement.jpg" alt="Trofi Prestasi Ekspedisi Mapala UNAND">
+          <div class="prestasi-caption" id="prestasiCaptionText">
+            Tim Mapala UNAND Membawa Pulang Trofi Kehormatan Ekspedisi Puncak Rimba 2024
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       TENTANG KAMI & KODE ETIK
+       ======================================================================== -->
+  <section class="section-padding" style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle);">
+    <div class="container">
+      <div class="about-grid">
+        <div class="reveal-left">
+          <div class="about-header-wrap">
+            <span class="badge-tag badge-orange">TENTANG KAMI • SEJARAH & IDENTITAS</span>
+            <h2 class="about-title">Empat Dekade Merawat Rimba & Persaudaraan Alam Semesta</h2>
+          </div>
+          <div class="about-narrative">
+            <p>
+              Didirikan pada tahun 1984 di kampus Universitas Andalas, Padang, MAPALA UNAND lahir sebagai pelopor pergerakan kepencintaalaman mahasiswa di Sumatera Barat. Kami berpegang teguh pada <strong>Kode Etik Pencinta Alam Indonesia</strong>, mengintegrasikan ketangguhan fisik penjelajah dengan kesadaran ekologis konservasionis.
+            </p>
+            <p>
+              Tidak hanya mendaki puncak tertinggi atau menyusuri lorong karst terdalam, kami mendedikasikan ilmu pengetahuan untuk perlindungan hutan hujan tropis, kelestarian DAS, dan pendampingan masyarakat adat di batas rimba nusantara.
+            </p>
+            <a href="/tentang-kami" class="btn btn-dark btn-pill" style="margin-top: 12px;">
+              <span>Baca Selengkapnya Profil Organisasi</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="kode-etik-card reveal-right">
+          <h3 class="kode-etik-title">Kode Etik Pencinta Alam Indonesia</h3>
+          <p class="kode-etik-quote">
+            "Pencinta alam Indonesia sadar bahwa alam beserta isinya adalah ciptaan Tuhan Yang Maha Esa... Menyatakan cinta dan hormat serta bermesraanlah dengan segala isinya secara beretika juga aturan kode."
+          </p>
+          <div class="kode-etik-tags">
+            <span class="badge-tag badge-dark">Glasiologi & Karst</span>
+            <span class="badge-tag badge-dark">Search & Rescue</span>
+            <span class="badge-tag badge-dark">Ornitologi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a href="/" class="brand-logo">
+            <img src="/images/logo.svg" alt="Logo Mapala UNAND">
+            <div class="brand-text">
+              <span class="brand-title">MAPALA UNAND</span>
+              <span class="brand-subtitle">UKM UNIVERSITAS ANDALAS</span>
+            </div>
+          </a>
+          <p class="footer-col-desc">
+            Organisasi kepencintaalaman tertua di lingkungan Universitas Andalas. Menjunjung tinggi kode etik pecinta alam Indonesia dan kelestarian alam nusantara.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">
+              <img src="/images/icons/instagram.svg" alt="Instagram" style="width: 18px; height: 18px;">
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube">
+              <img src="/images/icons/youtube.svg" alt="YouTube" style="width: 18px; height: 18px;">
+            </a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="X / Twitter">
+              <img src="/images/icons/x-twitter.svg" alt="X / Twitter" style="width: 16px; height: 16px;">
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">DIVISI OPERASIONAL</h4>
+          <ul class="footer-links-list">
+            <li><a href="/kegiatan-artikel" class="footer-link">Gunung Hutan</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Speleologi (Susur Gua)</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Panjat Tebing (Rock Climbing)</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Arung Jeram & Selam</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Konservasi Lingkungan Hidup</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">EKSPLORASI</h4>
+          <ul class="footer-links-list">
+            <li><a href="/kegiatan-artikel" class="footer-link">Jurnal Ekspedisi 2024</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Peta Topografi Sumatera</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Database Gua Karst Padang</a></li>
+            <li><a href="/kegiatan-artikel" class="footer-link">Dokumentasi Diksar</a></li>
+            <li><a href="/tentang-kami" class="footer-link">Pendaftaran Anggota Baru</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">SEKRETARIAT</h4>
+          <div class="footer-contact-info">
+            <p>Gedung Pusat Kegiatan Mahasiswa (PKM) Lantai 1, Universitas Andalas</p>
+            <p>Limau Manis, Pauh, Kota Padang, Sumatera Barat 25163</p>
+            <p>Email: <a href="mailto:mapala@unand.ac.id" class="footer-email-link">mapala@unand.ac.id</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2024 Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Hak Cipta Dilindungi.
+        </div>
+        <div class="footer-legal-links">
+          <a href="#" class="footer-link">Syarat & Ketentuan</a>
+          <a href="#" class="footer-link">Kebijakan Privasi</a>
+          <a href="https://www.unand.ac.id" target="_blank" rel="noopener" class="footer-link">Universitas Andalas</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

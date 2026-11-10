@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Anggota - Mapala Universitas Andalas</title>
+  <meta name="description" content="Pintu masuk sistem informasi manajemen keanggotaan dan registrasi ulang tahunan anggota Mapala Universitas Andalas.">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="site-navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="brand-logo">
+        <img src="/images/logo.svg" alt="Logo Mapala UNAND">
+        <div class="brand-text">
+          <span class="brand-title">MAPALA UNAND</span>
+          <span class="brand-subtitle">UKM UNIVERSITAS ANDALAS</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Beranda</a></li>
+          <li><a href="/kegiatan-artikel" class="nav-link">Kegiatan & Artikel</a></li>
+          <li><a href="/prestasi" class="nav-link">Prestasi</a></li>
+          <li><a href="/tentang-kami" class="nav-link">Tentang Kami</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="/" class="btn btn-dark btn-pill" style="font-size: 0.8rem; padding: 8px 16px;">
+          <span>← Kembali</span>
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation"><img src="/images/icons/menu.svg" alt="Menu" style="width: 20px; height: 20px;"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- LOGIN CONTAINER -->
+  <main class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">
+          <img src="/images/logo.svg" alt="Logo Mapala UNAND" style="width: 48px; height: 48px;">
+        </div>
+        <h1 class="login-title">Portal Anggota</h1>
+        <p class="login-subtitle">Sistem Informasi Manajemen Keanggotaan Terpadu</p>
+      </div>
+
+      <div class="login-notice">
+        <img src="/images/icons/info.svg" alt="Info" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;"> <strong>Informasi Akun:</strong> Gunakan Nomor Register Anggota (No. Register) Anda sebagai username. Bagi login pertama, Anda akan diarahkan untuk mengganti password default dan menyetujui Kebijakan Privasi Data.
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="username">Username (No. Register)</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            class="form-input" 
+            placeholder="Contoh: MU-325/LTN" 
+            required 
+            autocomplete="username"
+          >
+        </div>
+
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <label class="form-label" for="password" style="margin-bottom: 0;">Password</label>
+            <a href="mailto:mapala@unand.ac.id" style="font-size: 0.74rem; color: var(--primary-orange);">Lupa Password?</a>
+          </div>
+          <div class="input-password-wrap">
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Masukkan password Anda" 
+              required 
+              autocomplete="current-password"
+            >
+            <button type="button" id="togglePassword" class="password-toggle-btn" aria-label="Lihat kata sandi"><img src="/images/icons/eye.svg" alt="Lihat kata sandi" style="width: 18px; height: 18px;"></button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 10px;">
+          <span>Masuk ke Sistem Keanggotaan</span>
+          <span>→</span>
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle); text-align: center; font-size: 0.76rem; color: var(--text-muted);">
+        Belum memiliki akun atau butuh reset password? Hubungi <a href="mailto:mapala@unand.ac.id" style="color: var(--primary-orange); font-weight: 600;">Admin Kesekretariatan</a>.
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER MINI -->
+  <footer style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle); padding: 20px 0; text-align: center; font-size: 0.75rem; color: var(--text-muted);">
+    <div class="container">
+      © 2024 Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Hak Cipta Dilindungi.
+    </div>
+  </footer>
+
+  <script src="/js/data.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

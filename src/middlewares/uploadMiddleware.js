@@ -24,15 +24,16 @@ const fileFilter = (req, file, cb) => {
     'image/jpeg',
     'image/png',
     'image/webp',
+    'image/svg+xml',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.ms-excel',
     'text/csv'
   ];
 
-  if (allowedMimes.includes(file.mimetype)) {
+  if (allowedMimes.includes(file.mimetype) || file.originalname.toLowerCase().endsWith('.svg')) {
     cb(null, true);
   } else {
-    cb(new Error('Tipe file tidak didukung. Harap unggah format JPG, PNG, WEBP, XLSX, atau CSV.'));
+    cb(new Error('Tipe file tidak didukung. Harap unggah format JPG, PNG, WEBP, SVG, XLSX, atau CSV.'));
   }
 };
 

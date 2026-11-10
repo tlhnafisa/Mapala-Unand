@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Anggota | Sistem Informasi Mapala UNAND</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#07090C',
+            card: '#11161B',
+            cardHover: '#161D24',
+            primaryOrange: '#FF6B00',
+            primaryOrangeHover: '#FFA143',
+            borderDark: '#1C2530',
+            mutedLabel: '#8C9BAE',
+            textSecondary: '#94A3B8'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Member CSS -->
+  <link rel="stylesheet" href="/anggota/css/anggota.css">
+</head>
+<body class="bg-[#07090C] text-white min-h-screen flex flex-col md:flex-row">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-[99999] flex flex-col-reverse gap-2 pointer-events-none"></div>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="w-full md:w-64 bg-[#11161B] border-r border-[#1C2530] flex flex-col shrink-0">
+    <div class="p-6 border-b border-[#1C2530] flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00]">
+          <i data-lucide="compass" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-sm font-bold tracking-wider text-white">MAPALA UNAND</h1>
+          <p class="text-[10px] text-[#8C9BAE] uppercase font-semibold">Portal Keanggotaan</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Snippet -->
+    <div class="px-6 py-4 bg-[#07090C]/50 border-b border-[#1C2530] flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full bg-[#1C2530] border border-white/10 flex items-center justify-center text-[#FF6B00] font-bold text-xs">
+        MU
+      </div>
+      <div class="truncate">
+        <h4 id="navMemberName" class="text-xs font-bold text-white truncate">Rahmat Hidayat</h4>
+        <span id="navMemberReg" class="text-[10px] font-mono text-[#FF6B00] bg-[#FF6B00]/10 px-1.5 py-0.5 rounded border border-[#FF6B00]/20">MU 280 RGM</span>
+      </div>
+    </div>
+
+    <!-- Navigation Menu (Bagian B PRD: 5 Menu) -->
+    <nav class="p-4 space-y-1.5 flex-1">
+      <button onclick="switchTab('tab-dashboard')" data-tab="tab-dashboard" class="nav-tab-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-[#FF6B00]/10 text-[#FF6B00] border-l-2 border-[#FF6B00] transition-all">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+        <span>Dashboard Anggota</span>
+      </button>
+
+      <button onclick="switchTab('tab-biodata')" data-tab="tab-biodata" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#94A3B8] hover:text-white hover:bg-white/5 transition-all">
+        <i data-lucide="user-check" class="w-4 h-4"></i>
+        <span>Biodata Saya</span>
+      </button>
+
+      <button onclick="switchTab('tab-registrasi')" data-tab="tab-registrasi" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#94A3B8] hover:text-white hover:bg-white/5 transition-all">
+        <i data-lucide="calendar-check-2" class="w-4 h-4"></i>
+        <span>Registrasi Ulang</span>
+      </button>
+
+      <button onclick="switchTab('tab-direktori')" data-tab="tab-direktori" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#94A3B8] hover:text-white hover:bg-white/5 transition-all">
+        <i data-lucide="contact" class="w-4 h-4"></i>
+        <span>Direktori Anggota</span>
+      </button>
+
+      <button onclick="switchTab('tab-pengaturan')" data-tab="tab-pengaturan" class="nav-tab-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#94A3B8] hover:text-white hover:bg-white/5 transition-all">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>Pengaturan Akun</span>
+      </button>
+    </nav>
+
+    <!-- Bottom Actions -->
+    <div class="p-4 border-t border-[#1C2530] space-y-2">
+      <a href="/" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-[#8C9BAE] hover:text-white hover:bg-white/5 transition-all">
+        <i data-lucide="globe" class="w-4 h-4"></i>
+        <span>Website Publik</span>
+      </a>
+      <button onclick="handleLogout()" class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium text-red-400 hover:bg-red-500/10 transition-all">
+        <i data-lucide="log-out" class="w-4 h-4"></i>
+        <span>Keluar (Logout)</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 flex flex-col min-h-screen overflow-y-auto">
+    <!-- Top Header -->
+    <header class="h-16 bg-[#11161B]/80 backdrop-blur border-b border-[#1C2530] px-6 flex items-center justify-between sticky top-0 z-30">
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-medium text-[#8C9BAE]">Portal Anggota Penuh</span>
+        <span class="text-[#1C2530]">•</span>
+        <span class="text-xs font-semibold text-[#FF6B00]">Mahasiswa Pecinta Alam Universitas Andalas</span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-[#07090C] border border-[#1C2530] rounded-full text-[11px] text-[#8C9BAE]">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Status Akun Aktif</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="p-6 md:p-8 space-y-8 flex-1">
+
+      <!-- ====================================================================
+           TAB 1: DASHBOARD ANGGOTA (FR-16)
+           ==================================================================== -->
+      <section id="tab-dashboard" class="tab-pane space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Dashboard Keanggotaan</h2>
+          <p class="text-xs text-[#8C9BAE] mt-0.5">Ringkasan status identitas dan kepatuhan registrasi berkala seumur hidup.</p>
+        </div>
+
+        <!-- Identity & Status Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1: KTA Digital & Kelengkapan Profil -->
+          <div class="md:col-span-2 bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 relative overflow-hidden flex flex-col justify-between shadow-lg">
+            <div class="absolute -right-10 -bottom-10 opacity-5 text-white pointer-events-none">
+              <i data-lucide="compass" class="w-52 h-52"></i>
+            </div>
+            
+            <div>
+              <div class="flex items-center justify-between gap-4 mb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-[11px] uppercase tracking-wider text-[#8C9BAE] font-bold">Kartu Anggota Digital • Penuh</span>
+                </div>
+                <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                  Status: Aktif
+                </span>
+              </div>
+
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <span class="text-xs font-mono text-[#FF6B00] bg-[#FF6B00]/10 px-2.5 py-0.5 rounded-lg border border-[#FF6B00]/25 font-extrabold inline-block" id="dashNoReg">
+                    MU 280 RGM
+                  </span>
+                  <h3 class="text-xl font-extrabold text-white mt-1.5" id="dashNama">Rahmat Hidayat</h3>
+                  <p class="text-xs font-medium text-[#94A3B8]" id="dashDivisi">Divisi Rimba Gunung</p>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-[#07090C] border border-[#1C2530] flex items-center justify-center text-[#FF6B00] shrink-0">
+                  <i data-lucide="award" class="w-6 h-6"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 space-y-4">
+              <!-- Quick Stats Grid -->
+              <div class="grid grid-cols-3 gap-3 pt-3 border-t border-[#1C2530] text-center">
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Angkatan</span>
+                  <span class="text-sm font-bold text-white font-mono" id="dashAngkatan">2018</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Gol. Darah</span>
+                  <span class="text-sm font-extrabold text-red-400 font-mono" id="dashGoldar">O</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Hak Suara</span>
+                  <span class="text-sm font-bold text-emerald-400">Penuh (Musang)</span>
+                </div>
+              </div>
+
+              <!-- Kelengkapan Profil Meter -->
+              <div class="pt-3 border-t border-[#1C2530]/80">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span class="text-[#8C9BAE] font-medium flex items-center gap-1.5">
+                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#FF6B00]"></i>
+                    Kelengkapan Profil Anggota
+                  </span>
+                  <span id="dashProfilPct" class="font-bold text-[#FF6B00] font-mono">100% Lengkap</span>
+                </div>
+                <div class="w-full bg-[#07090C] rounded-full h-2 overflow-hidden border border-white/5">
+                  <div id="dashProfilBar" class="bg-gradient-to-r from-[#FF6B00] to-[#FFA143] h-2 rounded-full transition-all duration-700" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Status Registrasi Periode Berjalan -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 flex flex-col justify-between shadow-lg">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span id="dashPeriodeLabel" class="text-xs font-bold text-[#8C9BAE] tracking-wider uppercase">PERIODE 2026</span>
+                <span id="dashRegBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  Sudah Registrasi
+                </span>
+              </div>
+              <h4 id="dashPeriodeNama" class="text-base font-bold text-white">Registrasi Ulang Tahunan</h4>
+              <p id="dashRegDesc" class="text-xs text-[#94A3B8] mt-2 leading-relaxed">
+                Data domisili, nomor HP, dan kepemilikan atribut resmi Anda telah tercatat untuk periode 2026.
+              </p>
+              <div id="dashRegMeta" class="mt-3 text-[11px] text-[#8C9BAE] flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-[#FF6B00] shrink-0"></i>
+                <span id="dashRegMetaText">Tercatat di sistem database</span>
+              </div>
+            </div>
+            
+            <button id="dashRegActionBtn" onclick="switchTab('tab-registrasi')" class="mt-5 w-full btn-secondary !text-xs justify-center font-bold">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              <span id="dashRegActionBtnText">Periksa Formulir</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Access Feature Tiles -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div onclick="switchTab('tab-biodata')" class="cursor-pointer bg-[#11161B] hover:bg-[#161D24] border border-[#1C2530] hover:border-[#FF6B00]/40 rounded-2xl p-5 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3">
+              <i data-lucide="file-text" class="w-5 h-5"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white">Biodata Saya</h4>
+            <p class="text-xs text-[#8C9BAE] mt-1">Periksa kelengkapan identitas permanen dan riwayat berkala.</p>
+          </div>
+
+          <div onclick="switchTab('tab-direktori')" class="cursor-pointer bg-[#11161B] hover:bg-[#161D24] border border-[#1C2530] hover:border-[#FF6B00]/40 rounded-2xl p-5 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white">Direktori Rekan Anggota</h4>
+            <p class="text-xs text-[#8C9BAE] mt-1">Cari rekan di berbagai daerah atau butuh donor darah darurat.</p>
+          </div>
+
+          <div onclick="switchTab('tab-pengaturan')" class="cursor-pointer bg-[#11161B] hover:bg-[#161D24] border border-[#1C2530] hover:border-[#FF6B00]/40 rounded-2xl p-5 transition-all">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
+              <i data-lucide="key" class="w-5 h-5"></i>
+            </div>
+            <h4 class="text-sm font-bold text-white">Keamanan Akun</h4>
+            <p class="text-xs text-[#8C9BAE] mt-1">Ganti kata sandi akun dan baca kembali kebijakan privasi.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 2: BIODATA SAYA (FR-17, FR-18, FR-26)
+           ==================================================================== -->
+      <section id="tab-biodata" class="tab-pane hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Biodata Anggota</h2>
+          <p class="text-xs text-[#8C9BAE] mt-0.5">Data tetap identitas resmi Anda yang tersimpan di sistem.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Form Data Tetap (Editable by member except No. Register & Angkatan) -->
+          <div class="lg:col-span-2 bg-[#11161B] border border-[#1C2530] rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-white mb-4 pb-3 border-b border-[#1C2530] flex items-center gap-2">
+              <i data-lucide="id-card" class="w-4 h-4 text-[#FF6B00]"></i>
+              <span>Data Identitas Tetap</span>
+            </h3>
+
+            <form onsubmit="handleSaveBiodata(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="form-label">No. Register (Terkunci)</label>
+                  <input id="bioNoReg" type="text" readonly class="form-input font-mono font-bold text-[#FF6B00]">
+                  <p class="text-[10px] text-[#8C9BAE] mt-1">Nomor register hanya dapat diubah oleh Administrator.</p>
+                </div>
+                <div>
+                  <label class="form-label">Angkatan (Terkunci)</label>
+                  <input id="bioAngkatan" type="text" readonly class="form-input">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="form-label">Nama Lengkap *</label>
+                  <input id="bioNama" type="text" required class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Divisi (Terkunci)</label>
+                  <input id="bioDivisi" type="text" readonly class="form-input">
+                  <p class="text-[10px] text-[#8C9BAE] mt-1">Divisi anggota ditetapkan oleh Administrator.</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="sm:col-span-2">
+                  <label class="form-label">Tempat Lahir</label>
+                  <input id="bioTempatLahir" type="text" placeholder="Kota Padang" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Tanggal Lahir</label>
+                  <input id="bioTanggalLahir" type="date" class="form-input">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="form-label">Golongan Darah</label>
+                  <select id="bioGoldar" class="form-select">
+                    <option value="">Pilih</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                    <option value="O">O</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">Nama Ayah</label>
+                  <input id="bioNamaAyah" type="text" class="form-input">
+                </div>
+                <div>
+                  <label class="form-label">Nama Ibu</label>
+                  <input id="bioNamaIbu" type="text" class="form-input">
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-[#1C2530] flex justify-end">
+                <button type="submit" class="btn-primary">
+                  <i data-lucide="save" class="w-4 h-4"></i>
+                  <span>Simpan Perubahan Biodata</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Snapshot Data Berkala Terkini -->
+          <div class="space-y-4">
+            <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6">
+              <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
+                <span>Snapshot Kontak & Domisili 2026</span>
+              </h3>
+              <div class="space-y-3 text-xs text-[#94A3B8]">
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Alamat Tinggal</span>
+                  <p id="bioSnapshotDomisili" class="text-white font-medium mt-0.5">-</p>
+                </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">No. Handphone (WhatsApp)</span>
+                  <p id="bioSnapshotHp" class="text-white font-medium font-mono mt-0.5">-</p>
+                </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Email Aktif</span>
+                  <p id="bioSnapshotEmail" class="text-white font-medium mt-0.5">-</p>
+                </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Pekerjaan / Profesi</span>
+                  <p id="bioSnapshotPekerjaan" class="text-white font-medium mt-0.5">-</p>
+                </div>
+              </div>
+              <button onclick="switchTab('tab-registrasi')" class="mt-4 w-full btn-secondary !text-xs justify-center">
+                Perbarui Lewat Registrasi Ulang
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 3: REGISTRASI ULANG TAHUNAN (FR-21 s.d FR-25, FR-27)
+           ==================================================================== -->
+      <section id="tab-registrasi" class="tab-pane hidden space-y-6">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <h2 id="regFormTitle" class="text-xl font-bold text-white">Formulir Registrasi Ulang 2026</h2>
+            <p class="text-xs text-[#8C9BAE] mt-0.5">Pembaruan berkala domisili, kontak, serta pendataan atribut resmi seumur hidup.</p>
+          </div>
+          <div id="regPeriodBadge" class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="regPeriodBadgeText">Periode 2026 Sedang Dibuka</span>
+          </div>
+        </div>
+
+        <!-- Banner jika periode belum dibuka oleh admin -->
+        <div id="regClosedBanner" class="hidden bg-[#11161B] border border-amber-500/30 rounded-2xl p-8 text-center space-y-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto mb-2">
+            <i data-lucide="lock" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-base font-bold text-white">Periode Registrasi Belum Dibuka oleh Administrator</h3>
+          <p class="text-xs text-[#8C9BAE] max-w-md mx-auto">
+            Saat ini belum ada periode registrasi ulang tahunan yang sedang dibuka. Formulir pendaftaran hanya dapat diisi saat periode resmi telah dibuka oleh pengurus.
+          </p>
+          <div class="pt-2">
+            <button onclick="switchTab('tab-dashboard')" class="btn-secondary !text-xs">
+              Kembali ke Dashboard
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Registrasi Ulang Mandiri -->
+        <form id="formRegistrasiUlang" onsubmit="handleSubmitRegistrasi(event)" class="space-y-6">
+          <input type="hidden" id="regPeriodeId" value="">
+
+          <!-- 1. Data Profil Terkunci (FR-22) -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6">
+            <h3 class="text-xs font-bold text-[#8C9BAE] uppercase tracking-wider mb-3">1. Data Profil Tetap (Terkunci Otomatis)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="form-label">No. Register</label>
+                <input id="regLockedNoReg" type="text" readonly class="form-input font-mono font-bold text-[#FF6B00]">
+              </div>
+              <div>
+                <label class="form-label">Nama Anggota</label>
+                <input id="regLockedNama" type="text" readonly class="form-input">
+              </div>
+              <div>
+                <label class="form-label">Divisi</label>
+                <input id="regLockedDivisi" type="text" readonly class="form-input">
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Data Berkala Terkini (FR-22, FR-23) -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 space-y-4">
+            <h3 class="text-xs font-bold text-[#8C9BAE] uppercase tracking-wider mb-2">2. Data Domisili & Kontak Terkini (Dapat Diubah)</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="form-label">No. Handphone / WhatsApp *</label>
+                <input id="regNoHp" type="tel" required placeholder="0812xxxxxxxx" class="form-input font-mono">
+              </div>
+              <div>
+                <label class="form-label">Email Aktif *</label>
+                <input id="regEmail" type="email" required placeholder="nama@domain.com" class="form-input">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="form-label">Provinsi Domisili Saat Ini *</label>
+                <input id="regProvinsi" type="text" required placeholder="Contoh: Sumatera Barat" class="form-input">
+              </div>
+              <div>
+                <label class="form-label">Kota / Kabupaten *</label>
+                <input id="regKota" type="text" required placeholder="Contoh: Kota Padang" class="form-input">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label">Alamat Rumah Lengkap *</label>
+              <textarea id="regAlamat" rows="2" required placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan" class="form-textarea"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="form-label">Pekerjaan / Profesi Saat Ini *</label>
+                <input id="regPekerjaan" type="text" required placeholder="Contoh: Wiraswasta / Pegawai Swasta / Mahasiswa" class="form-input">
+              </div>
+              <div>
+                <label class="form-label">Akun Media Sosial</label>
+                <input id="regMedsos" type="text" placeholder="@instagram_anda" class="form-input">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label">Alamat Orang Tua *</label>
+              <textarea id="regAlamatOrtu" rows="2" required placeholder="Alamat lengkap orang tua anggota" class="form-textarea"></textarea>
+            </div>
+
+            <div class="pt-2 border-t border-white/5">
+              <label class="form-label">Unggah Foto Anggota Terbaru (Opsional / Format JPG, PNG)</label>
+              <input id="regFoto" type="file" accept="image/*" class="text-xs text-[#8C9BAE] file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#FF6B00]/10 file:text-[#FF6B00] hover:file:bg-[#FF6B00]/20">
+              <p class="text-[10px] text-[#8C9BAE] mt-1">Foto ini akan digunakan untuk verifikasi fisik dan mutasi kartu anggota digital.</p>
+            </div>
+          </div>
+
+          <!-- 3. Pendataan Atribut Resmi (FR-22, FR-23) -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-[#8C9BAE] uppercase tracking-wider">3. Kepemilikan Atribut Resmi Organisasi</h3>
+              <span class="text-[11px] text-[#8C9BAE]">Wajib didata setiap tahun</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <!-- Atribut 1: Topi Rimba -->
+              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <h4 class="text-xs font-bold text-white">Topi Rimba Mapala UNAND</h4>
+                  <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Atribut Wajib</span>
+                </div>
+                <div>
+                  <label class="form-label">Status Kepemilikan</label>
+                  <select id="regAtributTopi" class="form-select text-xs">
+                    <option value="Ada">Ada / Masih Dimiliki</option>
+                    <option value="Hilang/Rusak">Hilang / Rusak</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Atribut 2: Baju Lapangan -->
+              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <h4 class="text-xs font-bold text-white">Baju Lapangan (PDL)</h4>
+                  <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Atribut Wajib</span>
+                </div>
+                <div>
+                  <label class="form-label">Status Kepemilikan</label>
+                  <select id="regAtributBaju" class="form-select text-xs">
+                    <option value="Ada">Ada / Masih Dimiliki</option>
+                    <option value="Hilang/Rusak">Hilang / Rusak</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-4">
+            <button id="regSubmitBtn" type="submit" class="btn-primary !px-8">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span id="regSubmitBtnText">Kirim Formulir Registrasi Ulang 2026</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ====================================================================
+           TAB 4: DIREKTORI ANGGOTA (FR-46, FR-47)
+           ==================================================================== -->
+      <section id="tab-direktori" class="tab-pane hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Direktori Rekan Anggota</h2>
+          <p class="text-xs text-[#8C9BAE] mt-0.5">Temukan kontak dan domisili rekan anggota seumur hidup saat berkunjung ke daerah atau butuh bantuan darurat.</p>
+        </div>
+
+        <!-- Privacy Notification Banner (FR-46) -->
+        <div class="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-start gap-3 text-xs text-blue-300">
+          <i data-lucide="shield-check" class="w-5 h-5 shrink-0 text-blue-400"></i>
+          <div>
+            <strong>Pelindungan Privasi Anggota:</strong> Direktori ini hanya menampilkan 5 atribut data resmi (Nama, No. Register, Kota & Provinsi Domisili, No. HP, dan Golongan Darah) dari sesama anggota aktif yang telah menyetujui Kebijakan Privasi Data.
+          </div>
+        </div>
+
+        <!-- Search and Filters Bar (FR-47) -->
+        <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-4 flex flex-col md:flex-row gap-3 items-center">
+          <div class="relative flex-1 w-full">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3 text-[#8C9BAE]"></i>
+            <input id="dirSearch" oninput="renderDirectory()" type="text" placeholder="Cari nama atau No. Register (contoh: MU 280)..." class="form-input !pl-10 !text-xs">
+          </div>
+
+          <div class="flex items-center gap-2 w-full md:w-auto">
+            <select id="dirFilterProvinsi" onchange="renderDirectory()" class="form-select !text-xs !w-auto">
+              <option value="">Semua Provinsi</option>
+              <option value="Sumatera Barat">Sumatera Barat</option>
+              <option value="Riau">Riau</option>
+              <option value="DKI Jakarta">DKI Jakarta</option>
+              <option value="Jawa Barat">Jawa Barat</option>
+            </select>
+
+            <select id="dirFilterGoldar" onchange="renderDirectory()" class="form-select !text-xs !w-auto">
+              <option value="">Semua Goldar</option>
+              <option value="A">Gol. A</option>
+              <option value="B">Gol. B</option>
+              <option value="AB">Gol. AB</option>
+              <option value="O">Gol. O</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-[#8C9BAE]">
+          <span id="dirResultCount">Memuat direktori...</span>
+          <span>Diambil dari View Resmi: <code class="text-[#FF6B00] font-mono">v_direktori_anggota</code></span>
+        </div>
+
+        <!-- Directory Cards Grid -->
+        <div id="directoryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Dynamically populated by anggota-app.js -->
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           TAB 5: PENGATURAN AKUN (FR-12, FR-45, FR-14)
+           ==================================================================== -->
+      <section id="tab-pengaturan" class="tab-pane hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white">Pengaturan Akun & Privasi</h2>
+          <p class="text-xs text-[#8C9BAE] mt-0.5">Kelola kata sandi mandiri dan tinjau persetujuan kebijakan privasi data.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Ganti Kata Sandi (FR-12) -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-white mb-4 pb-3 border-b border-[#1C2530] flex items-center gap-2">
+              <i data-lucide="key-round" class="w-4 h-4 text-[#FF6B00]"></i>
+              <span>Ganti Kata Sandi Akun</span>
+            </h3>
+
+            <form id="formChangePassword" onsubmit="handleChangePassword(event)" class="space-y-4">
+              <div>
+                <label class="form-label">Kata Sandi Saat Ini *</label>
+                <input id="settOldPass" type="password" required placeholder="Masukkan kata sandi lama" class="form-input">
+              </div>
+
+              <div>
+                <label class="form-label">Kata Sandi Baru *</label>
+                <input id="settNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input">
+              </div>
+
+              <div>
+                <label class="form-label">Konfirmasi Kata Sandi Baru *</label>
+                <input id="settConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input">
+              </div>
+
+              <div class="pt-3">
+                <button type="submit" class="btn-primary !text-xs">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>Perbarui Kata Sandi</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Naskah Kebijakan Privasi (FR-45) -->
+          <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+                <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-400"></i>
+                <span>Kebijakan Privasi & Persetujuan Data</span>
+              </h3>
+              <p class="text-xs text-[#8C9BAE] leading-relaxed mb-4">
+                Mapala UNAND mematuhi prinsip pelindungan data pribadi sesuai UU No. 27 Tahun 2022. Persetujuan Anda telah tersimpan secara resmi di sistem.
+              </p>
+
+              <div class="p-3 bg-[#07090C] border border-[#1C2530] rounded-xl text-xs space-y-2">
+                <div class="flex justify-between text-[#8C9BAE]">
+                  <span>Versi Kebijakan:</span>
+                  <span class="text-white font-mono font-bold">1.0 (Aktif)</span>
+                </div>
+                <div class="flex justify-between text-[#8C9BAE]">
+                  <span>Status Persetujuan:</span>
+                  <span class="text-emerald-400 font-semibold">Telah Disetujui</span>
+                </div>
+              </div>
+            </div>
+
+            <button onclick="openModal('mandatoryPrivacyModal')" class="mt-4 btn-secondary !text-xs justify-center">
+              <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              <span>Baca Ulang Naskah Kebijakan</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       MODAL 1: WAJIB GANTI PASSWORD PERTAMA (FR-11)
+       ======================================================================== -->
+  <div id="mandatoryPasswordModal" class="modal-overlay hidden">
+    <div class="modal-content p-6">
+      <div class="text-center mb-4">
+        <div class="w-12 h-12 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 text-[#FF6B00] flex items-center justify-center mx-auto mb-2">
+          <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">Wajib Ganti Kata Sandi</h3>
+        <p class="text-xs text-[#8C9BAE] mt-1">Demi keamanan biodata anggota, silakan ganti kata sandi awal/default Anda sebelum melanjutkan ke sistem.</p>
+      </div>
+
+      <form onsubmit="handleMandatoryPassword(event)" class="space-y-4">
+        <div>
+          <label class="form-label">Kata Sandi Awal (Default) *</label>
+          <input id="mandOldPass" type="password" required value="mapala123" placeholder="Kata sandi awal (default: mapala123)" class="form-input">
+          <p class="text-[11px] text-[#8C9BAE] mt-1">Kata sandi default dari pengurus: <code class="text-[#FF6B00]">mapala123</code></p>
+        </div>
+        <div>
+          <label class="form-label">Kata Sandi Baru *</label>
+          <input id="mandNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input">
+        </div>
+        <div>
+          <label class="form-label">Konfirmasi Kata Sandi Baru *</label>
+          <input id="mandConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input">
+        </div>
+        <button id="btnSubmitMandatoryPassword" type="submit" class="btn-primary w-full justify-center mt-2">
+          Simpan & Lanjutkan
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: WAJIB PERSETUJUAN KEBIJAKAN PRIVASI (FR-44)
+       ======================================================================== -->
+  <div id="mandatoryPrivacyModal" class="modal-overlay hidden">
+    <div class="modal-content !max-w-xl p-6">
+      <div class="flex items-center justify-between pb-3 border-b border-[#1C2530] mb-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-[#FF6B00]"></i>
+          <span id="privacyPolicyTitle">Kebijakan Privasi & Persetujuan Data Anggota</span>
+        </h3>
+        <button id="closePrivacyModalBtn" onclick="closePrivacyModal()" class="text-[#8C9BAE] hover:text-white" title="Tutup">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div id="privacyPolicyContent" class="space-y-3 text-xs text-[#94A3B8] max-h-60 overflow-y-auto pr-2 leading-relaxed">
+        <p>Memuat naskah kebijakan privasi dari database...</p>
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-[#1C2530] space-y-4">
+        <label class="flex items-start gap-2.5 cursor-pointer">
+          <input id="checkConsentPolicy" type="checkbox" checked class="mt-0.5 accent-[#FF6B00]">
+          <span class="text-xs text-white">Saya memahami dan menyetujui ketentuan pemrosesan data pribadi dan pembagian data terbatas pada Direktori Anggota sesuai UU PDP.</span>
+        </label>
+
+        <div class="flex justify-end gap-2">
+          <button id="btnSubmitConsent" type="button" onclick="handleMandatoryConsent()" class="btn-primary !text-xs">
+            Setujui & Lanjutkan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- App Script -->
+  <script src="/anggota/js/anggota-app.js"></script>
+</body>
+</html>

@@ -1,9 +1,10 @@
 const xlsx = require('xlsx');
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
+const { query } = require('../config/mysql');
 
 /**
- * Generate Excel Template for bulk importing members
+ * Generate Excel Template for bulk importing members (FR-31)
  */
 function generateTemplateWorkbook() {
   const headers = [
@@ -52,25 +53,34 @@ function generateTemplateWorkbook() {
 
 /**
  * Parse and Preview Excel or CSV file
- * Identifies errors, empty mandatory fields, and duplicates (FR-31)
+ * Identifies errors, empty mandatory fields, and duplicates against MySQL (FR-31)
  */
-function previewExcelFile(filePath) {
+async function previewExcelFile(filePath) {
   const wb = xlsx.readFile(filePath);
   const sheetName = wb.SheetNames[0];
   const sheet = wb.Sheets[sheetName];
   const rows = xlsx.utils.sheet_to_json(sheet, { defval: '' });
 
-  const existingMembers = db.get('members');
-  const existingRegs = new Set(existingMembers.map(m => (m.no_register || '').trim().toUpperCase()));
-  const seenInFile = new Set();
+  const normalizeKey = str => (str || '').replace(/[\s\.\-]+/g, '').toUpperCase();
 
+  // Query existing members directly from MySQL
+  let existingRegs = new Set();
+  try {
+    const existingRows = await query('SELECT no_register FROM anggota');
+    existingRegs = new Set(existingRows.map(m => normalizeKey(m.no_register)));
+  } catch {
+    const existingMembers = db.get('members');
+    existingRegs = new Set(existingMembers.map(m => normalizeKey(m.no_register)));
+  }
+
+  const seenInFile = new Set();
   const previewResults = [];
   let validCount = 0;
   let errorCount = 0;
   let duplicateCount = 0;
 
   rows.forEach((row, index) => {
-    const rowNum = index + 2; // header is row 1
+    const rowNum = index + 2; // Header is row 1
     let raw_no_reg = (row['No_Register'] || row['no_register'] || '').toString().trim();
     const nama = (row['Nama_Lengkap'] || row['nama_lengkap'] || row['Nama'] || '').toString().trim();
     const divisi = (row['Divisi'] || row['divisi'] || '').toString().trim();
@@ -84,7 +94,7 @@ function previewExcelFile(filePath) {
     const errors = [];
     let no_reg = raw_no_reg;
 
-    // Validasi Format No Register: MU XXX(digit angka) Xxx.(Huruf pertama besar, sisanya kecil diikuti titik)
+    // Validasi Format No Register: MU XXX(digit angka) Xxx.
     const regPattern = /^MU[\s-]?(\d{3})[\s-]?([A-Za-z]{3})\.?$/i;
     const match = raw_no_reg.match(regPattern);
 
@@ -96,10 +106,12 @@ function previewExcelFile(filePath) {
       const code = match[2];
       const formattedCode = code[0].toUpperCase() + code.slice(1, 3).toLowerCase() + '.';
       no_reg = `MU ${match[1]} ${formattedCode}`;
-      if (seenInFile.has(no_reg)) {
+      const key = normalizeKey(no_reg);
+
+      if (seenInFile.has(key)) {
         errors.push(`Duplikat di dalam file pada No Register: ${no_reg}`);
-      } else if (existingRegs.has(no_reg)) {
-        errors.push(`No Register ${no_reg} sudah terdaftar di database`);
+      } else if (existingRegs.has(key)) {
+        errors.push(`No Register ${no_reg} sudah terdaftar di database MySQL`);
       }
     }
 
@@ -111,8 +123,8 @@ function previewExcelFile(filePath) {
       errors.push('Divisi wajib diisi');
     }
 
-    if (!angkatan || isNaN(angkatan) || angkatan < 1980 || angkatan > 2030) {
-      errors.push('Angkatan harus berupa tahun valid (1980 - 2030)');
+    if (!angkatan || isNaN(angkatan) || angkatan < 1970 || angkatan > 2035) {
+      errors.push('Angkatan harus berupa tahun valid (1970 - 2035)');
     }
 
     const isValid = errors.length === 0;
@@ -125,7 +137,7 @@ function previewExcelFile(filePath) {
       }
     } else {
       validCount++;
-      seenInFile.add(no_reg);
+      seenInFile.add(normalizeKey(no_reg));
     }
 
     previewResults.push({
@@ -154,7 +166,7 @@ function previewExcelFile(filePath) {
 }
 
 /**
- * Commit validated rows into database
+ * Commit validated rows into in-memory store as fallback
  */
 function commitImportedMembers(validRows) {
   const members = db.get('members');
@@ -207,35 +219,29 @@ function commitImportedMembers(validRows) {
 }
 
 /**
- * Export member data to Excel Buffer with filters
+ * Export member data to Excel / CSV Buffer with filters (FR-35)
  */
-function exportMembersToExcel(membersList, periodYear = 2026) {
-  const reRegistrations = db.get('reRegistrations');
-  const regMap = new Map();
-  reRegistrations
-    .filter(r => r.periode_tahun === periodYear)
-    .forEach(r => regMap.set(r.no_register, r));
-
+function exportMembersToExcel(membersList, periodYear = 2026, format = 'xlsx') {
   const exportData = membersList.map((m, idx) => {
-    const reg = regMap.get(m.no_register);
+    const isReg = m.reg_status === 'Sudah Registrasi';
     return {
       No: idx + 1,
       'No. Register': m.no_register,
       'Nama Lengkap': m.nama,
-      Divisi: m.divisi,
-      Angkatan: m.angkatan,
+      Divisi: m.divisi || '-',
+      Angkatan: m.angkatan || '-',
       'Golongan Darah': m.golongan_darah || '-',
       'Tempat Lahir': m.tempat_lahir || '-',
       'Tanggal Lahir': m.tanggal_lahir || '-',
-      'Status Keanggotaan': m.status_aktif ? 'Aktif' : 'Nonaktif',
-      'Status Registrasi Ulang': reg ? 'Sudah Registrasi' : 'Belum Registrasi',
-      'Nomor HP / WhatsApp': reg ? reg.no_hp : '-',
-      Email: reg ? reg.email : '-',
-      'Kota/Kab Domisili': reg ? reg.kota_kabupaten : '-',
-      'Provinsi Domisili': reg ? reg.provinsi : '-',
-      Pekerjaan: reg ? reg.pekerjaan : '-',
-      'Sumber Input': reg ? (reg.sumber_input === 'admin' ? 'Diinput Admin' : 'Mandiri') : '-',
-      'Waktu Registrasi': reg ? reg.submitted_at : '-'
+      'Status Keanggotaan': (m.status_aktif || m.is_active) ? 'Aktif' : 'Nonaktif',
+      'Status Registrasi Ulang': m.reg_status || (isReg ? 'Sudah Registrasi' : 'Belum Registrasi'),
+      'Nomor HP / WhatsApp': m.no_hp || '-',
+      Email: m.email || '-',
+      'Kota/Kab Domisili': m.domisili_kota || m.kota_kabupaten || '-',
+      'Provinsi Domisili': m.domisili_provinsi || m.provinsi || '-',
+      Pekerjaan: m.pekerjaan || '-',
+      'Sumber Input': m.sumber_input ? (m.sumber_input === 'admin' ? 'Diinput Admin' : 'Mandiri') : '-',
+      'Waktu Registrasi': m.submitted_at || '-'
     };
   });
 
@@ -243,7 +249,8 @@ function exportMembersToExcel(membersList, periodYear = 2026) {
   const wb = xlsx.utils.book_new();
   xlsx.utils.book_append_sheet(wb, ws, `Data_Anggota_${periodYear}`);
 
-  return xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' });
+  const bookType = format === 'csv' ? 'csv' : 'xlsx';
+  return xlsx.write(wb, { type: 'buffer', bookType });
 }
 
 module.exports = {
@@ -252,4 +259,3 @@ module.exports = {
   commitImportedMembers,
   exportMembersToExcel
 };
-

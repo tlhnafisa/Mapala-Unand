@@ -33,7 +33,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- Custom Alpine/Outdoor CSS -->
-  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/admin/css/admin.css">
 </head>
 <body class="bg-[#07090C] text-white min-h-screen">
 
@@ -263,9 +263,14 @@
             <div class="space-y-6">
               <!-- Angkatan Quick Stats -->
               <div class="card-alpine">
-                <h3 class="font-bold text-white text-base mb-2">Sebaran Angkatan Teratas</h3>
-                <p class="text-xs text-[#8C9BAE] mb-4">Representasi generasi anggota Mapala UNAND</p>
-                <div id="chartAngkatanBars" class="space-y-2">
+                <div class="flex items-center justify-between mb-3">
+                  <div>
+                    <h3 class="font-bold text-white text-base">Sebaran Angkatan</h3>
+                    <p class="text-xs text-[#8C9BAE]">Representasi seluruh generasi anggota Mapala UNAND</p>
+                  </div>
+                  <span id="angkatanCountBadge" class="badge-pill badge-orange font-bold">– Angkatan</span>
+                </div>
+                <div id="chartAngkatanBars" class="space-y-2.5 max-h-[320px] overflow-y-auto pr-1">
                   <!-- Injected via JS -->
                 </div>
               </div>
@@ -305,12 +310,27 @@
                 <button onclick="openImportModal()" class="btn-secondary !text-xs !py-2.5">
                   <i data-lucide="file-spreadsheet" class="w-4 h-4 text-[#10B981]"></i> Impor Excel/CSV
                 </button>
-                <button onclick="exportMembersFiltered()" class="btn-secondary !text-xs !py-2.5">
-                  <i data-lucide="download" class="w-4 h-4 text-[#38BDF8]"></i> Ekspor Data
-                </button>
-                <a href="/api/admin/members/template" download class="btn-secondary !text-xs !py-2.5 text-[#8C9BAE]">
+                <!-- Tombol Ekspor dengan Pilihan Format (.xlsx & .csv) -->
+                <div class="relative inline-block">
+                  <button onclick="toggleExportMenu(event)" class="btn-secondary !text-xs !py-2.5 flex items-center gap-1.5">
+                    <i data-lucide="download" class="w-4 h-4 text-[#38BDF8]"></i>
+                    <span>Ekspor Data</span>
+                    <i data-lucide="chevron-down" class="w-3 h-3 text-[#8C9BAE]"></i>
+                  </button>
+                  <div id="exportDropdownMenu" class="hidden absolute right-0 mt-2 w-44 rounded-xl bg-[#131A22] border border-white/10 shadow-2xl py-1 z-50">
+                    <button onclick="exportMembersFiltered('xlsx')" class="w-full text-left px-3.5 py-2 text-xs text-white hover:bg-white/5 flex items-center gap-2">
+                      <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-[#10B981]"></i> Format Excel (.xlsx)
+                    </button>
+                    <button onclick="exportMembersFiltered('csv')" class="w-full text-left px-3.5 py-2 text-xs text-white hover:bg-white/5 flex items-center gap-2">
+                      <i data-lucide="file-text" class="w-3.5 h-3.5 text-[#38BDF8]"></i> Format CSV (.csv)
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Tombol Unduh Templat -->
+                <button onclick="downloadTemplateFile()" class="btn-secondary !text-xs !py-2.5 text-[#8C9BAE] flex items-center gap-1.5" title="Unduh Templat Format Excel Impor">
                   <i data-lucide="file-down" class="w-4 h-4"></i> Unduh Templat
-                </a>
+                </button>
               </div>
             </div>
 
@@ -320,7 +340,6 @@
                 <label class="form-label">Filter Angkatan</label>
                 <select id="filterAngkatan" onchange="loadMembers()" class="form-select !py-2 !text-xs">
                   <option value="">Semua Angkatan</option>
-                  <option value="2023">Angkatan 2023</option>
                   <option value="2022">Angkatan 2022</option>
                   <option value="2021">Angkatan 2021</option>
                   <option value="2020">Angkatan 2020</option>
@@ -328,6 +347,7 @@
                   <option value="2018">Angkatan 2018</option>
                   <option value="2014">Angkatan 2014</option>
                   <option value="2008">Angkatan 2008</option>
+                  <option value="2003">Angkatan 2003</option>
                   <option value="1998">Angkatan 1998</option>
                   <option value="1995">Angkatan 1995</option>
                 </select>
@@ -413,6 +433,10 @@
                 <div class="p-2 px-3 rounded-xl bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-xs">
                   <span class="text-[#8C9BAE]">Belum Reg: </span>
                   <strong id="monTotalBelum" class="text-[#F59E0B] font-bold">0</strong>
+                </div>
+                <div class="p-2 px-3 rounded-xl bg-[#FF6B00]/10 border border-[#FF6B00]/20 text-xs">
+                  <span class="text-[#8C9BAE]">Kepatuhan: </span>
+                  <strong id="monPersentaseKepatuhan" class="text-[#FF6B00] font-bold">0%</strong>
                 </div>
               </div>
             </div>
@@ -610,7 +634,7 @@
                 <h3 class="font-bold text-white text-base">Manajemen Artikel & Dokumentasi Kegiatan</h3>
                 <p class="text-xs text-[#8C9BAE]">Publikasikan berita ekspedisi, pendakian, caving, arung jeram, dan kegiatan divisi ke portal publik</p>
               </div>
-              <button onclick="document.getElementById('articleModal').classList.add('active')" class="btn-primary !text-xs !py-2.5">
+              <button onclick="openCreateArticleModal()" class="btn-primary !text-xs !py-2.5">
                 <i data-lucide="plus" class="w-4 h-4"></i> Buat Artikel Baru
               </button>
             </div>
@@ -621,7 +645,8 @@
                   <thead>
                     <tr>
                       <th>Judul Artikel</th>
-                      <th>Kategori</th>
+                      <th>Kategori & Divisi</th>
+                      <th>Tanggal Kegiatan</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </tr>
@@ -700,7 +725,7 @@
                 <h3 class="font-bold text-white text-base">Daftar Prestasi & Penghargaan</h3>
                 <p class="text-xs text-[#8C9BAE]">Catatan kejuaraan panjat tebing, kalpataru, dan pencapaian lainnya</p>
               </div>
-              <button onclick="document.getElementById('prestasiModal').classList.add('active')" class="btn-primary !text-xs !py-2.5">
+              <button onclick="openCreatePrestasiModal()" class="btn-primary !text-xs !py-2.5">
                 <i data-lucide="plus" class="w-4 h-4"></i> Tambah Prestasi
               </button>
             </div>
@@ -711,8 +736,9 @@
                   <thead>
                     <tr>
                       <th>Tahun</th>
-                      <th>Judul Pencapaian</th>
+                      <th>Judul & Kategori</th>
                       <th>Deskripsi</th>
+                      <th>Sorotan Beranda</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -1148,13 +1174,14 @@
       </div>
 
       <div class="flex items-center justify-between pt-4 mt-6 border-t border-white/10">
-        <a href="/api/admin/members/template" download class="text-xs text-[#FF6B00] hover:underline flex items-center gap-1.5">
+        <button type="button" onclick="downloadTemplateFile()" class="text-xs text-[#FF6B00] hover:underline flex items-center gap-1.5">
           <i data-lucide="download" class="w-3.5 h-3.5"></i> Unduh Templat Excel
-        </a>
+        </button>
         <div class="flex gap-2">
           <button onclick="closeModal('importModal')" class="btn-secondary !text-xs">Tutup</button>
-          <button id="btnCommitImport" onclick="commitImportData()" class="btn-primary !text-xs hidden">
-            Simpan Data Valid ke Database
+          <button id="btnCommitImport" onclick="commitImportData()" class="btn-primary !text-xs hidden flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Simpan & Terapkan Data</span>
           </button>
         </div>
       </div>
@@ -1245,73 +1272,93 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- MODAL: BUAT ARTIKEL / KEGIATAN (FR-39) -->
+  <!-- ========================================== -->
+  <!-- MODAL: BUAT / EDIT ARTIKEL & KEGIATAN (FR-39) -->
   <!-- ========================================== -->
   <div id="articleModal" class="modal-overlay">
-    <div class="modal-content !max-w-2xl">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-        <h3 class="font-bold text-white text-lg">Buat Artikel & Dokumentasi Kegiatan</h3>
+    <div class="modal-content !max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4 sticky top-0 bg-[#11161B] z-10">
+        <h3 id="articleModalTitle" class="font-bold text-white text-lg">Buat Artikel & Dokumentasi Kegiatan</h3>
         <button onclick="closeModal('articleModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <form onsubmit="handleCreateArticle(event)" class="space-y-4">
+      <form onsubmit="handleSaveArticle(event)" class="space-y-4">
+        <input type="hidden" id="artEditId" value="">
+
         <div>
           <label class="form-label">Judul Artikel / Kegiatan *</label>
           <input id="artJudul" type="text" required placeholder="Contoh: Ekspedisi Singgalang 2026" class="form-input">
         </div>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
-            <label class="form-label">Kategori *</label>
+            <label class="form-label">Kategori Kegiatan *</label>
             <select id="artKategori" class="form-select">
-              <option value="berita">Berita Organisasi</option>
-              <option value="ekspedisi">Ekspedisi</option>
-              <option value="pendakian">Pendakian Gunung</option>
-              <option value="caving">Susur Gua (Caving)</option>
-              <option value="rafting">Arung Jeram</option>
-              <option value="kegiatan lapangan">Kegiatan Lapangan</option>
+              <option value="1">Ekspedisi</option>
+              <option value="2">Pendakian & Rimba</option>
+              <option value="3">Kegiatan Lapangan</option>
+              <option value="4">Program Divisi</option>
+              <option value="5">Berita & Edukasi</option>
             </select>
           </div>
           <div>
-            <label class="form-label">Tanggal Terbit</label>
-            <input id="artTanggal" type="date" class="form-input">
+            <label class="form-label">Divisi Penyelenggara</label>
+            <select id="artDivisi" class="form-select">
+              <option value="">-- Tanpa Divisi Khusus --</option>
+              <!-- Diisi via JS loadDivisionsOptions() -->
+            </select>
           </div>
           <div>
-            <label class="form-label">Status Publikasi</label>
-            <select id="artStatus" class="form-select">
-              <option value="terbit">Terbit (Publik)</option>
-              <option value="draf">Simpan Draf</option>
-            </select>
+            <label class="form-label">Lokasi Kegiatan</label>
+            <input id="artLokasi" type="text" placeholder="Contoh: Gunung Kerinci 3.805 MDPL" class="form-input">
           </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div>
-            <label class="form-label">Nama Penulis / Tim</label>
-            <input id="artPenulis" type="text" value="Bidang Kesekretariatan" class="form-input">
+            <label class="form-label">Tanggal Kegiatan *</label>
+            <input id="artTanggal" type="date" required class="form-input">
           </div>
           <div>
-            <label class="form-label">URL Foto Dokumentasi Utama (Opsional)</label>
+            <label class="form-label">Status Publikasi *</label>
+            <select id="artStatus" class="form-select font-semibold">
+              <option value="terbit" class="text-emerald-400">Terbit (Tampil di Landing Page)</option>
+              <option value="draf" class="text-amber-400">Simpan Draf (Internal)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Nama Penulis / Tim Capaian</label>
+            <input id="artPenulis" type="text" placeholder="Tim Eksplorasi Mapala" class="form-input">
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Ringkasan Singkat (Muncul pada Kartu Beranda)</label>
+          <input id="artRingkasan" type="text" placeholder="Ringkasan 1-2 kalimat dokumentasi kegiatan..." class="form-input">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Unggah Foto Sampul & Dokumentasi</label>
+            <input id="artFileMulti" type="file" multiple accept="image/jpeg,image/png,image/webp,image/svg+xml" class="form-input">
+            <p class="text-[11px] text-[#8C9BAE] mt-1">Dapat memilih 1 atau lebih foto (JPG/PNG/WEBP/SVG, maks. 5 MB).</p>
+          </div>
+          <div>
+            <label class="form-label">Atau URL Foto Sampul Online (Opsional)</label>
             <input id="artFotoUrl" type="url" placeholder="https://images.unsplash.com/..." class="form-input">
           </div>
         </div>
 
         <div>
-          <label class="form-label">Unggah Foto Dokumentasi (P-02: Dapat memilih lebih dari 1 foto)</label>
-          <input id="artFileMulti" type="file" multiple accept="image/jpeg,image/png,image/webp" class="form-input">
-          <p class="text-[11px] text-[#8C9BAE] mt-1">Dapat memilih lebih dari satu gambar sekaligus untuk slide foto (JPG/PNG, maks. 5 MB per foto).</p>
+          <label class="form-label">Isi Narasi / Berita Lengkap *</label>
+          <textarea id="artIsi" rows="6" required placeholder="Tuliskan dokumentasi jalannya kegiatan atau ekspedisi secara mendalam di sini..." class="form-textarea"></textarea>
         </div>
 
-        <div>
-          <label class="form-label">Isi Narasi / Berita *</label>
-          <textarea id="artIsi" rows="6" required placeholder="Tuliskan dokumentasi kegiatan di sini..." class="form-textarea"></textarea>
-        </div>
-
-        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10 sticky bottom-0 bg-[#11161B] py-2">
           <button type="button" onclick="closeModal('articleModal')" class="btn-secondary !text-xs">Batal</button>
-          <button type="submit" class="btn-primary !text-xs">Simpan Konten</button>
+          <button type="submit" id="btnSaveArticle" class="btn-primary !text-xs">Simpan Artikel</button>
         </div>
       </form>
     </div>
@@ -1359,33 +1406,64 @@
   </div>
 
   <!-- ========================================== -->
-  <!-- MODAL: TAMBAH PRESTASI (FR-41) -->
+  <!-- MODAL: TAMBAH / EDIT PRESTASI (FR-41) -->
   <!-- ========================================== -->
   <div id="prestasiModal" class="modal-overlay">
-    <div class="modal-content !max-w-md">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
-        <h3 class="font-bold text-white text-lg">Tambah Catatan Prestasi</h3>
+    <div class="modal-content !max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4 sticky top-0 bg-[#11161B] z-10">
+        <h3 id="prestasiModalTitle" class="font-bold text-white text-lg">Tambah Catatan Prestasi</h3>
         <button onclick="closeModal('prestasiModal')" class="p-1 rounded-lg hover:bg-white/10 text-white/60">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <form onsubmit="handleCreatePrestasi(event)" class="space-y-4">
-        <div>
-          <label class="form-label">Tahun Perolehan *</label>
-          <input id="prsTahun" type="number" required value="2026" class="form-input">
+      <form onsubmit="handleSavePrestasi(event)" class="space-y-4">
+        <input type="hidden" id="prsEditId" value="">
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Tahun Perolehan *</label>
+            <input id="prsTahun" type="number" required value="2026" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Kategori *</label>
+            <input id="prsKategori" type="text" value="Kompetisi" placeholder="Kompetisi / Konservasi" class="form-input">
+          </div>
         </div>
+
         <div>
           <label class="form-label">Judul Prestasi / Kejuaraan *</label>
           <input id="prsJudul" type="text" required placeholder="Juara 1 Wall Climbing Mahasiswa" class="form-input">
         </div>
+
         <div>
           <label class="form-label">Deskripsi Penghargaan *</label>
-          <textarea id="prsDeskripsi" rows="3" required placeholder="Tingkat kompetisi, instansi penyelenggara, dsb..." class="form-textarea"></textarea>
+          <textarea id="prsDeskripsi" rows="3" required placeholder="Tingkat kompetisi, instansi penyelenggara, rincian kejuaraan..." class="form-textarea"></textarea>
         </div>
-        <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="form-label">Label Info / Penyelenggara</label>
+            <input id="prsInfoPenyelenggara" type="text" placeholder="FPTI / Kemenpora" class="form-input">
+          </div>
+          <div>
+            <label class="form-label">Unggah Foto Piagam / Trofi</label>
+            <input id="prsFotoFile" type="file" accept="image/*" class="form-input">
+          </div>
+        </div>
+
+        <!-- Highlight Checkbox (FR-41) -->
+        <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10 hover:border-[#FF6B00]/40 transition-all">
+          <input id="prsIsSorotan" type="checkbox" class="w-4 h-4 rounded text-[#FF6B00] accent-[#FF6B00] bg-white/10 cursor-pointer">
+          <label for="prsIsSorotan" class="text-xs text-white cursor-pointer select-none">
+            <strong class="text-[#FF6B00] block">Tampilkan sebagai Sorotan Beranda</strong>
+            <span class="block text-[11px] text-[#8C9BAE]">Prestasi ini otomatis muncul pada kartu sorotan landing page utama.</span>
+          </label>
+        </div>
+
+        <div class="flex justify-end gap-3 pt-3 border-t border-white/10 sticky bottom-0 bg-[#11161B] py-2">
           <button type="button" onclick="closeModal('prestasiModal')" class="btn-secondary !text-xs">Batal</button>
-          <button type="submit" class="btn-primary !text-xs">Simpan Prestasi</button>
+          <button type="submit" id="btnSavePrestasi" class="btn-primary !text-xs">Simpan Prestasi</button>
         </div>
       </form>
     </div>
@@ -1505,7 +1583,7 @@
   </div>
 
   <!-- Core App Logic -->
-  <script src="/js/admin-app.js"></script>
+  <script src="/admin/js/admin-app.js"></script>
 </body>
 </html>
 

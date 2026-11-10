@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aktivasi Akun Anggota | Sistem Informasi Mapala UNAND</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#07090C',
+            card: '#11161B',
+            cardHover: '#161D24',
+            primaryOrange: '#FF6B00',
+            primaryOrangeHover: '#FFA143',
+            borderDark: '#1C2530',
+            mutedLabel: '#8C9BAE',
+            textSecondary: '#94A3B8'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Member CSS -->
+  <link rel="stylesheet" href="/anggota/css/anggota.css">
+</head>
+<body class="bg-[#07090C] text-white min-h-screen flex flex-col antialiased selection:bg-[#FF6B00] selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-[99999] flex flex-col-reverse gap-2 pointer-events-none"></div>
+
+  <!-- TOP HEADER (Focused & Clean) -->
+  <header class="w-full bg-[#11161B] border-b border-[#1C2530] sticky top-0 z-40 backdrop-blur-md bg-[#11161B]/90">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shrink-0">
+          <i data-lucide="compass" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold tracking-wider text-white">MAPALA UNAND</span>
+            <span class="text-[10px] font-bold uppercase bg-[#FF6B00]/15 text-[#FF6B00] border border-[#FF6B00]/30 px-2 py-0.5 rounded-full">
+              Aktivasi Akun
+            </span>
+          </div>
+          <p class="text-[11px] text-[#8C9BAE]">Panduan Penyiapan Akun Anggota Baru (3 Langkah)</p>
+        </div>
+      </div>
+
+      <!-- Member Profile Pill & Logout -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:block text-right">
+          <span id="headerMemberName" class="text-xs font-bold text-white block">Nama Anggota</span>
+          <span id="headerMemberReg" class="text-[10px] font-mono text-[#FF6B00] block">No. Register</span>
+        </div>
+        <button onclick="handleLogout()" title="Keluar dari akun" class="p-2 rounded-xl bg-[#07090C] border border-[#1C2530] text-[#8C9BAE] hover:text-red-400 hover:border-red-500/30 transition-all">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WIZARD CONTAINER -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col justify-center">
+
+    <!-- STEPPER PROGRESS BAR -->
+    <div class="mb-8">
+      <div class="grid grid-cols-3 gap-2 sm:gap-4 relative">
+        
+        <!-- Step 1 Indicator -->
+        <div id="stepIndicator1" class="flex flex-col items-center sm:items-start p-3 sm:p-4 rounded-2xl bg-[#11161B] border border-[#FF6B00] transition-all">
+          <div class="flex items-center gap-2 mb-1">
+            <span id="stepBadge1" class="w-6 h-6 rounded-full bg-[#FF6B00] text-white flex items-center justify-center text-xs font-bold shrink-0">
+              1
+            </span>
+            <span class="text-xs font-bold text-white hidden sm:inline">Langkah 1</span>
+          </div>
+          <span class="text-[11px] sm:text-xs text-[#8C9BAE] font-medium text-center sm:text-left">Kata Sandi Baru</span>
+        </div>
+
+        <!-- Step 2 Indicator -->
+        <div id="stepIndicator2" class="flex flex-col items-center sm:items-start p-3 sm:p-4 rounded-2xl bg-[#11161B] border border-[#1C2530] opacity-60 transition-all">
+          <div class="flex items-center gap-2 mb-1">
+            <span id="stepBadge2" class="w-6 h-6 rounded-full bg-[#1C2530] text-[#8C9BAE] flex items-center justify-center text-xs font-bold shrink-0">
+              2
+            </span>
+            <span class="text-xs font-bold text-white hidden sm:inline">Langkah 2</span>
+          </div>
+          <span class="text-[11px] sm:text-xs text-[#8C9BAE] font-medium text-center sm:text-left">Kebijakan Privasi</span>
+        </div>
+
+        <!-- Step 3 Indicator -->
+        <div id="stepIndicator3" class="flex flex-col items-center sm:items-start p-3 sm:p-4 rounded-2xl bg-[#11161B] border border-[#1C2530] opacity-60 transition-all">
+          <div class="flex items-center gap-2 mb-1">
+            <span id="stepBadge3" class="w-6 h-6 rounded-full bg-[#1C2530] text-[#8C9BAE] flex items-center justify-center text-xs font-bold shrink-0">
+              3
+            </span>
+            <span class="text-xs font-bold text-white hidden sm:inline">Langkah 3</span>
+          </div>
+          <span class="text-[11px] sm:text-xs text-[#8C9BAE] font-medium text-center sm:text-left">Lengkapi Biodata</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         STEP 1: GANTI KATA SANDI SEMENTARA
+         ==================================================================== -->
+    <section id="stepPane1" class="bg-[#11161B] border border-[#1C2530] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div class="flex items-start gap-4 mb-6 pb-6 border-b border-[#1C2530]">
+        <div class="w-12 h-12 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-center text-[#FF6B00] shrink-0">
+          <i data-lucide="key" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white">Langkah 1: Perbarui Kata Sandi Sementara</h2>
+          <p class="text-xs sm:text-sm text-[#8C9BAE] mt-1 leading-relaxed">
+            Akun Anda saat ini menggunakan kata sandi awal bawaan (<code class="text-[#FF6B00] font-mono">mapala123</code>). Silakan buat kata sandi pribadi yang kuat agar akun Anda aman.
+          </p>
+        </div>
+      </div>
+
+      <form id="formStep1" onsubmit="submitStep1(event)" class="space-y-5">
+        <div>
+          <label class="form-label">Kata Sandi Lama (Default Sementara) *</label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+            <input id="step1OldPass" type="password" required placeholder="Masukkan kata sandi lama (contoh: mapala123)" class="form-input !pl-10 text-sm">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="form-label">Kata Sandi Baru (Min. 6 Karakter) *</label>
+            <div class="relative">
+              <i data-lucide="shield-check" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+              <input id="step1NewPass" type="password" minlength="6" required placeholder="Buat kata sandi baru" class="form-input !pl-10 text-sm">
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label">Konfirmasi Kata Sandi Baru *</label>
+            <div class="relative">
+              <i data-lucide="check-check" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
+              <input id="step1ConfPass" type="password" minlength="6" required placeholder="Ulangi kata sandi baru" class="form-input !pl-10 text-sm">
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-between border-t border-white/5">
+          <span class="text-xs text-[#8C9BAE] flex items-center gap-1.5">
+            <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+            Enkripsi aman dengan BCrypt
+          </span>
+          <button id="btnStep1" type="submit" class="btn-primary !px-6 font-bold shadow-lg shadow-[#FF6B00]/20">
+            <span>Simpan & Lanjut ke Langkah 2</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ====================================================================
+         STEP 2: PERSETUJUAN KEBIJAKAN PRIVASI & DATA PRIBADI (UU PDP)
+         ==================================================================== -->
+    <section id="stepPane2" class="hidden bg-[#11161B] border border-[#1C2530] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div class="flex items-start gap-4 mb-6 pb-6 border-b border-[#1C2530]">
+        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+          <i data-lucide="file-text" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white">Langkah 2: Kebijakan Privasi & Pelindungan Data Pribadi</h2>
+          <p class="text-xs sm:text-sm text-[#8C9BAE] mt-1 leading-relaxed">
+            Sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP), organisasi kami berkomitmen melindungi data pribadi seluruh anggota seumur hidup.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Scrollable Policy Box -->
+        <div class="bg-[#07090C] border border-[#1C2530] rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#1C2530]">
+            <span id="policyTitle" class="text-xs font-bold text-white">Naskah Kebijakan Privasi Mapala UNAND</span>
+            <span id="policyVersion" class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              Versi 1.0 (Aktif)
+            </span>
+          </div>
+
+          <div id="policyContent" class="text-xs text-[#94A3B8] max-h-56 overflow-y-auto space-y-3 leading-relaxed pr-2">
+            <p>Memuat naskah kebijakan privasi dari database...</p>
+          </div>
+        </div>
+
+        <form id="formStep2" onsubmit="submitStep2(event)" class="space-y-4 pt-2">
+          <label class="flex items-start gap-3 p-3.5 rounded-xl bg-blue-500/5 border border-blue-500/20 cursor-pointer hover:bg-blue-500/10 transition-all">
+            <input id="step2ConsentCheckbox" type="checkbox" required class="mt-0.5 w-4 h-4 rounded text-[#FF6B00] border-gray-700 focus:ring-[#FF6B00] shrink-0">
+            <span class="text-xs text-[#94A3B8] leading-relaxed select-none">
+              Saya telah membaca, memahami, dan menyetujui seluruh ketentuan <strong>Kebijakan Privasi dan Pelindungan Data Pribadi Anggota Mapala Universitas Andalas</strong> serta bersedia mematuhi peraturan keorganisasian yang berlaku.
+            </span>
+          </label>
+
+          <div class="pt-3 flex items-center justify-between border-t border-white/5">
+            <button type="button" onclick="goToStep(1)" class="btn-secondary !text-xs font-semibold">
+              <i data-lucide="arrow-left" class="w-4 h-4"></i>
+              <span>Kembali</span>
+            </button>
+            <button id="btnStep2" type="submit" class="btn-primary !px-6 font-bold shadow-lg shadow-[#FF6B00]/20">
+              <span>Setujui & Lanjut ke Langkah 3</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         STEP 3: LENGKAPI BIODATA ESENSIAL ANGGOTA
+         ==================================================================== -->
+    <section id="stepPane3" class="hidden bg-[#11161B] border border-[#1C2530] rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      <div class="flex items-start gap-4 mb-6 pb-6 border-b border-[#1C2530]">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+          <i data-lucide="user-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-lg sm:text-xl font-bold text-white">Langkah 3: Lengkapi Biodata Esensial Anggota</h2>
+          <p class="text-xs sm:text-sm text-[#8C9BAE] mt-1 leading-relaxed">
+            Data ini esensial untuk penerbitan Kartu Anggota Digital (KTA), pencatatan rekam medis darurat (golongan darah), serta verifikasi hak suara keorganisasian.
+          </p>
+        </div>
+      </div>
+
+      <form id="formStep3" onsubmit="submitStep3(event)" class="space-y-6">
+        
+        <!-- Snapshot Data Terkunci (Read-Only) -->
+        <div class="bg-[#07090C] border border-[#1C2530] rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-[#8C9BAE] uppercase tracking-wider">Identitas Resmi Organisasi (Terkunci)</span>
+            <span class="text-[10px] text-emerald-400 flex items-center gap-1">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+              Terverifikasi Admin
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div>
+              <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">No. Register</span>
+              <span id="step3LockedNoReg" class="font-mono font-bold text-[#FF6B00] text-sm">-</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">Nama Lengkap</span>
+              <span id="step3LockedNama" class="font-bold text-white text-sm truncate block">-</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">Divisi</span>
+              <span id="step3LockedDivisi" class="font-medium text-[#94A3B8] text-sm block truncate">-</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">Angkatan</span>
+              <span id="step3LockedAngkatan" class="font-mono font-bold text-white text-sm">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kolom Wajib Diisi -->
+        <div class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="form-label">Tempat Lahir *</label>
+              <input id="step3TempatLahir" type="text" required placeholder="Contoh: Padang" class="form-input text-xs">
+            </div>
+            <div>
+              <label class="form-label">Tanggal Lahir *</label>
+              <input id="step3TanggalLahir" type="date" required class="form-input text-xs">
+            </div>
+            <div>
+              <label class="form-label">Golongan Darah *</label>
+              <select id="step3Goldar" required class="form-select text-xs">
+                <option value="">Pilih Golongan Darah</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label">Nama Lengkap Ayah Kandung *</label>
+              <input id="step3NamaAyah" type="text" required placeholder="Nama lengkap ayah" class="form-input text-xs">
+            </div>
+            <div>
+              <label class="form-label">Nama Lengkap Ibu Kandung *</label>
+              <input id="step3NamaIbu" type="text" required placeholder="Nama lengkap ibu" class="form-input text-xs">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="form-label">Nomor WhatsApp / HP Aktif *</label>
+              <input id="step3NoHp" type="tel" required placeholder="Contoh: 081234567890" class="form-input text-xs">
+            </div>
+            <div>
+              <label class="form-label">Kota / Kabupaten Domisili *</label>
+              <input id="step3Kota" type="text" required placeholder="Contoh: Kota Padang" class="form-input text-xs">
+            </div>
+            <div>
+              <label class="form-label">Provinsi Domisili *</label>
+              <input id="step3Provinsi" type="text" required placeholder="Contoh: Sumatera Barat" class="form-input text-xs">
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label">Alamat Rumah Saat Ini (Opsional)</label>
+            <input id="step3Alamat" type="text" placeholder="Jalan, kelurahan, kecamatan tempat tinggal saat ini" class="form-input text-xs">
+          </div>
+        </div>
+
+        <div class="pt-4 flex items-center justify-between border-t border-white/5">
+          <button type="button" onclick="goToStep(2)" class="btn-secondary !text-xs font-semibold">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Kembali</span>
+          </button>
+          <button id="btnStep3" type="submit" class="btn-primary !px-8 font-bold shadow-lg shadow-[#FF6B00]/25">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Selesaikan Aktivasi Akun</span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ====================================================================
+         MODAL / CELEBRATION OVERLAY (SUKSES AKTIVASI)
+         ==================================================================== -->
+    <div id="successOverlay" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-[#11161B] border border-emerald-500/40 rounded-3xl p-8 max-w-md w-full text-center space-y-4 shadow-2xl animate-in fade-in zoom-in duration-300">
+        <div class="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mx-auto">
+          <i data-lucide="award" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-2xl font-extrabold text-white">Akun Berhasil Diaktivasi!</h3>
+        <p class="text-xs text-[#94A3B8] leading-relaxed">
+          Selamat! Seluruh tahapan onboarding 3-langkah telah tuntas. Anda sekarang memiliki akses penuh ke Portal Anggota Mapala UNAND seumur hidup.
+        </p>
+
+        <div class="p-3 bg-[#07090C] border border-[#1C2530] rounded-xl text-left text-xs space-y-1">
+          <div class="flex justify-between text-[#8C9BAE]">
+            <span>Status Akun:</span>
+            <span class="text-emerald-400 font-bold">Aktif & Lengkap (100%)</span>
+          </div>
+          <div class="flex justify-between text-[#8C9BAE]">
+            <span>Hak Suara:</span>
+            <span class="text-white font-medium">Penuh (Musang)</span>
+          </div>
+        </div>
+
+        <button onclick="finishActivationRedirect()" class="btn-primary w-full justify-center !py-3 font-bold text-sm shadow-lg shadow-[#FF6B00]/30">
+          <span>Masuk ke Portal Anggota Sekarang</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/anggota/js/aktivasi.js"></script>
+</body>
+</html>

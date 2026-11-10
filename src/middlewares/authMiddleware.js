@@ -4,7 +4,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'mapala-unand-secret-key-2026';
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  let token = authHeader && authHeader.split(' ')[1];
+
+  // Also support query param token for browser downloads / exports / print views
+  if (!token && req.query && req.query.token) {
+    token = req.query.token;
+  }
 
   if (!token) {
     return res.status(401).json({

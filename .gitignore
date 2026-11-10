@@ -1,10 +1,68 @@
+# ========================================================
+# MAPALA UNAND - GITIGNORE CONFIGURATION
+# ========================================================
+
+# 1. Dependency Directories
 node_modules/
+jspm_packages/
+.npm/
+
+# 2. Environment Variables & Credentials (CRITICAL SECURITY)
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!.env.example
+
+# 3. User Uploads & Media Assets
+# Mengabaikan seluruh file/foto/excel hasil upload pengguna, tetapi mempertahankan struktur foldernya
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# 4. Logs & Debugging
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.DS_Store
-Thumbs.db
-public/uploads/*
-!public/uploads/.gitkeep
+lerna-debug.log*
+pnpm-debug.log*
 
+# 5. IDE & Editor Files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sublime-project
+*.sublime-workspace
+
+# 6. Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# 7. Temporary, Cache, & Build Files
+.cache/
+.tmp/
+.temp/
+tmp/
+temp/
+coverage/
+.nyc_output/
+
+# 8. Local Backup Files
+*.bak
+*.backup
+*.old
+*.orig
