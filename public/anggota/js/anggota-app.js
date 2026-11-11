@@ -97,6 +97,10 @@ async function loadLiveDataFromMySQL() {
       if (pJson.success && pJson.data) {
         if (pJson.data.data_tetap) memberData.data_tetap = pJson.data.data_tetap;
         if (pJson.data.data_berkala_terbaru) memberData.data_registrasi_terkini = pJson.data.data_berkala_terbaru;
+        renderSidebarAvatar(
+          memberData.data_tetap?.nama || currentUser.nama,
+          memberData.data_registrasi_terkini?.foto_path || memberData.data_tetap?.foto_path
+        );
         renderBiodata();
         renderRegistrasiForm();
       }
@@ -113,6 +117,40 @@ function initLucide() {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+}
+
+function getMemberInitials(nama) {
+  if (!nama || typeof nama !== 'string') return 'MU';
+  const parts = nama.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'MU';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
+function renderSidebarAvatar(nama, fotoPath) {
+  const avatarEl = document.getElementById('navMemberAvatar');
+  if (!avatarEl) return;
+
+  const initials = getMemberInitials(nama);
+  const hasValidPhoto =
+    typeof fotoPath === 'string' &&
+    fotoPath.trim() !== '' &&
+    fotoPath !== '/uploads/default-avatar.png';
+
+  if (!hasValidPhoto) {
+    avatarEl.textContent = initials;
+    return;
+  }
+
+  avatarEl.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = fotoPath;
+  img.alt = nama ? `Foto ${nama}` : 'Foto Profil Anggota';
+  img.className = 'w-full h-full object-cover';
+  img.addEventListener('error', () => {
+    avatarEl.textContent = initials;
+  });
+  avatarEl.appendChild(img);
 }
 
 // 1. Session & Auth Check (Validasi Token JWT & Peran Anggota)
@@ -151,6 +189,7 @@ function checkAuthSession() {
     const navReg = document.getElementById('navMemberReg');
     if (navName) navName.textContent = currentUser.nama;
     if (navReg) navReg.textContent = currentUser.username || currentUser.no_register;
+    renderSidebarAvatar(currentUser.nama, currentUser.foto_path);
   }
 
   // Jika akun anggota belum tuntas aktivasi 3-Step Wizard, kunci akses portal dan redirect ke /aktivasi-anggota
@@ -218,11 +257,15 @@ function renderDashboard(dashData) {
     if (elAngkatan) elAngkatan.textContent = member.angkatan || '-';
     if (elGoldar) elGoldar.textContent = member.golongan_darah || '-';
 
-    // Perbarui label di sidebar jika belum sinkron
+    // Perbarui label dan avatar di sidebar jika belum sinkron
     const navName = document.getElementById('navMemberName');
     const navReg = document.getElementById('navMemberReg');
     if (navName && member.nama) navName.textContent = member.nama;
     if (navReg && member.no_register) navReg.textContent = member.no_register;
+    renderSidebarAvatar(
+      member.nama,
+      member.foto_path || memberData.data_registrasi_terkini?.foto_path || currentUser.foto_path
+    );
 
     // 2. Render Persentase Kelengkapan Profil (profil_lengkap)
     const isProfileComplete = Number(member.profil_lengkap) === 1;

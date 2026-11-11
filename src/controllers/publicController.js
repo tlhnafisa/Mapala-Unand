@@ -5,15 +5,88 @@ exports.getBerandaContent = async (req, res) => {
   try {
     // 1. Static keys for hero & description
     const staticRows = await query(`
-      SELECT kunci, nilai FROM konten_statis WHERE kelompok IN ('beranda', 'tentang', 'kontak', 'footer')
+      SELECT kunci, nilai FROM konten_statis WHERE kelompok IN ('beranda', 'tentang', 'kontak', 'footer', 'prestasi')
     `);
     const staticMap = {};
     staticRows.forEach(r => { staticMap[r.kunci] = r.nilai; });
 
-    // 2. Statistics cards
-    const statsRows = await query(`
-      SELECT id, ikon, angka, satuan, label FROM statistik_beranda ORDER BY urutan ASC
-    `);
+    // 2. Statistics cards (Hero Beranda: Tahun Otomatis, Puncak Manual Admin, Anggota Otomatis DB, Konservasi Otomatis DB)
+    const currentYear = new Date().getFullYear();
+    const calculatedTahun = Math.max(1, currentYear - 1984);
+
+    const puncakAngka = staticMap['hero_stat_puncak_angka'] ? parseInt(staticMap['hero_stat_puncak_angka'], 10) : 120;
+    const puncakSatuan = staticMap['hero_stat_puncak_satuan'] || '+ Puncak';
+    const puncakLabel = staticMap['hero_stat_puncak_label'] || 'Sumatera & Seven Summits';
+
+    let totalAnggota = 0;
+    try {
+      const anggotaRows = await query('SELECT COUNT(*) AS total FROM anggota');
+      totalAnggota = anggotaRows[0] ? Number(anggotaRows[0].total) : 0;
+    } catch (e) {
+      console.warn('Gagal menghitung total anggota:', e.message);
+    }
+    const displayAnggota = totalAnggota > 0 ? totalAnggota : 600;
+
+    let totalKonservasi = 0;
+    try {
+      const konsRows = await query(`
+        SELECT COUNT(*) AS total FROM artikel a
+        LEFT JOIN kategori_artikel k ON k.id = a.kategori_id
+        LEFT JOIN divisi d ON d.id = a.divisi_id
+        WHERE LOWER(k.nama) LIKE '%konservasi%'
+           OR LOWER(k.nama) LIKE '%riset%'
+           OR LOWER(d.nama) LIKE '%konservasi%'
+           OR LOWER(a.judul) LIKE '%konservasi%'
+           OR LOWER(a.judul) LIKE '%riset%'
+           OR LOWER(a.ringkasan) LIKE '%konservasi%'
+      `);
+      totalKonservasi = konsRows[0] ? Number(konsRows[0].total) : 0;
+    } catch (e) {
+      console.warn('Gagal menghitung total kegiatan konservasi:', e.message);
+    }
+    const displayKonservasi = 50 + totalKonservasi;
+
+    const statsRows = [
+      {
+        id: 1,
+        key: 'tahun',
+        ikon: '/images/icons/compass.svg',
+        angka: calculatedTahun,
+        satuan: '+ Tahun',
+        label: 'Eksplorasi Rimba & Karst',
+        tipe: 'otomatis_sistem',
+        rumus: `${currentYear} - 1984`
+      },
+      {
+        id: 2,
+        key: 'puncak',
+        ikon: '/images/icons/mountain.svg',
+        angka: isNaN(puncakAngka) ? 120 : puncakAngka,
+        satuan: puncakSatuan,
+        label: puncakLabel,
+        tipe: 'manual_admin'
+      },
+      {
+        id: 3,
+        key: 'anggota',
+        ikon: '/images/icons/users.svg',
+        angka: displayAnggota,
+        satuan: '+ Anggota',
+        label: 'Keluarga Besar Lintas Generasi',
+        tipe: 'otomatis_database',
+        real_count: totalAnggota
+      },
+      {
+        id: 4,
+        key: 'konservasi',
+        ikon: '/images/icons/shield.svg',
+        angka: displayKonservasi,
+        satuan: '+ Konservasi',
+        label: 'Riset & Keanekaragaman Hayati',
+        tipe: 'otomatis_database',
+        real_count: totalKonservasi
+      }
+    ];
 
     // 3. Latest published articles
     const articleRows = await query(`
@@ -46,12 +119,49 @@ exports.getBerandaContent = async (req, res) => {
     `);
 
     // 6. Highlighted achievements (is_sorotan = 1)
-    const highlightRows = await query(`
-      SELECT id, tahun, sorotan_judul AS judul, sorotan_subjudul AS subjudul,
-             sorotan_detail AS detail, COALESCE(gambar_path, '/images/trophy-achievement.jpg') AS gambar_url,
+    let highlightRows = await query(`
+      SELECT id, tahun, judul, deskripsi,
+             sorotan_judul, sorotan_subjudul, sorotan_detail,
+             COALESCE(gambar_path, '/images/trophy-achievement.jpg') AS gambar_url,
              COALESCE(gambar_caption, judul) AS caption
-      FROM prestasi WHERE is_sorotan = 1 ORDER BY urutan ASC LIMIT 4
+      FROM prestasi WHERE is_sorotan = 1 ORDER BY urutan ASC, tahun DESC LIMIT 4
     `);
+
+    if (highlightRows.length === 0) {
+      highlightRows = await query(`
+        SELECT id, tahun, judul, deskripsi,
+               sorotan_judul, sorotan_subjudul, sorotan_detail,
+               COALESCE(gambar_path, '/images/trophy-achievement.jpg') AS gambar_url,
+               COALESCE(gambar_caption, judul) AS caption
+        FROM prestasi ORDER BY tahun DESC, id DESC LIMIT 1
+      `);
+    }
+
+    const prsUtama = highlightRows.length > 0 ? {
+      id: highlightRows[0].id,
+      tahun: highlightRows[0].tahun,
+      judul: highlightRows[0].sorotan_judul || highlightRows[0].judul,
+      subjudul: highlightRows[0].sorotan_subjudul || `Tahun ${highlightRows[0].tahun}`,
+      deskripsi: highlightRows[0].sorotan_detail || highlightRows[0].deskripsi,
+      foto: highlightRows[0].gambar_url,
+      caption: highlightRows[0].caption || `${highlightRows[0].judul} (${highlightRows[0].tahun}) - Mapala UNAND`
+    } : null;
+
+    // 7. 4 Kolom Capaian Prestasi Beranda (Teks Oranye & Teks Putih)
+    let prestasiBoxes = [
+      { id: 1, title: 'Juara 1', sub: 'Ekspedisi Navigasi Nasional' },
+      { id: 2, title: 'Kalpataru', sub: 'Apresiasi Konservasi Kampus' },
+      { id: 3, title: '7 Summits', sub: 'Jalur Ekspedisi Nusantara' },
+      { id: 4, title: '30+ Riset', sub: 'Publikasi Ilmiah & Speleologi' }
+    ];
+    if (staticMap['prestasi_boxes']) {
+      try {
+        const parsed = JSON.parse(staticMap['prestasi_boxes']);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          prestasiBoxes = parsed;
+        }
+      } catch (_) {}
+    }
 
     return res.json({
       success: true,
@@ -71,7 +181,14 @@ exports.getBerandaContent = async (req, res) => {
           judul_bagan: 'Bagan Struktur Resmi Mapala UNAND',
           gambar_url: '/images/struktur-organisasi.svg'
         },
-        sorotan_prestasi: highlightRows
+        sorotan_prestasi: highlightRows.map(h => ({
+          ...h,
+          judul: h.sorotan_judul || h.judul,
+          subjudul: h.sorotan_subjudul || `Tahun ${h.tahun}`,
+          detail: h.sorotan_detail || h.deskripsi
+        })),
+        prestasi_utama: prsUtama,
+        prestasi_boxes: prestasiBoxes
       }
     });
   } catch (err) {
@@ -113,7 +230,16 @@ exports.getKontakContent = async (req, res) => {
     const staticMap = {};
     staticRows.forEach(r => { staticMap[r.kunci] = r.nilai; });
 
-    const socialRows = await query(`SELECT platform, url, urutan FROM tautan_sosial ORDER BY urutan ASC`);
+    const socialRows = await query(`SELECT platform, url, urutan FROM tautan_sosial ORDER BY urutan ASC, id ASC`);
+    const seen = new Set();
+    const uniqueSocial = [];
+    for (const s of socialRows) {
+      const pKey = s.platform.toLowerCase();
+      if (!seen.has(pKey)) {
+        seen.add(pKey);
+        uniqueSocial.push(s);
+      }
+    }
 
     return res.json({
       success: true,
@@ -122,7 +248,7 @@ exports.getKontakContent = async (req, res) => {
         whatsapp: staticMap['kontak_whatsapp'] || '6281267890123',
         alamat: staticMap['kontak_alamat'] || 'Gedung PKM Lt. 1 Universitas Andalas',
         footer_deskripsi: staticMap['footer_deskripsi'] || 'Organisasi kepencintaalaman pelopor konservasi sejak 1984.',
-        social_links: socialRows
+        social_links: uniqueSocial
       }
     });
   } catch (err) {

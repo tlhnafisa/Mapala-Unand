@@ -106,6 +106,18 @@ exports.createArticle = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Isi narasi/berita artikel wajib diisi.' });
     }
 
+    const cleanJudul = judul.trim();
+    const existingTitle = await query(
+      'SELECT id FROM artikel WHERE LOWER(TRIM(judul)) = LOWER(?) LIMIT 1',
+      [cleanJudul]
+    );
+    if (existingTitle.length > 0) {
+      return res.status(409).json({
+        success: false,
+        message: `Judul artikel "${cleanJudul}" sudah terdaftar. Satu judul hanya boleh dimiliki 1 artikel — gunakan fitur Edit untuk mengubahnya.`
+      });
+    }
+
     // 1. Resolve Kategori ID
     let resolvedKatId = null;
     if (kategori_id && !isNaN(kategori_id)) {
@@ -322,7 +334,29 @@ exports.updateArticle = async (req, res) => {
     const dateVal = tanggal_kegiatan || tanggal || current.tanggal_kegiatan;
     const newPublishedAt = newStatus === 'terbit' && !current.published_at ? new Date() : current.published_at;
 
-    const newJudul = judul ? judul.trim() : current.judul;
+    const newJudul = judul && judul.trim() ? judul.trim() : current.judul;
+    const isTitleChanged = newJudul.toLowerCase() !== (current.judul || '').trim().toLowerCase();
+
+    if (isTitleChanged) {
+      const duplicateTitle = await query(
+        'SELECT id FROM artikel WHERE LOWER(TRIM(judul)) = LOWER(?) AND id != ? LIMIT 1',
+        [newJudul, id]
+      );
+      if (duplicateTitle.length > 0) {
+        return res.status(409).json({
+          success: false,
+          message: `Judul artikel "${newJudul}" sudah digunakan oleh artikel lain. Satu judul hanya boleh dimiliki 1 artikel.`
+        });
+      }
+    }
+
+    let newSlug = current.slug;
+    if (isTitleChanged) {
+      const baseSlug = slugify(newJudul) || `artikel-${id}`;
+      const existingSlug = await query('SELECT id FROM artikel WHERE slug = ? AND id != ? LIMIT 1', [baseSlug, id]);
+      newSlug = existingSlug.length > 0 ? `${baseSlug}-${id}` : baseSlug;
+    }
+
     const newIsi = isi !== undefined ? isi.trim() : current.isi;
     const newSummary = ringkasan !== undefined ? ringkasan.trim() : (newIsi ? newIsi.slice(0, 160) + '...' : current.ringkasan);
 
@@ -332,6 +366,7 @@ exports.updateArticle = async (req, res) => {
         divisi_id = ?,
         lokasi_id = ?,
         judul = ?,
+        slug = ?,
         ringkasan = ?,
         isi = ?,
         status_kegiatan = ?,
@@ -345,6 +380,7 @@ exports.updateArticle = async (req, res) => {
       resolvedDivId,
       resolvedLokId,
       newJudul,
+      newSlug,
       newSummary,
       newIsi,
       status_kegiatan || current.status_kegiatan,
@@ -823,6 +859,72 @@ exports.deletePrestasi = async (req, res) => {
   }
 };
 
+const DEFAULT_PRESTASI_BOXES = [
+  { id: 1, title: 'Juara 1', sub: 'Ekspedisi Navigasi Nasional' },
+  { id: 2, title: 'Kalpataru', sub: 'Apresiasi Konservasi Kampus' },
+  { id: 3, title: '7 Summits', sub: 'Jalur Ekspedisi Nusantara' },
+  { id: 4, title: '30+ Riset', sub: 'Publikasi Ilmiah & Speleologi' }
+];
+
+exports.getPrestasiBoxes = async (req, res) => {
+  try {
+    const rows = await query("SELECT nilai FROM konten_statis WHERE kunci = 'prestasi_boxes' LIMIT 1");
+    if (rows.length > 0 && rows[0].nilai) {
+      try {
+        const parsed = JSON.parse(rows[0].nilai);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return res.json({ success: true, data: parsed });
+        }
+      } catch (_) {}
+    }
+    return res.json({ success: true, data: DEFAULT_PRESTASI_BOXES });
+  } catch (err) {
+    console.error('Error getPrestasiBoxes:', err);
+    return res.status(500).json({ success: false, message: 'Gagal memuat data kolom prestasi: ' + err.message });
+  }
+};
+
+exports.updatePrestasiBoxes = async (req, res) => {
+  try {
+    const { boxes } = req.body;
+    if (!boxes || !Array.isArray(boxes)) {
+      return res.status(400).json({ success: false, message: 'Data boxes harus berupa array 4 item.' });
+    }
+
+    const cleanBoxes = boxes.slice(0, 4).map((b, idx) => ({
+      id: idx + 1,
+      title: (b.title || '').trim(),
+      sub: (b.sub || '').trim()
+    }));
+
+    const jsonVal = JSON.stringify(cleanBoxes);
+    await execute(`
+      INSERT INTO konten_statis (kunci, nilai, kelompok)
+      VALUES ('prestasi_boxes', ?, 'prestasi')
+      ON DUPLICATE KEY UPDATE nilai = VALUES(nilai), kelompok = VALUES(kelompok)
+    `, [jsonVal]);
+
+    const adminUser = req.user ? req.user.username : 'admin';
+    await logActivity(
+      adminUser,
+      'UPDATE_PRESTASI_BOXES',
+      'Memperbarui 4 kolom sorotan prestasi beranda',
+      { entitas: 'konten_statis', entitas_id: 'prestasi_boxes' }
+    );
+
+    await db.syncFromMySQL().catch(e => console.warn('Sync memory notice:', e.message));
+
+    return res.json({
+      success: true,
+      message: '4 Kolom capaian prestasi beranda berhasil diperbarui.',
+      data: cleanBoxes
+    });
+  } catch (err) {
+    console.error('Error updatePrestasiBoxes:', err);
+    return res.status(500).json({ success: false, message: 'Gagal memperbarui kolom prestasi: ' + err.message });
+  }
+};
+
 
 // ============================================================================
 // 4. CMS KONTEN STATIS & KONTAK (tabel konten_statis, misi_poin, tautan_sosial)
@@ -853,7 +955,8 @@ exports.getStaticContent = async (req, res) => {
         email: staticMap['kontak_email'] || 'sekretariat@mapalaunand.org',
         whatsapp: staticMap['kontak_whatsapp'] || '6281267890123',
         alamat: staticMap['kontak_alamat'] || 'Gedung Pusat Kegiatan Mahasiswa (PKM) Lantai 1, Universitas Andalas',
-        instagram: socialMap['instagram'] || staticMap['kontak_instagram'] || '@mapalaunand',
+        instagram: socialMap['instagram'] || staticMap['kontak_instagram'] || 'https://instagram.com/mapalaunand_official',
+        youtube: socialMap['youtube'] || staticMap['kontak_youtube'] || 'https://youtube.com/@mapalaunandofficial',
         facebook: socialMap['facebook'] || staticMap['kontak_facebook'] || 'https://facebook.com/mapalaunand',
         tiktok: socialMap['tiktok'] || staticMap['kontak_tiktok'] || 'https://tiktok.com/@mapalaunand'
       },
@@ -861,7 +964,10 @@ exports.getStaticContent = async (req, res) => {
         headline: staticMap['hero_tagline'] || 'Menjelajah Rimba, Menjaga Lestari, Mengabdi Sepanjang Hayat',
         subheadline: staticMap['hero_deskripsi'] || 'Wadah pembinaan karakter, kecintaan alam, dan riset konservasi keanekaragaman hayati sejak 1984.',
         hero_judul: staticMap['hero_judul'] || 'MAPALA UNAND',
-        hero_foto: staticMap['hero_foto'] || '/images/hero-mountain.jpg'
+        hero_foto: staticMap['hero_foto'] || '/images/hero-mountain.jpg',
+        puncak_angka: staticMap['hero_stat_puncak_angka'] || '120',
+        puncak_satuan: staticMap['hero_stat_puncak_satuan'] || '+ Puncak',
+        puncak_label: staticMap['hero_stat_puncak_label'] || 'Sumatera & Seven Summits'
       }
     };
 
@@ -930,35 +1036,34 @@ exports.updateStaticContent = async (req, res) => {
         await upsertStatic('kontak_alamat', data.alamat.trim(), 'kontak');
       }
 
-      // Social Links
-      if (data.instagram !== undefined) {
+      // Helper untuk menetapkan tepat 1 tautan resmi per masing-masing platform
+      const upsertSingleSocial = async (platformName, rawUrl, urutan) => {
+        if (!rawUrl || !rawUrl.trim()) return;
+        let url = rawUrl.trim();
+        if (platformName === 'Instagram' && !url.startsWith('http')) {
+          url = `https://instagram.com/${url.replace('@', '')}`;
+        }
+        // Hapus entri lama platform ini untuk menjamin tepat 1 link per platform
+        await execute('DELETE FROM tautan_sosial WHERE LOWER(platform) = LOWER(?)', [platformName]);
+        await execute('INSERT INTO tautan_sosial (platform, url, urutan) VALUES (?, ?, ?)', [platformName, url, urutan]);
+      };
+
+      // Social Links (Tepat 1 link per platform resmi)
+      if (data.instagram !== undefined && data.instagram.trim()) {
         await upsertStatic('kontak_instagram', data.instagram.trim(), 'kontak');
-        const instaUrl = data.instagram.startsWith('http') ? data.instagram : `https://instagram.com/${data.instagram.replace('@', '')}`;
-        await execute(`
-          INSERT INTO tautan_sosial (platform, url, urutan)
-          VALUES ('Instagram', ?, 1)
-          ON DUPLICATE KEY UPDATE url = VALUES(url)
-        `, [instaUrl]);
+        await upsertSingleSocial('Instagram', data.instagram, 1);
       }
-      if (data.facebook !== undefined) {
+      if (data.youtube !== undefined && data.youtube.trim()) {
+        await upsertStatic('kontak_youtube', data.youtube.trim(), 'kontak');
+        await upsertSingleSocial('YouTube', data.youtube, 2);
+      }
+      if (data.facebook !== undefined && data.facebook.trim()) {
         await upsertStatic('kontak_facebook', data.facebook.trim(), 'kontak');
-        if (data.facebook.trim()) {
-          await execute(`
-            INSERT INTO tautan_sosial (platform, url, urutan)
-            VALUES ('Facebook', ?, 2)
-            ON DUPLICATE KEY UPDATE url = VALUES(url)
-          `, [data.facebook.trim()]);
-        }
+        await upsertSingleSocial('Facebook', data.facebook, 3);
       }
-      if (data.tiktok !== undefined) {
+      if (data.tiktok !== undefined && data.tiktok.trim()) {
         await upsertStatic('kontak_tiktok', data.tiktok.trim(), 'kontak');
-        if (data.tiktok.trim()) {
-          await execute(`
-            INSERT INTO tautan_sosial (platform, url, urutan)
-            VALUES ('TikTok', ?, 3)
-            ON DUPLICATE KEY UPDATE url = VALUES(url)
-          `, [data.tiktok.trim()]);
-        }
+        await upsertSingleSocial('TikTok', data.tiktok, 4);
       }
     } else if (section === 'beranda') {
       if (data.headline !== undefined) {
@@ -969,6 +1074,15 @@ exports.updateStaticContent = async (req, res) => {
       }
       if (data.hero_judul !== undefined) {
         await upsertStatic('hero_judul', data.hero_judul.trim(), 'beranda');
+      }
+      if (data.puncak_angka !== undefined) {
+        await upsertStatic('hero_stat_puncak_angka', String(data.puncak_angka).trim(), 'beranda');
+      }
+      if (data.puncak_satuan !== undefined) {
+        await upsertStatic('hero_stat_puncak_satuan', String(data.puncak_satuan).trim(), 'beranda');
+      }
+      if (data.puncak_label !== undefined) {
+        await upsertStatic('hero_stat_puncak_label', String(data.puncak_label).trim(), 'beranda');
       }
     }
 

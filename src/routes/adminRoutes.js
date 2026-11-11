@@ -65,6 +65,8 @@ router.delete('/cms/pengurus/:id', cmsController.deletePengurus);
 
 // Prestasi
 router.get('/cms/prestasi', cmsController.getPrestasi);
+router.get('/cms/prestasi/boxes', cmsController.getPrestasiBoxes);
+router.put('/cms/prestasi/boxes', cmsController.updatePrestasiBoxes);
 router.post('/cms/prestasi', upload.single('foto'), cmsController.createPrestasi);
 router.put('/cms/prestasi/:id', upload.single('foto'), cmsController.updatePrestasi);
 router.delete('/cms/prestasi/:id', cmsController.deletePrestasi);

@@ -47,6 +47,30 @@ async function fetchLivePublicData() {
             }
           }
 
+          // A2. 4 Statistik Hero Beranda (Tahun Otomatis, Puncak Manual Admin, Anggota Otomatis DB, Konservasi Otomatis DB)
+          if (d.statistik && Array.isArray(d.statistik)) {
+            const statsRow = document.querySelector('.hero-stats-row');
+            if (statsRow) {
+              const statItems = statsRow.querySelectorAll('.stat-item');
+              d.statistik.forEach((st, idx) => {
+                if (statItems[idx]) {
+                  const numEl = statItems[idx].querySelector('.stat-number');
+                  const lblEl = statItems[idx].querySelector('.stat-label');
+                  if (numEl) {
+                    const rawSuffix = st.satuan || '';
+                    numEl.setAttribute('data-target', st.angka);
+                    numEl.setAttribute('data-suffix', rawSuffix.startsWith('+') ? rawSuffix : ` ${rawSuffix}`);
+                    numEl.textContent = `0${rawSuffix.startsWith('+') ? rawSuffix : ' ' + rawSuffix}`;
+                  }
+                  if (lblEl && st.label) {
+                    lblEl.textContent = st.label;
+                  }
+                }
+              });
+              initCounterAnimation();
+            }
+          }
+
           // B. Kegiatan & Artikel Terbaru di Carousel Beranda
           if (d.kegiatan_terbaru && d.kegiatan_terbaru.length > 0 && window.MAPALA_DATA) {
             window.MAPALA_DATA.activities = d.kegiatan_terbaru.map(item => ({
@@ -75,45 +99,37 @@ async function fetchLivePublicData() {
             }
           }
 
-          // D. Sorotan Prestasi di Beranda
-          if (d.sorotan_prestasi && d.sorotan_prestasi.length > 0) {
-            const sorotan = d.sorotan_prestasi;
-            if (window.MAPALA_DATA) {
-              window.MAPALA_DATA.achievements = sorotan.map(s => ({
-                id: s.id,
-                year: s.tahun,
-                title: s.judul,
-                sub: s.subjudul,
-                desc: s.detail,
-                image: s.gambar_url,
-                caption: s.caption
-              }));
-            }
-            const prestasiImg = document.getElementById('prestasiMainImg');
-            const prestasiCaption = document.getElementById('prestasiCaptionText');
-            if (prestasiImg && sorotan[0]) {
-              prestasiImg.src = sorotan[0].gambar_url;
-              if (prestasiCaption) {
-                prestasiCaption.textContent = `${sorotan[0].judul} (${sorotan[0].tahun}) - Mapala UNAND`;
-              }
-            }
+          // D. Sorotan Prestasi & Foto Sesuai Prestasi Terkait di Beranda
+          const prs = d.prestasi_utama || (d.sorotan_prestasi && d.sorotan_prestasi[0]);
+          if (prs) {
             const hTitle = document.querySelector('.prestasi-title');
             const hDesc = document.querySelector('.prestasi-desc');
-            if (hTitle && sorotan[0]) hTitle.textContent = sorotan[0].judul;
-            if (hDesc && sorotan[0]) hDesc.textContent = sorotan[0].detail;
+            const prestasiImg = document.getElementById('prestasiMainImg');
+            const prestasiCaption = document.getElementById('prestasiCaptionText');
 
-            // Update box capaian prestasi jika tersedia di DOM
-            const statBoxes = document.querySelectorAll('.prestasi-stats-grid .prestasi-box');
-            if (statBoxes && statBoxes.length > 0) {
-              sorotan.slice(0, statBoxes.length).forEach((s, idx) => {
-                const box = statBoxes[idx];
-                const bTitle = box.querySelector('.prestasi-box-title');
-                const bSub = box.querySelector('.prestasi-box-sub');
-                const bDet = box.querySelector('.prestasi-box-detail');
-                if (bTitle && s.judul) bTitle.textContent = s.judul.split(' ')[0] || s.judul;
-                if (bSub && (s.subjudul || s.judul)) bSub.textContent = s.subjudul || s.judul;
-                if (bDet && s.detail) bDet.textContent = s.detail.slice(0, 45) + '...';
-              });
+            if (hTitle && prs.judul) hTitle.textContent = prs.judul;
+            if (hDesc && (prs.deskripsi || prs.detail)) hDesc.textContent = prs.deskripsi || prs.detail;
+
+            // Foto sebelah kanan disesuaikan langsung dengan prestasi terkait
+            if (prestasiImg && (prs.foto || prs.gambar_url)) {
+              prestasiImg.src = prs.foto || prs.gambar_url;
+              prestasiImg.alt = prs.judul || 'Foto Prestasi Mapala UNAND';
+            }
+            if (prestasiCaption && (prs.caption || prs.judul)) {
+              prestasiCaption.textContent = prs.caption || `${prs.judul} (${prs.tahun || ''}) - Mapala UNAND`;
+            }
+          }
+
+          // E. 4 Kolom Capaian Prestasi Beranda (Hanya Teks Oranye & Teks Putih)
+          if (d.prestasi_boxes && Array.isArray(d.prestasi_boxes)) {
+            const boxesContainer = document.getElementById('prestasiBoxesGrid') || document.querySelector('.prestasi-stats-grid');
+            if (boxesContainer) {
+              boxesContainer.innerHTML = d.prestasi_boxes.slice(0, 4).map((b, idx) => `
+                <div class="prestasi-box reveal stagger-${idx + 1} revealed">
+                  <div class="prestasi-box-title">${b.title || ''}</div>
+                  <div class="prestasi-box-sub">${b.sub || ''}</div>
+                </div>
+              `).join('');
             }
           }
         }
@@ -151,7 +167,7 @@ async function fetchLivePublicData() {
               }
             }
 
-            // WhatsApp link di footer
+            // WhatsApp link di footer (kontras tinggi)
             if (k.whatsapp) {
               const cleanWA = k.whatsapp.replace(/[^\d]/g, '');
               let waP = box.querySelector('.footer-wa-item');
@@ -161,72 +177,73 @@ async function fetchLivePublicData() {
                 waP.style.marginTop = '6px';
                 box.appendChild(waP);
               }
-              waP.innerHTML = `WhatsApp: <a href="https://wa.me/${cleanWA}" target="_blank" rel="noopener" class="footer-wa-link" style="color: var(--accent-orange); font-weight: 600;">+${cleanWA}</a>`;
+              waP.innerHTML = `<span style="color: #94A3B8; font-weight: 500;">WhatsApp:</span> <a href="https://wa.me/${cleanWA}" target="_blank" rel="noopener" class="footer-wa-link">+${cleanWA}</a>`;
             }
           });
 
-          // C. Tautan Media Sosial
+          // C. Tautan Media Sosial Resmi (Ditetapkan tepat 1 per platform, X dihapus, logo Facebook & TikTok asli)
           if (k.social_links && Array.isArray(k.social_links)) {
-            const socialWrap = document.querySelector('.footer-social-links');
-            if (socialWrap && k.social_links.length > 0) {
+            const socialWraps = document.querySelectorAll('.footer-social-links');
+            if (socialWraps.length > 0 && k.social_links.length > 0) {
               const iconMap = {
                 'instagram': '/images/icons/instagram.svg',
                 'youtube': '/images/icons/youtube.svg',
-                'twitter': '/images/icons/x-twitter.svg',
-                'x': '/images/icons/x-twitter.svg',
-                'facebook': '/images/icons/share.svg',
-                'tiktok': '/images/icons/share.svg'
+                'facebook': '/images/icons/facebook.svg',
+                'tiktok': '/images/icons/tiktok.svg'
               };
 
-              socialWrap.innerHTML = k.social_links.map(s => {
-                const pKey = s.platform.toLowerCase();
-                const icon = iconMap[pKey] || '/images/icons/share.svg';
+              // Pastikan hanya tepat 1 tombol per masing-masing platform & tidak menampilkan X/Twitter
+              const seen = new Set();
+              const uniqueLinks = [];
+              k.social_links.forEach(s => {
+                const pKey = (s.platform || '').trim().toLowerCase();
+                // Kecualikan platform X / Twitter dari tampilan
+                if (!pKey || pKey === 'x' || pKey === 'twitter' || pKey === 'x-twitter') return;
+
+                if (!seen.has(pKey)) {
+                  seen.add(pKey);
+                  uniqueLinks.push({ ...s, _key: pKey });
+                }
+              });
+
+              const socialHtml = uniqueLinks.map(s => {
+                const icon = iconMap[s._key] || '/images/icons/share.svg';
                 return `
                   <a href="${s.url}" target="_blank" rel="noopener" class="social-btn" title="${s.platform}">
-                    <img src="${icon}" alt="${s.platform}" style="width: 18px; height: 18px;">
+                    <img src="${icon}" alt="${s.platform}" style="width: 20px; height: 20px;">
                   </a>
                 `;
               }).join('');
+
+              socialWraps.forEach(wrap => {
+                wrap.innerHTML = socialHtml;
+              });
             }
           }
 
           // D. Floating WhatsApp Contact Button di Website Publik
-          if (k.whatsapp && !document.getElementById('floatingWhatsAppBtn')) {
+          if (k.whatsapp) {
             const cleanWA = k.whatsapp.replace(/[^\d]/g, '');
-            const floatBtn = document.createElement('a');
-            floatBtn.id = 'floatingWhatsAppBtn';
+            let floatBtn = document.getElementById('floatingWhatsAppBtn');
+            if (!floatBtn) {
+              floatBtn = document.createElement('a');
+              floatBtn.id = 'floatingWhatsAppBtn';
+              floatBtn.className = 'floating-wa-btn';
+              floatBtn.target = '_blank';
+              floatBtn.rel = 'noopener';
+              floatBtn.title = 'Hubungi Pengurus Mapala UNAND via WhatsApp';
+              floatBtn.innerHTML = `
+                <span class="wa-icon-wrap">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                  <span class="wa-status-dot" aria-hidden="true"></span>
+                </span>
+                <span class="wa-text">Tanya Admin</span>
+              `;
+              document.body.appendChild(floatBtn);
+            }
             floatBtn.href = `https://wa.me/${cleanWA}`;
-            floatBtn.target = '_blank';
-            floatBtn.rel = 'noopener';
-            floatBtn.title = 'Hubungi Pengurus Mapala UNAND via WhatsApp';
-            floatBtn.style.cssText = `
-              position: fixed;
-              bottom: 24px;
-              right: 24px;
-              background: #25D366;
-              color: #ffffff;
-              border-radius: 50px;
-              padding: 12px 20px;
-              display: flex;
-              align-items: center;
-              gap: 10px;
-              box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
-              z-index: 999;
-              font-family: inherit;
-              font-size: 0.85rem;
-              font-weight: 700;
-              text-decoration: none;
-              transition: all 0.3s ease;
-            `;
-            floatBtn.innerHTML = `
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              <span>Tanya Admin</span>
-            `;
-            floatBtn.addEventListener('mouseenter', () => { floatBtn.style.transform = 'translateY(-3px) scale(1.03)'; });
-            floatBtn.addEventListener('mouseleave', () => { floatBtn.style.transform = 'translateY(0) scale(1)'; });
-            document.body.appendChild(floatBtn);
           }
         }
       }
@@ -257,39 +274,6 @@ async function fetchLivePublicData() {
               date: item.tanggal
             }));
             initCategoryFilters();
-          }
-        }
-      } catch (_) {}
-    }
-
-    // ============================================================================
-    // 4. HALAMAN STRUKTUR ORGANISASI (/struktur-organisasi)
-    // ============================================================================
-    const baganImg = document.getElementById('baganStrukturImg');
-    if (baganImg) {
-      try {
-        const soRes = await fetch('/api/public/content/struktur-organisasi');
-        if (soRes.ok) {
-          const soJson = await soRes.json();
-          if (soJson.success && soJson.data) {
-            const data = soJson.data;
-            if (data.gambar_path) {
-              baganImg.src = data.gambar_path;
-              baganImg.alt = data.judul || 'Bagan Struktur Organisasi Mapala UNAND';
-            }
-            const dlLink = document.querySelector('a[download]');
-            if (dlLink && data.gambar_path) {
-              dlLink.href = data.gambar_path;
-              dlLink.download = `Bagan-Struktur-Mapala-UNAND-${data.periode || '2025-2026'}.jpg`;
-            }
-            const badgeEl = document.querySelector('.structure-card .badge-primary');
-            if (badgeEl && data.periode) {
-              badgeEl.textContent = `PERIODE AKTIF ${data.periode}`;
-            }
-            const titleEl = document.querySelector('.structure-card h2');
-            if (titleEl && data.judul) {
-              titleEl.textContent = data.judul;
-            }
           }
         }
       } catch (_) {}
@@ -432,10 +416,6 @@ function initHomeActivitiesCarousel() {
           </div>
           <h3 class="activity-title">${item.title}</h3>
           <p class="activity-desc">${item.excerpt}</p>
-          <div class="activity-meta">
-            <span>Status: <strong>${item.status}</strong></span>
-            <span>${item.team}</span>
-          </div>
         </div>
       </a>
     `).join('');
@@ -481,35 +461,9 @@ function initHomeActivitiesCarousel() {
   });
 }
 
-// 3. Prestasi Carousel / Slider
+// 3. Prestasi Beranda (Foto Statis Sesuai Prestasi Terkait, Tanpa Slider/Next)
 function initHomePrestasiSlider() {
-  const nextBtn = document.getElementById('prestasiNextBtn');
-  const prestasiImg = document.getElementById('prestasiMainImg');
-  const prestasiCaption = document.getElementById('prestasiCaptionText');
-
-  if (!prestasiImg || !window.MAPALA_DATA) return;
-
-  const achievements = window.MAPALA_DATA.achievements;
-  let currentIdx = 0;
-
-  function updatePrestasiView(idx) {
-    const item = achievements[idx];
-    prestasiImg.style.opacity = '0';
-    setTimeout(() => {
-      prestasiImg.src = item.image;
-      if (prestasiCaption) {
-        prestasiCaption.textContent = `${item.title} (${item.year}) - Mapala UNAND`;
-      }
-      prestasiImg.style.opacity = '1';
-    }, 200);
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      currentIdx = (currentIdx + 1) % achievements.length;
-      updatePrestasiView(currentIdx);
-    });
-  }
+  // Fitur next foto dihapus: foto beranda tetap sinkron dengan data prestasi terkait
 }
 
 // 4. Category Filter for Kegiatan & Artikel Page
@@ -670,31 +624,9 @@ async function initArticleDetailPage() {
   }
   if (elBody) elBody.innerHTML = article.fullContent;
 
-  // Render Galeri Multi-Foto jika ada
-  if (article.galeri && article.galeri.length > 0) {
-    let galleryWrap = document.getElementById('articleGalleryWrap');
-    if (!galleryWrap) {
-      galleryWrap = document.createElement('div');
-      galleryWrap.id = 'articleGalleryWrap';
-      galleryWrap.style.marginTop = '40px';
-      galleryWrap.innerHTML = `
-        <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--text-white); margin-bottom: 20px;">
-          Dokumentasi Kegiatan & Ekspedisi
-        </h3>
-        <div id="articleGalleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;"></div>
-      `;
-      elBody.parentNode.insertBefore(galleryWrap, elBody.nextSibling);
-    }
-    const galleryGrid = document.getElementById('articleGalleryGrid');
-    if (galleryGrid) {
-      galleryGrid.innerHTML = article.galeri.map(g => `
-        <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); height: 180px; position: relative;">
-          <img src="${g.path}" alt="${g.caption || article.title}" style="width: 100%; height: 100%; object-fit: cover;">
-          ${g.caption ? `<div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); font-size: 0.75rem; color: #fff; padding: 4px 8px;">${g.caption}</div>` : ''}
-        </div>
-      `).join('');
-    }
-  }
+  // Hapus dokumentasi galeri jika ada (hanya menyisakan foto utama/hero di atas)
+  const existingGalleryWrap = document.getElementById('articleGalleryWrap');
+  if (existingGalleryWrap) existingGalleryWrap.remove();
 
   // Render related articles
   const relatedGrid = document.getElementById('relatedArticlesGrid');

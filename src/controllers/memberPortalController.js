@@ -84,9 +84,19 @@ exports.getDashboard = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Akun Anda tidak tertaut dengan data anggota Mapala UNAND.' });
     }
 
-    // 1. Identity
+    // 1. Identity (termasuk foto profil terbaru dari registrasi ulang jika ada)
     const memberRows = await query(`
-      SELECT a.id, a.no_register, a.nama, d.nama AS divisi, a.angkatan, a.golongan_darah, a.profil_lengkap, a.is_active AS status_aktif
+      SELECT a.id, a.no_register, a.nama, d.nama AS divisi, a.angkatan, a.golongan_darah, a.profil_lengkap, a.is_active AS status_aktif,
+             (
+               SELECT ru.foto_path
+               FROM registrasi_ulang ru
+               WHERE ru.anggota_id = a.id
+                 AND ru.foto_path IS NOT NULL
+                 AND ru.foto_path != ''
+                 AND ru.foto_path != '/uploads/default-avatar.png'
+               ORDER BY ru.updated_at DESC, ru.id DESC
+               LIMIT 1
+             ) AS foto_path
       FROM anggota a
       LEFT JOIN divisi d ON d.id = a.divisi_id
       WHERE a.id = ?

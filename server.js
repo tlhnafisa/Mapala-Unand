@@ -88,7 +88,7 @@ app.get('/kegiatan-artikel/:id', (req, res) => {
 });
 
 app.get('/struktur-organisasi', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/publik/struktur-organisasi.html'));
+  res.redirect('/#struktur-organisasi');
 });
 
 app.get('/prestasi', (req, res) => {

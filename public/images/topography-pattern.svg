@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600" fill="none">
+  <defs>
+    <style>
+      .contour { stroke: #FFFFFF; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
+      .contour-major { stroke: #FF6B00; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.95; }
+      .contour-subtle { stroke: #FFFFFF; stroke-width: 0.8; stroke-linecap: round; stroke-linejoin: round; opacity: 0.55; }
+    </style>
+  </defs>
+
+  <!-- Puncak 1 (Kiri Atas) -->
+  <circle cx="160" cy="140" r="18" class="contour-major" />
+  <ellipse cx="160" cy="140" rx="36" ry="32" class="contour" />
+  <path d="M 100 135 C 100 90, 220 85, 225 140 C 228 180, 185 200, 150 195 C 115 190, 100 165, 100 135 Z" class="contour-subtle" />
+  <path d="M 70 130 C 70 65, 245 60, 255 140 C 260 205, 200 230, 145 225 C 90 220, 70 180, 70 130 Z" class="contour" />
+  <path d="M 40 125 C 40 40, 275 35, 290 140 C 300 230, 215 260, 140 255 C 65 250, 40 195, 40 125 Z" class="contour-major" />
+
+  <!-- Lembah / Pelana Antara Puncak 1 & Puncak 2 -->
+  <path d="M 0 100 C 60 120, 120 70, 200 60 C 280 50, 340 90, 400 80 C 460 70, 520 20, 600 40" class="contour-subtle" />
+  <path d="M 0 160 C 60 180, 80 230, 150 250 C 230 270, 310 220, 380 210 C 440 200, 500 240, 600 220" class="contour" />
+
+  <!-- Puncak 2 (Kanan Tengah) -->
+  <circle cx="460" cy="320" r="15" class="contour-major" />
+  <ellipse cx="460" cy="320" rx="32" ry="28" class="contour" />
+  <ellipse cx="460" cy="320" rx="55" ry="48" class="contour-subtle" />
+  <path d="M 380 320 C 380 260, 540 255, 545 320 C 550 375, 510 400, 455 395 C 400 390, 380 360, 380 320 Z" class="contour" />
+  <path d="M 350 320 C 350 235, 575 230, 580 320 C 585 405, 535 435, 450 430 C 365 425, 350 380, 350 320 Z" class="contour-major" />
+
+  <!-- Pegunungan / Lereng Karst Kiri Bawah -->
+  <circle cx="120" cy="480" r="16" class="contour-major" />
+  <ellipse cx="120" cy="480" rx="35" ry="32" class="contour" />
+  <path d="M 60 480 C 60 420, 185 415, 190 480 C 195 535, 160 560, 115 555 C 70 550, 60 520, 60 480 Z" class="contour-subtle" />
+  <path d="M 30 480 C 30 390, 220 385, 230 480 C 240 565, 180 595, 110 590 C 40 585, 30 545, 30 480 Z" class="contour" />
+  <path d="M 0 480 C 0 360, 250 355, 265 480 C 275 585, 205 600, 105 600 C 5 600, 0 570, 0 480 Z" class="contour-major" />
+
+  <!-- Garis Alur Kontur Diagonal & Elevasi Karst -->
+  <path d="M 0 280 C 90 280, 160 330, 240 340 C 330 350, 390 300, 470 290 C 530 280, 570 310, 600 300" class="contour" />
+  <path d="M 0 340 C 80 340, 130 390, 210 400 C 300 410, 360 440, 440 450 C 520 460, 560 430, 600 420" class="contour-subtle" />
+  <path d="M 0 400 C 90 380, 180 430, 270 440 C 360 450, 420 500, 500 510 C 560 520, 580 490, 600 480" class="contour" />
+
+  <path d="M 210 600 C 250 560, 310 550, 370 560 C 430 570, 490 600, 540 600" class="contour-subtle" />
+  <path d="M 260 600 C 300 580, 350 575, 410 585 C 470 595, 520 600, 570 600" class="contour-major" />
+
+  <!-- Penanda Ketinggian / Titik Titik Triangulasi Mini -->
+  <polygon points="160,132 166,144 154,144" fill="#FF6B00" opacity="0.8" />
+  <polygon points="460,313 466,325 454,325" fill="#FF6B00" opacity="0.8" />
+  <polygon points="120,473 126,485 114,485" fill="#FF6B00" opacity="0.8" />
+</svg>

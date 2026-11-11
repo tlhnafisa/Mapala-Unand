@@ -1347,28 +1347,6 @@ async function handleEditDivisionSubmit(e) {
   }
 }
 
-// 5. CMS WEBSITE (FR-39 s.d. FR-42)
-function switchCmsSubTab(subTabId) {
-  document.querySelectorAll('.cms-sub-content').forEach(el => el.classList.add('hidden'));
-  document.querySelectorAll('.cms-tab-btn').forEach(el => {
-    el.classList.remove('bg-[#FF6B00]', 'text-white');
-    el.classList.add('bg-white/5', 'text-[#94A3B8]');
-  });
-
-  const subEl = document.getElementById(`cmsSub-${subTabId}`);
-  if (subEl) subEl.classList.remove('hidden');
-  const btn = document.getElementById(`cmsBtn-${subTabId}`);
-  if (btn) {
-    btn.classList.add('bg-[#FF6B00]', 'text-white');
-    btn.classList.remove('bg-white/5', 'text-[#94A3B8]');
-  }
-
-  if (subTabId === 'articles') loadCMSArticles();
-  if (subTabId === 'pengurus') loadCMSStrukturOrganisasi();
-  if (subTabId === 'prestasi') loadCMSPrestasi();
-  if (subTabId === 'static') loadStaticContent();
-}
-
 // ============================================================================
 // 5. CMS WEBSITE (FR-39 s.d. FR-42)
 // ============================================================================
@@ -1517,9 +1495,36 @@ async function handleSaveArticle(e) {
   e.preventDefault();
   const editId = document.getElementById('artEditId').value.trim();
   const isEditing = Boolean(editId);
+  const judul = document.getElementById('artJudul').value.trim();
+
+  // Cegah duplikasi judul artikel (1 judul hanya boleh ada 1 artikel),
+  // sambil tetap mengizinkan edit isi artikel yang judulnya tidak diubah.
+  const currentEditingItem = isEditing
+    ? (STATE.articles || []).find(item => String(item.id) === String(editId))
+    : null;
+  const isTitleChanged = !currentEditingItem ||
+    (currentEditingItem.judul || '').trim().toLowerCase() !== judul.toLowerCase();
+
+  if (isTitleChanged) {
+    const duplicateArticle = (STATE.articles || []).find(item =>
+      (item.judul || '').trim().toLowerCase() === judul.toLowerCase() &&
+      (!isEditing || String(item.id) !== String(editId))
+    );
+    if (duplicateArticle) {
+      showToast(`Judul "${judul}" sudah terdaftar. Satu judul hanya boleh dimiliki 1 artikel — edit artikel yang sudah ada.`, 'error');
+      return;
+    }
+  }
+
+  const saveBtn = document.getElementById('btnSaveArticle');
+  const originalBtnText = saveBtn ? saveBtn.innerText : '';
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.innerText = isEditing ? 'Memperbarui...' : 'Menyimpan...';
+  }
 
   const formData = new FormData();
-  formData.append('judul', document.getElementById('artJudul').value.trim());
+  formData.append('judul', judul);
   formData.append('kategori_id', document.getElementById('artKategori').value);
   formData.append('divisi_id', document.getElementById('artDivisi').value);
   formData.append('lokasi', document.getElementById('artLokasi').value.trim());
@@ -1545,17 +1550,24 @@ async function handleSaveArticle(e) {
   const url = isEditing ? `/api/admin/cms/articles/${editId}` : '/api/admin/cms/articles';
   const method = isEditing ? 'PUT' : 'POST';
 
-  const res = await api(url, {
-    method,
-    body: formData
-  });
+  try {
+    const res = await api(url, {
+      method,
+      body: formData
+    });
 
-  if (res && res.success) {
-    showToast(res.message, 'success');
-    closeModal('articleModal');
-    loadCMSArticles();
-  } else {
-    showToast(res ? res.message : 'Gagal menyimpan artikel.', 'error');
+    if (res && res.success) {
+      showToast(res.message, 'success');
+      closeModal('articleModal');
+      loadCMSArticles();
+    } else {
+      showToast(res ? res.message : 'Gagal menyimpan artikel.', 'error');
+    }
+  } finally {
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.innerText = originalBtnText;
+    }
   }
 }
 
@@ -1602,15 +1614,11 @@ async function loadCMSStrukturOrganisasi() {
 
   const data = res.data;
   const periodeInp = document.getElementById('strukturPeriode');
-  const ketInp = document.getElementById('strukturKeterangan');
   const previewImg = document.getElementById('strukturPreviewImg');
-  const previewKet = document.getElementById('strukturPreviewKet');
   const badge = document.getElementById('strukturPeriodeBadge');
 
   if (periodeInp) periodeInp.value = data.periode || '2025/2026';
-  if (ketInp) ketInp.value = data.keterangan || '';
   if (previewImg) previewImg.src = data.foto || data.gambar_path || '/images/struktur-organisasi.svg';
-  if (previewKet) previewKet.innerText = data.keterangan || 'Bagan Struktur Organisasi Resmi Mapala UNAND';
   if (badge) badge.innerText = `Periode ${data.periode || '2025/2026'}`;
 }
 
@@ -1639,12 +1647,11 @@ function previewStrukturFile(input) {
 async function handleSaveStrukturOrganisasi(e) {
   e.preventDefault();
   const fileInp = document.getElementById('strukturFile');
-  const periode = document.getElementById('strukturPeriode').value.trim();
-  const keterangan = document.getElementById('strukturKeterangan').value.trim();
+  const periodeInp = document.getElementById('strukturPeriode');
+  const periode = (periodeInp && periodeInp.value.trim()) ? periodeInp.value.trim() : '2025/2026';
 
   const formData = new FormData();
   formData.append('periode', periode);
-  formData.append('keterangan', keterangan);
 
   if (fileInp && fileInp.files && fileInp.files[0]) {
     formData.append('foto', fileInp.files[0]);
@@ -1667,6 +1674,7 @@ async function handleSaveStrukturOrganisasi(e) {
 // SUBTAB 3: PRESTASI & PENGHARGAAN (FR-41)
 // -------------------------------------------------------------
 async function loadCMSPrestasi() {
+  loadCMSPrestasiBoxes();
   const res = await api('/api/admin/cms/prestasi');
   if (!res || !res.success) return;
 
@@ -1809,6 +1817,85 @@ async function deletePrestasi(id) {
 }
 
 // -------------------------------------------------------------
+// KELOLA 4 KOLOM CAPAIAN PRESTASI BERANDA (Teks Oranye & Putih)
+// -------------------------------------------------------------
+async function loadCMSPrestasiBoxes() {
+  const container = document.getElementById('prestasiBoxesContainer');
+  if (!container) return;
+
+  try {
+    const res = await api('/api/admin/cms/prestasi/boxes');
+    const boxes = (res && res.success && Array.isArray(res.data)) ? res.data : [
+      { id: 1, title: 'Juara 1', sub: 'Ekspedisi Navigasi Nasional' },
+      { id: 2, title: 'Kalpataru', sub: 'Apresiasi Konservasi Kampus' },
+      { id: 3, title: '7 Summits', sub: 'Jalur Ekspedisi Nusantara' },
+      { id: 4, title: '30+ Riset', sub: 'Publikasi Ilmiah & Speleologi' }
+    ];
+
+    container.innerHTML = boxes.map((box, idx) => {
+      const safeTitle = (box.title || '').replace(/"/g, '&quot;');
+      const safeSub = (box.sub || '').replace(/"/g, '&quot;');
+      return `
+        <div class="p-3.5 rounded-xl bg-black/30 border border-white/5 space-y-2.5">
+          <div class="flex items-center justify-between text-[11px] font-bold text-[#8C9BAE] border-b border-white/5 pb-1.5">
+            <span class="text-white">Kolom #${idx + 1}</span>
+            <span class="text-[#FF6B00]">Box ${idx + 1}</span>
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-[#FF6B00] mb-1">Teks Oranye (Judul):</label>
+            <input type="text" id="prsBoxTitle_${idx + 1}" value="${safeTitle}" placeholder="Misal: Juara 1" class="form-input !text-xs !py-1.5 !font-bold text-[#FF6B00]">
+          </div>
+          <div>
+            <label class="block text-[11px] font-medium text-white/90 mb-1">Teks Putih (Subjudul):</label>
+            <input type="text" id="prsBoxSub_${idx + 1}" value="${safeSub}" placeholder="Misal: Navigasi Nasional" class="form-input !text-xs !py-1.5 text-white">
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (err) {
+    console.warn('Gagal memuat 4 kotak prestasi:', err);
+  }
+}
+
+async function handleSavePrestasiBoxes(e) {
+  if (e) e.preventDefault();
+  const btn = document.getElementById('btnSavePrestasiBoxes');
+  const originalText = btn ? btn.innerText : 'Simpan 4 Kolom Beranda';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerText = 'Menyimpan...';
+  }
+
+  const boxes = [];
+  for (let i = 1; i <= 4; i++) {
+    const titleEl = document.getElementById(`prsBoxTitle_${i}`);
+    const subEl = document.getElementById(`prsBoxSub_${i}`);
+    boxes.push({
+      id: i,
+      title: titleEl ? titleEl.value.trim() : '',
+      sub: subEl ? subEl.value.trim() : ''
+    });
+  }
+
+  const res = await api('/api/admin/cms/prestasi/boxes', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ boxes })
+  });
+
+  if (btn) {
+    btn.disabled = false;
+    btn.innerText = originalText;
+  }
+
+  if (res && res.success) {
+    showToast('4 Kolom capaian prestasi beranda berhasil disimpan.', 'success');
+  } else {
+    showToast(res ? res.message : 'Gagal menyimpan 4 kolom prestasi.', 'error');
+  }
+}
+
+// -------------------------------------------------------------
 // SUBTAB 4: KONTEN STATIS & KONTAK (FR-42)
 // -------------------------------------------------------------
 async function loadStaticContent() {
@@ -1828,6 +1915,8 @@ async function loadStaticContent() {
     document.getElementById('staticWA').value = kontak.whatsapp || '';
     document.getElementById('staticAlamat').value = kontak.alamat || '';
     document.getElementById('staticInstagram').value = kontak.instagram || '';
+    const ytEl = document.getElementById('staticYouTube');
+    if (ytEl) ytEl.value = kontak.youtube || '';
     const fbEl = document.getElementById('staticFacebook');
     if (fbEl) fbEl.value = kontak.facebook || '';
     const ttEl = document.getElementById('staticTikTok');
@@ -1836,6 +1925,26 @@ async function loadStaticContent() {
   if (beranda) {
     document.getElementById('staticHeadline').value = beranda.headline || '';
     document.getElementById('staticSubHeadline').value = beranda.subheadline || '';
+
+    // Puncak (Manual Admin)
+    const pAngka = document.getElementById('staticPuncakAngka');
+    if (pAngka) pAngka.value = beranda.puncak_angka || 120;
+    const pSatuan = document.getElementById('staticPuncakSatuan');
+    if (pSatuan) pSatuan.value = beranda.puncak_satuan || '+ Puncak';
+    const pLabel = document.getElementById('staticPuncakLabel');
+    if (pLabel) pLabel.value = beranda.puncak_label || 'Sumatera & Seven Summits';
+
+    // Pratinjau Nilai Otomatis
+    const elTahunPrev = document.getElementById('statAutoTahunPreview');
+    if (elTahunPrev) {
+      const curYear = new Date().getFullYear();
+      elTahunPrev.innerText = `${Math.max(1, curYear - 1984)}+ Tahun`;
+    }
+    const elAnggotaPrev = document.getElementById('statAutoAnggotaPreview');
+    if (elAnggotaPrev && STATE.members && STATE.members.length > 0) {
+      elAnggotaPrev.innerText = `${STATE.members.length}+ Anggota`;
+    }
+    lucide.createIcons();
   }
 }
 
@@ -1848,20 +1957,29 @@ async function saveStaticContent(section) {
       misi: document.getElementById('staticMisi').value
     };
   } else if (section === 'kontak') {
+    const ytEl = document.getElementById('staticYouTube');
     const fbEl = document.getElementById('staticFacebook');
     const ttEl = document.getElementById('staticTikTok');
     data = {
-      email: document.getElementById('staticEmail').value,
-      whatsapp: document.getElementById('staticWA').value,
-      alamat: document.getElementById('staticAlamat').value,
-      instagram: document.getElementById('staticInstagram').value,
+      email: document.getElementById('staticEmail').value.trim(),
+      whatsapp: document.getElementById('staticWA').value.trim(),
+      alamat: document.getElementById('staticAlamat').value.trim(),
+      instagram: document.getElementById('staticInstagram').value.trim(),
+      youtube: ytEl ? ytEl.value.trim() : '',
       facebook: fbEl ? fbEl.value.trim() : '',
       tiktok: ttEl ? ttEl.value.trim() : ''
     };
   } else if (section === 'beranda') {
+    const pAngka = document.getElementById('staticPuncakAngka');
+    const pSatuan = document.getElementById('staticPuncakSatuan');
+    const pLabel = document.getElementById('staticPuncakLabel');
+
     data = {
       headline: document.getElementById('staticHeadline').value,
-      subheadline: document.getElementById('staticSubHeadline').value
+      subheadline: document.getElementById('staticSubHeadline').value,
+      puncak_angka: pAngka ? Number(pAngka.value) : 120,
+      puncak_satuan: pSatuan ? pSatuan.value.trim() : '+ Puncak',
+      puncak_label: pLabel ? pLabel.value.trim() : 'Sumatera & Seven Summits'
     };
   }
 
@@ -1926,6 +2044,10 @@ async function handleChangePassword(e) {
 function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('active');
+  if (id === 'articleModal') {
+    const editInput = document.getElementById('artEditId');
+    if (editInput) editInput.value = '';
+  }
 }
 
 // Init Application on DOM Ready

@@ -27,7 +27,6 @@
         <ul class="nav-menu">
           <li><a href="/" class="nav-link active">Beranda</a></li>
           <li><a href="/kegiatan-artikel" class="nav-link">Kegiatan & Artikel</a></li>
-          <li><a href="/struktur-organisasi" class="nav-link">Struktur Organisasi</a></li>
           <li><a href="/prestasi" class="nav-link">Prestasi</a></li>
           <li><a href="/tentang-kami" class="nav-link">Tentang Kami</a></li>
         </ul>
@@ -56,44 +55,6 @@
           Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati, dan dedikasi petualangan ilmiah rimba Nusantara sejak 1984.
         </p>
       </div>
-
-      <!-- Search / Quick Filter Bar -->
-      <form class="hero-search-bar" action="/kegiatan-artikel" method="GET">
-        <div class="search-field">
-          <label class="search-label" for="heroDivisi">DIVISI KEGIATAN</label>
-          <select id="heroDivisi" name="divisi" class="search-select">
-            <option value="all">Semua Divisi</option>
-            <option value="gunung">Gunung Hutan</option>
-            <option value="speleologi">Speleologi (Gua)</option>
-            <option value="panjat">Panjat Tebing</option>
-            <option value="konservasi">Konservasi Lingkungan</option>
-          </select>
-        </div>
-
-        <div class="search-field">
-          <label class="search-label" for="heroLokasi">LOKASI / JALUR</label>
-          <select id="heroLokasi" name="lokasi" class="search-select">
-            <option value="all">Sumatera Barat & Nasional</option>
-            <option value="kerinci">Taman Nasional Kerinci</option>
-            <option value="harau">Lembah Harau & Cagar Alam</option>
-            <option value="ngalau">Kawasan Karst Halaban</option>
-          </select>
-        </div>
-
-        <div class="search-field">
-          <label class="search-label" for="heroJadwal">JADWAL OPERASIONAL</label>
-          <select id="heroJadwal" name="jadwal" class="search-select">
-            <option value="all">Semester Ganjil 2024/2025</option>
-            <option value="2024">Tahun Anggaran 2024</option>
-            <option value="arsip">Arsip Ekspedisi Riset</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="padding: 14px 28px; white-space: nowrap;">
-          <span>Cari Kegiatan</span>
-          <span>→</span>
-        </button>
-      </form>
 
       <!-- Stats Row -->
       <div class="hero-stats-row">
@@ -194,7 +155,7 @@
   <!-- ========================================================================
        PRESTASI & PENCAPAIAN TERTINGGI
        ======================================================================== -->
-  <section class="section-padding">
+  <section class="section-padding topography-accent-section">
     <div class="container">
       <div class="prestasi-grid">
         <div class="reveal-left">
@@ -206,35 +167,30 @@
             Setiap ekspedisi bukan sekadar menaklukkan rute geografis, melainkan wujud tanggung jawab ilmiah: menghasilkan peta kontur presisi, inventarisasi vegetasi langka, hingga advokasi kelestarian karst bagi masyarakat lingkar hutan.
           </p>
 
-          <!-- 2x2 Achievement Stat Boxes -->
-          <div class="prestasi-stats-grid">
+          <!-- 2x2 Achievement Stat Boxes (Hanya Teks Oranye & Teks Putih) -->
+          <div class="prestasi-stats-grid" id="prestasiBoxesGrid">
             <div class="prestasi-box reveal stagger-1">
               <div class="prestasi-box-title">Juara 1</div>
               <div class="prestasi-box-sub">Ekspedisi Navigasi Nasional</div>
-              <div class="prestasi-box-detail">Kategori Kerapatan Jalur Rimba</div>
             </div>
 
             <div class="prestasi-box reveal stagger-2">
               <div class="prestasi-box-title">Kalpataru</div>
               <div class="prestasi-box-sub">Apresiasi Konservasi Kampus</div>
-              <div class="prestasi-box-detail">Pelestarian Sumber Air Hutan Lindung</div>
             </div>
 
             <div class="prestasi-box reveal stagger-3">
               <div class="prestasi-box-title">7 Summits</div>
               <div class="prestasi-box-sub">Jalur Ekspedisi Nusantara</div>
-              <div class="prestasi-box-detail">Puncak Tertinggi di Kepulauan Indonesia</div>
             </div>
 
             <div class="prestasi-box reveal stagger-4">
-              <div class="prestasi-box-title counter-number" data-target="30" data-suffix="+ Riset">0 Riset</div>
+              <div class="prestasi-box-title">30+ Riset</div>
               <div class="prestasi-box-sub">Publikasi Ilmiah & Speleologi</div>
-              <div class="prestasi-box-detail">Jurnal Akreditasi Hayati Sumatera</div>
             </div>
           </div>
 
           <div style="display: flex; align-items: center; gap: 16px;">
-            <button id="prestasiNextBtn" class="btn-circle-arrow" title="Lihat Prestasi Berikutnya">→</button>
             <a href="/prestasi" class="btn btn-dark btn-pill" style="font-size: 0.8rem; padding: 10px 20px;">
               <span>Arsip Semua Penghargaan</span>
             </a>
@@ -254,7 +210,7 @@
   <!-- ========================================================================
        TENTANG KAMI & KODE ETIK
        ======================================================================== -->
-  <section class="section-padding" style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle);">
+  <section class="section-padding topography-about-section" style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle); position: relative; overflow: hidden;">
     <div class="container">
       <div class="about-grid">
         <div class="reveal-left">
@@ -310,13 +266,13 @@
           </p>
           <div class="footer-social-links">
             <a href="https://instagram.com" target="_blank" rel="noopener" class="social-btn" title="Instagram">
-              <img src="/images/icons/instagram.svg" alt="Instagram" style="width: 18px; height: 18px;">
+              <img src="/images/icons/instagram.svg" alt="Instagram" style="width: 20px; height: 20px;">
             </a>
             <a href="https://youtube.com" target="_blank" rel="noopener" class="social-btn" title="YouTube">
-              <img src="/images/icons/youtube.svg" alt="YouTube" style="width: 18px; height: 18px;">
+              <img src="/images/icons/youtube.svg" alt="YouTube" style="width: 20px; height: 20px;">
             </a>
-            <a href="https://x.com" target="_blank" rel="noopener" class="social-btn" title="X / Twitter">
-              <img src="/images/icons/x-twitter.svg" alt="X / Twitter" style="width: 16px; height: 16px;">
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-btn" title="Facebook">
+              <img src="/images/icons/facebook.svg" alt="Facebook" style="width: 20px; height: 20px;">
             </a>
           </div>
         </div>
@@ -365,6 +321,17 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating WhatsApp Contact Button (Tanya Admin) with Pulse Effect -->
+  <a href="https://wa.me/6281234567890" id="floatingWhatsAppBtn" class="floating-wa-btn" target="_blank" rel="noopener" title="Hubungi Pengurus Mapala UNAND via WhatsApp">
+    <span class="wa-icon-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      <span class="wa-status-dot" aria-hidden="true"></span>
+    </span>
+    <span class="wa-text">Tanya Admin</span>
+  </a>
 
   <script src="/js/data.js"></script>
   <script src="/js/main.js"></script>

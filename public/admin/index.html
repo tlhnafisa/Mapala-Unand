@@ -77,22 +77,23 @@
   </div>
 
   <!-- MAIN APP CONTAINER -->
-  <div id="appContainer" class="flex min-h-screen">
+  <div id="appContainer" class="flex flex-col md:flex-row min-h-screen md:h-screen md:overflow-hidden">
 
     <!-- SIDEBAR -->
-    <aside class="w-72 bg-[#0A0E13] border-r border-[#1C2530] flex flex-col justify-between p-5 shrink-0 select-none">
-      <div>
-        <!-- Logo & Title -->
-        <div class="flex items-center gap-3 px-3 py-3 mb-6 border-b border-white/5 pb-5">
-          <img src="/images/logo-mapala.jpg" alt="Logo Mapala UNAND" class="w-10 h-10 rounded-xl object-contain shadow-lg shadow-[#FF6B00]/30 bg-[#FF6B00]">
+    <aside class="w-full md:w-64 bg-[#0A0E13] border-b md:border-b-0 md:border-r border-[#1C2530] flex flex-col shrink-0 md:h-screen md:sticky md:top-0 md:overflow-y-auto select-none">
+      <!-- Logo & Title -->
+      <div class="h-20 px-6 border-b border-[#1C2530] flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <img src="/images/logo-mapala.jpg" alt="Logo Mapala UNAND" class="w-10 h-10 rounded-xl object-contain shadow-lg shadow-[#FF6B00]/30 bg-[#FF6B00] shrink-0">
           <div>
-            <h1 class="font-extrabold text-sm tracking-wide text-white">MAPALA UNAND</h1>
-            <p class="text-[11px] text-[#FF6B00] font-semibold tracking-wider uppercase">ADMIN DASHBOARD</p>
+            <h1 class="text-sm font-bold tracking-wider text-white">MAPALA UNAND</h1>
+            <p class="text-[10px] text-[#FF6B00] font-semibold tracking-wider uppercase">ADMIN DASHBOARD</p>
           </div>
         </div>
+      </div>
 
-        <!-- Navigation Links -->
-        <nav class="space-y-1">
+      <!-- Navigation Links -->
+      <nav class="p-4 space-y-1.5 flex-1">
           <a id="nav-overview" onclick="switchTab('overview')" class="nav-link active">
             <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
             <span>Ringkasan Dashboard</span>
@@ -117,11 +118,10 @@
             <i data-lucide="history" class="w-4 h-4"></i>
             <span>Log Audit & Akun</span>
           </a>
-        </nav>
-      </div>
+      </nav>
 
       <!-- User Profile & Logout -->
-      <div class="pt-4 border-t border-white/5">
+      <div class="p-4 border-t border-[#1C2530]">
         <div class="flex items-center justify-between px-3 py-2 bg-[#11161B] rounded-2xl border border-white/5">
           <div class="flex items-center gap-2.5 overflow-hidden">
             <div class="w-8 h-8 rounded-full bg-[#FF6B00]/20 text-[#FF6B00] flex items-center justify-center font-bold text-xs shrink-0">
@@ -140,34 +140,36 @@
     </aside>
 
     <!-- CONTENT WRAPPER -->
-    <main class="flex-1 flex flex-col min-h-screen overflow-y-auto">
+    <main class="flex-1 flex flex-col min-h-0 md:h-screen overflow-y-auto">
 
       <!-- TOP HEADER BAR -->
-      <header class="h-20 bg-[#07090C]/90 backdrop-blur-md border-b border-[#1C2530] flex items-center justify-between px-8 sticky top-0 z-40">
-        <div>
-          <h2 class="text-lg font-bold text-white flex items-center gap-2">
-            Sistem Informasi Manajemen Keanggotaan & Website Resmi
+      <header class="h-20 bg-[#07090C]/90 backdrop-blur-md border-b border-[#1C2530] flex items-center justify-between gap-4 px-6 lg:px-8 sticky top-0 z-40 shrink-0">
+        <div class="min-w-0">
+          <h2 class="text-base lg:text-lg font-bold text-white truncate">
+            Panel Kendali Administrasi & Website
           </h2>
-          <p class="text-xs text-[#8C9BAE]">Kelompok 3 • TB Manajemen Proyek Sistem Informasi (MPSI)</p>
+          <p class="text-xs text-[#8C9BAE] truncate">
+            Mahasiswa Pecinta Alam Universitas Andalas • Kelola Anggota, Registrasi & Konten
+          </p>
         </div>
-        <div class="flex items-center gap-4">
-          <span id="activePeriodBadge" class="badge-pill badge-orange font-medium">
+        <div class="flex items-center gap-3 shrink-0">
+          <span id="activePeriodBadge" class="badge-pill badge-orange font-medium !text-xs whitespace-nowrap">
             Memuat Periode Aktif...
           </span>
-          <div class="h-6 w-[1px] bg-white/10"></div>
-          <div class="flex items-center gap-3">
-            <div class="text-right">
-              <div class="text-xs font-bold text-white">Admin Operasional</div>
+          <div class="hidden md:block h-6 w-[1px] bg-white/10"></div>
+          <div class="hidden md:flex items-center gap-3">
+            <div class="text-right leading-tight">
+              <div class="text-xs font-bold text-white">Admin Pengurus</div>
               <div class="text-[11px] text-[#10B981] flex items-center justify-end gap-1">
                 <span class="w-2 h-2 rounded-full bg-[#10B981]"></span> Terhubung
               </div>
             </div>
-            <!-- Tombol Ganti Tema (Terang & Gelap) di sebelah kanan tulisan terhubung -->
-            <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Ganti Mode Tema (Terang / Gelap)">
-              <i id="themeIcon" data-lucide="sun" class="w-4 h-4"></i>
-              <span id="themeLabel" class="hidden sm:inline">Tema Terang</span>
-            </button>
           </div>
+          <!-- Tombol Ganti Tema (Terang & Gelap) -->
+          <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn shrink-0 whitespace-nowrap" title="Ganti Mode Tema (Terang / Gelap)">
+            <i id="themeIcon" data-lucide="sun" class="w-4 h-4"></i>
+            <span id="themeLabel" class="hidden sm:inline">Tema Terang</span>
+          </button>
         </div>
       </header>
 
@@ -682,11 +684,6 @@
                   </div>
 
                   <div>
-                    <label class="form-label">Keterangan / Judul Bagan</label>
-                    <input id="strukturKeterangan" type="text" placeholder="Bagan Struktur Organisasi Periode 2025/2026" class="form-input">
-                  </div>
-
-                  <div>
                     <label class="form-label">Pilih Berkas Gambar Bagan *</label>
                     <label for="strukturFile" class="attr-file-label">
                       <i data-lucide="image" class="w-4 h-4 attr-file-icon"></i>
@@ -713,14 +710,33 @@
                 <div class="w-full min-h-[300px] max-h-[500px] rounded-2xl overflow-hidden bg-black/40 border border-white/5 flex items-center justify-center p-2">
                   <img id="strukturPreviewImg" src="" alt="Pratinjau Bagan Struktur Organisasi" class="max-h-[460px] w-auto max-w-full object-contain rounded-xl">
                 </div>
-                <p id="strukturPreviewKet" class="text-xs text-[#CBD5E1] text-center italic"></p>
               </div>
             </div>
           </div>
 
           <!-- SUBTAB 3: PRESTASI -->
           <div id="cmsSub-prestasi" class="cms-sub-content hidden space-y-4">
-            <div class="flex justify-between items-center">
+            <!-- KELOLA 4 KOLOM CAPAIAN PRESTASI DI BERANDA -->
+            <div class="card-alpine p-5 rounded-2xl border border-white/10 space-y-4 bg-[#141A22]">
+              <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <h4 class="font-bold text-white text-sm flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#FF6B00]"></span>
+                    4 Kolom Capaian Prestasi di Beranda
+                  </h4>
+                  <p class="text-xs text-[#8C9BAE]">Atur teks oranye (judul capaian) dan teks putih (subjudul) untuk 4 kotak kecil pada seksi Prestasi Beranda.</p>
+                </div>
+                <button type="button" onclick="handleSavePrestasiBoxes(event)" id="btnSavePrestasiBoxes" class="btn-primary !text-xs !py-2 !px-4">
+                  Simpan 4 Kolom Beranda
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="prestasiBoxesContainer">
+                <!-- Rendered dynamically by JS -->
+              </div>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
               <div>
                 <h3 class="font-bold text-white text-base">Daftar Prestasi & Penghargaan</h3>
                 <p class="text-xs text-[#8C9BAE]">Catatan kejuaraan panjat tebing, kalpataru, dan pencapaian lainnya</p>
@@ -776,51 +792,154 @@
               <!-- Kontak Resmi Form -->
               <div class="card-alpine space-y-4">
                 <div class="flex items-center justify-between border-b border-white/5 pb-2">
-                  <h4 class="font-bold text-white text-base">Informasi Kontak Resmi</h4>
+                  <div>
+                    <h4 class="font-bold text-white text-base">Informasi Kontak & Media Sosial Resmi</h4>
+                    <p class="text-[11px] text-[#8C9BAE]">Ditetapkan 1 tautan tetap per platform media sosial resmi</p>
+                  </div>
                   <button onclick="saveStaticContent('kontak')" class="btn-primary !py-1.5 !px-3 !text-xs">Simpan Perubahan</button>
                 </div>
                 <div>
-                  <label class="form-label">Surel (Email)</label>
-                  <input id="staticEmail" type="email" class="form-input">
+                  <label class="form-label">Surel (Email Resmi)</label>
+                  <input id="staticEmail" type="email" placeholder="humas@mapalaunand.org" class="form-input">
                 </div>
                 <div>
                   <label class="form-label">Nomor WhatsApp Resmi (Tanpa +)</label>
-                  <input id="staticWA" type="text" class="form-input">
+                  <input id="staticWA" type="text" placeholder="6281234567890" class="form-input">
                 </div>
                 <div>
-                  <label class="form-label">Alamat Sekretariat</label>
-                  <textarea id="staticAlamat" rows="2" class="form-textarea"></textarea>
+                  <label class="form-label">Alamat Sekretariat Lengkap</label>
+                  <textarea id="staticAlamat" rows="2" class="form-textarea" placeholder="Gedung PKM Lt. 1 Universitas Andalas..."></textarea>
                 </div>
-                <div>
-                  <label class="form-label">Akun Instagram</label>
-                  <input id="staticInstagram" type="text" placeholder="@mapalaunand" class="form-input">
-                </div>
-                <div>
-                  <label class="form-label">Tautan Facebook (P-04)</label>
-                  <input id="staticFacebook" type="url" placeholder="https://facebook.com/mapalaunand" class="form-input">
-                </div>
-                <div>
-                  <label class="form-label">Tautan TikTok (P-04)</label>
-                  <input id="staticTikTok" type="url" placeholder="https://tiktok.com/@mapalaunand" class="form-input">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-white/5">
+                  <div>
+                    <label class="form-label">Tautan Instagram Resmi</label>
+                    <input id="staticInstagram" type="text" placeholder="https://instagram.com/mapalaunand_official" class="form-input">
+                  </div>
+                  <div>
+                    <label class="form-label">Tautan YouTube Resmi</label>
+                    <input id="staticYouTube" type="url" placeholder="https://youtube.com/@mapalaunandofficial" class="form-input">
+                  </div>
+                  <div>
+                    <label class="form-label">Tautan Facebook Resmi</label>
+                    <input id="staticFacebook" type="url" placeholder="https://facebook.com/mapalaunand" class="form-input">
+                  </div>
+                  <div>
+                    <label class="form-label">Tautan TikTok Resmi</label>
+                    <input id="staticTikTok" type="url" placeholder="https://tiktok.com/@mapalaunand" class="form-input">
+                  </div>
                 </div>
               </div>
 
-              <!-- Highlight Beranda (K-04) -->
-              <div class="card-alpine lg:col-span-2 space-y-4">
+              <!-- Highlight Beranda & 4 Statistik Hero (K-04) -->
+              <div class="card-alpine lg:col-span-2 space-y-5">
                 <div class="flex items-center justify-between border-b border-white/5 pb-2">
                   <div>
-                    <h4 class="font-bold text-white text-base">Teks Highlight Beranda Publik [K-04]</h4>
-                    <p class="text-xs text-[#8C9BAE]">Kelola teks judul utama (headline) dan sub-judul pada landing page beranda website</p>
+                    <h4 class="font-bold text-white text-base">Teks Highlight & Statistik Hero Beranda [K-04]</h4>
+                    <p class="text-xs text-[#8C9BAE]">Kelola teks judul utama, subheadline, serta statistik capaian (Tahun, Puncak, Anggota, Konservasi) di Hero Beranda</p>
                   </div>
-                  <button onclick="saveStaticContent('beranda')" class="btn-primary !py-1.5 !px-3 !text-xs">Simpan Highlight</button>
+                  <button onclick="saveStaticContent('beranda')" class="btn-primary !py-1.5 !px-3 !text-xs">
+                    <i data-lucide="save" class="w-3.5 h-3.5 mr-1"></i> Simpan Perubahan Beranda
+                  </button>
                 </div>
-                <div>
-                  <label class="form-label">Headline / Judul Utama Beranda</label>
-                  <input id="staticHeadline" type="text" placeholder="Menjelajah Rimba, Menjaga Lestari..." class="form-input">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label">Headline / Tagline Utama Beranda</label>
+                    <input id="staticHeadline" type="text" placeholder="Menjelajahi dan Menelusuri Alam dengan Cinta." class="form-input">
+                  </div>
+                  <div>
+                    <label class="form-label">Subheadline / Keterangan Penjelas</label>
+                    <textarea id="staticSubHeadline" rows="1" placeholder="Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati..." class="form-textarea"></textarea>
+                  </div>
                 </div>
-                <div>
-                  <label class="form-label">Subheadline / Keterangan Penjelas</label>
-                  <textarea id="staticSubHeadline" rows="2" placeholder="Sistem Informasi Manajemen Keanggotaan..." class="form-textarea"></textarea>
+
+                <!-- 4 KARTU STATISTIK HERO BERANDA -->
+                <div class="pt-4 border-t border-white/10 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h5 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-[#FF6B00]"></span>
+                        4 Kartu Statistik di Bawah Tagline Hero Beranda
+                      </h5>
+                      <p class="text-[11px] text-[#8C9BAE]">Sistem mengotomatiskan Tahun, Anggota, dan Konservasi. Statistik Puncak dikelola manual oleh admin.</p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <!-- 1. TAHUN (OTOMATIS) -->
+                    <div class="p-3.5 rounded-2xl bg-white/5 border border-white/5 space-y-2 relative">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                          <i data-lucide="compass" class="w-3.5 h-3.5 text-[#FF6B00]"></i> 1. Tahun
+                        </span>
+                        <span class="badge-pill bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30 text-[10px] font-bold">Otomatis Sistem</span>
+                      </div>
+                      <div class="text-base font-extrabold text-[#FF6B00]" id="statAutoTahunPreview">42+ Tahun</div>
+                      <div class="text-[11px] text-[#8C9BAE] leading-relaxed">
+                        Dihitung otomatis: <code class="text-white">Tahun Sekarang - 1984</code>. Bertambah otomatis setiap tahun baru.
+                      </div>
+                      <div class="text-[10px] text-white/60 bg-white/5 px-2 py-1 rounded-lg">
+                        Label: <em>Eksplorasi Rimba & Karst</em>
+                      </div>
+                    </div>
+
+                    <!-- 2. PUNCAK (MANUAL ADMIN) -->
+                    <div class="p-3.5 rounded-2xl bg-[#FF6B00]/10 border border-[#FF6B00]/30 space-y-2 relative">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                          <i data-lucide="mountain" class="w-3.5 h-3.5 text-[#FF6B00]"></i> 2. Puncak
+                        </span>
+                        <span class="badge-pill bg-[#FF6B00]/20 text-[#FF6B00] border border-[#FF6B00]/40 text-[10px] font-bold">Manual Admin</span>
+                      </div>
+                      <div class="grid grid-cols-2 gap-2">
+                        <div>
+                          <label class="block text-[10px] font-semibold text-[#FF6B00] mb-0.5">Jumlah Puncak:</label>
+                          <input type="number" id="staticPuncakAngka" value="120" class="form-input !text-xs !py-1 !font-bold text-white">
+                        </div>
+                        <div>
+                          <label class="block text-[10px] font-semibold text-white/80 mb-0.5">Satuan:</label>
+                          <input type="text" id="staticPuncakSatuan" value="+ Puncak" class="form-input !text-xs !py-1 text-white">
+                        </div>
+                      </div>
+                      <div>
+                        <label class="block text-[10px] font-semibold text-white/80 mb-0.5">Keterangan / Label:</label>
+                        <input type="text" id="staticPuncakLabel" value="Sumatera & Seven Summits" class="form-input !text-xs !py-1 text-white">
+                      </div>
+                    </div>
+
+                    <!-- 3. ANGGOTA (OTOMATIS DATABASE) -->
+                    <div class="p-3.5 rounded-2xl bg-white/5 border border-white/5 space-y-2 relative">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                          <i data-lucide="users" class="w-3.5 h-3.5 text-[#FF6B00]"></i> 3. Anggota
+                        </span>
+                        <span class="badge-pill bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30 text-[10px] font-bold">Otomatis DB</span>
+                      </div>
+                      <div class="text-base font-extrabold text-[#FF6B00]" id="statAutoAnggotaPreview">600+ Anggota</div>
+                      <div class="text-[11px] text-[#8C9BAE] leading-relaxed">
+                        Tersinkronisasi langsung dari total rekaman pada tabel data anggota di database sistem.
+                      </div>
+                      <div class="text-[10px] text-white/60 bg-white/5 px-2 py-1 rounded-lg">
+                        Label: <em>Keluarga Besar Lintas Generasi</em>
+                      </div>
+                    </div>
+
+                    <!-- 4. KONSERVASI (OTOMATIS DATABASE) -->
+                    <div class="p-3.5 rounded-2xl bg-white/5 border border-white/5 space-y-2 relative">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-white flex items-center gap-1.5">
+                          <i data-lucide="shield" class="w-3.5 h-3.5 text-[#FF6B00]"></i> 4. Konservasi
+                        </span>
+                        <span class="badge-pill bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30 text-[10px] font-bold">Otomatis DB</span>
+                      </div>
+                      <div class="text-base font-extrabold text-[#FF6B00]" id="statAutoKonservasiPreview">50+ Konservasi</div>
+                      <div class="text-[11px] text-[#8C9BAE] leading-relaxed">
+                        Dihitung dari 50 riset konservasi historis + publikasi kegiatan riset aktif di database.
+                      </div>
+                      <div class="text-[10px] text-white/60 bg-white/5 px-2 py-1 rounded-lg">
+                        Label: <em>Riset & Keanekaragaman Hayati</em>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
