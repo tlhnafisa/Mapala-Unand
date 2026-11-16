@@ -62,6 +62,7 @@ let directoryList = [
 let currentPolicyId = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAnggotaTheme();
   const isAuth = checkAuthSession();
   if (!isAuth) return;
   initLucide();
@@ -71,6 +72,37 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDirectory();
   loadLiveDataFromMySQL();
 });
+
+// ========================================================================
+// THEME MANAGER (DARK & LIGHT THEME)
+// ========================================================================
+function initAnggotaTheme() {
+  const savedTheme = localStorage.getItem('mapala_theme') || 'dark';
+  applyAnggotaTheme(savedTheme);
+}
+
+function toggleAnggotaTheme() {
+  const isLight = document.body.classList.contains('theme-light');
+  const nextTheme = isLight ? 'dark' : 'light';
+  applyAnggotaTheme(nextTheme);
+  localStorage.setItem('mapala_theme', nextTheme);
+}
+
+function applyAnggotaTheme(theme) {
+  const sunIcon = document.getElementById('anggotaThemeIconSun');
+  const moonIcon = document.getElementById('anggotaThemeIconMoon');
+
+  if (theme === 'light') {
+    document.body.classList.add('theme-light');
+    if (sunIcon) sunIcon.classList.add('hidden');
+    if (moonIcon) moonIcon.classList.remove('hidden');
+  } else {
+    document.body.classList.remove('theme-light');
+    if (sunIcon) sunIcon.classList.remove('hidden');
+    if (moonIcon) moonIcon.classList.add('hidden');
+  }
+}
+window.toggleAnggotaTheme = toggleAnggotaTheme;
 
 async function loadLiveDataFromMySQL() {
   const token = localStorage.getItem('mapala_token');

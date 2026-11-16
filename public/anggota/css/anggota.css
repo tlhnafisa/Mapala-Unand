@@ -161,3 +161,125 @@ body {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ========================================================================
+   ICON-ONLY THEME TOGGLE BUTTON & LIGHT THEME OVERRIDES (PORTAL ANGGOTA)
+   ======================================================================== */
+.theme-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid #1C2530;
+  color: #FF6B00;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.theme-icon-btn:hover {
+  background-color: rgba(255, 107, 0, 0.14);
+  border-color: rgba(255, 107, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+body.theme-light {
+  background-color: #E6EFF9 !important;
+  color: #0F172A !important;
+}
+
+body.theme-light aside {
+  background-color: #F2F7FD !important;
+  border-color: #C8D8EC !important;
+}
+
+body.theme-light header {
+  background-color: rgba(242, 247, 253, 0.94) !important;
+  border-bottom-color: #C8D8EC !important;
+}
+
+body.theme-light .theme-icon-btn {
+  background-color: #E6EFF9;
+  border-color: #B8CCE4;
+  color: #FF6B00;
+}
+body.theme-light .theme-icon-btn:hover {
+  background-color: #D8E6F6;
+}
+
+body.theme-light .text-white {
+  color: #0F172A !important;
+}
+
+/* Keep white text on orange primary buttons and active orange tab buttons */
+body.theme-light .bg-\[\#FF6B00\].text-white,
+body.theme-light .nav-tab-btn.bg-\[\#FF6B00\],
+body.theme-light button.bg-\[\#FF6B00\] {
+  color: #FFFFFF !important;
+}
+
+body.theme-light .text-\[\#94A3B8\],
+body.theme-light .text-\[\#CBD5E1\] {
+  color: #334155 !important;
+}
+
+body.theme-light .text-\[\#8C9BAE\] {
+  color: #52657D !important;
+}
+
+body.theme-light .bg-\[\#07090C\],
+body.theme-light .bg-\[\#07090C\]\/50,
+body.theme-light .bg-\[\#0D1217\] {
+  background-color: #E6EFF9 !important;
+}
+
+body.theme-light .bg-\[\#11161B\],
+body.theme-light .bg-\[\#11161B\]\/80,
+body.theme-light .bg-\[\#161D24\] {
+  background-color: #F2F7FD !important;
+}
+
+body.theme-light .bg-\[\#1C2530\] {
+  background-color: #D5E2F2 !important;
+}
+
+body.theme-light .border-\[\#1C2530\],
+body.theme-light .border-white\/5,
+body.theme-light .border-white\/10 {
+  border-color: #C8D8EC !important;
+}
+
+body.theme-light .form-input,
+body.theme-light .form-select,
+body.theme-light .form-textarea {
+  background-color: #F5F9FF !important;
+  border-color: #B8CCE4 !important;
+  color: #0F172A !important;
+}
+
+body.theme-light .form-label {
+  color: #334155 !important;
+}
+
+body.theme-light .modal-content {
+  background-color: #F2F7FD !important;
+  border-color: #C8D8EC !important;
+  color: #0F172A !important;
+}
+
+body.theme-light .modal-overlay {
+  background-color: rgba(15, 23, 42, 0.55) !important;
+}
+
+body.theme-light .toast-msg {
+  background-color: #F2F7FD !important;
+  border-color: #C8D8EC !important;
+  color: #0F172A !important;
+}
+
+body.theme-light .nav-tab-btn:hover {
+  background-color: #E6EFF9 !important;
+  color: #0F172A !important;
+}

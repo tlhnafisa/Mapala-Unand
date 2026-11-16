@@ -137,12 +137,22 @@ exports.getBerandaContent = async (req, res) => {
       `);
     }
 
+    const resolveSorotanDetail = (row) => {
+      if (!row) return '';
+      const det = row.sorotan_detail;
+      const desc = row.deskripsi;
+      if (det && desc && det.length === 140 && desc.length > 140 && desc.startsWith(det)) {
+        return desc;
+      }
+      return det || desc;
+    };
+
     const prsUtama = highlightRows.length > 0 ? {
       id: highlightRows[0].id,
       tahun: highlightRows[0].tahun,
       judul: highlightRows[0].sorotan_judul || highlightRows[0].judul,
       subjudul: highlightRows[0].sorotan_subjudul || `Tahun ${highlightRows[0].tahun}`,
-      deskripsi: highlightRows[0].sorotan_detail || highlightRows[0].deskripsi,
+      deskripsi: resolveSorotanDetail(highlightRows[0]),
       foto: highlightRows[0].gambar_url,
       caption: highlightRows[0].caption || `${highlightRows[0].judul} (${highlightRows[0].tahun}) - Mapala UNAND`
     } : null;
@@ -185,7 +195,7 @@ exports.getBerandaContent = async (req, res) => {
           ...h,
           judul: h.sorotan_judul || h.judul,
           subjudul: h.sorotan_subjudul || `Tahun ${h.tahun}`,
-          detail: h.sorotan_detail || h.deskripsi
+          detail: resolveSorotanDetail(h)
         })),
         prestasi_utama: prsUtama,
         prestasi_boxes: prestasiBoxes

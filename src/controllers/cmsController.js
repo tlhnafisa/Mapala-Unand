@@ -691,7 +691,7 @@ exports.createPrestasi = async (req, res) => {
     const isSorotanVal = (is_sorotan === '1' || is_sorotan === 1 || is_sorotan === true || is_sorotan === 'true' || is_sorotan === 'on') ? 1 : 0;
     const sorotanJudulVal = sorotan_judul || judul.trim();
     const sorotanSubVal = sorotan_subjudul || `Tahun ${tahun}`;
-    const sorotanDetVal = sorotan_detail || (deskripsi.trim().slice(0, 140));
+    const sorotanDetVal = sorotan_detail || deskripsi.trim();
 
     const ins = await execute(`
       INSERT INTO prestasi (
@@ -802,7 +802,7 @@ exports.updatePrestasi = async (req, res) => {
       isSorotanVal,
       sorotan_judul || newJudul,
       sorotan_subjudul || `Tahun ${newTahun}`,
-      sorotan_detail || newDeskripsi.slice(0, 140),
+      sorotan_detail || newDeskripsi,
       id
     ]);
 
@@ -1067,10 +1067,24 @@ exports.updateStaticContent = async (req, res) => {
       }
     } else if (section === 'beranda') {
       if (data.headline !== undefined) {
-        await upsertStatic('hero_tagline', data.headline.trim(), 'beranda');
+        const cleanHeadline = String(data.headline).trim();
+        if (cleanHeadline.length > 80) {
+          return res.status(400).json({
+            success: false,
+            message: 'Headline / Tagline Utama Beranda maksimal 80 karakter.'
+          });
+        }
+        await upsertStatic('hero_tagline', cleanHeadline, 'beranda');
       }
       if (data.subheadline !== undefined) {
-        await upsertStatic('hero_deskripsi', data.subheadline.trim(), 'beranda');
+        const cleanSubheadline = String(data.subheadline).trim();
+        if (cleanSubheadline.length > 200) {
+          return res.status(400).json({
+            success: false,
+            message: 'Subheadline / Keterangan Penjelas maksimal 200 karakter.'
+          });
+        }
+        await upsertStatic('hero_deskripsi', cleanSubheadline, 'beranda');
       }
       if (data.hero_judul !== undefined) {
         await upsertStatic('hero_judul', data.hero_judul.trim(), 'beranda');

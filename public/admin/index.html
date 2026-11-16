@@ -301,7 +301,7 @@
               <!-- Search Box -->
               <div class="relative w-full lg:w-96">
                 <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-[#8C9BAE]"></i>
-                <input id="searchMember" type="text" oninput="loadMembers()" placeholder="Cari Nama atau No. Register (contoh: MU 325 LTN)..." class="form-input !pl-10">
+                <input id="searchMember" type="text" oninput="loadMembers()" placeholder="Cari Nama atau No. Register (ex: MU 325 Ltn)" class="form-input !pl-10">
               </div>
 
               <!-- Action Buttons -->
@@ -328,11 +328,6 @@
                     </button>
                   </div>
                 </div>
-
-                <!-- Tombol Unduh Templat -->
-                <button onclick="downloadTemplateFile()" class="btn-secondary !text-xs !py-2.5 text-[#8C9BAE] flex items-center gap-1.5" title="Unduh Templat Format Excel Impor">
-                  <i data-lucide="file-down" class="w-4 h-4"></i> Unduh Templat
-                </button>
               </div>
             </div>
 
@@ -507,7 +502,7 @@
                 <div class="flex items-center justify-between border-b border-white/5 pb-3">
                   <div>
                     <h3 class="font-bold text-white text-base">Periode Registrasi Ulang</h3>
-                    <p class="text-xs text-[#8C9BAE]">Buka atau tutup periode pendataan tahunan anggota [FR-33]</p>
+                    <p class="text-xs text-[#8C9BAE]">Buka atau tutup periode pendataan tahunan anggota</p>
                   </div>
                   <button type="button" onclick="openAddPeriodModal()" class="btn-primary !py-1.5 !px-3 !text-xs">
                     <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah Periode Baru
@@ -616,16 +611,16 @@
           <!-- CMS Sub-Navigation -->
           <div class="flex items-center gap-2 border-b border-[#1C2530] pb-4">
             <button id="cmsBtn-articles" onclick="switchCmsSubTab('articles')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-[#FF6B00] text-white transition-all">
-              Artikel & Kegiatan [FR-39]
+              Artikel & Kegiatan
             </button>
             <button id="cmsBtn-pengurus" onclick="switchCmsSubTab('pengurus')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
-              Struktur Organisasi [FR-40]
+              Struktur Organisasi
             </button>
             <button id="cmsBtn-prestasi" onclick="switchCmsSubTab('prestasi')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
-              Prestasi [FR-41]
+              Prestasi
             </button>
             <button id="cmsBtn-static" onclick="switchCmsSubTab('static')" class="cms-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-white/5 text-[#94A3B8] hover:text-white transition-all">
-              Tentang Kami & Kontak [FR-42]
+              Tentang Kami & Kontak
             </button>
           </div>
 
@@ -843,12 +838,20 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label class="form-label">Headline / Tagline Utama Beranda</label>
-                    <input id="staticHeadline" type="text" placeholder="Menjelajahi dan Menelusuri Alam dengan Cinta." class="form-input">
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="form-label !mb-0">Headline / Tagline Utama Beranda (Kiri)</label>
+                      <span id="staticHeadlineCount" class="text-[11px] font-mono text-[#8C9BAE]">0 / 80</span>
+                    </div>
+                    <input id="staticHeadline" type="text" maxlength="80" oninput="updateBerandaCharCounters()" placeholder="Menjelajahi dan Menelusuri Alam dengan Cinta." class="form-input">
+                    <p class="text-[10px] text-[#8C9BAE] mt-1">Maksimal 80 karakter.</p>
                   </div>
                   <div>
-                    <label class="form-label">Subheadline / Keterangan Penjelas</label>
-                    <textarea id="staticSubHeadline" rows="1" placeholder="Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati..." class="form-textarea"></textarea>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="form-label !mb-0">Subheadline / Keterangan Penjelas (Kanan)</label>
+                      <span id="staticSubHeadlineCount" class="text-[11px] font-mono text-[#8C9BAE]">0 / 200</span>
+                    </div>
+                    <textarea id="staticSubHeadline" rows="2" maxlength="200" oninput="updateBerandaCharCounters()" placeholder="Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati..." class="form-textarea"></textarea>
+                    <p class="text-[10px] text-[#8C9BAE] mt-1">Maksimal 200 karakter.</p>
                   </div>
                 </div>
 

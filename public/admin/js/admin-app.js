@@ -1594,7 +1594,7 @@ async function toggleArticleStatus(id) {
 }
 
 async function deleteArticle(id) {
-  if (confirm('Hapus artikel ini secara permanen dari database? [FR-43]')) {
+  if (confirm('Hapus artikel ini secara permanen dari database?')) {
     const res = await api(`/api/admin/cms/articles/${id}`, { method: 'DELETE' });
     if (res && res.success) {
       showToast(res.message, 'success');
@@ -1805,7 +1805,7 @@ async function handleSavePrestasi(e) {
 }
 
 async function deletePrestasi(id) {
-  if (confirm('Hapus data prestasi ini dari database? [FR-43]')) {
+  if (confirm('Hapus data prestasi ini dari database?')) {
     const res = await api(`/api/admin/cms/prestasi/${id}`, { method: 'DELETE' });
     if (res && res.success) {
       showToast(res.message, 'success');
@@ -1925,6 +1925,7 @@ async function loadStaticContent() {
   if (beranda) {
     document.getElementById('staticHeadline').value = beranda.headline || '';
     document.getElementById('staticSubHeadline').value = beranda.subheadline || '';
+    updateBerandaCharCounters();
 
     // Puncak (Manual Admin)
     const pAngka = document.getElementById('staticPuncakAngka');
@@ -1945,6 +1946,24 @@ async function loadStaticContent() {
       elAnggotaPrev.innerText = `${STATE.members.length}+ Anggota`;
     }
     lucide.createIcons();
+  }
+}
+
+function updateBerandaCharCounters() {
+  const headlineEl = document.getElementById('staticHeadline');
+  const subEl = document.getElementById('staticSubHeadline');
+  const headlineCountEl = document.getElementById('staticHeadlineCount');
+  const subCountEl = document.getElementById('staticSubHeadlineCount');
+
+  if (headlineEl && headlineCountEl) {
+    const len = headlineEl.value.length;
+    headlineCountEl.textContent = `${len} / 80`;
+    headlineCountEl.className = `text-[11px] font-mono ${len >= 80 ? 'text-[#EF4444] font-bold' : 'text-[#8C9BAE]'}`;
+  }
+  if (subEl && subCountEl) {
+    const len = subEl.value.length;
+    subCountEl.textContent = `${len} / 200`;
+    subCountEl.className = `text-[11px] font-mono ${len >= 200 ? 'text-[#EF4444] font-bold' : 'text-[#8C9BAE]'}`;
   }
 }
 
@@ -1970,13 +1989,25 @@ async function saveStaticContent(section) {
       tiktok: ttEl ? ttEl.value.trim() : ''
     };
   } else if (section === 'beranda') {
+    const headlineVal = document.getElementById('staticHeadline').value.trim();
+    const subHeadlineVal = document.getElementById('staticSubHeadline').value.trim();
+
+    if (headlineVal.length > 80) {
+      showToast('Headline / Tagline Utama Beranda maksimal 80 karakter.', 'error');
+      return;
+    }
+    if (subHeadlineVal.length > 200) {
+      showToast('Subheadline / Keterangan Penjelas maksimal 200 karakter.', 'error');
+      return;
+    }
+
     const pAngka = document.getElementById('staticPuncakAngka');
     const pSatuan = document.getElementById('staticPuncakSatuan');
     const pLabel = document.getElementById('staticPuncakLabel');
 
     data = {
-      headline: document.getElementById('staticHeadline').value,
-      subheadline: document.getElementById('staticSubHeadline').value,
+      headline: headlineVal,
+      subheadline: subHeadlineVal,
       puncak_angka: pAngka ? Number(pAngka.value) : 120,
       puncak_satuan: pSatuan ? pSatuan.value.trim() : '+ Puncak',
       puncak_label: pLabel ? pLabel.value.trim() : 'Sumatera & Seven Summits'

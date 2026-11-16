@@ -50,8 +50,9 @@
         <p class="login-subtitle">Sistem Informasi Manajemen Keanggotaan Terpadu</p>
       </div>
 
-      <div class="login-notice">
-        <img src="/images/icons/info.svg" alt="Info" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;"> <strong>Informasi Akun:</strong> Gunakan Nomor Register Anggota (No. Register) Anda sebagai username. Bagi login pertama, Anda akan diarahkan untuk mengganti password default dan menyetujui Kebijakan Privasi Data.
+      <div class="login-notice" style="display: flex; align-items: flex-start; gap: 10px;">
+        <img src="/images/icons/info.svg" alt="Info" style="width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;">
+        <div><strong>Informasi Akun:</strong> Gunakan Nomor Register Anggota (No. Register) Anda sebagai username. Bagi login pertama, Anda akan diarahkan untuk mengganti password default dan menyetujui Kebijakan Privasi Data.</div>
       </div>
 
       <form id="loginForm">
@@ -71,7 +72,7 @@
         <div class="form-group">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <label class="form-label" for="password" style="margin-bottom: 0;">Password</label>
-            <a href="mailto:mapala@unand.ac.id" style="font-size: 0.74rem; color: var(--primary-orange);">Lupa Password?</a>
+            <a id="forgotPasswordWaLink" href="https://wa.me/6281267890123" target="_blank" rel="noopener" style="font-size: 0.74rem; color: var(--primary-orange);">Lupa Password?</a>
           </div>
           <div class="input-password-wrap">
             <input 
@@ -94,7 +95,7 @@
       </form>
 
       <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-subtle); text-align: center; font-size: 0.76rem; color: var(--text-muted);">
-        Belum memiliki akun atau butuh reset password? Hubungi <a href="mailto:mapala@unand.ac.id" style="color: var(--primary-orange); font-weight: 600;">Admin Kesekretariatan</a>.
+        Belum memiliki akun atau butuh reset password? Hubungi <a id="contactAdminWaLink" href="https://wa.me/6281267890123" target="_blank" rel="noopener" style="color: var(--primary-orange); font-weight: 600;">admin</a>.
       </div>
     </div>
   </main>
@@ -102,7 +103,7 @@
   <!-- FOOTER MINI -->
   <footer style="background-color: var(--bg-darker); border-top: 1px solid var(--border-subtle); padding: 20px 0; text-align: center; font-size: 0.75rem; color: var(--text-muted);">
     <div class="container">
-      © 2024 Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Hak Cipta Dilindungi.
+      © 2026 Mahasiswa Pecinta Alam Universitas Andalas (MAPALA UNAND). Hak Cipta Dilindungi.
     </div>
   </footer>
 

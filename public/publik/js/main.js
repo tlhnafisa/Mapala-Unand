@@ -108,7 +108,17 @@ async function fetchLivePublicData() {
             const prestasiCaption = document.getElementById('prestasiCaptionText');
 
             if (hTitle && prs.judul) hTitle.textContent = prs.judul;
-            if (hDesc && (prs.deskripsi || prs.detail)) hDesc.textContent = prs.deskripsi || prs.detail;
+            if (hDesc && (prs.deskripsi || prs.detail)) {
+              const rawDesc = (prs.deskripsi || prs.detail).trim();
+              const maxDescChars = 200;
+              if (rawDesc.length > maxDescChars) {
+                const sliced = rawDesc.slice(0, maxDescChars);
+                const lastSpace = sliced.lastIndexOf(' ');
+                hDesc.textContent = `${(lastSpace > 120 ? sliced.slice(0, lastSpace) : sliced).trimEnd()}...`;
+              } else {
+                hDesc.textContent = rawDesc;
+              }
+            }
 
             // Foto sebelah kanan disesuaikan langsung dengan prestasi terkait
             if (prestasiImg && (prs.foto || prs.gambar_url)) {
@@ -244,6 +254,12 @@ async function fetchLivePublicData() {
               document.body.appendChild(floatBtn);
             }
             floatBtn.href = `https://wa.me/${cleanWA}`;
+
+            // E. Sinkronkan link Lupa Password & Hubungi admin di halaman Login ke WhatsApp Admin
+            const forgotWaLink = document.getElementById('forgotPasswordWaLink');
+            if (forgotWaLink) forgotWaLink.href = `https://wa.me/${cleanWA}`;
+            const contactWaLink = document.getElementById('contactAdminWaLink');
+            if (contactWaLink) contactWaLink.href = `https://wa.me/${cleanWA}`;
           }
         }
       }
@@ -473,18 +489,22 @@ function initCategoryFilters() {
 
   if (!articlesGrid || !window.MAPALA_DATA) return;
 
-  const activities = window.MAPALA_DATA.activities;
-
   function displayArticles(category = 'all', searchQuery = '') {
+    const activities = window.MAPALA_DATA.activities || [];
     let filtered = activities;
 
     if (category !== 'all') {
-      filtered = filtered.filter(a => a.category.toLowerCase().includes(category.toLowerCase()));
+      filtered = filtered.filter(a => (a.category || '').toLowerCase().includes(category.toLowerCase()));
     }
 
     if (searchQuery.trim() !== '') {
-      const q = searchQuery.toLowerCase();
-      filtered = filtered.filter(a => a.title.toLowerCase().includes(q) || a.excerpt.toLowerCase().includes(q) || a.location.toLowerCase().includes(q));
+      const q = searchQuery.trim().toLowerCase();
+      filtered = filtered.filter(a =>
+        (a.title || '').toLowerCase().includes(q) ||
+        (a.excerpt || '').toLowerCase().includes(q) ||
+        (a.location || '').toLowerCase().includes(q) ||
+        (a.categoryBadge || '').toLowerCase().includes(q)
+      );
     }
 
     if (filtered.length === 0) {
@@ -511,7 +531,6 @@ function initCategoryFilters() {
           <p class="activity-desc">${item.excerpt}</p>
           <div class="activity-meta">
             <span>Tanggal: <strong>${item.date}</strong></span>
-            <span>${item.team}</span>
           </div>
         </div>
       </a>
@@ -528,10 +547,17 @@ function initCategoryFilters() {
     });
   }
 
-  // Initial load
-  displayArticles('all');
+  window.displayArticles = displayArticles;
+
+  // Initial load (preserve current active filter & search value if re-initialized after live fetch)
+  const activeBtn = document.querySelector('.filter-btn.active');
+  const activeCat = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
+  const currentSearch = document.getElementById('articleSearchInput') ? document.getElementById('articleSearchInput').value : '';
+  displayArticles(activeCat, currentSearch);
 
   filterBtns.forEach(btn => {
+    if (btn.dataset.filterBound) return;
+    btn.dataset.filterBound = '1';
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -550,10 +576,9 @@ function initSearchInput() {
   searchInput.addEventListener('input', (e) => {
     const activeBtn = document.querySelector('.filter-btn.active');
     const cat = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
-    const filterFn = window.displayArticles;
-    // trigger custom filter
-    const event = new CustomEvent('searchChange', { detail: { query: e.target.value, category: cat } });
-    document.dispatchEvent(event);
+    if (typeof window.displayArticles === 'function') {
+      window.displayArticles(cat, e.target.value);
+    }
   });
 }
 

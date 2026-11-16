@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "node test-db.js",
     "test:members": "node test-admin-members.js",
     "test:import-export": "node test-import-export-print.js",
@@ -38,5 +39,8 @@
     "multer": "^2.5.0",
     "mysql2": "^3.24.6",
     "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
