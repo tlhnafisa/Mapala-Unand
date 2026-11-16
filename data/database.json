@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-16T12:05:08.000Z",
+      "last_login": "2026-11-16T12:15:50.000Z",
       "nama": "admin"
     },
     {
@@ -177,7 +177,7 @@
       "role": "anggota",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-11T11:08:48.000Z",
+      "last_login": "2026-11-16T12:10:25.000Z",
       "nama": "Rafa Gian Atthari"
     }
   ],
@@ -657,15 +657,6 @@
       "tanggal_tutup": "2025-12-31",
       "is_active": false,
       "status": "tutup"
-    },
-    {
-      "id": 5,
-      "tahun": 2029,
-      "nama_periode": "Registrasi Ulang Tahunan 2029",
-      "tanggal_buka": "2029-01-01",
-      "tanggal_tutup": "2029-12-31",
-      "is_active": false,
-      "status": "tutup"
     }
   ],
   "divisions": [
@@ -887,6 +878,78 @@
     "kontak_twitter": "https://x.com/mapalaunand_padang"
   },
   "logs": [
+    {
+      "id": 504,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 64]"
+    },
+    {
+      "id": 503,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 63]"
+    },
+    {
+      "id": 502,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
+    },
+    {
+      "id": 501,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 500,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 499,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:15:50.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 498,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-16T12:15:25.000Z",
+      "admin": "system",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
+    },
+    {
+      "id": 497,
+      "aksi": "GANTI_PASSWORD",
+      "entitas": "users",
+      "waktu": "2026-11-16T12:15:24.000Z",
+      "admin": "system",
+      "detail": "GANTI_PASSWORD"
+    },
+    {
+      "id": 496,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T12:15:24.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: Rizky Pratama E2E (MU 888 Ete.)"
+    },
     {
       "id": 495,
       "aksi": "INPUT_REGISTRASI_ADMIN",
@@ -1214,78 +1277,6 @@
       "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
       "detail": "Menambahkan anggota baru: Fauzan Maulana E2E (MU 777 Ete.)"
-    },
-    {
-      "id": 454,
-      "aksi": "UPDATE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Periode 2026/2027 (E2E Test))"
-    },
-    {
-      "id": 453,
-      "aksi": "CREATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan artikel: Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test) (terbit) dengan 1 gambar"
-    },
-    {
-      "id": 452,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
-    },
-    {
-      "id": 451,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DITUTUP"
-    },
-    {
-      "id": 450,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian kontak"
-    },
-    {
-      "id": 449,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian tentang_kami"
-    },
-    {
-      "id": 448,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Juara 1 Rock Climbing Championship 2026 (Revisi) (2026)"
-    },
-    {
-      "id": 447,
-      "aksi": "CREATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan prestasi: Juara 1 Rock Climbing Championship 2026 (2026) [Sorotan Beranda]"
-    },
-    {
-      "id": 446,
-      "aksi": "DELETE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Mapala UNAND Periode 2026/2027) [ID: 53]"
     }
   ]
 }
