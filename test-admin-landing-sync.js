@@ -70,8 +70,8 @@ async function runTest() {
     // ------------------------------------------------------------------------
     console.log('[TEST 1] Modul Kegiatan & Artikel:');
     // Pre-cleanup artikel uji jika ada
-    await execute('DELETE FROM artikel_gambar WHERE artikel_id IN (SELECT id FROM artikel WHERE slug = ?)', [TEST_ARTICLE_SLUG]);
-    await execute('DELETE FROM artikel WHERE slug = ?', [TEST_ARTICLE_SLUG]);
+    await execute('DELETE FROM artikel_gambar WHERE artikel_id IN (SELECT id FROM artikel WHERE slug = ? OR judul = ?)', [TEST_ARTICLE_SLUG, TEST_ARTICLE_TITLE]);
+    await execute('DELETE FROM artikel WHERE slug = ? OR judul = ?', [TEST_ARTICLE_SLUG, TEST_ARTICLE_TITLE]);
 
     // A. Admin Membuat Artikel Baru Berstatus 'terbit'
     console.log('   [1A] Admin membuat artikel baru via POST /api/admin/cms/articles...');
@@ -216,6 +216,7 @@ async function runTest() {
       info_label_1: 'Tingkat: Nasional',
       info_label_2: 'Penyelenggara: Kemenpora RI',
       is_sorotan: 1,
+      confirm_replace: 1,
       sorotan_judul: 'Juara 1 Navigasi 2026',
       sorotan_subjudul: 'Kompetisi Rimba Nasional',
       sorotan_detail: 'Meraih medali emas navigasi rimba belantara tropis kategori Kerapatan Jalur Rimba Se-Indonesia.',

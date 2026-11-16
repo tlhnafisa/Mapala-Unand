@@ -264,13 +264,13 @@
             <!-- Angkatan & Recent Logs -->
             <div class="space-y-6">
               <!-- Angkatan Quick Stats -->
-              <div class="card-alpine">
-                <div class="flex items-center justify-between mb-3">
-                  <div>
-                    <h3 class="font-bold text-white text-base">Sebaran Angkatan</h3>
-                    <p class="text-xs text-[#8C9BAE]">Representasi seluruh generasi anggota Mapala UNAND</p>
+              <div class="card-alpine card-angkatan overflow-hidden">
+                <div class="flex items-center justify-between gap-2 flex-wrap mb-3">
+                  <div class="min-w-0 flex-1">
+                    <h3 class="font-bold text-white text-base truncate">Sebaran Angkatan</h3>
+                    <p class="text-xs text-[#8C9BAE] truncate">Representasi seluruh generasi anggota Mapala UNAND</p>
                   </div>
-                  <span id="angkatanCountBadge" class="badge-pill badge-orange font-bold">– Angkatan</span>
+                  <span id="angkatanCountBadge" class="badge-pill badge-orange font-bold text-xs shrink-0 whitespace-nowrap">– Angkatan</span>
                 </div>
                 <div id="chartAngkatanBars" class="space-y-2.5 max-h-[320px] overflow-y-auto pr-1">
                   <!-- Injected via JS -->
@@ -699,11 +699,20 @@
               <!-- Preview Card -->
               <div class="card-alpine lg:col-span-2 space-y-3">
                 <div class="flex items-center justify-between border-b border-white/5 pb-2">
-                  <h4 class="font-bold text-white text-sm">Pratinjau Gambar Struktur Aktif</h4>
-                  <span id="strukturPeriodeBadge" class="badge-pill badge-orange text-[10px]">Periode 2025/2026</span>
+                  <div class="flex items-center gap-2">
+                    <h4 class="font-bold text-white text-sm">Pratinjau Gambar Struktur Aktif</h4>
+                    <span id="strukturPeriodeBadge" class="badge-pill badge-orange text-[10px]">Periode 2025/2026</span>
+                  </div>
+                  <button id="btnDeleteStruktur" type="button" onclick="handleDeleteStruktur()" class="btn-danger !py-1 !px-3 !text-xs hidden">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus Bagan
+                  </button>
                 </div>
-                <div class="w-full min-h-[300px] max-h-[500px] rounded-2xl overflow-hidden bg-black/40 border border-white/5 flex items-center justify-center p-2">
+                <div class="w-full min-h-[300px] max-h-[500px] rounded-2xl overflow-hidden bg-black/40 border border-white/5 flex items-center justify-center p-2 relative">
                   <img id="strukturPreviewImg" src="" alt="Pratinjau Bagan Struktur Organisasi" class="max-h-[460px] w-auto max-w-full object-contain rounded-xl">
+                  <div id="strukturEmptyMsg" class="text-center py-12 px-4 hidden">
+                    <i data-lucide="image-off" class="w-10 h-10 text-[#8C9BAE]/40 mx-auto mb-2"></i>
+                    <p class="text-xs text-[#8C9BAE]">Belum ada gambar bagan struktur organisasi yang diunggah.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1406,16 +1415,16 @@
         </button>
       </div>
 
-      <form onsubmit="handleSaveArticle(event)" class="space-y-4">
+      <form onsubmit="handleSaveArticle(event)" class="article-form space-y-4">
         <input type="hidden" id="artEditId" value="">
 
-        <div>
+        <div class="form-group">
           <label class="form-label">Judul Artikel / Kegiatan *</label>
           <input id="artJudul" type="text" required placeholder="Contoh: Ekspedisi Singgalang 2026" class="form-input">
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="form-group">
             <label class="form-label">Kategori Kegiatan *</label>
             <select id="artKategori" class="form-select">
               <option value="1">Ekspedisi</option>
@@ -1425,55 +1434,57 @@
               <option value="5">Berita & Edukasi</option>
             </select>
           </div>
-          <div>
+          <div class="form-group">
             <label class="form-label">Divisi Penyelenggara</label>
             <select id="artDivisi" class="form-select">
               <option value="">-- Tanpa Divisi Khusus --</option>
               <!-- Diisi via JS loadDivisionsOptions() -->
             </select>
           </div>
-          <div>
+          <div class="form-group">
             <label class="form-label">Lokasi Kegiatan</label>
             <input id="artLokasi" type="text" placeholder="Contoh: Gunung Kerinci 3.805 MDPL" class="form-input">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="form-group">
             <label class="form-label">Tanggal Kegiatan *</label>
             <input id="artTanggal" type="date" required class="form-input">
           </div>
-          <div>
+          <div class="form-group">
             <label class="form-label">Status Publikasi *</label>
             <select id="artStatus" class="form-select font-semibold">
               <option value="terbit" class="text-emerald-400">Terbit (Tampil di Landing Page)</option>
               <option value="draf" class="text-amber-400">Simpan Draf (Internal)</option>
             </select>
           </div>
-          <div>
+          <div class="form-group">
             <label class="form-label">Nama Penulis / Tim Capaian</label>
             <input id="artPenulis" type="text" placeholder="Tim Eksplorasi Mapala" class="form-input">
           </div>
         </div>
 
-        <div>
+        <div class="form-group">
           <label class="form-label">Ringkasan Singkat (Muncul pada Kartu Beranda)</label>
           <input id="artRingkasan" type="text" placeholder="Ringkasan 1-2 kalimat dokumentasi kegiatan..." class="form-input">
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div>
-            <label class="form-label">Unggah Foto Sampul & Dokumentasi</label>
-            <input id="artFileMulti" type="file" multiple accept="image/jpeg,image/png,image/webp,image/svg+xml" class="form-input">
-            <p class="text-[11px] text-[#8C9BAE] mt-1">Dapat memilih 1 atau lebih foto (JPG/PNG/WEBP/SVG, maks. 5 MB).</p>
+        <div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+              <label class="form-label">Unggah Foto Sampul &amp; Dokumentasi</label>
+              <input id="artFileMulti" type="file" multiple accept="image/jpeg,image/png,image/webp,image/svg+xml" class="form-input">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Atau URL Foto Sampul Online (Opsional)</label>
+              <input id="artFotoUrl" type="url" placeholder="https://images.unsplash.com/..." class="form-input">
+            </div>
           </div>
-          <div>
-            <label class="form-label">Atau URL Foto Sampul Online (Opsional)</label>
-            <input id="artFotoUrl" type="url" placeholder="https://images.unsplash.com/..." class="form-input">
-          </div>
+          <p class="text-[11px] text-[#8C9BAE] mt-1.5">Pilih 1 atau lebih foto (JPG/PNG/WEBP/SVG, maks. 5 MB) atau gunakan tautan URL online.</p>
         </div>
 
-        <div>
+        <div class="form-group">
           <label class="form-label">Isi Narasi / Berita Lengkap *</label>
           <textarea id="artIsi" rows="6" required placeholder="Tuliskan dokumentasi jalannya kegiatan atau ekspedisi secara mendalam di sini..." class="form-textarea"></textarea>
         </div>

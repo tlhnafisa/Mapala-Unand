@@ -848,25 +848,58 @@ exports.printBiodata = async (req, res) => {
 
     const member = members[0];
 
-    const periods = await query(`
-      SELECT id, tahun, status FROM periode_registrasi 
-      ORDER BY (status = 'buka') DESC, tahun DESC LIMIT 1
-    `);
-    const activePeriod = periods.length > 0 ? periods[0] : { id: 1, tahun: 2026 };
-
+    // Ambil registrasi ulang terbaru dari anggota ini (berdasarkan tahun periode terbaru)
     const regDataRows = await query(`
-      SELECT ru.*, pr.tahun AS periode_tahun
+      SELECT ru.*, pr.tahun AS periode_tahun, pr.nama AS nama_periode,
+             COALESCE(u.username, 'Admin') AS nama_admin_input
       FROM registrasi_ulang ru
       JOIN periode_registrasi pr ON pr.id = ru.periode_id
-      WHERE ru.anggota_id = ? AND ru.periode_id = ?
+      LEFT JOIN users u ON u.id = ru.diinput_oleh
+      WHERE ru.anggota_id = ?
+      ORDER BY pr.tahun DESC, ru.submitted_at DESC
       LIMIT 1
-    `, [member.id, activePeriod.id]);
+    `, [member.id]);
 
-    const attributes = await query(`
-      SELECT id, nama FROM jenis_atribut WHERE aktif = 1 ORDER BY urutan ASC
-    `);
+    const activeReg = regDataRows[0] || null;
 
-    const html = generatePrintableBiodataHTML(member, regDataRows[0] || null, attributes);
+    // Atribut organisasi dan status kepemilikan
+    let memberAttributes = [];
+    if (activeReg) {
+      const regAttrRows = await query(`
+        SELECT ja.id, ja.nama, COALESCE(ra.memiliki, 0) AS memiliki, ra.foto_path
+        FROM jenis_atribut ja
+        LEFT JOIN registrasi_atribut ra ON ra.jenis_atribut_id = ja.id AND ra.registrasi_id = ?
+        WHERE ja.aktif = 1
+        ORDER BY ja.urutan ASC
+      `, [activeReg.id]);
+
+      memberAttributes = regAttrRows.map(r => ({
+        id: r.id,
+        nama: r.nama,
+        memiliki: Boolean(r.memiliki),
+        status: r.memiliki ? 'Memiliki' : 'Tidak Memiliki',
+        foto_path: r.foto_path || null
+      }));
+
+      // Media sosial
+      const medsosRows = await query(`
+        SELECT platform, akun FROM registrasi_media_sosial WHERE registrasi_id = ?
+      `, [activeReg.id]);
+      activeReg.media_sosial_list = medsosRows;
+    } else {
+      const defaultAttrs = await query(`
+        SELECT id, nama FROM jenis_atribut WHERE aktif = 1 ORDER BY urutan ASC
+      `);
+      memberAttributes = defaultAttrs.map(r => ({
+        id: r.id,
+        nama: r.nama,
+        memiliki: false,
+        status: 'Belum Terdata',
+        foto_path: null
+      }));
+    }
+
+    const html = generatePrintableBiodataHTML(member, activeReg, memberAttributes);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     return res.send(html);
   } catch (error) {

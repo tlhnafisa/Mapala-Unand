@@ -57,6 +57,7 @@ async function runE2ETest() {
 
   try {
     // Pre-cleanup in case of previous run abort
+    await query('DELETE FROM artikel WHERE judul = ?', ['Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test)']);
     await query('DELETE FROM registrasi_atribut WHERE registrasi_id IN (SELECT id FROM registrasi_ulang WHERE anggota_id IN (SELECT id FROM anggota WHERE no_register = ?))', [testMemberReg]);
     await query('DELETE FROM registrasi_media_sosial WHERE registrasi_id IN (SELECT id FROM registrasi_ulang WHERE anggota_id IN (SELECT id FROM anggota WHERE no_register = ?))', [testMemberReg]);
     await query('DELETE FROM registrasi_ulang WHERE anggota_id IN (SELECT id FROM anggota WHERE no_register = ?)', [testMemberReg]);

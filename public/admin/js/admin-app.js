@@ -54,6 +54,19 @@ function applyTheme(theme) {
 }
 
 // ========================================================
+// SECURITY & XSS PREVENTION HELPER (ESCAPE HTML)
+// ========================================================
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// ========================================================
 // NO. REGISTER VALIDATION & NORMALIZATION HELPER
 // Format: MU XXX(Wajib angka) XXX.(Huruf pertama besar, sisanya kecil diikuti titik)
 // Contoh: MU 325 Ltn., MU 123 Abc.
@@ -102,6 +115,10 @@ async function api(endpoint, options = {}) {
     }
 
     const data = await res.json();
+    if (data && typeof data === 'object') {
+      data._status = res.status;
+      data._ok = res.ok;
+    }
     return data;
   } catch (err) {
     console.error('API Error:', err);
@@ -341,14 +358,14 @@ async function loadDashboardStats() {
 
         angkatanContainer.innerHTML += `
           <div class="p-2.5 rounded-xl bg-[#0D1217] border border-white/5 hover:border-white/10 transition-colors">
-            <div class="flex items-center justify-between text-xs mb-1.5">
-              <span class="font-semibold text-white">Angkatan ${year}</span>
-              <div class="flex items-center gap-2">
-                <span class="text-[#8C9BAE] text-[11px]">${pctOfTotal}%</span>
-                <span class="badge-pill badge-orange font-bold text-[11px]">${count} anggota</span>
+            <div class="flex items-center justify-between text-xs mb-1.5 gap-2 flex-wrap">
+              <span class="font-semibold text-white truncate min-w-0">Angkatan ${escapeHtml(String(year))}</span>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="text-[#8C9BAE] text-[10px]">${pctOfTotal}%</span>
+                <span class="badge-pill badge-orange font-bold text-[10px] !py-0.5 !px-2 whitespace-nowrap">${count} anggota</span>
               </div>
             </div>
-            <div class="w-full bg-[#1C2530] rounded-full h-1.5">
+            <div class="w-full bg-[#1C2530] rounded-full h-1.5 overflow-hidden">
               <div class="bg-gradient-to-r from-[#FF6B00] to-[#FFA048] h-1.5 rounded-full transition-all duration-500" style="width: ${barWidth}%"></div>
             </div>
           </div>
@@ -1608,6 +1625,8 @@ async function deleteArticle(id) {
 // -------------------------------------------------------------
 // SUBTAB 2: STRUKTUR ORGANISASI (FR-40, P-01)
 // -------------------------------------------------------------
+let CURRENT_STRUKTUR_ID = null;
+
 async function loadCMSStrukturOrganisasi() {
   const res = await api('/api/admin/cms/struktur');
   if (!res || !res.success) return;
@@ -1616,10 +1635,56 @@ async function loadCMSStrukturOrganisasi() {
   const periodeInp = document.getElementById('strukturPeriode');
   const previewImg = document.getElementById('strukturPreviewImg');
   const badge = document.getElementById('strukturPeriodeBadge');
+  const btnDelete = document.getElementById('btnDeleteStruktur');
+  const emptyMsg = document.getElementById('strukturEmptyMsg');
 
-  if (periodeInp) periodeInp.value = data.periode || '2025/2026';
-  if (previewImg) previewImg.src = data.foto || data.gambar_path || '/images/struktur-organisasi.svg';
-  if (badge) badge.innerText = `Periode ${data.periode || '2025/2026'}`;
+  if (data && data.id) {
+    CURRENT_STRUKTUR_ID = data.id;
+    if (periodeInp) periodeInp.value = data.periode || '2025/2026';
+    if (previewImg) {
+      previewImg.src = data.foto || data.gambar_path || '';
+      previewImg.classList.remove('hidden');
+    }
+    if (emptyMsg) emptyMsg.classList.add('hidden');
+    if (badge) badge.innerText = `Periode ${data.periode || '2025/2026'}`;
+    if (btnDelete) btnDelete.classList.remove('hidden');
+  } else {
+    CURRENT_STRUKTUR_ID = null;
+    if (previewImg) {
+      previewImg.src = '';
+      previewImg.classList.add('hidden');
+    }
+    if (emptyMsg) emptyMsg.classList.remove('hidden');
+    if (badge) badge.innerText = (data && data.periode) || res.periode ? `Periode ${(data && data.periode) || res.periode}` : 'Belum Ada Bagan';
+    if (btnDelete) btnDelete.classList.add('hidden');
+  }
+  lucide.createIcons();
+}
+
+async function handleDeleteStruktur() {
+  if (!CURRENT_STRUKTUR_ID) {
+    showToast('Tidak ada gambar bagan struktur yang dapat dihapus.', 'error');
+    return;
+  }
+
+  if (!confirm('Apakah Anda yakin ingin menghapus gambar bagan struktur organisasi ini secara permanen?')) {
+    return;
+  }
+
+  const res = await api(`/api/admin/cms/struktur/${CURRENT_STRUKTUR_ID}`, {
+    method: 'DELETE'
+  });
+
+  if (res && res.success) {
+    showToast(res.message, 'success');
+    const fileInp = document.getElementById('strukturFile');
+    if (fileInp) fileInp.value = '';
+    const labelText = document.getElementById('strukturFileLabelText');
+    if (labelText) labelText.innerText = 'Pilih berkas JPG / PNG / WEBP';
+    loadCMSStrukturOrganisasi();
+  } else {
+    showToast(res ? res.message : 'Gagal menghapus gambar bagan struktur.', 'error');
+  }
 }
 
 function previewStrukturFile(input) {
@@ -1793,6 +1858,51 @@ async function handleSavePrestasi(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
+  }
+
+  if (res && (res._status === 409 || res.status === 409)) {
+    const activeJudul = (res.current_sorotan && res.current_sorotan.judul)
+      ? res.current_sorotan.judul
+      : 'sorotan lain';
+    const doReplace = confirm(`Sorotan saat ini: "${activeJudul}". Ganti dengan yang baru?`);
+    if (doReplace) {
+      if (hasFile) {
+        const formData = new FormData();
+        formData.append('tahun', document.getElementById('prsTahun').value);
+        formData.append('kategori', document.getElementById('prsKategori').value.trim());
+        formData.append('judul', document.getElementById('prsJudul').value.trim());
+        formData.append('deskripsi', document.getElementById('prsDeskripsi').value.trim());
+        formData.append('info_label_1', document.getElementById('prsInfoPenyelenggara').value.trim());
+        formData.append('is_sorotan', document.getElementById('prsIsSorotan').checked ? '1' : '0');
+        formData.append('confirm_replace', '1');
+        formData.append('foto', fileInput.files[0]);
+
+        const url = isEditing ? `/api/admin/cms/prestasi/${editId}` : '/api/admin/cms/prestasi';
+        const method = isEditing ? 'PUT' : 'POST';
+        res = await api(url, { method, body: formData });
+      } else {
+        const payload = {
+          tahun: document.getElementById('prsTahun').value,
+          kategori: document.getElementById('prsKategori').value.trim(),
+          judul: document.getElementById('prsJudul').value.trim(),
+          deskripsi: document.getElementById('prsDeskripsi').value.trim(),
+          info_label_1: document.getElementById('prsInfoPenyelenggara').value.trim(),
+          is_sorotan: document.getElementById('prsIsSorotan').checked ? 1 : 0,
+          confirm_replace: 1
+        };
+
+        const url = isEditing ? `/api/admin/cms/prestasi/${editId}` : '/api/admin/cms/prestasi';
+        const method = isEditing ? 'PUT' : 'POST';
+        res = await api(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+    } else {
+      // Dibatalkan, tidak ada perubahan
+      return;
+    }
   }
 
   if (res && res.success) {

@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-15T14:48:12.000Z",
+      "last_login": "2026-11-16T11:20:59.000Z",
       "nama": "admin"
     },
     {
@@ -177,48 +177,8 @@
       "role": "anggota",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-14T14:54:31.000Z",
+      "last_login": "2026-11-11T11:08:48.000Z",
       "nama": "Rafa Gian Atthari"
-    },
-    {
-      "id": 49,
-      "username": "MU 700 Opm.",
-      "password_hash": "$2b$10$uVswKV4NRbJgy.oCZyx5e.rDhaFsU5/D6XodPr7AtCbL3h7V5iyQy",
-      "role": "anggota",
-      "status_aktif": true,
-      "must_change_password": true,
-      "last_login": null,
-      "nama": "mk"
-    },
-    {
-      "id": 50,
-      "username": "MU 018 Krn.",
-      "password_hash": "$2b$10$MnjqhOlKyh2ShcrB/ryamOwROiWrFu51LTD5n5TqE3EZji.2U4hEW",
-      "role": "anggota",
-      "status_aktif": true,
-      "must_change_password": false,
-      "last_login": "2026-11-15T11:30:04.000Z",
-      "nama": "Aldian"
-    },
-    {
-      "id": 51,
-      "username": "MU 340 Rgm.",
-      "password_hash": "$2b$10$uow08eusKrL0kBqkeWY.x.RmFgXDOf7g/G14y2CJ3x.OTdKNP3xEK",
-      "role": "anggota",
-      "status_aktif": true,
-      "must_change_password": true,
-      "last_login": null,
-      "nama": "Gilang Ramadhan"
-    },
-    {
-      "id": 52,
-      "username": "MU 341 Pct.",
-      "password_hash": "$2b$10$uow08eusKrL0kBqkeWY.x.RmFgXDOf7g/G14y2CJ3x.OTdKNP3xEK",
-      "role": "anggota",
-      "status_aktif": true,
-      "must_change_password": true,
-      "last_login": null,
-      "nama": "Nadia Safitri"
     }
   ],
   "members": [
@@ -477,70 +437,6 @@
       "profil_lengkap": true,
       "created_at": "2026-11-10T09:08:33.000Z",
       "updated_at": "2026-11-11T09:53:51.000Z"
-    },
-    {
-      "id": 47,
-      "no_register": "MU 700 Opm.",
-      "nama": "mk",
-      "divisi": "Rimba Gunung",
-      "angkatan": 2026,
-      "tempat_lahir": "padang",
-      "tanggal_lahir": "2006-10-20",
-      "golongan_darah": "A",
-      "nama_ayah": "oi",
-      "nama_ibu": "po",
-      "status_aktif": true,
-      "profil_lengkap": false,
-      "created_at": "2026-11-11T14:47:09.000Z",
-      "updated_at": "2026-11-11T14:47:09.000Z"
-    },
-    {
-      "id": 48,
-      "no_register": "MU 018 Krn.",
-      "nama": "Aldian",
-      "divisi": "Rimba Gunung",
-      "angkatan": 2021,
-      "tempat_lahir": "Padang",
-      "tanggal_lahir": "1975-08-15",
-      "golongan_darah": "A",
-      "nama_ayah": "Ayah Aldian",
-      "nama_ibu": "Ibu Aldian",
-      "status_aktif": true,
-      "profil_lengkap": true,
-      "created_at": "2026-11-14T12:58:29.000Z",
-      "updated_at": "2026-11-15T09:57:27.000Z"
-    },
-    {
-      "id": 49,
-      "no_register": "MU 340 Rgm.",
-      "nama": "Gilang Ramadhan",
-      "divisi": "Rimba Gunung",
-      "angkatan": 2023,
-      "tempat_lahir": "Kota Padang",
-      "tanggal_lahir": "2004-05-12",
-      "golongan_darah": "O",
-      "nama_ayah": "Hasan Basri",
-      "nama_ibu": "Rosmawati",
-      "status_aktif": true,
-      "profil_lengkap": false,
-      "created_at": "2026-11-15T15:11:21.000Z",
-      "updated_at": "2026-11-15T15:11:21.000Z"
-    },
-    {
-      "id": 50,
-      "no_register": "MU 341 Pct.",
-      "nama": "Nadia Safitri",
-      "divisi": "Panjat Tebing",
-      "angkatan": 2023,
-      "tempat_lahir": "Kota Bukittinggi",
-      "tanggal_lahir": "2003-11-20",
-      "golongan_darah": "B",
-      "nama_ayah": "Syahril",
-      "nama_ibu": "Nuraini",
-      "status_aktif": true,
-      "profil_lengkap": false,
-      "created_at": "2026-11-15T15:11:21.000Z",
-      "updated_at": "2026-11-15T15:11:21.000Z"
     }
   ],
   "reRegistrations": [
@@ -567,17 +463,17 @@
       "no_register": "MU 285 PCT",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
-      "alamat_rumah": "Jl. Panorama No. 18, Kel. Kayu Kubuk",
+      "alamat_rumah": "Jl. Panorama No. 18, Kel. Kayu Kubu",
       "kota_kabupaten": "Kota Bukittinggi",
       "provinsi": "Sumatera Barat",
       "pekerjaan": "Wiraswasta Outdoor Gear",
       "no_hp": "081378901234",
       "email": "fajar.nugraha@gmail.com",
-      "alamat_ortu": "-",
-      "sumber_input": "admin",
-      "input_by": "admin",
+      "alamat_ortu": "Jl. Panorama No. 18, Bukittinggi",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
       "submitted_at": "2026-01-16T04:25:00.000Z",
-      "updated_at": "2026-11-13T09:53:19.000Z",
+      "updated_at": "2026-11-10T06:14:21.000Z",
       "status_registrasi": "Sudah Registrasi Ulang"
     },
     {
@@ -707,7 +603,25 @@
       "status_registrasi": "Sudah Registrasi Ulang"
     },
     {
-      "id": 12,
+      "id": 30,
+      "no_register": "MU 500 Kak.",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/foto_terbaru-1794395348198-150176203.jpeg",
+      "alamat_rumah": "Domisili di Bukittinggi",
+      "kota_kabupaten": "Bukittinggi",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "-",
+      "no_hp": "08234567897",
+      "email": "rafa@gmail.com",
+      "alamat_ortu": "-",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-10T09:16:12.000Z",
+      "updated_at": "2026-11-11T11:09:08.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 42,
       "no_register": "MU 145 PCT",
       "periode_tahun": 2026,
       "foto_terbaru": null,
@@ -720,44 +634,8 @@
       "alamat_ortu": "Keluarga di Bukittinggi",
       "sumber_input": "admin",
       "input_by": "admin",
-      "submitted_at": "2026-11-10T07:39:13.000Z",
-      "updated_at": "2026-11-10T07:39:13.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
-      "id": 30,
-      "no_register": "MU 500 Kak.",
-      "periode_tahun": 2026,
-      "foto_terbaru": "/uploads/foto_terbaru-1794395348198-150176203.jpeg",
-      "alamat_rumah": "Domisili di Bukittinggi",
-      "kota_kabupaten": "Bukittinggi",
-      "provinsi": "Sumatera Barat",
-      "pekerjaan": "CEO yang Menyamar",
-      "no_hp": "08234567897",
-      "email": "rafa@gmail.com",
-      "alamat_ortu": "-",
-      "sumber_input": "mandiri",
-      "input_by": "mandiri",
-      "submitted_at": "2026-11-10T09:16:12.000Z",
-      "updated_at": "2026-11-11T13:42:25.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
-      "id": 37,
-      "no_register": "MU 018 Krn.",
-      "periode_tahun": 2026,
-      "foto_terbaru": "/uploads/default-avatar.png",
-      "alamat_rumah": "Cihuwahuwa",
-      "kota_kabupaten": "Kota padang",
-      "provinsi": "Sumatra Barat",
-      "pekerjaan": "-",
-      "no_hp": "dna",
-      "email": "-",
-      "alamat_ortu": "-",
-      "sumber_input": "mandiri",
-      "input_by": "mandiri",
-      "submitted_at": "2026-11-14T13:07:27.000Z",
-      "updated_at": "2026-11-15T09:56:11.000Z",
+      "submitted_at": "2026-11-16T11:17:55.000Z",
+      "updated_at": "2026-11-16T11:17:55.000Z",
       "status_registrasi": "Sudah Registrasi Ulang"
     }
   ],
@@ -785,7 +663,7 @@
     {
       "id": 1,
       "nama_divisi": "Rimba Gunung",
-      "kode": "rgn",
+      "kode": "rimba-gunung",
       "deskripsi": "Spesialisasi penjelajahan rimba belantara, navigasi darat, dan pendakian gunung hutan tropis.",
       "urutan": 1,
       "aktif": 1
@@ -793,7 +671,7 @@
     {
       "id": 2,
       "nama_divisi": "Panjat Tebing",
-      "kode": "ptg",
+      "kode": "panjat-tebing",
       "deskripsi": "Spesialisasi panjat tebing alam (rock climbing), panjat dinding artifisial, dan vertical rescue.",
       "urutan": 2,
       "aktif": 1
@@ -801,7 +679,7 @@
     {
       "id": 3,
       "nama_divisi": "Olahraga Air",
-      "kode": "oar",
+      "kode": "olahraga-air",
       "deskripsi": "Spesialisasi arung jeram (white water rafting), kayak arus deras, dan navigasi sungai.",
       "urutan": 3,
       "aktif": 1
@@ -809,7 +687,7 @@
     {
       "id": 4,
       "nama_divisi": "Caving",
-      "kode": "cvg",
+      "kode": "caving",
       "deskripsi": "Spesialisasi susur gua alam (speleologi), pemetaan lorong bawah tanah, dan biospeleologi karst.",
       "urutan": 4,
       "aktif": 1
@@ -835,39 +713,11 @@
   ],
   "articles": [
     {
-      "id": 33,
-      "judul": "Zeri",
-      "slug": "zeri",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794639383380-684250922.png",
-      "tanggal": "2026-11-09",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "jddshcjsdjdjfjdjfdjfjdshfjhjd",
-      "isi": "ujfjjfjfsjkdjgfjksdfjsjdfhsjdfhksfdshjkdsfhjkfshdj",
-      "status_kegiatan": "Selesai",
-      "tim_capaian": "Bidang Kesekretariatan & Humas"
-    },
-    {
-      "id": 24,
-      "judul": "Ekspedisi Penjelajahan Uji Integrasi CMS 202789887887",
-      "slug": "ekspedisi-penjelajahan-uji-integrasi-cms-2026-5755",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794406523535-458682318.jpeg",
-      "tanggal": "2026-11-10",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.uhuuyyyyyyy...",
-      "isi": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.uhuuyyyyyyy",
-      "status_kegiatan": "Selesai Riset",
-      "tim_capaian": "12 Anggota Tim Peneliti"
-    },
-    {
-      "id": 23,
+      "id": 46,
       "judul": "Ekspedisi Penjelajahan Uji Integrasi CMS 2026",
       "slug": "ekspedisi-penjelajahan-uji-integrasi-cms-2026",
       "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794395231410-811173400.jpeg",
+      "foto": "/images/hero-mountain.jpg",
       "tanggal": "2026-11-10",
       "status": "terbit",
       "penulis": "admin",
@@ -875,20 +725,6 @@
       "isi": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.",
       "status_kegiatan": "Selesai Riset",
       "tim_capaian": "12 Anggota Tim Peneliti"
-    },
-    {
-      "id": 8,
-      "judul": "Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test)",
-      "slug": "ekspedisi-penjelajahan-punggung-rimba-singgalang-2026-e2e-test",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794395275777-222133593.jpeg",
-      "tanggal": "2026-05-15",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Laporan narasi mendalam penjelajahan alam bebas Mapala UNAND melewati lintasan hutan lumut....",
-      "isi": "Laporan narasi mendalam penjelajahan alam bebas Mapala UNAND melewati lintasan hutan lumut.",
-      "status_kegiatan": "Selesai",
-      "tim_capaian": "Humas Mapala UNAND"
     },
     {
       "id": 5,
@@ -899,7 +735,7 @@
       "tanggal": "2026-02-15",
       "status": "terbit",
       "penulis": "admin",
-      "ringkasan": "Draf kurikulum pembekalan dasar operasional hutan gunung mencakup penguasaan peta topografi skala 1:25.000, penggunaan klinometer, pemahaman navigasi bintan",
+      "ringkasan": "<p>Draf kurikulum pembekalan dasar operasional hutan gunung mencakup penguasaan peta topografi skala 1:25.000, penggunaan klinometer, pemahaman navigasi bintang...",
       "isi": "<p>Draf kurikulum pembekalan dasar operasional hutan gunung mencakup penguasaan peta topografi skala 1:25.000, penggunaan klinometer, pemahaman navigasi bintang, dan teknik bivak darurat di bawah kanopi basah.</p>",
       "status_kegiatan": "Tahap Persiapan",
       "tim_capaian": "Instruktur Senior"
@@ -966,29 +802,29 @@
       "id": 1,
       "tahun": 2025,
       "kategori": "Kejuaraan Nasional Panjat Tebing",
-      "judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di",
-      "deskripsi": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pecinta alam dari seluruh Indonesia. Pencapaian membanggakan ini membuktikan ketangguhan fisik, ketepatan navigasi darat, manajemen perjalanan, serta soliditas kerja sama tim Mapala UNAND dalam menaklukkan medan pegunungan ekstrem di wilayah Sumatera Barat.",
+      "judul": "Juara 1 Lead Climbing Mahasiswa Nasional",
+      "deskripsi": "Meraih medali emas pada Kejuaraan Panjat Dinding Mahasiswa se-Indonesia kategori Lead Putra di Jakarta.",
       "info_label_1": "Tingkat: Nasional Mahasiswa",
       "info_label_2": "Kategori: Lead Climbing",
       "foto": "/images/trophy-achievement.jpg",
       "is_sorotan": 0,
-      "sorotan_judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di",
+      "sorotan_judul": "Juara 1 Lead Climbing Mahasiswa Nasional",
       "sorotan_subjudul": "Tahun 2025",
-      "sorotan_detail": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pec"
+      "sorotan_detail": "Meraih medali emas pada Kejuaraan Panjat Dinding Mahasiswa se-Indonesia kategori Lead Putra di Jakarta."
     },
     {
       "id": 2,
       "tahun": 2024,
       "kategori": "Konservasi Lingkungan Hidup",
       "judul": "Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat",
-      "deskripsi": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pecinta alam dari seluruh Indonesia. Pencapaian membanggakan ini membuktikan ketangguhan fisik, ketepatan navigasi darat, manajemen perjalanan, serta soliditas kerja sama tim Mapala UNAND dalam menaklukkan medan pegunungan ekstrem di wilayah Sumatera Barat.",
+      "deskripsi": "Diberikan oleh Gubernur Sumatera Barat atas dedikasi pelestarian sumber air karst dan penghijauan hutan lereng gunung.",
       "info_label_1": "Tingkat: Provinsi Sumbar",
       "info_label_2": "Kategori: Penyelamat Lingkungan",
-      "foto": "/uploads/foto-1794739189933-549286393.jpeg",
-      "is_sorotan": 1,
+      "foto": "/uploads/foto-1794310187080-830528177.png",
+      "is_sorotan": 0,
       "sorotan_judul": "Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat",
       "sorotan_subjudul": "Tahun 2024",
-      "sorotan_detail": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pec"
+      "sorotan_detail": "Diberikan oleh Gubernur Sumatera Barat atas dedikasi pelestarian sumber air karst dan penghijauan hutan lereng gunung."
     },
     {
       "id": 3,
@@ -1013,7 +849,7 @@
       "info_label_1": "Tingkat: Nasional",
       "info_label_2": "Peserta: 64 Tim Mapala se-Indonesia",
       "foto": "/images/about-unand.jpg",
-      "is_sorotan": 0,
+      "is_sorotan": 1,
       "sorotan_judul": null,
       "sorotan_subjudul": null,
       "sorotan_detail": null
@@ -1021,7 +857,7 @@
   ],
   "kontenStatis": {
     "hero_judul": "MAPALA UNAND",
-    "hero_tagline": "Menjelajahi dan Menelusuri Alam dengan Cinta",
+    "hero_tagline": "Menjelajahi dan Menelusuri Alam dengan Cinta.",
     "hero_deskripsi": "Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati, dan dedikasi petualangan ilmiah rimba Nusantara sejak 1984.",
     "hero_foto": "/images/hero-mountain.jpg",
     "sejarah": "Sejarah pembaruan uji sistem: Didirikan pada tahun 1984 di Universitas Andalas.",
@@ -1031,419 +867,416 @@
     "kode_etik": "Pencinta Alam Indonesia sadar bahwa alam beserta isinya adalah ciptaan Tuhan Yang Maha Esa. Pencinta Alam Indonesia sebagai bagian dari masyarakat Indonesia sadar akan tanggung jawabnya kepada Tuhan, bangsa, dan tanah air. Pencinta Alam Indonesia sadar bahwa segenap pecinta alam adalah saudara sebagai makhluk yang mencintai alam sebagai ciptaan yang Maha Kuasa.",
     "kode_etik_keterangan": "Ditetapkan pada Gladian IV Ujung Pandang, 1974.",
     "kontak_email": "humas.resmi@mapalaunand.org",
-    "kontak_whatsapp": "628132299341",
+    "kontak_whatsapp": "6281299887766",
     "kontak_alamat": "Gedung PKM Lt. 1 Kampus Unand Limau Manis Padang 25163",
     "footer_deskripsi": "Organisasi kemahasiswaan pecinta alam pelopor konservasi, ekspedisi ilmiah, dan persaudaraan seumur hidup sejak 1984.",
-    "kontak_instagram": "https://instagram.com/mapalaunand_official",
+    "kontak_instagram": "@mapalaunand_official",
     "kontak_facebook": "https://facebook.com/mapalaunandofficial",
     "kontak_tiktok": "https://tiktok.com/@mapalaunand_id",
     "prestasi_boxes": "[{\"id\":1,\"title\":\"Fisa\",\"sub\":\"Tahun 2024\"},{\"id\":2,\"title\":\"Kalpataru\",\"sub\":\"Apresiasi Konservasi Kampus\"},{\"id\":3,\"title\":\"7 Summits\",\"sub\":\"Jalur Ekspedisi Nusantara\"},{\"id\":4,\"title\":\"30+ Riset\",\"sub\":\"Publikasi Ilmiah & Speleologi\"}]",
     "kontak_youtube": "https://youtube.com/@mapalaunand",
-    "kontak_twitter": "https://x.com/mapalaunand_padang",
-    "hero_stat_puncak_angka": "120",
-    "hero_stat_puncak_satuan": "+ Puncak",
-    "hero_stat_puncak_label": "Sumatera & Seven Summits"
+    "kontak_twitter": "https://x.com/mapalaunand_padang"
   },
   "logs": [
     {
-      "id": 347,
-      "aksi": "IMPORT_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T15:11:21.000Z",
+      "id": 473,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Berhasil mengimpor 2 anggota baru secara massal dari Excel ke MySQL."
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 57]"
     },
     {
-      "id": 346,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:43.000Z",
+      "id": 472,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Caving' menjadi 'Caving'"
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 56]"
     },
     {
-      "id": 345,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:36.000Z",
+      "id": 471,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Olahraga Air' menjadi 'Olahraga Air'"
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
     },
     {
-      "id": 344,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:27.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Panjat Tebing' menjadi 'Panjat Tebing'"
-    },
-    {
-      "id": 343,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:16.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Rimba Gunung' menjadi 'Rimba Gunung'"
-    },
-    {
-      "id": 342,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:06.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Rimba Gunung' menjadi 'Rimba Gunung'"
-    },
-    {
-      "id": 341,
+      "id": 470,
       "aksi": "UPDATE_PRESTASI",
       "entitas": "prestasi",
-      "waktu": "2026-11-15T11:39:36.000Z",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di (2025)"
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
     },
     {
-      "id": 340,
-      "aksi": "UPDATE_PRESTASI",
+      "id": 469,
+      "aksi": "CREATE_PRESTASI",
       "entitas": "prestasi",
-      "waktu": "2026-11-15T10:41:09.000Z",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Memperbarui prestasi: Juara 1 Lead Climbing Mahasiswa Nasional (2025)"
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
     },
     {
-      "id": 339,
-      "aksi": "UPDATE_PRESTASI",
+      "id": 468,
+      "aksi": "CREATE_PRESTASI",
       "entitas": "prestasi",
-      "waktu": "2026-11-15T10:39:49.000Z",
+      "waktu": "2026-11-16T11:20:59.000Z",
       "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
     },
     {
-      "id": 338,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:37:12.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
-    },
-    {
-      "id": 337,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:33:36.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
-    },
-    {
-      "id": 336,
+      "id": 467,
       "aksi": "UPDATE_STATIC_CONTENT",
       "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:17:44.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 335,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:11:07.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 334,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:05:00.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 333,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:04:37.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 332,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:03:46.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 331,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:57:27.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
-    },
-    {
-      "id": 330,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:56:22.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
-    },
-    {
-      "id": 329,
-      "aksi": "AKTIVASI_AKUN_SELESAI",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:56:11.000Z",
-      "admin": "MU 018 Krn.",
-      "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
-    },
-    {
-      "id": 328,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:52:12.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
-    },
-    {
-      "id": 327,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T09:47:24.000Z",
+      "waktu": "2026-11-16T11:19:59.000Z",
       "admin": "admin",
       "detail": "Memperbarui konten statis bagian kontak"
     },
     {
-      "id": 326,
-      "aksi": "RESET_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-15T09:28:40.000Z",
+      "id": 466,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-16T11:19:59.000Z",
       "admin": "admin",
-      "detail": "Mereset password anggota MU 018 Krn. ke password default sementara"
+      "detail": "Memperbarui konten statis bagian tentang_kami"
     },
     {
-      "id": 325,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:28:01.000Z",
+      "id": 465,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:19:59.000Z",
       "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
+      "detail": "Menambahkan prestasi: Juara 1 Lomba Navigasi Rimba Tropis Tingkat Nasional 2026 (2026) [Sorotan Beranda]"
     },
     {
-      "id": 324,
-      "aksi": "RESET_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-14T13:22:09.000Z",
+      "id": 464,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:19:59.000Z",
       "admin": "admin",
-      "detail": "Mereset password anggota MU 018 Krn. ke password default sementara"
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Kepengurusan Resmi Mapala UNAND Periode 2026/2027 Uji Integrasi)"
     },
     {
-      "id": 323,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-14T13:10:04.000Z",
+      "id": 463,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-16T11:19:59.000Z",
       "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
+      "detail": "Menambahkan artikel: Ekspedisi Penjelajahan Uji Integrasi CMS 2026 (terbit) dengan 1 gambar"
     },
     {
-      "id": 322,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-14T13:09:51.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
-    },
-    {
-      "id": 321,
+      "id": 462,
       "aksi": "AKTIVASI_AKUN_SELESAI",
       "entitas": "anggota",
-      "waktu": "2026-11-14T13:07:27.000Z",
-      "admin": "MU 018 Krn.",
+      "waktu": "2026-11-16T11:19:48.000Z",
+      "admin": "system",
       "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
     },
     {
-      "id": 320,
+      "id": 461,
       "aksi": "TAMBAH_ANGGOTA",
       "entitas": "anggota",
-      "waktu": "2026-11-14T12:58:29.000Z",
+      "waktu": "2026-11-16T11:19:47.000Z",
       "admin": "admin",
-      "detail": "Menambahkan anggota baru: Aldian (MU 018 Krn.)"
+      "detail": "Menambahkan anggota baru: Akun Baru Wizard E2E (MU 999 Ete.)"
     },
     {
-      "id": 319,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T12:32:05.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Pelatihan Navigasi Darat dan Survival Anggota Muda 2026 (terbit)"
+      "id": 460,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-16T11:19:38.000Z",
+      "admin": "system",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
     },
     {
-      "id": 318,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T12:19:02.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
+      "id": 459,
+      "aksi": "GANTI_PASSWORD",
+      "entitas": "users",
+      "waktu": "2026-11-16T11:19:38.000Z",
+      "admin": "system",
+      "detail": "GANTI_PASSWORD"
     },
     {
-      "id": 317,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T06:56:23.000Z",
+      "id": 458,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:19:38.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
+      "detail": "Menambahkan anggota baru: Rizky Pratama E2E (MU 888 Ete.)"
     },
     {
-      "id": 316,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T06:55:26.000Z",
+      "id": 457,
+      "aksi": "RESET_PASSWORD",
+      "entitas": "users",
+      "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
+      "detail": "Mereset password anggota MU 777 Ete. ke password default sementara"
     },
     {
-      "id": 315,
+      "id": 456,
       "aksi": "INPUT_REGISTRASI_ADMIN",
       "entitas": "registrasi_ulang",
-      "waktu": "2026-11-13T09:53:19.000Z",
+      "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Fajar Nugraha (MU 285 PCT) [Override]"
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Fauzan Maulana E2E (MU 777 Ete.) [Override]"
     },
     {
-      "id": 314,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:02:08.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 313,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:00:34.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 312,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:00:24.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 311,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:58:16.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 310,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:58:00.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 309,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:57:40.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 308,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:57:06.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 307,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:56:42.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 306,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:55:59.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 305,
+      "id": 455,
       "aksi": "TAMBAH_ANGGOTA",
       "entitas": "anggota",
-      "waktu": "2026-11-11T14:47:10.000Z",
+      "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
-      "detail": "Menambahkan anggota baru: mk (MU 700 Opm.)"
+      "detail": "Menambahkan anggota baru: Fauzan Maulana E2E (MU 777 Ete.)"
     },
     {
-      "id": 304,
+      "id": 454,
       "aksi": "UPDATE_STRUKTUR",
       "entitas": "bagan_struktur",
-      "waktu": "2026-11-11T14:18:53.000Z",
+      "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
-      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Periode 2026/2027 (E2E Test))"
     },
     {
-      "id": 303,
+      "id": 453,
       "aksi": "CREATE_ARTICLE",
       "entitas": "artikel",
-      "waktu": "2026-11-11T14:17:56.000Z",
+      "waktu": "2026-11-16T11:19:15.000Z",
       "admin": "admin",
-      "detail": "Menambahkan artikel: Zeri (terbit) dengan 1 gambar"
+      "detail": "Menambahkan artikel: Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test) (terbit) dengan 1 gambar"
     },
     {
-      "id": 302,
+      "id": 452,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T11:19:15.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
+    },
+    {
+      "id": 451,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T11:19:15.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DITUTUP"
+    },
+    {
+      "id": 450,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui konten statis bagian kontak"
+    },
+    {
+      "id": 449,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui konten statis bagian tentang_kami"
+    },
+    {
+      "id": 448,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Juara 1 Rock Climbing Championship 2026 (Revisi) (2026)"
+    },
+    {
+      "id": 447,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Juara 1 Rock Climbing Championship 2026 (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 446,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Mapala UNAND Periode 2026/2027) [ID: 53]"
+    },
+    {
+      "id": 445,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Mapala UNAND Periode 2026/2027)"
+    },
+    {
+      "id": 444,
       "aksi": "UPDATE_ARTICLE",
       "entitas": "artikel",
-      "waktu": "2026-11-11T14:15:23.000Z",
+      "waktu": "2026-11-16T11:18:50.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Ekspedisi Penjelajahan Uji Integrasi CMS 202789887887 (terbit)"
+      "detail": "Memperbarui artikel: Ekspedisi Uji Coba Puncak Marapi 2026 (terbit)"
     },
     {
-      "id": 301,
-      "aksi": "REGISTRASI_MANDIRI",
+      "id": 443,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-16T11:18:50.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: Ekspedisi Uji Coba Puncak Marapi 2026 (draf) dengan 1 gambar"
+    },
+    {
+      "id": 442,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
       "entitas": "registrasi_ulang",
-      "waktu": "2026-11-11T13:42:25.000Z",
-      "admin": "MU 500 Kak.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 300,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-11T11:09:08.000Z",
-      "admin": "MU 500 Kak.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 299,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-11T11:07:55.000Z",
+      "waktu": "2026-11-16T11:17:55.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test) (terbit)"
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Yusuf Mansur (MU 145 PCT) [Override]"
     },
     {
-      "id": 298,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-11T11:07:48.000Z",
+      "id": 441,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T11:17:55.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test) (terbit)"
+      "detail": "Menghapus divisi: Konservasi Alam (Revisi)"
+    },
+    {
+      "id": 440,
+      "aksi": "UPDATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T11:17:55.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui nama divisi dari 'Konservasi Alam Uji' menjadi 'Konservasi Alam (Revisi)'"
+    },
+    {
+      "id": 439,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T11:17:55.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Konservasi Alam Uji (KNS)"
+    },
+    {
+      "id": 438,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T11:17:55.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
+    },
+    {
+      "id": 437,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T11:17:55.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2029 (2029) menjadi DIBUKA"
+    },
+    {
+      "id": 436,
+      "aksi": "CREATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T11:17:55.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2029 (2029)"
+    },
+    {
+      "id": 435,
+      "aksi": "IMPORT_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:16:36.000Z",
+      "admin": "admin",
+      "detail": "Berhasil mengimpor 1 anggota baru secara massal dari Excel ke MySQL."
+    },
+    {
+      "id": 434,
+      "aksi": "RESET_PASSWORD",
+      "entitas": "users",
+      "waktu": "2026-11-16T11:16:25.000Z",
+      "admin": "admin",
+      "detail": "Mereset password anggota MU 999 Tst. ke password default sementara"
+    },
+    {
+      "id": 433,
+      "aksi": "TOGGLE_STATUS_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:16:25.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status anggota MU 999 Tst. menjadi diaktifkan"
+    },
+    {
+      "id": 432,
+      "aksi": "TOGGLE_STATUS_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:16:25.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status anggota MU 999 Tst. menjadi dinonaktifkan"
+    },
+    {
+      "id": 431,
+      "aksi": "UPDATE_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:16:25.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui biodata tetap anggota MU 999 Tst."
+    },
+    {
+      "id": 430,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T11:16:24.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: Budi Santoso Pengujian (MU 999 Tst.)"
+    },
+    {
+      "id": 429,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 52]"
+    },
+    {
+      "id": 428,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 51]"
+    },
+    {
+      "id": 427,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
+    },
+    {
+      "id": 426,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 425,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 424,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:15:57.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
     }
   ]
 }

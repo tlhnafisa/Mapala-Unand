@@ -64,6 +64,12 @@ async function runCMSTests() {
       'Content-Type': 'application/json'
     };
 
+    // Pre-cleanup in case of previous abort
+    await query("DELETE FROM artikel_gambar WHERE artikel_id IN (SELECT id FROM artikel WHERE judul = 'Ekspedisi Uji Coba Puncak Marapi 2026')");
+    await query("DELETE FROM artikel WHERE judul = 'Ekspedisi Uji Coba Puncak Marapi 2026'");
+    await query("DELETE FROM prestasi WHERE judul LIKE 'Juara 1 Rock Climbing Championship 2026%' OR judul = 'Sorotan Awal Mapala 2025'");
+    await query("DELETE FROM bagan_struktur WHERE gambar_path = '/uploads/bagan-struktur-test-2026.png'");
+
     // ------------------------------------------------------------------
     // 1. CMS ARTIKEL & KEGIATAN (/api/admin/cms/articles)
     // ------------------------------------------------------------------
@@ -174,12 +180,47 @@ async function runCMSTests() {
     if (publicStrukturRes.status !== 200 || publicStrukturRes.body.data.gambar_path !== '/uploads/bagan-struktur-test-2026.png') {
       throw new Error('Bagan struktur publik tidak cocok dengan pembaruan admin.');
     }
-    console.log(`   [OK] Terverifikasi: Halaman publik menampilkan bagan aktif "${publicStrukturRes.body.data.gambar_path}" periode ${publicStrukturRes.body.data.periode}.\n`);
+    console.log(`   [OK] Terverifikasi: Halaman publik menampilkan bagan aktif "${publicStrukturRes.body.data.gambar_path}" periode ${publicStrukturRes.body.data.periode}.`);
+
+    // Uji penghapusan bagan struktur via DELETE /api/admin/cms/struktur/:id (Item 3b)
+    const createdBaganId = updateStrukturRes.body.data.id;
+    console.log(`   - Menguji DELETE /api/admin/cms/struktur/${createdBaganId}...`);
+    const deleteStrukturRes = await request({
+      hostname: '127.0.0.1',
+      port: 3002,
+      path: `/api/admin/cms/struktur/${createdBaganId}`,
+      method: 'DELETE',
+      headers: authHeaders
+    });
+    if (deleteStrukturRes.status !== 200 || !deleteStrukturRes.body.success) {
+      throw new Error('Gagal menghapus bagan struktur: ' + JSON.stringify(deleteStrukturRes.body));
+    }
+    console.log('     [OK] Bagan struktur organisasi berhasil dihapus via endpoint DELETE.');
+
+    // Verifikasi public endpoint setelah bagan dihapus -> menampilkan keadaan kosong rapi (data: null)
+    const publicEmptyStrukturRes = await request({
+      hostname: '127.0.0.1',
+      port: 3002,
+      path: '/api/public/content/struktur-organisasi',
+      method: 'GET'
+    });
+    if (publicEmptyStrukturRes.body.data !== null) {
+      throw new Error('Setelah dihapus, halaman publik seharusnya menampilkan keadaan kosong (data: null).');
+    }
+    console.log('     [OK] Terverifikasi: Halaman publik menampilkan keadaan kosong yang rapi (data: null).\n');
 
     // ------------------------------------------------------------------
     // 3. CMS PRESTASI (/api/admin/cms/prestasi)
     // ------------------------------------------------------------------
     console.log('3. Menguji CMS Prestasi & Sorotan Beranda:');
+
+    // Baseline: siapkan 1 prestasi sorotan aktif awal untuk menguji aturan sorotan tunggal (409)
+    await query("UPDATE prestasi SET is_sorotan = 0");
+    const baselinePrestasi = await query(
+      "INSERT INTO prestasi (tahun, kategori, judul, deskripsi, is_sorotan, sorotan_judul) VALUES (2025, 'Ekspedisi', 'Sorotan Awal Mapala 2025', 'Deskripsi awal', 1, 'Sorotan Awal 2025')"
+    );
+    const initialSorotanId = baselinePrestasi.insertId;
+
     const newPrestasiData = {
       tahun: 2026,
       kategori: 'Kejuaraan Nasional',
@@ -192,7 +233,9 @@ async function runCMSTests() {
       sorotan_detail: 'Keberhasilan tim panjat tebing Mapala UNAND di ajang nasional.'
     };
 
-    const createPrestasiRes = await request({
+    // 3A. Uji aturan sorotan tunggal (Item 3c): jika sudah ada sorotan aktif, tolak dengan status 409
+    console.log('   - Uji penolakan HTTP 409 bila sudah ada sorotan aktif tanpa konfirmasi ganti...');
+    const rejectPrestasiRes = await request({
       hostname: '127.0.0.1',
       port: 3002,
       path: '/api/admin/cms/prestasi',
@@ -200,24 +243,42 @@ async function runCMSTests() {
       headers: authHeaders
     }, newPrestasiData);
 
+    if (rejectPrestasiRes.status !== 409 || !rejectPrestasiRes.body.current_sorotan) {
+      throw new Error('Server seharusnya menolak dengan status 409 beserta data sorotan aktif: ' + JSON.stringify(rejectPrestasiRes.body));
+    }
+    console.log(`     [OK] Server berhasil menolak dengan HTTP 409: "${rejectPrestasiRes.body.message}"`);
+
+    // 3B. Uji pengiriman ulang dengan konfirmasi ganti sorotan (confirm_replace=1)
+    console.log('   - Uji pembuatan prestasi sorotan dengan konfirmasi ganti (confirm_replace=1)...');
+    const createPrestasiRes = await request({
+      hostname: '127.0.0.1',
+      port: 3002,
+      path: '/api/admin/cms/prestasi',
+      method: 'POST',
+      headers: authHeaders
+    }, { ...newPrestasiData, confirm_replace: 1 });
+
     if (createPrestasiRes.status !== 201 || !createPrestasiRes.body.success) {
-      throw new Error('Gagal membuat prestasi: ' + JSON.stringify(createPrestasiRes.body));
+      throw new Error('Gagal membuat prestasi dengan konfirmasi: ' + JSON.stringify(createPrestasiRes.body));
     }
     const createdPrestasiId = createPrestasiRes.body.data.id;
-    console.log(`   [OK] Prestasi baru berhasil disimpan (ID: ${createdPrestasiId}, is_sorotan: 1).`);
+    console.log(`     [OK] Prestasi baru berhasil disimpan sebagai sorotan tunggal (ID: ${createdPrestasiId}).`);
 
-    // Pastikan muncul pada kartu sorotan landing page beranda
+    // Pastikan tepat 1 sorotan yang aktif di beranda
     const berandaPrestasiCheck = await request({
       hostname: '127.0.0.1',
       port: 3002,
       path: '/api/public/content/beranda',
       method: 'GET'
     });
+    if (berandaPrestasiCheck.body.data.sorotan_prestasi.length > 1) {
+      throw new Error('Sorotan beranda seharusnya hanya berisi maksimal 1 prestasi!');
+    }
     const highlightFound = berandaPrestasiCheck.body.data.sorotan_prestasi.some(p => String(p.id) === String(createdPrestasiId));
     if (!highlightFound) {
       throw new Error('Prestasi dengan is_sorotan=1 seharusnya tampil di sorotan_prestasi beranda.');
     }
-    console.log('   [OK] Terverifikasi: Prestasi langsung muncul pada kartu sorotan landing page.');
+    console.log('     [OK] Terverifikasi: Tepat 1 sorotan aktif muncul di landing page beranda.');
 
     // Edit prestasi
     const updatePrestasiRes = await request({
@@ -234,7 +295,7 @@ async function runCMSTests() {
     if (updatePrestasiRes.status !== 200 || !updatePrestasiRes.body.success) {
       throw new Error('Gagal update prestasi: ' + JSON.stringify(updatePrestasiRes.body));
     }
-    console.log('   [OK] Prestasi berhasil diedit (judul diperbarui dan sorotan dimatikan).\n');
+    console.log('     [OK] Prestasi berhasil diedit (judul diperbarui dan sorotan dimatikan).\n');
 
     // ------------------------------------------------------------------
     // 4. CMS TENTANG KAMI & KONTAK (/api/admin/cms/static-content)
@@ -314,7 +375,8 @@ async function runCMSTests() {
     console.log('-> Membersihkan data uji dari MySQL...');
     await query('DELETE FROM artikel_gambar WHERE artikel_id = ?', [createdArtId]);
     await query('DELETE FROM artikel WHERE id = ?', [createdArtId]);
-    await query('DELETE FROM prestasi WHERE id = ?', [createdPrestasiId]);
+    await query('DELETE FROM prestasi WHERE id = ? OR judul = ?', [createdPrestasiId, 'Sorotan Awal Mapala 2025']);
+    await query("UPDATE prestasi SET is_sorotan = 1 ORDER BY id DESC LIMIT 1");
     // Kembalikan struktur periode 2025/2026 aktif
     await query("UPDATE periode_kepengurusan SET is_current = 0 WHERE nama = '2026/2027'");
     await query("UPDATE periode_kepengurusan SET is_current = 1 WHERE nama = '2025/2026'");

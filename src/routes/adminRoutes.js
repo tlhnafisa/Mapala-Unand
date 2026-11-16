@@ -57,6 +57,7 @@ router.delete('/cms/articles/:id', cmsController.deleteArticle);
 // Struktur Organisasi (P-01: Unggah Gambar Bagan Struktur)
 router.get('/cms/struktur', cmsController.getStrukturOrganisasi);
 router.post('/cms/struktur', upload.single('foto'), cmsController.updateStrukturOrganisasi);
+router.delete('/cms/struktur/:id', cmsController.deleteStrukturOrganisasi);
 
 // Pengurus (Legacy compatibility)
 router.get('/cms/pengurus', cmsController.getPengurus);

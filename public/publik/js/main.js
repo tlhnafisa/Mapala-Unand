@@ -88,25 +88,33 @@ async function fetchLivePublicData() {
             initHomeActivitiesCarousel();
           }
 
-          // C. Bagan Struktur Organisasi di Beranda
-          if (d.struktur_ringkas && d.struktur_ringkas.gambar_url) {
-            const homeBagan = document.querySelector('.org-image-wrapper img');
-            if (homeBagan) {
-              homeBagan.src = d.struktur_ringkas.gambar_url;
-              if (d.struktur_ringkas.judul_bagan) {
-                homeBagan.alt = `${d.struktur_ringkas.judul_bagan} (${d.struktur_ringkas.periode || ''})`;
-              }
+          // C. Bagan Struktur Organisasi di Beranda (Tampilkan pesan singkat rapi bila belum ada bagan)
+          const homeBaganWrapper = document.querySelector('.org-image-wrapper');
+          if (homeBaganWrapper) {
+            if (d.struktur_ringkas && d.struktur_ringkas.gambar_url) {
+              const altText = `${d.struktur_ringkas.judul_bagan || 'Bagan Struktur Organisasi'} (${d.struktur_ringkas.periode || ''})`;
+              homeBaganWrapper.innerHTML = `
+                <img src="${d.struktur_ringkas.gambar_url}" alt="${altText}">
+              `;
+            } else {
+              homeBaganWrapper.innerHTML = `
+                <div class="empty-state text-center py-12 px-4" style="background-color: var(--bg-card); border: 1px dashed var(--border-subtle); border-radius: var(--radius-lg); padding: 48px 24px;">
+                  <p style="color: var(--text-muted); font-size: 1rem; margin: 0;">
+                    Bagan struktur organisasi kepengurusan belum tersedia atau sedang diperbarui.
+                  </p>
+                </div>
+              `;
             }
           }
 
-          // D. Sorotan Prestasi & Foto Sesuai Prestasi Terkait di Beranda
+          // D. Sorotan Prestasi & Foto Sesuai Prestasi Terkait di Beranda (Sorotan Tunggal)
           const prs = d.prestasi_utama || (d.sorotan_prestasi && d.sorotan_prestasi[0]);
-          if (prs) {
-            const hTitle = document.querySelector('.prestasi-title');
-            const hDesc = document.querySelector('.prestasi-desc');
-            const prestasiImg = document.getElementById('prestasiMainImg');
-            const prestasiCaption = document.getElementById('prestasiCaptionText');
+          const hTitle = document.querySelector('.prestasi-title');
+          const hDesc = document.querySelector('.prestasi-desc');
+          const prestasiImg = document.getElementById('prestasiMainImg');
+          const prestasiCaption = document.getElementById('prestasiCaptionText');
 
+          if (prs) {
             if (hTitle && prs.judul) hTitle.textContent = prs.judul;
             if (hDesc && (prs.deskripsi || prs.detail)) {
               const rawDesc = (prs.deskripsi || prs.detail).trim();
@@ -127,6 +135,17 @@ async function fetchLivePublicData() {
             }
             if (prestasiCaption && (prs.caption || prs.judul)) {
               prestasiCaption.textContent = prs.caption || `${prs.judul} (${prs.tahun || ''}) - Mapala UNAND`;
+            }
+          } else {
+            // Keadaan jika belum ada prestasi sorotan
+            if (hTitle) hTitle.textContent = 'Prestasi & Capaian Organisasi';
+            if (hDesc) hDesc.textContent = 'Belum ada prestasi yang ditandai sebagai sorotan utama saat ini.';
+            if (prestasiImg) {
+              prestasiImg.src = '/images/trophy-achievement.jpg';
+              prestasiImg.alt = 'Foto Prestasi Mapala UNAND';
+            }
+            if (prestasiCaption) {
+              prestasiCaption.textContent = 'Dedikasi dan pencapaian Mapala Universitas Andalas';
             }
           }
 

@@ -1,4 +1,6 @@
-const { query, execute } = require('../config/mysql');
+const fs = require('fs');
+const path = require('path');
+const { query, execute, pool } = require('../config/mysql');
 const db = require('../config/db');
 const { logActivity } = require('../services/loggerService');
 
@@ -518,14 +520,12 @@ exports.getStrukturOrganisasi = async (req, res) => {
         return res.json({ success: true, data: latest[0] });
       }
 
+      const pCurrent = await query('SELECT nama FROM periode_kepengurusan WHERE is_current = 1 LIMIT 1');
       return res.json({
         success: true,
-        data: {
-          periode: '2025/2026',
-          keterangan: 'Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2025/2026',
-          foto: '/images/struktur-organisasi.svg',
-          gambar_path: '/images/struktur-organisasi.svg'
-        }
+        data: null,
+        periode: pCurrent[0]?.nama || '2025/2026',
+        message: 'Belum ada gambar bagan struktur organisasi yang diunggah.'
       });
     }
 
@@ -533,6 +533,67 @@ exports.getStrukturOrganisasi = async (req, res) => {
   } catch (err) {
     console.error('Error getStrukturOrganisasi MySQL:', err);
     return res.status(500).json({ success: false, message: 'Gagal memuat bagan struktur: ' + err.message });
+  }
+};
+
+exports.deleteStrukturOrganisasi = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const baganId = parseInt(id, 10);
+    if (!baganId || isNaN(baganId)) {
+      return res.status(400).json({ success: false, message: 'ID bagan struktur tidak valid.' });
+    }
+
+    const rows = await query(`
+      SELECT bs.id, bs.judul, bs.gambar_path, pk.nama AS periode_nama
+      FROM bagan_struktur bs
+      LEFT JOIN periode_kepengurusan pk ON pk.id = bs.periode_kepengurusan_id
+      WHERE bs.id = ?
+      LIMIT 1
+    `, [baganId]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Data bagan struktur tidak ditemukan.' });
+    }
+
+    const bagan = rows[0];
+
+    // Hapus berkas fisik di public/uploads jika ada (dengan proteksi path traversal)
+    if (bagan.gambar_path && bagan.gambar_path.startsWith('/uploads/')) {
+      try {
+        const uploadsDir = path.resolve(__dirname, '../../public/uploads');
+        const filename = path.basename(bagan.gambar_path);
+        const targetFilePath = path.resolve(uploadsDir, filename);
+
+        // Validasi path agar hanya menghapus file di dalam folder uploads
+        if (targetFilePath.startsWith(uploadsDir) && fs.existsSync(targetFilePath)) {
+          fs.unlinkSync(targetFilePath);
+        }
+      } catch (fileErr) {
+        // Jangan error bila file fisik sudah tidak ada
+        console.warn('Notice: Gagal menghapus file fisik bagan struktur:', fileErr.message);
+      }
+    }
+
+    await execute('DELETE FROM bagan_struktur WHERE id = ?', [baganId]);
+
+    const adminUser = req.user ? req.user.username : 'admin';
+    await logActivity(
+      adminUser,
+      'DELETE_STRUKTUR',
+      `Menghapus gambar bagan struktur organisasi periode ${bagan.periode_nama || '-'} (${bagan.judul}) [ID: ${baganId}]`,
+      { entitas: 'bagan_struktur', entitas_id: String(baganId) }
+    );
+
+    await db.syncFromMySQL().catch(e => console.warn('Sync memory notice:', e.message));
+
+    return res.json({
+      success: true,
+      message: 'Bagan struktur organisasi berhasil dihapus.'
+    });
+  } catch (err) {
+    console.error('Error deleteStrukturOrganisasi MySQL:', err);
+    return res.status(500).json({ success: false, message: 'Gagal menghapus bagan struktur: ' + err.message });
   }
 };
 
@@ -672,7 +733,8 @@ exports.createPrestasi = async (req, res) => {
       sorotan_detail,
       info_label_1,
       info_label_2,
-      gambar_caption
+      gambar_caption,
+      confirm_replace
     } = req.body;
 
     if (!judul || !judul.trim() || !tahun || !deskripsi) {
@@ -689,36 +751,72 @@ exports.createPrestasi = async (req, res) => {
     }
 
     const isSorotanVal = (is_sorotan === '1' || is_sorotan === 1 || is_sorotan === true || is_sorotan === 'true' || is_sorotan === 'on') ? 1 : 0;
+    const confirmReplaceVal = (confirm_replace === '1' || confirm_replace === 1 || confirm_replace === true || confirm_replace === 'true');
     const sorotanJudulVal = sorotan_judul || judul.trim();
     const sorotanSubVal = sorotan_subjudul || `Tahun ${tahun}`;
     const sorotanDetVal = sorotan_detail || deskripsi.trim();
 
-    const ins = await execute(`
-      INSERT INTO prestasi (
-        tahun, kategori, judul, deskripsi, info_label_1, info_label_2,
-        gambar_path, gambar_caption, is_sorotan, sorotan_judul, sorotan_subjudul, sorotan_detail
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `, [
-      Number(tahun),
-      kategori || 'Kompetisi',
-      judul.trim(),
-      deskripsi.trim(),
-      info_label_1 || null,
-      info_label_2 || null,
-      foto,
-      gambar_caption || judul.trim(),
-      isSorotanVal,
-      sorotanJudulVal,
-      sorotanSubVal,
-      sorotanDetVal
-    ]);
+    // Aturan 3c: Sorotan Beranda hanya boleh 1
+    if (isSorotanVal === 1) {
+      const activeHighlights = await query('SELECT id, judul FROM prestasi WHERE is_sorotan = 1 ORDER BY id DESC LIMIT 1');
+      if (activeHighlights.length > 0 && !confirmReplaceVal) {
+        return res.status(409).json({
+          success: false,
+          status: 409,
+          message: `Prestasi "${activeHighlights[0].judul}" saat ini sedang menjadi sorotan di Beranda.`,
+          current_sorotan: {
+            id: activeHighlights[0].id,
+            judul: activeHighlights[0].judul
+          }
+        });
+      }
+    }
+
+    const conn = await pool.getConnection();
+    let insertId = null;
+    try {
+      await conn.beginTransaction();
+
+      if (isSorotanVal === 1 && confirmReplaceVal) {
+        // Matikan sorotan lama secara atomik
+        await conn.execute('UPDATE prestasi SET is_sorotan = 0 WHERE is_sorotan = 1');
+      }
+
+      const [ins] = await conn.execute(`
+        INSERT INTO prestasi (
+          tahun, kategori, judul, deskripsi, info_label_1, info_label_2,
+          gambar_path, gambar_caption, is_sorotan, sorotan_judul, sorotan_subjudul, sorotan_detail
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [
+        Number(tahun),
+        kategori || 'Kompetisi',
+        judul.trim(),
+        deskripsi.trim(),
+        info_label_1 || null,
+        info_label_2 || null,
+        foto,
+        gambar_caption || judul.trim(),
+        isSorotanVal,
+        sorotanJudulVal,
+        sorotanSubVal,
+        sorotanDetVal
+      ]);
+
+      await conn.commit();
+      insertId = ins.insertId;
+    } catch (txErr) {
+      await conn.rollback();
+      throw txErr;
+    } finally {
+      conn.release();
+    }
 
     const adminUser = req.user ? req.user.username : 'admin';
     await logActivity(
       adminUser,
       'CREATE_PRESTASI',
       `Menambahkan prestasi: ${judul.trim()} (${tahun}) ${isSorotanVal ? '[Sorotan Beranda]' : ''}`,
-      { entitas: 'prestasi', entitas_id: String(ins.insertId) }
+      { entitas: 'prestasi', entitas_id: String(insertId) }
     );
 
     await db.syncFromMySQL().catch(e => console.warn('Sync memory notice:', e.message));
@@ -727,7 +825,7 @@ exports.createPrestasi = async (req, res) => {
       success: true,
       message: 'Prestasi baru berhasil ditambahkan.',
       data: {
-        id: ins.insertId,
+        id: insertId,
         tahun: Number(tahun),
         judul: judul.trim(),
         deskripsi: deskripsi.trim(),
@@ -754,7 +852,8 @@ exports.updatePrestasi = async (req, res) => {
       sorotan_subjudul,
       sorotan_detail,
       info_label_1,
-      info_label_2
+      info_label_2,
+      confirm_replace
     } = req.body;
 
     const existing = await query('SELECT * FROM prestasi WHERE id = ?', [id]);
@@ -776,41 +875,75 @@ exports.updatePrestasi = async (req, res) => {
     const isSorotanVal = (is_sorotan !== undefined)
       ? ((is_sorotan === '1' || is_sorotan === 1 || is_sorotan === true || is_sorotan === 'true' || is_sorotan === 'on') ? 1 : 0)
       : current.is_sorotan;
+    const confirmReplaceVal = (confirm_replace === '1' || confirm_replace === 1 || confirm_replace === true || confirm_replace === 'true');
 
-    await execute(`
-      UPDATE prestasi SET
-        tahun = ?,
-        kategori = ?,
-        judul = ?,
-        deskripsi = ?,
-        info_label_1 = ?,
-        info_label_2 = ?,
-        gambar_path = ?,
-        is_sorotan = ?,
-        sorotan_judul = ?,
-        sorotan_subjudul = ?,
-        sorotan_detail = ?
-      WHERE id = ?
-    `, [
-      newTahun,
-      kategori || current.kategori,
-      newJudul,
-      newDeskripsi,
-      info_label_1 !== undefined ? info_label_1 : current.info_label_1,
-      info_label_2 !== undefined ? info_label_2 : current.info_label_2,
-      foto,
-      isSorotanVal,
-      sorotan_judul || newJudul,
-      sorotan_subjudul || `Tahun ${newTahun}`,
-      sorotan_detail || newDeskripsi,
-      id
-    ]);
+    // Aturan 3c: Sorotan Beranda hanya boleh 1
+    if (isSorotanVal === 1) {
+      const activeHighlights = await query('SELECT id, judul FROM prestasi WHERE is_sorotan = 1 AND id != ? LIMIT 1', [current.id]);
+      if (activeHighlights.length > 0 && !confirmReplaceVal) {
+        return res.status(409).json({
+          success: false,
+          status: 409,
+          message: `Prestasi "${activeHighlights[0].judul}" saat ini sedang menjadi sorotan di Beranda.`,
+          current_sorotan: {
+            id: activeHighlights[0].id,
+            judul: activeHighlights[0].judul
+          }
+        });
+      }
+    }
+
+    const conn = await pool.getConnection();
+    try {
+      await conn.beginTransaction();
+
+      if (isSorotanVal === 1 && confirmReplaceVal) {
+        // Matikan sorotan lama yang bukan id ini secara atomik
+        await conn.execute('UPDATE prestasi SET is_sorotan = 0 WHERE id != ? AND is_sorotan = 1', [current.id]);
+      }
+
+      await conn.execute(`
+        UPDATE prestasi SET
+          tahun = ?,
+          kategori = ?,
+          judul = ?,
+          deskripsi = ?,
+          info_label_1 = ?,
+          info_label_2 = ?,
+          gambar_path = ?,
+          is_sorotan = ?,
+          sorotan_judul = ?,
+          sorotan_subjudul = ?,
+          sorotan_detail = ?
+        WHERE id = ?
+      `, [
+        newTahun,
+        kategori || current.kategori,
+        newJudul,
+        newDeskripsi,
+        info_label_1 !== undefined ? info_label_1 : current.info_label_1,
+        info_label_2 !== undefined ? info_label_2 : current.info_label_2,
+        foto,
+        isSorotanVal,
+        sorotan_judul || newJudul,
+        sorotan_subjudul || `Tahun ${newTahun}`,
+        sorotan_detail || newDeskripsi,
+        current.id
+      ]);
+
+      await conn.commit();
+    } catch (txErr) {
+      await conn.rollback();
+      throw txErr;
+    } finally {
+      conn.release();
+    }
 
     const adminUser = req.user ? req.user.username : 'admin';
     await logActivity(
       adminUser,
       'UPDATE_PRESTASI',
-      `Memperbarui prestasi: ${newJudul} (${newTahun})`,
+      `Memperbarui prestasi: ${newJudul} (${newTahun})${isSorotanVal ? ' [Sorotan Beranda]' : ''}`,
       { entitas: 'prestasi', entitas_id: String(id) }
     );
 
@@ -819,7 +952,14 @@ exports.updatePrestasi = async (req, res) => {
     return res.json({
       success: true,
       message: 'Data prestasi berhasil diperbarui.',
-      data: { id, judul: newJudul, tahun: newTahun, is_sorotan: isSorotanVal }
+      data: {
+        id: Number(current.id),
+        tahun: newTahun,
+        judul: newJudul,
+        deskripsi: newDeskripsi,
+        foto,
+        is_sorotan: isSorotanVal
+      }
     });
   } catch (err) {
     console.error('Error updatePrestasi MySQL:', err);

@@ -118,24 +118,14 @@ exports.getBerandaContent = async (req, res) => {
       LIMIT 1
     `);
 
-    // 6. Highlighted achievements (is_sorotan = 1)
+    // 6. Highlighted achievements (Hanya 1 sorotan tunggal sesuai aturan 3c)
     let highlightRows = await query(`
       SELECT id, tahun, judul, deskripsi,
              sorotan_judul, sorotan_subjudul, sorotan_detail,
              COALESCE(gambar_path, '/images/trophy-achievement.jpg') AS gambar_url,
              COALESCE(gambar_caption, judul) AS caption
-      FROM prestasi WHERE is_sorotan = 1 ORDER BY urutan ASC, tahun DESC LIMIT 4
+      FROM prestasi WHERE is_sorotan = 1 ORDER BY id DESC LIMIT 1
     `);
-
-    if (highlightRows.length === 0) {
-      highlightRows = await query(`
-        SELECT id, tahun, judul, deskripsi,
-               sorotan_judul, sorotan_subjudul, sorotan_detail,
-               COALESCE(gambar_path, '/images/trophy-achievement.jpg') AS gambar_url,
-               COALESCE(gambar_caption, judul) AS caption
-        FROM prestasi ORDER BY tahun DESC, id DESC LIMIT 1
-      `);
-    }
 
     const resolveSorotanDetail = (row) => {
       if (!row) return '';
@@ -186,11 +176,7 @@ exports.getBerandaContent = async (req, res) => {
         statistik: statsRows,
         kegiatan_terbaru: articleRows,
         divisi_list: divRows,
-        struktur_ringkas: structureRows[0] || {
-          periode: '2025/2026',
-          judul_bagan: 'Bagan Struktur Resmi Mapala UNAND',
-          gambar_url: '/images/struktur-organisasi.svg'
-        },
+        struktur_ringkas: structureRows.length > 0 ? structureRows[0] : null,
         sorotan_prestasi: highlightRows.map(h => ({
           ...h,
           judul: h.sorotan_judul || h.judul,
@@ -281,11 +267,8 @@ exports.getStrukturOrganisasi = async (req, res) => {
     if (rows.length === 0) {
       return res.json({
         success: true,
-        data: {
-          judul: 'Bagan Struktur Kepengurusan Mapala UNAND',
-          periode: '2025/2026',
-          gambar_path: '/images/struktur-organisasi.svg'
-        }
+        data: null,
+        message: 'Bagan struktur organisasi kepengurusan belum tersedia atau sedang diperbarui.'
       });
     }
 
