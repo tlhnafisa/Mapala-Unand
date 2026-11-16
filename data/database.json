@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-16T11:32:01.000Z",
+      "last_login": "2026-11-16T12:05:08.000Z",
       "nama": "admin"
     },
     {
@@ -621,7 +621,7 @@
       "status_registrasi": "Sudah Registrasi Ulang"
     },
     {
-      "id": 42,
+      "id": 46,
       "no_register": "MU 145 PCT",
       "periode_tahun": 2026,
       "foto_terbaru": null,
@@ -634,8 +634,8 @@
       "alamat_ortu": "Keluarga di Bukittinggi",
       "sumber_input": "admin",
       "input_by": "admin",
-      "submitted_at": "2026-11-16T11:17:55.000Z",
-      "updated_at": "2026-11-16T11:17:55.000Z",
+      "submitted_at": "2026-11-16T12:05:08.000Z",
+      "updated_at": "2026-11-16T12:05:08.000Z",
       "status_registrasi": "Sudah Registrasi Ulang"
     }
   ],
@@ -655,6 +655,15 @@
       "nama_periode": "Registrasi Ulang Tahunan 2025",
       "tanggal_buka": "2025-01-01",
       "tanggal_tutup": "2025-12-31",
+      "is_active": false,
+      "status": "tutup"
+    },
+    {
+      "id": 5,
+      "tahun": 2029,
+      "nama_periode": "Registrasi Ulang Tahunan 2029",
+      "tanggal_buka": "2029-01-01",
+      "tanggal_tutup": "2029-12-31",
       "is_active": false,
       "status": "tutup"
     }
@@ -878,6 +887,134 @@
     "kontak_twitter": "https://x.com/mapalaunand_padang"
   },
   "logs": [
+    {
+      "id": 495,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Yusuf Mansur (MU 145 PCT) [Override]"
+    },
+    {
+      "id": 494,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Menghapus divisi: Konservasi Alam (Revisi)"
+    },
+    {
+      "id": 493,
+      "aksi": "UPDATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui nama divisi dari 'Konservasi Alam Uji' menjadi 'Konservasi Alam (Revisi)'"
+    },
+    {
+      "id": 492,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Konservasi Alam Uji (KNS)"
+    },
+    {
+      "id": 491,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
+    },
+    {
+      "id": 490,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2029 (2029) menjadi DIBUKA"
+    },
+    {
+      "id": 489,
+      "aksi": "CREATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-16T12:05:08.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2029 (2029)"
+    },
+    {
+      "id": 488,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 62]"
+    },
+    {
+      "id": 487,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 61]"
+    },
+    {
+      "id": 486,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
+    },
+    {
+      "id": 485,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 484,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 483,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:04:45.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 482,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:58:58.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Rekor Pemetaan Sistem Gua Vertikal hhhTerdalam Sumatera (2023) [Sorotan Beranda]"
+    },
+    {
+      "id": 481,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:56:39.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027) [ID: 60]"
+    },
+    {
+      "id": 480,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:56:26.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
+    },
     {
       "id": 479,
       "aksi": "DELETE_STRUKTUR",
@@ -1149,134 +1286,6 @@
       "waktu": "2026-11-16T11:18:50.000Z",
       "admin": "admin",
       "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Mapala UNAND Periode 2026/2027) [ID: 53]"
-    },
-    {
-      "id": 445,
-      "aksi": "UPDATE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Kepengurusan Resmi Mapala UNAND Periode 2026/2027)"
-    },
-    {
-      "id": 444,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Ekspedisi Uji Coba Puncak Marapi 2026 (terbit)"
-    },
-    {
-      "id": 443,
-      "aksi": "CREATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-16T11:18:50.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan artikel: Ekspedisi Uji Coba Puncak Marapi 2026 (draf) dengan 1 gambar"
-    },
-    {
-      "id": 442,
-      "aksi": "INPUT_REGISTRASI_ADMIN",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Yusuf Mansur (MU 145 PCT) [Override]"
-    },
-    {
-      "id": 441,
-      "aksi": "DELETE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Menghapus divisi: Konservasi Alam (Revisi)"
-    },
-    {
-      "id": 440,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Konservasi Alam Uji' menjadi 'Konservasi Alam (Revisi)'"
-    },
-    {
-      "id": 439,
-      "aksi": "CREATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan divisi baru: Konservasi Alam Uji (KNS)"
-    },
-    {
-      "id": 438,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
-    },
-    {
-      "id": 437,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2029 (2029) menjadi DIBUKA"
-    },
-    {
-      "id": 436,
-      "aksi": "CREATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-16T11:17:55.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2029 (2029)"
-    },
-    {
-      "id": 435,
-      "aksi": "IMPORT_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:16:36.000Z",
-      "admin": "admin",
-      "detail": "Berhasil mengimpor 1 anggota baru secara massal dari Excel ke MySQL."
-    },
-    {
-      "id": 434,
-      "aksi": "RESET_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-16T11:16:25.000Z",
-      "admin": "admin",
-      "detail": "Mereset password anggota MU 999 Tst. ke password default sementara"
-    },
-    {
-      "id": 433,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:16:25.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 999 Tst. menjadi diaktifkan"
-    },
-    {
-      "id": 432,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:16:25.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 999 Tst. menjadi dinonaktifkan"
-    },
-    {
-      "id": 431,
-      "aksi": "UPDATE_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:16:25.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui biodata tetap anggota MU 999 Tst."
-    },
-    {
-      "id": 430,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:16:24.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Budi Santoso Pengujian (MU 999 Tst.)"
     }
   ]
 }
