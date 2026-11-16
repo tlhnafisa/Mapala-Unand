@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-16T11:20:59.000Z",
+      "last_login": "2026-11-16T11:32:01.000Z",
       "nama": "admin"
     },
     {
@@ -879,6 +879,54 @@
   },
   "logs": [
     {
+      "id": 479,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:32:02.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 59]"
+    },
+    {
+      "id": 478,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:32:02.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 58]"
+    },
+    {
+      "id": 477,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T11:32:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
+    },
+    {
+      "id": 476,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:32:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 475,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:32:01.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 474,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T11:32:01.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
       "id": 473,
       "aksi": "DELETE_STRUKTUR",
       "entitas": "bagan_struktur",
@@ -1229,54 +1277,6 @@
       "waktu": "2026-11-16T11:16:24.000Z",
       "admin": "admin",
       "detail": "Menambahkan anggota baru: Budi Santoso Pengujian (MU 999 Tst.)"
-    },
-    {
-      "id": 429,
-      "aksi": "DELETE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 52]"
-    },
-    {
-      "id": 428,
-      "aksi": "DELETE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 51]"
-    },
-    {
-      "id": 427,
-      "aksi": "UPDATE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
-    },
-    {
-      "id": 426,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
-    },
-    {
-      "id": 425,
-      "aksi": "CREATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
-    },
-    {
-      "id": 424,
-      "aksi": "CREATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-16T11:15:57.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
     }
   ]
 }

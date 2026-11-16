@@ -19,3 +19,4 @@ WHERE is_sorotan = 1
     FROM (SELECT id, is_sorotan FROM prestasi) AS p
     WHERE p.is_sorotan = 1
   );
+
