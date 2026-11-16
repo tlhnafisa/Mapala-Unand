@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-16T12:15:50.000Z",
+      "last_login": "2026-11-16T12:23:15.000Z",
       "nama": "admin"
     },
     {
@@ -179,6 +179,16 @@
       "must_change_password": false,
       "last_login": "2026-11-16T12:10:25.000Z",
       "nama": "Rafa Gian Atthari"
+    },
+    {
+      "id": 62,
+      "username": "MU 888 Imp.",
+      "password_hash": "$2b$10$j.HShaTmy2JZJwIZKvr7T.EWoVC0HuzrCoQhNwLttDtWfEuNSEyAi",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "Siti Rahmawati Pengujian Impor"
     }
   ],
   "members": [
@@ -437,6 +447,22 @@
       "profil_lengkap": true,
       "created_at": "2026-11-10T09:08:33.000Z",
       "updated_at": "2026-11-11T09:53:51.000Z"
+    },
+    {
+      "id": 60,
+      "no_register": "MU 888 Imp.",
+      "nama": "Siti Rahmawati Pengujian Impor",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2024,
+      "tempat_lahir": "Kota Padang",
+      "tanggal_lahir": "2004-03-15",
+      "golongan_darah": "A",
+      "nama_ayah": "Rahman",
+      "nama_ibu": "Rosma",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-16T12:23:15.000Z",
+      "updated_at": "2026-11-16T12:23:15.000Z"
     }
   ],
   "reRegistrations": [
@@ -879,6 +905,62 @@
   },
   "logs": [
     {
+      "id": 511,
+      "aksi": "IMPORT_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-16T12:23:15.000Z",
+      "admin": "admin",
+      "detail": "Berhasil mengimpor 1 anggota baru secara massal dari Excel ke MySQL."
+    },
+    {
+      "id": 510,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:23:03.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2025/2026 (File Tidak Ada) [ID: 66]"
+    },
+    {
+      "id": 509,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:23:03.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan) [ID: 65]"
+    },
+    {
+      "id": 508,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-16T12:23:03.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Uji Penghapusan)"
+    },
+    {
+      "id": 507,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:23:03.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 506,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:23:03.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan B (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 505,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-16T12:23:02.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Uji Sorotan A (2026) [Sorotan Beranda]"
+    },
+    {
       "id": 504,
       "aksi": "DELETE_STRUKTUR",
       "entitas": "bagan_struktur",
@@ -1221,62 +1303,6 @@
       "waktu": "2026-11-16T11:19:48.000Z",
       "admin": "system",
       "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
-    },
-    {
-      "id": 461,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:19:47.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Akun Baru Wizard E2E (MU 999 Ete.)"
-    },
-    {
-      "id": 460,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-16T11:19:38.000Z",
-      "admin": "system",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 459,
-      "aksi": "GANTI_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-16T11:19:38.000Z",
-      "admin": "system",
-      "detail": "GANTI_PASSWORD"
-    },
-    {
-      "id": 458,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:19:38.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Rizky Pratama E2E (MU 888 Ete.)"
-    },
-    {
-      "id": 457,
-      "aksi": "RESET_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Mereset password anggota MU 777 Ete. ke password default sementara"
-    },
-    {
-      "id": 456,
-      "aksi": "INPUT_REGISTRASI_ADMIN",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Fauzan Maulana E2E (MU 777 Ete.) [Override]"
-    },
-    {
-      "id": 455,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-16T11:19:15.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Fauzan Maulana E2E (MU 777 Ete.)"
     }
   ]
 }

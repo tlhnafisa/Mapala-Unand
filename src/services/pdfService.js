@@ -382,7 +382,17 @@ function generatePrintableBiodataHTML(member, regData, attributes = []) {
     <tr>
       <td class="col-label">Alamat Domisili Sekarang</td>
       <td class="col-sep">:</td>
-      <td class="col-val">${domisiliFormatted}</td>
+      <td class="col-val">${regData && regData.alamat_rumah ? escapeHtml(regData.alamat_rumah) : '-'}</td>
+    </tr>
+    <tr>
+      <td class="col-label">Kota / Kabupaten</td>
+      <td class="col-sep">:</td>
+      <td class="col-val">${regData && regData.kota_kabupaten ? escapeHtml(regData.kota_kabupaten) : '-'}</td>
+    </tr>
+    <tr>
+      <td class="col-label">Provinsi</td>
+      <td class="col-sep">:</td>
+      <td class="col-val">${regData && regData.provinsi ? escapeHtml(regData.provinsi) : '-'}</td>
     </tr>
     <tr>
       <td class="col-label">Nomor WhatsApp / HP</td>
@@ -403,6 +413,11 @@ function generatePrintableBiodataHTML(member, regData, attributes = []) {
       <td class="col-label">Pekerjaan / Instansi</td>
       <td class="col-sep">:</td>
       <td class="col-val">${regData && regData.pekerjaan ? escapeHtml(regData.pekerjaan) : '-'}</td>
+    </tr>
+    <tr>
+      <td class="col-label">Kontak Darurat</td>
+      <td class="col-sep">:</td>
+      <td class="col-val">${regData && (regData.kontak_darurat || regData.alamat_ortu || regData.alamat_orang_tua) ? escapeHtml(regData.kontak_darurat || regData.alamat_ortu || regData.alamat_orang_tua) : '-'}</td>
     </tr>
     <tr>
       <td class="col-label">Sumber &amp; Waktu Input</td>
