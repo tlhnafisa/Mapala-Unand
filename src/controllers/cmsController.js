@@ -1168,9 +1168,18 @@ exports.updateStaticContent = async (req, res) => {
         await upsertStatic('kontak_email', data.email.trim(), 'kontak');
       }
       if (data.whatsapp !== undefined) {
-        // Strip out non-digit except possible leading numbers
-        const cleanWA = data.whatsapp.replace(/[^\d]/g, '');
-        await upsertStatic('kontak_whatsapp', cleanWA, 'kontak');
+        const rawWA = (data.whatsapp || '').trim();
+        if (rawWA !== '') {
+          if (!/^(\+?[0-9]{9,15})$/.test(rawWA)) {
+            return res.status(400).json({
+              success: false,
+              message: 'Nomor WhatsApp kontak harus berupa angka valid (9-15 digit, boleh diawali + atau 0).'
+            });
+          }
+          await upsertStatic('kontak_whatsapp', rawWA, 'kontak');
+        } else {
+          await upsertStatic('kontak_whatsapp', '', 'kontak');
+        }
       }
       if (data.alamat !== undefined) {
         await upsertStatic('kontak_alamat', data.alamat.trim(), 'kontak');

@@ -180,7 +180,8 @@ exports.getProfile = async (req, res) => {
     // Latest re-registration snapshot
     const regRows = await query(`
       SELECT ru.foto_path, ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi,
-             ru.pekerjaan, ru.no_hp, ru.email, ru.alamat_orang_tua, pr.tahun AS tahun_registrasi
+             ru.pekerjaan, ru.no_hp, ru.email, ru.kontak_darurat, ru.submitted_at, ru.sumber_input,
+             pr.tahun AS tahun_registrasi
       FROM registrasi_ulang ru
       JOIN periode_registrasi pr ON pr.id = ru.periode_id
       WHERE ru.anggota_id = ?
@@ -227,6 +228,15 @@ exports.updateProfile = async (req, res) => {
 
     if (!nama || !nama.trim()) {
       return res.status(400).json({ success: false, message: 'Nama lengkap wajib diisi.' });
+    }
+
+    if (no_hp !== undefined && no_hp !== null && no_hp.trim() !== '') {
+      if (!/^(\+?[0-9]{9,15})$/.test(no_hp.trim())) {
+        return res.status(400).json({
+          success: false,
+          message: 'Nomor handphone harus berupa angka valid (9-15 digit, boleh diawali + atau 0).'
+        });
+      }
     }
 
     // Evaluasi kelengkapan profil: seluruh data esensial wajib terisi
@@ -291,7 +301,7 @@ exports.updateProfile = async (req, res) => {
           await execute(`
             INSERT INTO registrasi_ulang (
               anggota_id, periode_id, foto_path, alamat_rumah, kota_kabupaten,
-              provinsi, pekerjaan, no_hp, email, alamat_orang_tua, sumber_input, submitted_at
+              provinsi, pekerjaan, no_hp, email, kontak_darurat, sumber_input, submitted_at
             ) VALUES (?, ?, '/uploads/default-avatar.png', ?, ?, ?, '-', ?, '-', '-', 'mandiri', NOW())
           `, [
             anggotaId,
@@ -374,23 +384,30 @@ exports.getReRegistrationFormData = async (req, res) => {
 
     // Current registration for this active period (if already submitted)
     const currentReg = await query(`
-      SELECT ru.id, ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi, ru.pekerjaan, ru.no_hp, ru.email, ru.alamat_orang_tua, ru.foto_path, ru.submitted_at, ru.sumber_input
+      SELECT ru.id, ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi, ru.pekerjaan, ru.no_hp, ru.email, ru.kontak_darurat, ru.foto_path, ru.submitted_at, ru.sumber_input
       FROM registrasi_ulang ru
       WHERE ru.anggota_id = ? AND ru.periode_id = ?
       LIMIT 1
     `, [anggotaId, activePeriod.id]);
 
     // Prefill data from previous registration (if not yet registered this year)
+    const isCurrentPeriodReg = currentReg.length > 0;
     let prefill = currentReg[0] || null;
     if (!prefill) {
       const prevReg = await query(`
-        SELECT ru.id, ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi, ru.pekerjaan, ru.no_hp, ru.email, ru.alamat_orang_tua, ru.foto_path
+        SELECT ru.id, ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi, ru.pekerjaan, ru.no_hp, ru.email, ru.kontak_darurat, ru.foto_path
         FROM registrasi_ulang ru
         WHERE ru.anggota_id = ?
         ORDER BY ru.id DESC
         LIMIT 1
       `, [anggotaId]);
-      prefill = prevReg[0] || null;
+      if (prevReg.length > 0) {
+        prefill = {
+          ...prevReg[0],
+          foto_referensi: prevReg[0].foto_path,
+          foto_path: null // Foto tahun lama tidak dianggap memenuhi kewajiban periode berjalan
+        };
+      }
     }
 
     // Media sosial akun jika ada
@@ -407,15 +424,22 @@ exports.getReRegistrationFormData = async (req, res) => {
     let userAtribut = {};
     if (prefill && prefill.id) {
       try {
-        const raRows = await query(`SELECT jenis_atribut_id, memiliki FROM registrasi_atribut WHERE registrasi_id = ?`, [prefill.id]);
-        raRows.forEach(r => { userAtribut[r.jenis_atribut_id] = r.memiliki; });
+        const raRows = await query(`SELECT jenis_atribut_id, memiliki, foto_path FROM registrasi_atribut WHERE registrasi_id = ?`, [prefill.id]);
+        raRows.forEach(r => {
+          userAtribut[r.jenis_atribut_id] = {
+            memiliki: r.memiliki,
+            // Sesuai PRD FR-23: foto atribut hanya terisi otomatis jika berasal dari tahun yang sama
+            foto_path: isCurrentPeriodReg ? (r.foto_path || null) : null
+          };
+        });
       } catch (_) {}
     }
 
     const atributMaster = attrRows.map(a => ({
       id: a.id,
       nama: a.nama,
-      memiliki: userAtribut[a.id] !== undefined ? userAtribut[a.id] : 1
+      memiliki: userAtribut[a.id] ? userAtribut[a.id].memiliki : 1,
+      foto_path: userAtribut[a.id] ? userAtribut[a.id].foto_path : null
     }));
 
     return res.json({
@@ -455,10 +479,28 @@ exports.submitReRegistration = async (req, res) => {
       pekerjaan,
       no_hp,
       email,
+      kontak_darurat,
       alamat_orang_tua,
       media_sosial,
       atribut
     } = req.body;
+
+    // Validasi nomor handphone anggota
+    if (!no_hp || !/^(\+?[0-9]{9,15})$/.test(String(no_hp).trim())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nomor handphone / WhatsApp wajib diisi dengan angka valid (9-15 digit, boleh diawali + atau 0).'
+      });
+    }
+
+    // Validasi nomor kontak darurat jika disertakan
+    const emergencyContact = (kontak_darurat || alamat_orang_tua || '').trim();
+    if (emergencyContact && emergencyContact !== '-' && !/^(\+?[0-9]{9,15})$/.test(emergencyContact)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nomor kontak darurat harus berupa angka valid (9-15 digit, boleh diawali + atau 0).'
+      });
+    }
 
     // Check if period is active
     let pId = periode_id;
@@ -470,33 +512,86 @@ exports.submitReRegistration = async (req, res) => {
       pId = pRows[0].id;
     }
 
-    const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+    // Index uploaded files (support single or multiple)
+    const filesMap = {};
+    if (req.files && Array.isArray(req.files)) {
+      req.files.forEach(f => { filesMap[f.fieldname] = f; });
+    } else if (req.file) {
+      filesMap[req.file.fieldname] = req.file;
+    }
+
+    const fotoFile = filesMap['foto_terbaru'];
+    const newFotoPath = fotoFile ? `/uploads/${fotoFile.filename}` : null;
 
     // Check if registration exists for this period
     const existing = await query(`
-      SELECT id FROM registrasi_ulang WHERE anggota_id = ? AND periode_id = ?
+      SELECT id, foto_path FROM registrasi_ulang WHERE anggota_id = ? AND periode_id = ?
     `, [anggotaId, pId]);
 
+    // Validasi: Foto Anggota Terbaru WAJIB untuk periode berjalan!
+    const hasCurrentPeriodPhoto = newFotoPath || (existing.length > 0 && existing[0].foto_path && existing[0].foto_path !== '/uploads/default-avatar.png');
+    if (!hasCurrentPeriodPhoto) {
+      return res.status(400).json({
+        success: false,
+        message: 'Foto anggota terbaru untuk periode berjalan wajib diunggah.'
+      });
+    }
+
+    // Parse atribut
+    let atributList = [];
+    if (atribut) {
+      try {
+        atributList = typeof atribut === 'string' ? JSON.parse(atribut) : atribut;
+      } catch (_) {
+        atributList = [];
+      }
+    }
+
+    // Ambil foto atribut yang sudah tersimpan untuk registrasi periode ini (bila ada)
+    let existingAttrPhotos = {};
+    if (existing.length > 0) {
+      const curAttrs = await query(`SELECT jenis_atribut_id, foto_path FROM registrasi_atribut WHERE registrasi_id = ?`, [existing[0].id]);
+      curAttrs.forEach(ca => { existingAttrPhotos[ca.jenis_atribut_id] = ca.foto_path; });
+    }
+
+    // Validasi: Setiap atribut berstatus "Ada" WAJIB FOTO
+    for (const item of atributList) {
+      const jenisId = item.jenis_atribut_id || item.id;
+      const isAda = item.status === 'Ada' || item.status === 1 || item.status === '1';
+      if (isAda) {
+        const attrFile = filesMap[`foto_atribut_${jenisId}`] || filesMap[`attrFile_${jenisId}`];
+        const existingPhoto = existingAttrPhotos[jenisId];
+        if (!attrFile && !existingPhoto) {
+          return res.status(400).json({
+            success: false,
+            message: `Foto bukti kepemilikan wajib diunggah untuk atribut "${item.nama || 'yang berstatus Ada'}".`
+          });
+        }
+      }
+    }
+
     let regId;
+    const finalPhoto = newFotoPath || existing[0].foto_path;
+
     if (existing.length > 0) {
       regId = existing[0].id;
       await execute(`
         UPDATE registrasi_ulang
         SET alamat_rumah = ?, kota_kabupaten = ?, provinsi = ?,
-            pekerjaan = ?, no_hp = ?, email = ?, alamat_orang_tua = ?,
-            foto_path = COALESCE(?, foto_path),
+            pekerjaan = ?, no_hp = ?, email = ?, kontak_darurat = ?,
+            foto_path = ?,
             sumber_input = 'mandiri',
             updated_at = NOW()
         WHERE id = ?
-      `, [alamat_rumah, kota_kabupaten, provinsi, pekerjaan, no_hp, email, alamat_orang_tua, fotoPath, regId]);
+      `, [alamat_rumah, kota_kabupaten, provinsi, pekerjaan, no_hp, email, emergencyContact || null, finalPhoto, regId]);
     } else {
       const insertResult = await execute(`
         INSERT INTO registrasi_ulang (
           anggota_id, periode_id, foto_path, alamat_rumah, kota_kabupaten, provinsi,
-          pekerjaan, no_hp, email, alamat_orang_tua, sumber_input, submitted_at
+          pekerjaan, no_hp, email, kontak_darurat, sumber_input, submitted_at
         )
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'mandiri', NOW())
-      `, [anggotaId, pId, fotoPath || '/uploads/default-avatar.png', alamat_rumah, kota_kabupaten, provinsi, pekerjaan, no_hp, email, alamat_orang_tua]);
+      `, [anggotaId, pId, finalPhoto, alamat_rumah, kota_kabupaten, provinsi, pekerjaan, no_hp, email, emergencyContact || null]);
       regId = insertResult.insertId;
     }
 
@@ -511,23 +606,22 @@ exports.submitReRegistration = async (req, res) => {
       } catch (_) {}
     }
 
-    // Save attributes checklist (Topi Rimba, Baju Lapangan)
-    if (atribut) {
-      let atributList = [];
-      try {
-        atributList = typeof atribut === 'string' ? JSON.parse(atribut) : atribut;
-      } catch (_) {
-        atributList = [];
-      }
-
+    // Save attributes checklist and photos (Topi Rimba, Baju Lapangan)
+    if (atributList.length > 0) {
       for (const item of atributList) {
-        if (item.jenis_atribut_id) {
-          const memiliki = item.status === 'Ada' || item.status === 1 || item.status === '1' ? 1 : 0;
+        const jenisId = item.jenis_atribut_id || item.id;
+        if (jenisId) {
+          const isAda = item.status === 'Ada' || item.status === 1 || item.status === '1';
+          let attrPhotoPath = null;
+          if (isAda) {
+            const attrFile = filesMap[`foto_atribut_${jenisId}`] || filesMap[`attrFile_${jenisId}`];
+            attrPhotoPath = attrFile ? `/uploads/${attrFile.filename}` : existingAttrPhotos[jenisId];
+          }
           await execute(`
-            INSERT INTO registrasi_atribut (registrasi_id, jenis_atribut_id, memiliki)
-            VALUES (?, ?, ?)
-            ON DUPLICATE KEY UPDATE memiliki = VALUES(memiliki)
-          `, [regId, item.jenis_atribut_id, memiliki]);
+            INSERT INTO registrasi_atribut (registrasi_id, jenis_atribut_id, memiliki, foto_path)
+            VALUES (?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE memiliki = VALUES(memiliki), foto_path = VALUES(foto_path)
+          `, [regId, jenisId, isAda ? 1 : 0, attrPhotoPath]);
         }
       }
     }
@@ -724,6 +818,13 @@ exports.completeActivation = async (req, res) => {
       });
     }
 
+    if (!/^(\+?[0-9]{9,15})$/.test(String(no_hp).trim())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nomor handphone / WhatsApp harus berupa angka valid (9-15 digit, boleh diawali + atau 0).'
+      });
+    }
+
     // -------------------------------------------------------------
     // EKSEKUSI PENYIMPANAN ATOMIK SELURUH STEP (STEP 1 + 2 + 3)
     // -------------------------------------------------------------
@@ -767,7 +868,7 @@ exports.completeActivation = async (req, res) => {
       anggotaId
     ]);
 
-    // D. Simpan Kontak & Domisili ke registrasi_ulang
+    // D. Sinkronkan Kontak & Domisili jika anggota sudah memiliki data registrasi pada periode ini
     const pRows = await query(`SELECT id FROM periode_registrasi ORDER BY (status = 'buka') DESC, tahun DESC LIMIT 1`);
     const pId = pRows.length > 0 ? pRows[0].id : 1;
 
@@ -785,21 +886,10 @@ exports.completeActivation = async (req, res) => {
             updated_at = NOW()
         WHERE id = ?
       `, [no_hp.trim(), kota_kabupaten.trim(), provinsi.trim(), alamat_rumah ? alamat_rumah.trim() : null, regExisting[0].id]);
-    } else {
-      await execute(`
-        INSERT INTO registrasi_ulang (
-          anggota_id, periode_id, foto_path, alamat_rumah, kota_kabupaten,
-          provinsi, pekerjaan, no_hp, email, alamat_orang_tua, sumber_input, submitted_at
-        ) VALUES (?, ?, '/uploads/default-avatar.png', ?, ?, ?, '-', ?, '-', '-', 'mandiri', NOW())
-      `, [
-        anggotaId,
-        pId,
-        alamat_rumah ? alamat_rumah.trim() : `Domisili di ${kota_kabupaten.trim()}`,
-        kota_kabupaten.trim(),
-        provinsi.trim(),
-        no_hp.trim()
-      ]);
     }
+    // Catatan: Jika anggota belum registrasi ulang, jangan INSERT baris registrasi otomatis di sini.
+    // Registrasi ulang wajib dilakukan mandiri oleh anggota melalui menu Registrasi Ulang
+    // lengkap dengan unggahan foto terbaru dan bukti atribut fisik (FR-16, FR-22).
 
     // E. Log Audit Aktivitas
     await execute(`

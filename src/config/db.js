@@ -102,7 +102,7 @@ class DatabaseManager {
       const regRows = await query(`
         SELECT ru.id, a.no_register, pr.tahun AS periode_tahun, ru.foto_path AS foto_terbaru,
                ru.alamat_rumah, ru.kota_kabupaten, ru.provinsi, ru.pekerjaan, ru.no_hp,
-               ru.email, ru.alamat_orang_tua AS alamat_ortu, ru.sumber_input,
+               ru.email, ru.kontak_darurat, ru.sumber_input,
                COALESCE(u.username, 'mandiri') AS input_by,
                ru.submitted_at, ru.updated_at,
                'Sudah Registrasi Ulang' AS status_registrasi

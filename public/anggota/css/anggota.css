@@ -185,6 +185,9 @@ body {
   transform: translateY(-1px);
 }
 
+/* ========================================================================
+   LIGHT THEME OVERRIDES (PORTAL ANGGOTA)
+   ======================================================================== */
 body.theme-light {
   background-color: #E6EFF9 !important;
   color: #0F172A !important;
@@ -209,15 +212,15 @@ body.theme-light .theme-icon-btn:hover {
   background-color: #D8E6F6;
 }
 
+/* Base Text */
 body.theme-light .text-white {
   color: #0F172A !important;
 }
 
-/* Keep white text on orange primary buttons and active orange tab buttons */
-body.theme-light .bg-\[\#FF6B00\].text-white,
-body.theme-light .nav-tab-btn.bg-\[\#FF6B00\],
-body.theme-light button.bg-\[\#FF6B00\] {
-  color: #FFFFFF !important;
+body.theme-light .text-white\/60,
+body.theme-light .text-white\/70,
+body.theme-light .text-white\/80 {
+  color: #475569 !important;
 }
 
 body.theme-light .text-\[\#94A3B8\],
@@ -226,19 +229,29 @@ body.theme-light .text-\[\#CBD5E1\] {
 }
 
 body.theme-light .text-\[\#8C9BAE\] {
-  color: #52657D !important;
+  color: #475569 !important;
 }
 
+body.theme-light .text-\[\#8C9BAE\]\/70 {
+  color: #64748B !important;
+}
+
+/* Backgrounds & Cards */
 body.theme-light .bg-\[\#07090C\],
 body.theme-light .bg-\[\#07090C\]\/50,
+body.theme-light .bg-\[\#07090C\]\/80,
 body.theme-light .bg-\[\#0D1217\] {
   background-color: #E6EFF9 !important;
+  border-color: #C8D8EC !important;
 }
 
 body.theme-light .bg-\[\#11161B\],
 body.theme-light .bg-\[\#11161B\]\/80,
+body.theme-light .bg-\[\#11161B\]\/90,
 body.theme-light .bg-\[\#161D24\] {
   background-color: #F2F7FD !important;
+  border-color: #C8D8EC !important;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.03);
 }
 
 body.theme-light .bg-\[\#1C2530\] {
@@ -246,27 +259,143 @@ body.theme-light .bg-\[\#1C2530\] {
 }
 
 body.theme-light .border-\[\#1C2530\],
+body.theme-light .border-\[\#1C2530\]\/80,
 body.theme-light .border-white\/5,
 body.theme-light .border-white\/10 {
   border-color: #C8D8EC !important;
 }
 
+body.theme-light .bg-white\/5 {
+  background-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+}
+
+body.theme-light .hover\:bg-\[\#161D24\]:hover {
+  background-color: #E8F1FC !important;
+}
+
+/* Buttons */
+/* Primary Buttons - Always Crisp White Text */
+body.theme-light .btn-primary,
+body.theme-light .btn-primary *,
+body.theme-light button.btn-primary,
+body.theme-light a.btn-primary,
+body.theme-light .nav-tab-btn.bg-\[\#FF6B00\],
+body.theme-light .nav-tab-btn.bg-\[\#FF6B00\] * {
+  color: #FFFFFF !important;
+}
+
+/* Secondary Buttons - Light Slate Background with Dark High-Contrast Text */
+body.theme-light .btn-secondary {
+  background-color: #E6EFF9 !important;
+  color: #0F172A !important;
+  border: 1px solid #B8CCE4 !important;
+}
+body.theme-light .btn-secondary:hover {
+  background-color: #D8E6F6 !important;
+  color: #0F172A !important;
+  border-color: #94A3B8 !important;
+}
+body.theme-light .btn-secondary * {
+  color: #0F172A !important;
+}
+
+/* Badges & Accents - High Contrast for Light Background */
+/* Emerald / Success */
+body.theme-light .text-emerald-400 {
+  color: #047857 !important;
+}
+body.theme-light .bg-emerald-500\/10,
+body.theme-light .bg-emerald-500\/15 {
+  background-color: rgba(5, 150, 105, 0.12) !important;
+}
+body.theme-light .border-emerald-500\/25,
+body.theme-light .border-emerald-500\/30 {
+  border-color: rgba(5, 150, 105, 0.35) !important;
+}
+
+/* Amber / Warning */
+body.theme-light .text-amber-400 {
+  color: #B45309 !important;
+}
+body.theme-light .bg-amber-500\/10,
+body.theme-light .bg-amber-500\/15 {
+  background-color: rgba(217, 119, 6, 0.14) !important;
+}
+body.theme-light .border-amber-500\/30,
+body.theme-light .border-amber-500\/40 {
+  border-color: rgba(217, 119, 6, 0.35) !important;
+}
+
+/* Red / Danger */
+body.theme-light .text-red-400 {
+  color: #DC2626 !important;
+}
+body.theme-light .bg-red-500\/10 {
+  background-color: rgba(220, 38, 38, 0.12) !important;
+}
+
+/* Blue / Info */
+body.theme-light .text-blue-300,
+body.theme-light .text-blue-400 {
+  color: #1E40AF !important;
+}
+body.theme-light .bg-blue-500\/10 {
+  background-color: rgba(30, 64, 175, 0.10) !important;
+}
+body.theme-light .border-blue-500\/20 {
+  border-color: rgba(30, 64, 175, 0.25) !important;
+}
+
+/* Form Controls */
 body.theme-light .form-input,
 body.theme-light .form-select,
 body.theme-light .form-textarea {
-  background-color: #F5F9FF !important;
+  background-color: #F8FAFC !important;
   border-color: #B8CCE4 !important;
   color: #0F172A !important;
+}
+
+body.theme-light .form-input:focus,
+body.theme-light .form-select:focus,
+body.theme-light .form-textarea:focus {
+  background-color: #FFFFFF !important;
+  border-color: var(--primary-orange) !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.15) !important;
+}
+
+body.theme-light .form-input[readonly],
+body.theme-light .form-input:disabled {
+  background-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #475569 !important;
+  cursor: not-allowed;
 }
 
 body.theme-light .form-label {
   color: #334155 !important;
 }
 
+body.theme-light ::placeholder {
+  color: #64748B !important;
+  opacity: 1;
+}
+
+body.theme-light input[type="file"]::file-selector-button {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+body.theme-light input[type="file"]::file-selector-button:hover {
+  background-color: #CBD5E1 !important;
+}
+
+/* Modals & Overlays */
 body.theme-light .modal-content {
   background-color: #F2F7FD !important;
   border-color: #C8D8EC !important;
   color: #0F172A !important;
+  box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.14), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
 }
 
 body.theme-light .modal-overlay {
@@ -277,6 +406,7 @@ body.theme-light .toast-msg {
   background-color: #F2F7FD !important;
   border-color: #C8D8EC !important;
   color: #0F172A !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
 }
 
 body.theme-light .nav-tab-btn:hover {

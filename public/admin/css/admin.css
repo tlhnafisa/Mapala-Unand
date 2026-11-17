@@ -544,6 +544,89 @@ body.theme-light .theme-toggle-btn:hover {
   background-color: #D8E6F6;
 }
 
+/* Primary Buttons - Always Crisp White Text */
+body.theme-light .btn-primary,
+body.theme-light .btn-primary *,
+body.theme-light button.btn-primary,
+body.theme-light a.btn-primary,
+body.theme-light button.btn-primary *,
+body.theme-light a.btn-primary * {
+  color: #FFFFFF !important;
+}
+
+/* Secondary Buttons */
+body.theme-light .btn-secondary * {
+  color: #0F172A !important;
+}
+
+/* Badges & Accents - High Contrast for Light Background */
+body.theme-light .text-emerald-400,
+body.theme-light .text-[#10B981] {
+  color: #047857 !important;
+}
+body.theme-light .bg-[#10B981]/10,
+body.theme-light .bg-[#10B981]/15 {
+  background-color: rgba(5, 150, 105, 0.12) !important;
+}
+body.theme-light .border-[#10B981]/20,
+body.theme-light .border-[#10B981]/30 {
+  border-color: rgba(5, 150, 105, 0.35) !important;
+}
+
+body.theme-light .text-amber-400,
+body.theme-light .text-[#F59E0B] {
+  color: #B45309 !important;
+}
+body.theme-light .bg-[#F59E0B]/10 {
+  background-color: rgba(217, 119, 6, 0.14) !important;
+}
+body.theme-light .border-[#F59E0B]/20 {
+  border-color: rgba(217, 119, 6, 0.35) !important;
+}
+
+body.theme-light .text-red-400,
+body.theme-light .text-[#EF4444] {
+  color: #DC2626 !important;
+}
+body.theme-light .bg-[#EF4444]/10 {
+  background-color: rgba(220, 38, 38, 0.12) !important;
+}
+body.theme-light .border-[#EF4444]/20 {
+  border-color: rgba(220, 38, 38, 0.35) !important;
+}
+
+body.theme-light .text-[#38BDF8] {
+  color: #0284C7 !important;
+}
+
+body.theme-light .text-white/60,
+body.theme-light .text-white/70,
+body.theme-light .text-white/80 {
+  color: #475569 !important;
+}
+
+body.theme-light .form-input[readonly],
+body.theme-light .form-input:disabled {
+  background-color: #E2E8F0 !important;
+  border-color: #CBD5E1 !important;
+  color: #475569 !important;
+  cursor: not-allowed;
+}
+
+body.theme-light ::placeholder {
+  color: #64748B !important;
+  opacity: 1;
+}
+
+body.theme-light input[type="file"]::file-selector-button {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  border: 1px solid #CBD5E1 !important;
+}
+body.theme-light input[type="file"]::file-selector-button:hover {
+  background-color: #CBD5E1 !important;
+}
+
 /* =========================================
    Attribute File Upload Input
    ========================================= */

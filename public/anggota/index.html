@@ -60,7 +60,7 @@
       </div>
       <div class="truncate">
         <h4 id="navMemberName" class="text-xs font-bold text-white truncate">Rahmat Hidayat</h4>
-        <span id="navMemberReg" class="text-[10px] font-mono text-[#FF6B00] bg-[#FF6B00]/10 px-1.5 py-0.5 rounded border border-[#FF6B00]/20">MU 280 RGM</span>
+        <span id="navMemberReg" class="text-[11px] font-medium text-[#FF6B00] bg-[#FF6B00]/10 px-2 py-0.5 rounded-full border border-[#FF6B00]/25">MU 280 RGM</span>
       </div>
     </div>
 
@@ -122,7 +122,7 @@
         </button>
         <div class="hidden sm:flex items-center gap-2 px-3 py-1 bg-[#07090C] border border-[#1C2530] rounded-full text-[11px] text-[#8C9BAE]">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Status Akun Aktif</span>
+          <span>Status Aktif</span>
         </div>
       </div>
     </header>
@@ -152,14 +152,14 @@
                   <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
                   <span class="text-[11px] uppercase tracking-wider text-[#8C9BAE] font-bold">Kartu Anggota Digital • Penuh</span>
                 </div>
-                <span class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                  Status: Aktif
+                <span class="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-0.5 rounded-full">
+                  Status Aktif
                 </span>
               </div>
 
               <div class="flex items-start justify-between gap-4">
                 <div>
-                  <span class="text-xs font-mono text-[#FF6B00] bg-[#FF6B00]/10 px-2.5 py-0.5 rounded-lg border border-[#FF6B00]/25 font-extrabold inline-block" id="dashNoReg">
+                  <span class="text-xs font-bold text-[#FF6B00] bg-[#FF6B00]/10 px-2.5 py-0.5 rounded-full border border-[#FF6B00]/25 inline-block" id="dashNoReg">
                     MU 280 RGM
                   </span>
                   <h3 class="text-xl font-extrabold text-white mt-1.5" id="dashNama">Rahmat Hidayat</h3>
@@ -176,11 +176,11 @@
               <div class="grid grid-cols-3 gap-3 pt-3 border-t border-[#1C2530] text-center">
                 <div>
                   <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Angkatan</span>
-                  <span class="text-sm font-bold text-white font-mono" id="dashAngkatan">2018</span>
+                  <span class="text-sm font-bold text-white" id="dashAngkatan">2018</span>
                 </div>
                 <div>
                   <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Gol. Darah</span>
-                  <span class="text-sm font-extrabold text-red-400 font-mono" id="dashGoldar">O</span>
+                  <span class="text-sm font-extrabold text-red-400" id="dashGoldar">O</span>
                 </div>
                 <div>
                   <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Status Anggota</span>
@@ -195,10 +195,10 @@
                     <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-[#FF6B00]"></i>
                     Kelengkapan Profil Anggota
                   </span>
-                  <span id="dashProfilPct" class="font-bold text-[#FF6B00] font-mono">100% Lengkap</span>
+                  <span id="dashProfilPct" class="font-bold text-[#FF6B00]">Memuat...</span>
                 </div>
                 <div class="w-full bg-[#07090C] rounded-full h-2 overflow-hidden border border-white/5">
-                  <div id="dashProfilBar" class="bg-gradient-to-r from-[#FF6B00] to-[#FFA143] h-2 rounded-full transition-all duration-700" style="width: 100%;"></div>
+                  <div id="dashProfilBar" class="bg-gradient-to-r from-[#FF6B00] to-[#FFA143] h-2 rounded-full transition-all duration-700" style="width: 50%;"></div>
                 </div>
               </div>
             </div>
@@ -279,8 +279,8 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="form-label">No. Register (Terkunci)</label>
-                  <input id="bioNoReg" type="text" readonly class="form-input font-mono font-bold text-[#FF6B00]">
-                  <p class="text-[10px] text-[#8C9BAE] mt-1">Nomor register hanya dapat diubah oleh Administrator.</p>
+                  <input id="bioNoReg" type="text" readonly class="form-input font-bold text-[#FF6B00]">
+                  <p class="text-[10px] text-[#8C9BAE] mt-1">No. Register hanya dapat diubah oleh Administrator.</p>
                 </div>
                 <div>
                   <label class="form-label">Angkatan (Terkunci)</label>
@@ -365,6 +365,10 @@
                   <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Pekerjaan / Profesi</span>
                   <p id="bioSnapshotPekerjaan" class="text-white font-medium mt-0.5">-</p>
                 </div>
+                <div>
+                  <span class="text-[10px] text-[#8C9BAE] uppercase font-bold block">Kontak Darurat</span>
+                  <p id="bioSnapshotKontakDarurat" class="text-white font-medium mt-0.5">-</p>
+                </div>
               </div>
               <button onclick="switchTab('tab-registrasi')" class="mt-4 w-full btn-secondary !text-xs justify-center">
                 Perbarui Lewat Registrasi Ulang
@@ -415,7 +419,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label class="form-label">No. Register</label>
-                <input id="regLockedNoReg" type="text" readonly class="form-input font-mono font-bold text-[#FF6B00]">
+                <input id="regLockedNoReg" type="text" readonly class="form-input font-bold text-[#FF6B00]">
               </div>
               <div>
                 <label class="form-label">Nama Anggota</label>
@@ -435,7 +439,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="form-label">No. Handphone / WhatsApp *</label>
-                <input id="regNoHp" type="tel" required placeholder="0812xxxxxxxx" class="form-input font-mono">
+                <input id="regNoHp" type="tel" inputmode="numeric" required placeholder="0812xxxxxxxx" class="form-input font-mono">
               </div>
               <div>
                 <label class="form-label">Email Aktif *</label>
@@ -471,14 +475,50 @@
             </div>
 
             <div>
-              <label class="form-label">Kontak Darurat *</label>
-              <textarea id="regAlamatOrtu" rows="2" required placeholder="Nama &amp; No. HP keluarga / kerabat terdekat (Contoh: Budi - 081234567890)" class="form-textarea"></textarea>
+              <label class="form-label">Kontak Darurat (Nomor Handphone / WhatsApp) *</label>
+              <input id="regAlamatOrtu" type="tel" inputmode="numeric" required placeholder="081234567890" class="form-input font-mono">
             </div>
 
-            <div class="pt-2 border-t border-white/5">
-              <label class="form-label">Unggah Foto Anggota Terbaru (Opsional / Format JPG, PNG)</label>
-              <input id="regFoto" type="file" accept="image/*" class="text-xs text-[#8C9BAE] file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#FF6B00]/10 file:text-[#FF6B00] hover:file:bg-[#FF6B00]/20">
-              <p class="text-[10px] text-[#8C9BAE] mt-1">Foto ini akan digunakan untuk verifikasi fisik dan mutasi kartu anggota digital.</p>
+            <!-- Foto Anggota Terbaru Wajib (Unggah Berkas / Kamera Langsung) -->
+            <div class="pt-2 border-t border-white/5 space-y-3">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <label class="form-label !mb-0">Foto Anggota Terbaru (Wajib Periode Ini) *</label>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="btnToggleCamera" onclick="toggleCameraCapture()" class="btn-secondary !text-[11px] !py-1 !px-2.5 flex items-center gap-1.5">
+                    <i data-lucide="camera" class="w-3.5 h-3.5 text-[#FF6B00]"></i>
+                    <span id="btnToggleCameraText">Ambil dari Kamera</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Area Pengambilan Kamera Langsung -->
+              <div id="cameraArea" class="hidden bg-[#07090C] border border-[#1C2530] rounded-xl p-3 space-y-3">
+                <div class="relative max-w-xs mx-auto aspect-square bg-black rounded-lg overflow-hidden flex items-center justify-center">
+                  <video id="cameraVideo" autoplay playsinline class="w-full h-full object-cover"></video>
+                  <img id="cameraCapturedPreview" class="hidden w-full h-full object-cover" alt="Pratinjau Foto Kamera">
+                  <canvas id="cameraCanvas" class="hidden"></canvas>
+                </div>
+                <div id="cameraMsg" class="hidden text-[11px] text-amber-400 text-center px-2"></div>
+                <div class="flex items-center justify-center gap-2">
+                  <button type="button" id="btnSnapPhoto" onclick="snapCameraPhoto()" class="btn-primary !text-xs !py-1.5">
+                    <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+                    <span>Ambil Foto</span>
+                  </button>
+                  <button type="button" id="btnRetakePhoto" onclick="retakeCameraPhoto()" class="hidden btn-secondary !text-xs !py-1.5">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span>Ulangi</span>
+                  </button>
+                  <button type="button" onclick="closeCameraCapture()" class="btn-secondary !text-xs !py-1.5 text-[#8C9BAE]">
+                    Batal
+                  </button>
+                </div>
+              </div>
+
+              <!-- Fallback Unggah Berkas Gambar -->
+              <div>
+                <input id="regFoto" type="file" accept="image/jpeg,image/png,image/webp" capture="user" class="text-xs text-[#8C9BAE] file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#FF6B00]/10 file:text-[#FF6B00] hover:file:bg-[#FF6B00]/20">
+                <p class="text-[10px] text-[#8C9BAE] mt-1">Format: JPG, PNG, atau WEBP (maks. 5 MB). Foto wajib diperbarui setiap periode registrasi berjalan.</p>
+              </div>
             </div>
           </div>
 
@@ -486,37 +526,47 @@
           <div class="bg-[#11161B] border border-[#1C2530] rounded-2xl p-6 space-y-4">
             <div class="flex items-center justify-between">
               <h3 class="text-xs font-bold text-[#8C9BAE] uppercase tracking-wider">3. Kepemilikan Atribut Resmi Organisasi</h3>
-              <span class="text-[11px] text-[#8C9BAE]">Wajib didata setiap tahun</span>
+              <span class="text-[11px] text-[#8C9BAE]">Wajib foto untuk status "Ada"</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <!-- Atribut 1: Topi Rimba -->
-              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4">
-                <div class="flex items-center justify-between mb-3">
+              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
                   <h4 class="text-xs font-bold text-white">Topi Rimba Mapala UNAND</h4>
                   <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Atribut Wajib</span>
                 </div>
                 <div>
                   <label class="form-label">Status Kepemilikan</label>
-                  <select id="regAtributTopi" class="form-select text-xs">
+                  <select id="regAtributTopi" onchange="toggleAttrPhotoVisibility(1, this.value)" class="form-select text-xs">
                     <option value="Ada">Ada / Masih Dimiliki</option>
                     <option value="Hilang/Rusak">Hilang / Rusak</option>
                   </select>
                 </div>
+                <div id="wrapFotoAtribut_1" class="pt-1">
+                  <label class="form-label text-[11px]">Unggah Foto Bukti Topi Rimba *</label>
+                  <input id="regFotoAtributTopi" type="file" accept="image/jpeg,image/png,image/webp" class="text-xs text-[#8C9BAE] file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-white/5 file:text-white hover:file:bg-white/10 w-full">
+                  <p class="text-[10px] text-[#8C9BAE] mt-0.5">Wajib foto bukti fisik jika status "Ada" (JPG, PNG, WEBP).</p>
+                </div>
               </div>
 
               <!-- Atribut 2: Baju Lapangan -->
-              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4">
-                <div class="flex items-center justify-between mb-3">
+              <div class="bg-[#07090C] border border-[#1C2530] rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
                   <h4 class="text-xs font-bold text-white">Baju Lapangan (PDL)</h4>
                   <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">Atribut Wajib</span>
                 </div>
                 <div>
                   <label class="form-label">Status Kepemilikan</label>
-                  <select id="regAtributBaju" class="form-select text-xs">
+                  <select id="regAtributBaju" onchange="toggleAttrPhotoVisibility(2, this.value)" class="form-select text-xs">
                     <option value="Ada">Ada / Masih Dimiliki</option>
                     <option value="Hilang/Rusak">Hilang / Rusak</option>
                   </select>
+                </div>
+                <div id="wrapFotoAtribut_2" class="pt-1">
+                  <label class="form-label text-[11px]">Unggah Foto Bukti Baju Lapangan *</label>
+                  <input id="regFotoAtributBaju" type="file" accept="image/jpeg,image/png,image/webp" class="text-xs text-[#8C9BAE] file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-white/5 file:text-white hover:file:bg-white/10 w-full">
+                  <p class="text-[10px] text-[#8C9BAE] mt-0.5">Wajib foto bukti fisik jika status "Ada" (JPG, PNG, WEBP).</p>
                 </div>
               </div>
             </div>
@@ -641,7 +691,7 @@
               <div class="p-3 bg-[#07090C] border border-[#1C2530] rounded-xl text-xs space-y-2">
                 <div class="flex justify-between text-[#8C9BAE]">
                   <span>Versi Kebijakan:</span>
-                  <span class="text-white font-mono font-bold">1.0 (Aktif)</span>
+                  <span id="settingPolicyVersion" class="text-white font-medium">Versi 1.0</span>
                 </div>
                 <div class="flex justify-between text-[#8C9BAE]">
                   <span>Status Persetujuan:</span>
@@ -650,7 +700,7 @@
               </div>
             </div>
 
-            <button onclick="openModal('mandatoryPrivacyModal')" class="mt-4 btn-secondary !text-xs justify-center">
+            <button onclick="handleViewPrivacyPolicy()" class="mt-4 btn-secondary !text-xs justify-center">
               <i data-lucide="eye" class="w-3.5 h-3.5"></i>
               <span>Baca Ulang Naskah Kebijakan</span>
             </button>
@@ -700,14 +750,17 @@
        ======================================================================== -->
   <div id="mandatoryPrivacyModal" class="modal-overlay hidden">
     <div class="modal-content !max-w-xl p-6">
-      <div class="flex items-center justify-between pb-3 border-b border-[#1C2530] mb-4">
-        <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <i data-lucide="shield" class="w-4 h-4 text-[#FF6B00]"></i>
-          <span id="privacyPolicyTitle">Kebijakan Privasi & Persetujuan Data Anggota</span>
-        </h3>
-        <button id="closePrivacyModalBtn" onclick="closePrivacyModal()" class="text-[#8C9BAE] hover:text-white" title="Tutup">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
+      <div class="flex items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#1C2530] mb-4">
+        <div class="flex items-center gap-2 min-w-0">
+          <i data-lucide="shield" class="w-4 h-4 text-[#FF6B00] shrink-0"></i>
+          <h3 id="privacyPolicyTitle" class="text-sm font-bold text-white leading-snug">Kebijakan Privasi & Persetujuan Data Anggota</h3>
+        </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+          <span id="privacyPolicyVersionBadge" class="whitespace-nowrap shrink-0 text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">Versi 1.0</span>
+          <button id="closePrivacyModalBtn" onclick="closePrivacyModal()" class="text-[#8C9BAE] hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors shrink-0" title="Tutup">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
       </div>
 
       <div id="privacyPolicyContent" class="space-y-3 text-xs text-[#94A3B8] max-h-60 overflow-y-auto pr-2 leading-relaxed">
@@ -725,6 +778,39 @@
             Setujui & Lanjutkan
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: BACA ULANG NASKAH KEBIJAKAN PRIVASI
+       ======================================================================== -->
+  <div id="viewPrivacyModal" class="modal-overlay hidden">
+    <div class="modal-content !max-w-xl p-6">
+      <div class="flex items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#1C2530] mb-4">
+        <div class="flex items-center gap-2 min-w-0">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+          <h3 id="viewPrivacyTitle" class="text-sm font-bold text-white leading-snug">Kebijakan Privasi Mapala UNAND</h3>
+        </div>
+        <div class="flex items-center gap-2.5 shrink-0">
+          <span id="viewPrivacyVersionBadge" class="whitespace-nowrap shrink-0 text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">Versi 1.0</span>
+          <button type="button" onclick="closeModal('viewPrivacyModal')" class="text-[#8C9BAE] hover:text-white p-1 rounded-lg hover:bg-white/5 transition-colors shrink-0" title="Tutup">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="viewPrivacyContent" class="space-y-3 text-xs text-[#94A3B8] max-h-72 overflow-y-auto pr-2 leading-relaxed">
+        <p>Memuat naskah kebijakan privasi dari database...</p>
+      </div>
+
+      <div class="pt-4 mt-4 border-t border-[#1C2530] flex items-center justify-between flex-wrap gap-2">
+        <div class="text-[11px] text-[#8C9BAE]">
+          <span id="viewPrivacyConsentDate" class="text-emerald-400 font-medium">Telah Disetujui</span>
+        </div>
+        <button type="button" onclick="closeModal('viewPrivacyModal')" class="btn-secondary !text-xs !px-4">
+          Tutup
+        </button>
       </div>
     </div>
   </div>

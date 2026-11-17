@@ -112,6 +112,7 @@ exports.adminInputReRegistration = async (req, res) => {
       no_hp,
       email,
       media_sosial,
+      kontak_darurat,
       alamat_ortu,
       atribut
     } = req.body;
@@ -120,6 +121,21 @@ exports.adminInputReRegistration = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'No. Register, Alamat Rumah, Kota/Kabupaten, Provinsi, dan No. HP wajib diisi.'
+      });
+    }
+
+    if (!/^(\+?[0-9]{9,15})$/.test(String(no_hp).trim())) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nomor handphone / WhatsApp wajib diisi dengan angka valid (9-15 digit, boleh diawali + atau 0).'
+      });
+    }
+
+    const emergencyContact = (kontak_darurat || alamat_ortu || '').trim();
+    if (emergencyContact && emergencyContact !== '-' && !/^(\+?[0-9]{9,15})$/.test(emergencyContact)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Nomor kontak darurat harus berupa angka valid (9-15 digit, boleh diawali + atau 0).'
       });
     }
 
@@ -180,7 +196,7 @@ exports.adminInputReRegistration = async (req, res) => {
           pekerjaan = ?,
           no_hp = ?,
           email = ?,
-          alamat_orang_tua = ?,
+          kontak_darurat = ?,
           sumber_input = 'admin',
           diinput_oleh = ?,
           updated_at = NOW()
@@ -193,7 +209,7 @@ exports.adminInputReRegistration = async (req, res) => {
         pekerjaan ? pekerjaan.trim() : '-',
         no_hp.trim(),
         email ? email.trim() : '-',
-        alamat_ortu ? alamat_ortu.trim() : '-',
+        emergencyContact || null,
         adminUserId,
         regId
       ]);
@@ -201,7 +217,7 @@ exports.adminInputReRegistration = async (req, res) => {
       const insertRes = await execute(`
         INSERT INTO registrasi_ulang (
           anggota_id, periode_id, foto_path, alamat_rumah, kota_kabupaten,
-          provinsi, pekerjaan, no_hp, email, alamat_orang_tua,
+          provinsi, pekerjaan, no_hp, email, kontak_darurat,
           sumber_input, diinput_oleh, submitted_at, updated_at
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?, NOW(), NOW())
       `, [
@@ -214,7 +230,7 @@ exports.adminInputReRegistration = async (req, res) => {
         pekerjaan ? pekerjaan.trim() : '-',
         no_hp.trim(),
         email ? email.trim() : '-',
-        alamat_ortu ? alamat_ortu.trim() : '-',
+        emergencyContact || null,
         adminUserId
       ]);
       regId = insertRes.insertId;
@@ -245,16 +261,34 @@ exports.adminInputReRegistration = async (req, res) => {
 
     if (atributList.length > 0 && regId) {
       for (const a of atributList) {
-        const fieldName = `attrFile_${a.atribut_id}`;
-        const attrPhoto = fileMap[fieldName] ? `/uploads/${fileMap[fieldName].filename}` : (a.foto || null);
         const jenisId = a.atribut_id || a.id;
+        const fieldName1 = `attrFile_${jenisId}`;
+        const fieldName2 = `foto_atribut_${jenisId}`;
+        const uploadedFile = fileMap[fieldName1] || fileMap[fieldName2];
+        const isAda = a.status === 'Ada' || a.memiliki == 1 || a.memiliki === '1';
+        let attrPhoto = null;
+
+        if (isAda) {
+          attrPhoto = uploadedFile ? `/uploads/${uploadedFile.filename}` : (a.foto || null);
+          if (!attrPhoto && existingReg.length > 0) {
+            const curAttrRows = await query('SELECT foto_path FROM registrasi_atribut WHERE registrasi_id = ? AND jenis_atribut_id = ?', [regId, jenisId]);
+            if (curAttrRows.length > 0) attrPhoto = curAttrRows[0].foto_path;
+          }
+          if (!attrPhoto) {
+            return res.status(400).json({
+              success: false,
+              message: `Foto bukti kepemilikan wajib diunggah untuk atribut "${a.nama || a.nama_atribut || 'yang berstatus Ada'}".`
+            });
+          }
+        }
+
         if (jenisId) {
           try {
             await execute(`
               INSERT INTO registrasi_atribut (registrasi_id, jenis_atribut_id, memiliki, foto_path)
-              VALUES (?, ?, 1, ?)
-              ON DUPLICATE KEY UPDATE memiliki = 1, foto_path = COALESCE(VALUES(foto_path), foto_path)
-            `, [regId, jenisId, attrPhoto]);
+              VALUES (?, ?, ?, ?)
+              ON DUPLICATE KEY UPDATE memiliki = VALUES(memiliki), foto_path = VALUES(foto_path)
+            `, [regId, jenisId, isAda ? 1 : 0, attrPhoto]);
           } catch (errAttr) {
             console.warn('Warning inserting registrasi_atribut:', errAttr.message);
           }

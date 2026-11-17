@@ -4,6 +4,17 @@
 
 const API_BASE = '/api';
 
+// Helper pencegahan celah XSS
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // Current session state
 let currentUser = {
   no_register: 'MU 280 RGM',
@@ -29,6 +40,7 @@ let memberData = {
     nama_ibu: 'Rahmawati',
     profil_lengkap: 1
   },
+  dashboard_cache: null,
   data_registrasi_terkini: {
     periode_tahun: 2026,
     status: 'Sudah Registrasi Ulang',
@@ -39,7 +51,7 @@ let memberData = {
     pekerjaan: 'Software Engineer',
     no_hp: '081267890123',
     email: 'rahmat.hidayat@gmail.com',
-    alamat_orang_tua: 'Jl. Gajah Mada No. 42, Kota Padang',
+    kontak_darurat: '081267890100',
     media_sosial: '@rahmathidayat',
     atribut: [
       { nama: 'Topi Rimba', status: 'Ada' },
@@ -116,6 +128,7 @@ async function loadLiveDataFromMySQL() {
     if (dashRes.ok) {
       const dashJson = await dashRes.json();
       if (dashJson.success && dashJson.data) {
+        memberData.dashboard_cache = dashJson.data;
         renderDashboard(dashJson.data);
       }
     }
@@ -266,13 +279,22 @@ function switchTab(tabId) {
 
 // 3. Render Dashboard Anggota (FR-16)
 function renderDashboard(dashData) {
+  if (dashData) {
+    memberData.dashboard_cache = dashData;
+  }
+  const dash = dashData || memberData.dashboard_cache;
+
   // Ambil data dari payload API atau fallback lokal
-  const member = dashData?.identitas || memberData.data_tetap;
-  const activePeriod = dashData ? dashData.periode_berjalan : { tahun: 2026, nama: 'Registrasi Ulang Tahunan 2026', status: 'buka' };
-  const regStatus = dashData ? dashData.status_registrasi : {
-    sudah_registrasi: memberData.data_registrasi_terkini?.status === 'Sudah Registrasi Ulang',
+  const member = dash?.identitas || memberData.data_tetap;
+  const activePeriod = dash ? dash.periode_berjalan : { tahun: 2026, nama: 'Registrasi Ulang Tahunan 2026', status: 'buka' };
+  const regStatus = dash ? dash.status_registrasi : {
+    sudah_registrasi: Boolean(
+      memberData.data_registrasi_terkini &&
+      (Number(memberData.data_registrasi_terkini.tahun_registrasi) === Number(activePeriod?.tahun) ||
+       memberData.data_registrasi_terkini.status === 'Sudah Registrasi Ulang')
+    ),
     submitted_at: memberData.data_registrasi_terkini?.submitted_at,
-    sumber_input: 'mandiri'
+    sumber_input: memberData.data_registrasi_terkini?.sumber_input || 'mandiri'
   };
 
   // 1. Render Identitas & Kartu Anggota Digital (KTA)
@@ -299,21 +321,46 @@ function renderDashboard(dashData) {
       member.foto_path || memberData.data_registrasi_terkini?.foto_path || currentUser.foto_path
     );
 
-    // 2. Render Persentase Kelengkapan Profil (profil_lengkap)
-    const isProfileComplete = Number(member.profil_lengkap) === 1;
+    // 2. Render Persentase Kelengkapan Profil secara Dinamis & Riil
+    // Indikator penilaian kelengkapan profil:
+    // - Data Identitas Pokok Terisi (Aktivasi Akun Selesai): 50%
+    // - Pasfoto Profil Resmi Terbaru Terunggah: 25%
+    // - Registrasi Ulang Tahunan Periode Berjalan Tuntas: 25%
+    const sudahRegisUlang = Boolean(regStatus && regStatus.sudah_registrasi);
+    const hasPhoto = Boolean(
+      (member.foto_path && member.foto_path !== '' && !member.foto_path.includes('default-avatar.png')) ||
+      (memberData.data_registrasi_terkini?.foto_path && !memberData.data_registrasi_terkini.foto_path.includes('default-avatar.png'))
+    );
+
+    let kelengkapanPct = 50;
+    let statusText = '50% Perlu Registrasi Ulang';
+
+    if (sudahRegisUlang && hasPhoto) {
+      kelengkapanPct = 100;
+      statusText = '100% Lengkap';
+    } else if (sudahRegisUlang) {
+      kelengkapanPct = 80;
+      statusText = '80% Perlu Unggah Foto';
+    } else if (hasPhoto) {
+      kelengkapanPct = 75;
+      statusText = '75% Belum Registrasi Ulang';
+    } else {
+      kelengkapanPct = 50;
+      statusText = '50% Perlu Registrasi Ulang';
+    }
+
     const elProfilPct = document.getElementById('dashProfilPct');
     const elProfilBar = document.getElementById('dashProfilBar');
     if (elProfilPct && elProfilBar) {
-      if (isProfileComplete) {
-        elProfilPct.textContent = '100% Lengkap';
-        elProfilPct.className = 'font-bold text-emerald-400 font-mono';
+      elProfilPct.textContent = statusText;
+      if (kelengkapanPct === 100) {
+        elProfilPct.className = 'font-bold text-emerald-400';
         elProfilBar.className = 'bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full transition-all duration-700';
         elProfilBar.style.width = '100%';
       } else {
-        elProfilPct.textContent = '65% Perlu Dilengkapi';
-        elProfilPct.className = 'font-bold text-[#FF6B00] font-mono';
+        elProfilPct.className = 'font-bold text-[#FF6B00]';
         elProfilBar.className = 'bg-gradient-to-r from-[#FF6B00] to-[#FFA143] h-2 rounded-full transition-all duration-700';
-        elProfilBar.style.width = '65%';
+        elProfilBar.style.width = `${kelengkapanPct}%`;
       }
     }
   }
@@ -348,7 +395,7 @@ function renderDashboard(dashData) {
         elMetaText.textContent = `Tercatat pada: ${timeStr} via ${sumberLabel}`;
       }
       if (elActionBtn) {
-        elActionBtn.className = 'mt-5 w-full btn-secondary !text-xs justify-center font-bold text-white hover:border-[#FF6B00]/40';
+        elActionBtn.className = 'mt-5 w-full btn-secondary !text-xs justify-center font-bold hover:border-[#FF6B00]/40';
         if (elActionBtnText) elActionBtnText.textContent = 'Periksa / Perbarui Formulir';
       }
     } else {
@@ -427,6 +474,7 @@ function renderBiodata() {
   const elHp = document.getElementById('bioSnapshotHp');
   const elEmail = document.getElementById('bioSnapshotEmail');
   const elPekerjaan = document.getElementById('bioSnapshotPekerjaan');
+  const elDarurat = document.getElementById('bioSnapshotKontakDarurat');
 
   if (reg && (reg.alamat_rumah || reg.kota_kabupaten)) {
     const alamatParts = [reg.alamat_rumah, reg.kota_kabupaten, reg.provinsi].filter(Boolean);
@@ -434,11 +482,13 @@ function renderBiodata() {
     if (elHp) elHp.textContent = reg.no_hp || '-';
     if (elEmail) elEmail.textContent = reg.email || '-';
     if (elPekerjaan) elPekerjaan.textContent = reg.pekerjaan || '-';
+    if (elDarurat) elDarurat.textContent = reg.kontak_darurat || '-';
   } else {
     if (elDomisili) elDomisili.textContent = 'Belum mengisi data registrasi ulang';
     if (elHp) elHp.textContent = '-';
     if (elEmail) elEmail.textContent = '-';
     if (elPekerjaan) elPekerjaan.textContent = '-';
+    if (elDarurat) elDarurat.textContent = '-';
   }
 }
 
@@ -604,7 +654,7 @@ async function renderRegistrasiForm() {
     if (elPekerjaan) elPekerjaan.value = reg.pekerjaan || '';
     if (elNoHp) elNoHp.value = reg.no_hp || '';
     if (elEmail) elEmail.value = reg.email || '';
-    if (elAlamatOrtu) elAlamatOrtu.value = reg.alamat_orang_tua || '';
+    if (elAlamatOrtu) elAlamatOrtu.value = reg.kontak_darurat || reg.alamat_orang_tua || '';
     if (elMedsos) elMedsos.value = reg.media_sosial || '';
 
     // Prefill atribut
@@ -613,9 +663,11 @@ async function renderRegistrasiForm() {
         if (attr.nama.toLowerCase().includes('topi')) {
           const el = document.getElementById('regAtributTopi');
           if (el) el.value = attr.memiliki ? 'Ada' : 'Hilang/Rusak';
+          toggleAttrPhotoVisibility(1, attr.memiliki ? 'Ada' : 'Hilang/Rusak');
         } else if (attr.nama.toLowerCase().includes('baju') || attr.nama.toLowerCase().includes('pdl')) {
           const el = document.getElementById('regAtributBaju');
           if (el) el.value = attr.memiliki ? 'Ada' : 'Hilang/Rusak';
+          toggleAttrPhotoVisibility(2, attr.memiliki ? 'Ada' : 'Hilang/Rusak');
         }
       });
     }
@@ -623,6 +675,129 @@ async function renderRegistrasiForm() {
   } catch (err) {
     console.warn('Gagal memuat form registrasi ulang dari API:', err);
   }
+}
+
+// ========================================================================
+// FITUR PENGAMBILAN FOTO DARI KAMERA & ATRIBUT (A3)
+// ========================================================================
+let cameraStream = null;
+let capturedCameraBlob = null;
+
+function toggleAttrPhotoVisibility(id, statusVal) {
+  const wrap = document.getElementById(`wrapFotoAtribut_${id}`);
+  if (wrap) {
+    if (statusVal === 'Ada') {
+      wrap.classList.remove('hidden');
+    } else {
+      wrap.classList.add('hidden');
+      const inp = document.getElementById(id === 1 ? 'regFotoAtributTopi' : 'regFotoAtributBaju');
+      if (inp) inp.value = '';
+    }
+  }
+}
+
+async function toggleCameraCapture() {
+  const cameraArea = document.getElementById('cameraArea');
+  if (!cameraArea) return;
+
+  if (!cameraArea.classList.contains('hidden')) {
+    closeCameraCapture();
+    return;
+  }
+
+  const cameraMsg = document.getElementById('cameraMsg');
+  const videoEl = document.getElementById('cameraVideo');
+  const previewEl = document.getElementById('cameraCapturedPreview');
+  const snapBtn = document.getElementById('btnSnapPhoto');
+  const retakeBtn = document.getElementById('btnRetakePhoto');
+
+  cameraArea.classList.remove('hidden');
+  if (cameraMsg) cameraMsg.classList.add('hidden');
+  if (previewEl) previewEl.classList.add('hidden');
+  if (videoEl) videoEl.classList.remove('hidden');
+  if (snapBtn) snapBtn.classList.remove('hidden');
+  if (retakeBtn) retakeBtn.classList.add('hidden');
+
+  // Periksa dukungan WebRTC / navigator.mediaDevices (Hanya aktif di HTTPS atau localhost)
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    if (cameraMsg) {
+      cameraMsg.textContent = 'Perangkat atau peramban tidak mendukung akses kamera langsung (kamera hanya berfungsi pada koneksi HTTPS atau localhost). Silakan gunakan opsi unggah berkas.';
+      cameraMsg.classList.remove('hidden');
+    }
+    return;
+  }
+
+  try {
+    cameraStream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: 'user',
+        width: { ideal: 640 },
+        height: { ideal: 640 }
+      },
+      audio: false
+    });
+    if (videoEl) {
+      videoEl.srcObject = cameraStream;
+      videoEl.play();
+    }
+  } catch (err) {
+    console.warn('Gagal mengakses kamera:', err);
+    if (cameraMsg) {
+      cameraMsg.textContent = 'Akses kamera ditolak atau kamera tidak ditemukan. Pastikan izin kamera telah diaktifkan pada peramban, atau gunakan opsi unggah berkas.';
+      cameraMsg.classList.remove('hidden');
+    }
+  }
+}
+
+function snapCameraPhoto() {
+  const videoEl = document.getElementById('cameraVideo');
+  const canvasEl = document.getElementById('cameraCanvas');
+  const previewEl = document.getElementById('cameraCapturedPreview');
+  const snapBtn = document.getElementById('btnSnapPhoto');
+  const retakeBtn = document.getElementById('btnRetakePhoto');
+
+  if (!videoEl || !canvasEl) return;
+
+  const w = videoEl.videoWidth || 640;
+  const h = videoEl.videoHeight || 640;
+  canvasEl.width = w;
+  canvasEl.height = h;
+
+  const ctx = canvasEl.getContext('2d');
+  ctx.drawImage(videoEl, 0, 0, w, h);
+
+  canvasEl.toBlob((blob) => {
+    capturedCameraBlob = blob;
+    if (previewEl) {
+      previewEl.src = URL.createObjectURL(blob);
+      previewEl.classList.remove('hidden');
+    }
+    if (videoEl) videoEl.classList.add('hidden');
+    if (snapBtn) snapBtn.classList.add('hidden');
+    if (retakeBtn) retakeBtn.classList.remove('hidden');
+
+    // Hentikan stream kamera aktif
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+  }, 'image/jpeg', 0.9);
+}
+
+async function retakeCameraPhoto() {
+  capturedCameraBlob = null;
+  const previewEl = document.getElementById('cameraCapturedPreview');
+  if (previewEl) previewEl.classList.add('hidden');
+  toggleCameraCapture();
+}
+
+function closeCameraCapture() {
+  if (cameraStream) {
+    cameraStream.getTracks().forEach(track => track.stop());
+    cameraStream = null;
+  }
+  const cameraArea = document.getElementById('cameraArea');
+  if (cameraArea) cameraArea.classList.add('hidden');
 }
 
 // Submit Re-registration Form (FR-24) (POST /api/member/re-registration)
@@ -641,8 +816,18 @@ async function handleSubmitRegistrasi(e) {
   const pekerjaan = document.getElementById('regPekerjaan').value.trim();
   const no_hp = document.getElementById('regNoHp').value.trim();
   const email = document.getElementById('regEmail').value.trim();
-  const alamat_orang_tua = document.getElementById('regAlamatOrtu').value.trim();
+  const kontak_darurat = document.getElementById('regAlamatOrtu').value.trim();
   const media_sosial = document.getElementById('regMedsos').value.trim();
+
+  // Validasi nomor handphone & kontak darurat numerik (9-15 digit)
+  if (!/^(\+?[0-9]{9,15})$/.test(no_hp)) {
+    showToast('Nomor handphone harus berupa angka valid (9-15 digit, boleh diawali + atau 0).', 'error');
+    return;
+  }
+  if (kontak_darurat && !/^(\+?[0-9]{9,15})$/.test(kontak_darurat)) {
+    showToast('Nomor kontak darurat harus berupa angka valid (9-15 digit, boleh diawali + atau 0).', 'error');
+    return;
+  }
 
   const topiStatus = document.getElementById('regAtributTopi') ? document.getElementById('regAtributTopi').value : 'Ada';
   const bajuStatus = document.getElementById('regAtributBaju') ? document.getElementById('regAtributBaju').value : 'Ada';
@@ -664,10 +849,26 @@ async function handleSubmitRegistrasi(e) {
   formData.append('pekerjaan', pekerjaan);
   formData.append('no_hp', no_hp);
   formData.append('email', email);
-  formData.append('alamat_orang_tua', alamat_orang_tua);
+  formData.append('kontak_darurat', kontak_darurat);
   if (media_sosial) formData.append('media_sosial', media_sosial);
   formData.append('atribut', JSON.stringify(atributList));
-  if (file) formData.append('foto_terbaru', file);
+
+  // Foto Anggota: Kamera langsung atau berkas
+  if (capturedCameraBlob) {
+    formData.append('foto_terbaru', capturedCameraBlob, 'foto_anggota_kamera.jpg');
+  } else if (file) {
+    formData.append('foto_terbaru', file);
+  }
+
+  // Foto Bukti Atribut Fisik Wajib untuk status "Ada"
+  if (topiStatus === 'Ada') {
+    const fileTopi = document.getElementById('regFotoAtributTopi')?.files?.[0];
+    if (fileTopi) formData.append('foto_atribut_1', fileTopi);
+  }
+  if (bajuStatus === 'Ada') {
+    const fileBaju = document.getElementById('regFotoAtributBaju')?.files?.[0];
+    if (fileBaju) formData.append('foto_atribut_2', fileBaju);
+  }
 
   const btn = document.getElementById('regSubmitBtn');
   if (btn) {
@@ -692,10 +893,10 @@ async function handleSubmitRegistrasi(e) {
     }
 
     showToast('Formulir Registrasi Ulang Mandiri berhasil disimpan ke database!', 'success');
+    closeCameraCapture();
 
     // Perbarui data lokal & tampilan
     await loadLiveDataFromMySQL();
-    renderDashboard();
     renderBiodata();
     switchTab('tab-dashboard');
 
@@ -708,6 +909,62 @@ async function handleSubmitRegistrasi(e) {
       btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Kirim Formulir Registrasi Ulang 2026</span>';
       initLucide();
     }
+  }
+}
+
+// ========================================================================
+// LIHAT ULANG NASKAH KEBIJAKAN PRIVASI (A4)
+// ========================================================================
+async function handleViewPrivacyPolicy() {
+  const token = localStorage.getItem('mapala_token');
+  if (!token) return;
+
+  const titleEl = document.getElementById('viewPrivacyTitle');
+  const contentEl = document.getElementById('viewPrivacyContent');
+  const dateEl = document.getElementById('viewPrivacyConsentDate');
+
+  if (contentEl) {
+    contentEl.innerHTML = '<div class="text-center py-6 text-[#8C9BAE]"><i data-lucide="loader" class="w-5 h-5 animate-spin mx-auto mb-2"></i><span>Memuat naskah kebijakan privasi dari basis data...</span></div>';
+    if (window.lucide) lucide.createIcons();
+  }
+
+  openModal('viewPrivacyModal');
+
+  try {
+    const res = await fetch('/api/member/privacy-policy', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const json = await res.json();
+    if (json.success && json.data) {
+      const p = json.data;
+      if (titleEl) titleEl.textContent = p.judul || 'Kebijakan Privasi Mapala UNAND';
+      const verBadge = document.getElementById('viewPrivacyVersionBadge');
+      if (verBadge && p.versi) verBadge.textContent = `Versi ${p.versi}`;
+      const settingVer = document.getElementById('settingPolicyVersion');
+      if (settingVer && p.versi) settingVer.textContent = `Versi ${p.versi}`;
+      if (contentEl && p.isi) {
+        contentEl.innerHTML = p.isi
+          .split('\n\n')
+          .map(paragraph => `<p class="mb-2.5">${escapeHtml(paragraph).replace(/\n/g, '<br>')}</p>`)
+          .join('');
+      }
+      if (dateEl) {
+        if (p.disetujui_at) {
+          const d = new Date(p.disetujui_at);
+          const formatted = isNaN(d.getTime()) ? p.disetujui_at : d.toLocaleString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          dateEl.innerHTML = `Telah disetujui pada <strong class="text-emerald-400">${formatted} WIB</strong>`;
+        } else {
+          dateEl.textContent = 'Belum menyetujui kebijakan ini';
+        }
+      }
+    } else {
+      if (contentEl) contentEl.innerHTML = '<p class="text-red-400">Gagal memuat naskah kebijakan privasi dari database.</p>';
+    }
+  } catch (err) {
+    console.error('Error fetching privacy policy:', err);
+    if (contentEl) contentEl.innerHTML = '<p class="text-red-400">Terjadi kesalahan koneksi ke server.</p>';
   }
 }
 
@@ -824,7 +1081,7 @@ function renderDirectoryCards(members, countBadge, container) {
         <div>
           <div class="flex items-start justify-between gap-3 mb-3">
             <div>
-              <span class="text-xs font-mono font-bold text-[#FF6B00] bg-[#FF6B00]/10 px-2 py-0.5 rounded border border-[#FF6B00]/20">
+              <span class="text-xs font-semibold text-[#FF6B00] bg-[#FF6B00]/10 px-2.5 py-0.5 rounded-full border border-[#FF6B00]/25">
                 ${item.no_register || '-'}
               </span>
               <h4 class="text-base font-bold text-white mt-1.5">${item.nama || '-'}</h4>
@@ -844,7 +1101,7 @@ function renderDirectoryCards(members, countBadge, container) {
         </div>
 
         <div class="mt-4 pt-3 border-t border-[#1C2530] flex items-center justify-between gap-2">
-          <div class="flex items-center gap-1.5 text-xs font-mono text-[#8C9BAE] truncate">
+          <div class="flex items-center gap-1.5 text-xs text-[#8C9BAE] truncate">
             <i data-lucide="phone" class="w-3.5 h-3.5 shrink-0 text-[#8C9BAE]"></i>
             <span class="truncate">${item.no_hp || 'Belum ada nomor'}</span>
           </div>
@@ -1010,6 +1267,10 @@ async function checkPrivacyConsentGate() {
 
       const titleEl = document.getElementById('privacyPolicyTitle');
       if (titleEl && policy.judul) titleEl.textContent = policy.judul;
+      const verBadge = document.getElementById('privacyPolicyVersionBadge');
+      if (verBadge && policy.versi) verBadge.textContent = `Versi ${policy.versi}`;
+      const settingVer = document.getElementById('settingPolicyVersion');
+      if (settingVer && policy.versi) settingVer.textContent = `Versi ${policy.versi}`;
 
       const contentEl = document.getElementById('privacyPolicyContent');
       if (contentEl && policy.isi) {

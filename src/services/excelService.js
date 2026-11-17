@@ -237,6 +237,7 @@ function exportMembersToExcel(membersList, periodYear = 2026, format = 'xlsx') {
       'Status Registrasi Ulang': m.reg_status || (isReg ? 'Sudah Registrasi' : 'Belum Registrasi'),
       'Nomor HP / WhatsApp': m.no_hp || '-',
       Email: m.email || '-',
+      'Kontak Darurat': m.kontak_darurat || '-',
       'Kota/Kab Domisili': m.domisili_kota || m.kota_kabupaten || '-',
       'Provinsi Domisili': m.domisili_provinsi || m.provinsi || '-',
       Pekerjaan: m.pekerjaan || '-',

@@ -17,6 +17,7 @@ const activationState = {
 // 1. Inisialisasi Saat Halaman Dimuat
 document.addEventListener('DOMContentLoaded', async () => {
   initLucide();
+  initTheme();
   const isValidSession = checkActivationAuth();
   if (!isValidSession) return;
 
@@ -33,6 +34,35 @@ function initLucide() {
     window.lucide.createIcons();
   }
 }
+
+// Inisialisasi & Pengalihan Tema (Terang / Gelap)
+function initTheme() {
+  const savedTheme = localStorage.getItem('mapala_theme') || 'dark';
+  applyAnggotaTheme(savedTheme);
+}
+
+function toggleAnggotaTheme() {
+  const isLight = document.body.classList.contains('theme-light');
+  const nextTheme = isLight ? 'dark' : 'light';
+  applyAnggotaTheme(nextTheme);
+  localStorage.setItem('mapala_theme', nextTheme);
+}
+
+function applyAnggotaTheme(theme) {
+  const sunIcon = document.getElementById('aktivasiThemeIconSun');
+  const moonIcon = document.getElementById('aktivasiThemeIconMoon');
+
+  if (theme === 'light') {
+    document.body.classList.add('theme-light');
+    if (sunIcon) sunIcon.classList.add('hidden');
+    if (moonIcon) moonIcon.classList.remove('hidden');
+  } else {
+    document.body.classList.remove('theme-light');
+    if (sunIcon) sunIcon.classList.remove('hidden');
+    if (moonIcon) moonIcon.classList.add('hidden');
+  }
+}
+window.toggleAnggotaTheme = toggleAnggotaTheme;
 
 // 2. Auth & Route Guard
 function checkActivationAuth() {
@@ -249,7 +279,9 @@ async function loadPrivacyPolicy() {
       const contentEl = document.getElementById('policyContent');
 
       if (titleEl && d.judul) titleEl.textContent = d.judul;
-      if (verEl && d.versi) verEl.textContent = `Versi ${d.versi} (Aktif)`;
+      if (verEl && d.versi) {
+        verEl.textContent = `Versi ${d.versi}`;
+      }
 
       if (contentEl && d.isi) {
         // Format teks paragraf

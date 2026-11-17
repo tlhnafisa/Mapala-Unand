@@ -35,6 +35,17 @@
 
   <!-- Custom Member CSS -->
   <link rel="stylesheet" href="/anggota/css/anggota.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('mapala_theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('theme-light');
+        document.addEventListener('DOMContentLoaded', () => {
+          document.body.classList.add('theme-light');
+        });
+      }
+    })();
+  </script>
 </head>
 <body class="bg-[#07090C] text-white min-h-screen flex flex-col antialiased selection:bg-[#FF6B00] selection:text-white">
 
@@ -61,8 +72,12 @@
       <div class="flex items-center gap-3">
         <div class="hidden sm:block text-right">
           <span id="headerMemberName" class="text-xs font-bold text-white block">Nama Anggota</span>
-          <span id="headerMemberReg" class="text-[10px] font-mono text-[#FF6B00] block">No. Register</span>
+          <span id="headerMemberReg" class="text-[11px] font-medium text-[#FF6B00] block">No. Register</span>
         </div>
+        <button id="aktivasiThemeToggleBtn" onclick="toggleAnggotaTheme()" class="theme-icon-btn" title="Ganti Mode Tema (Terang / Gelap)" aria-label="Ganti Mode Tema">
+          <svg id="aktivasiThemeIconSun" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg id="aktivasiThemeIconMoon" class="w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
         <button onclick="handleLogout()" title="Keluar dari akun" class="p-2 rounded-xl bg-[#07090C] border border-[#1C2530] text-[#8C9BAE] hover:text-red-400 hover:border-red-500/30 transition-all">
           <i data-lucide="log-out" class="w-4 h-4"></i>
         </button>
@@ -190,8 +205,8 @@
         <div class="bg-[#07090C] border border-[#1C2530] rounded-2xl p-4 sm:p-5">
           <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#1C2530]">
             <span id="policyTitle" class="text-xs font-bold text-white">Naskah Kebijakan Privasi Mapala UNAND</span>
-            <span id="policyVersion" class="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-              Versi 1.0 (Aktif)
+            <span id="policyVersion" class="whitespace-nowrap shrink-0 text-xs font-medium text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/25">
+              Versi 1.0
             </span>
           </div>
 
@@ -253,7 +268,7 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
             <div>
               <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">No. Register</span>
-              <span id="step3LockedNoReg" class="font-mono font-bold text-[#FF6B00] text-sm">-</span>
+              <span id="step3LockedNoReg" class="font-bold text-[#FF6B00] text-sm">-</span>
             </div>
             <div>
               <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">Nama Lengkap</span>
@@ -265,7 +280,7 @@
             </div>
             <div>
               <span class="text-[10px] text-[#8C9BAE] block uppercase font-bold">Angkatan</span>
-              <span id="step3LockedAngkatan" class="font-mono font-bold text-white text-sm">-</span>
+              <span id="step3LockedAngkatan" class="font-bold text-white text-sm">-</span>
             </div>
           </div>
         </div>
@@ -307,7 +322,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label class="form-label">Nomor WhatsApp / HP Aktif *</label>
-              <input id="step3NoHp" type="tel" required placeholder="Contoh: 081234567890" class="form-input text-xs">
+              <input id="step3NoHp" type="tel" inputmode="numeric" required placeholder="Contoh: 081234567890" class="form-input text-xs">
             </div>
             <div>
               <label class="form-label">Kota / Kabupaten Domisili *</label>
@@ -354,11 +369,11 @@
         <div class="p-3 bg-[#07090C] border border-[#1C2530] rounded-xl text-left text-xs space-y-1">
           <div class="flex justify-between text-[#8C9BAE]">
             <span>Status Akun:</span>
-            <span class="text-emerald-400 font-bold">Aktif & Lengkap (100%)</span>
+            <span class="text-emerald-400 font-bold">Aktif (Aktivasi Berhasil)</span>
           </div>
           <div class="flex justify-between text-[#8C9BAE]">
             <span>Hak Suara:</span>
-            <span class="text-white font-medium">Penuh (Musang)</span>
+            <span class="text-white font-medium">Penuh</span>
           </div>
         </div>
 

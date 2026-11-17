@@ -18,7 +18,7 @@ router.put('/profile', memberPortalController.updateProfile);
 
 // Re-registration (FR-21 s.d FR-25)
 router.get('/re-registration/form-data', memberPortalController.getReRegistrationFormData);
-router.post('/re-registration', upload.single('foto_terbaru'), memberPortalController.submitReRegistration);
+router.post('/re-registration', upload.any(), memberPortalController.submitReRegistration);
 
 // Onboarding Activation Wizard (Atomic 3-Step)
 router.post('/activation/validate-password', memberPortalController.validateActivationPassword);

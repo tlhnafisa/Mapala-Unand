@@ -768,6 +768,7 @@ exports.exportMembers = async (req, res) => {
         a.is_active AS status_aktif,
         ru.no_hp,
         ru.email,
+        ru.kontak_darurat,
         ru.kota_kabupaten,
         ru.provinsi,
         ru.pekerjaan,

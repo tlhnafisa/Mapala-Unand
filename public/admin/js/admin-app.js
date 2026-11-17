@@ -943,7 +943,7 @@ async function openOverrideModal(no_reg) {
     document.getElementById('overrideHP').value = currentRegistration.no_hp || '';
     document.getElementById('overrideEmail').value = currentRegistration.email || '';
     document.getElementById('overrideMedsos').value = currentRegistration.media_sosial || '';
-    document.getElementById('overrideOrtu').value = currentRegistration.alamat_ortu || '';
+    document.getElementById('overrideOrtu').value = currentRegistration.kontak_darurat || '';
   } else {
     document.getElementById('overrideForm').reset();
     document.getElementById('overrideNoReg').value = profile.no_register;
@@ -1010,7 +1010,7 @@ async function handleSaveOverride(e) {
   formData.append('no_hp', document.getElementById('overrideHP').value);
   formData.append('email', document.getElementById('overrideEmail').value);
   formData.append('media_sosial', document.getElementById('overrideMedsos').value);
-  formData.append('alamat_ortu', document.getElementById('overrideOrtu').value);
+  formData.append('kontak_darurat', document.getElementById('overrideOrtu').value);
 
   // Collect attribute metadata and files
   const attrMeta = [];

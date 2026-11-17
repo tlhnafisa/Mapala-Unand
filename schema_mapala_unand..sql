@@ -113,7 +113,7 @@ CREATE TABLE registrasi_ulang (
   pekerjaan VARCHAR(150),
   no_hp VARCHAR(20),
   email VARCHAR(150),
-  alamat_orang_tua TEXT,
+  kontak_darurat VARCHAR(255) NULL,
   sumber_input ENUM('mandiri','admin') NOT NULL DEFAULT 'mandiri',
   diinput_oleh INT UNSIGNED NULL,                  -- users.id admin bila sumber = admin
   submitted_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -368,15 +368,14 @@ INSERT IGNORE INTO konten_statis (kunci, nilai, kelompok) VALUES
   ('kontak_alamat', NULL, 'kontak'),
   ('footer_deskripsi', NULL, 'footer');
 
--- Kebijakan privasi PLACEHOLDER: wajib diganti dengan naskah resmi (FR-44, NFR-07).
--- Tanpa satu versi aktif, tidak ada anggota yang bisa lolos gerbang login pertama
--- dan direktori anggota akan kosong.
+-- Kebijakan privasi resmi versi 1.0 (FR-44, NFR-07).
 -- Saat menerbitkan versi baru: set aktif = 0 pada versi lama LEBIH DULU, baru insert/aktifkan versi baru
 -- (database menolak dua versi aktif sekaligus).
-INSERT IGNORE INTO kebijakan_privasi (versi, judul, isi, aktif) VALUES
-  ('1.0', 'Kebijakan Privasi dan Persetujuan Penggunaan Data',
-   '[GANTI DENGAN NASKAH RESMI: data yang dikumpulkan, tujuan, pihak yang dapat mengakses, dan pembagian data terbatas ke anggota lain pada Direktori Anggota.]',
-   1);
+INSERT INTO kebijakan_privasi (versi, judul, isi, aktif) VALUES
+  ('1.0', 'Kebijakan Privasi dan Persetujuan Penggunaan Data Anggota',
+   'Mapala Universitas Andalas berkomitmen penuh melindungi hak privasi dan kerahasiaan data pribadi anggota sesuai dengan Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP).\n\n1. Pengumpulan Data: Data dikumpulkan semata-mata untuk verifikasi keanggotaan seumur hidup, pendataan berkala tahunan, pemetaan sebaran domisili anggota, dan koordinasi operasional keorganisasian.\n2. Pembagian Data Terbatas (Direktori Anggota): Anggota yang menyetujui kebijakan ini akan terdaftar dalam Direktori Anggota yang hanya dapat diakses oleh sesama anggota penuh yang telah login dan telah menyetujui kebijakan yang sama. Data yang ditampilkan dibatasi secara ketat hanya pada: Nama Lengkap, Nomor Register, Nomor Handphone (WhatsApp), Golongan Darah, dan Alamat Rumah/Domisili Saat Ini.\n3. Kerahasiaan Data Sensitif: Informasi sensitif seperti tempat dan tanggal lahir, nama orang tua, alamat email pribadi, dan arsip riwayat registrasi tidak akan pernah dibagikan kepada anggota lain dan hanya dapat diakses oleh Administrator.\n4. Hak Pengguna: Anggota berhak memperbarui data domisili dan kontak secara mandiri sewaktu-waktu melalui menu Biodata Saya dan Registrasi Ulang.',
+   1)
+ON DUPLICATE KEY UPDATE isi = VALUES(isi);
 
 -- ---------------------------------------------------------------------
 -- AKUN ADMIN PERTAMA (tidak bisa disediakan di sini karena butuh password hash dari aplikasi).
