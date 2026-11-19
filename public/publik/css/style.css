@@ -300,6 +300,10 @@ button, input, select, textarea {
   cursor: pointer;
 }
 
+.mobile-nav-toggle img {
+  filter: brightness(0) invert(1);
+}
+
 /* ==========================================================================
    HERO SECTION
    ========================================================================== */
@@ -408,6 +412,10 @@ button, input, select, textarea {
   justify-content: center;
   font-size: 1.1rem;
   flex-shrink: 0;
+}
+
+.stat-icon img {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(96%) saturate(2123%) hue-rotate(360deg) brightness(101%) contrast(105%);
 }
 
 .stat-info {
@@ -1323,6 +1331,15 @@ button, input, select, textarea {
   color: var(--text-muted);
 }
 
+.search-icon-pos img {
+  filter: brightness(0) invert(0.75);
+  transition: filter 0.2s ease;
+}
+
+.search-bar:focus-within .search-icon-pos img {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(96%) saturate(2123%) hue-rotate(360deg) brightness(101%) contrast(105%);
+}
+
 /* Detail Artikel Elements */
 .article-detail-content {
   max-width: 820px;
@@ -1471,13 +1488,34 @@ button, input, select, textarea {
   position: relative;
 }
 
+.input-password-wrap .form-input {
+  padding-right: 46px;
+}
+
 .password-toggle-btn {
   position: absolute;
-  right: 14px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted);
+  color: #8C9BAE;
+  background: transparent;
+  border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: #FF6B00;
+  background: rgba(255, 107, 0, 0.12);
+}
+
+.password-toggle-btn.is-active {
+  color: #FF6B00;
 }
 
 .login-notice {
@@ -1489,6 +1527,45 @@ button, input, select, textarea {
   color: #ff9d66;
   margin-bottom: 24px;
   line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.login-notice img {
+  filter: brightness(0) saturate(100%) invert(46%) sepia(96%) saturate(2123%) hue-rotate(360deg) brightness(101%) contrast(105%);
+}
+
+/* Date & Time Picker Controls (High Contrast Calendar Icon) */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  color-scheme: dark;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover,
+input[type="time"]::-webkit-calendar-picker-indicator:hover,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator:hover,
+input[type="month"]::-webkit-calendar-picker-indicator:hover {
+  filter: invert(1);
+  opacity: 1;
+}
+
+/* Share Button Icon */
+button img[src*="share"],
+.btn img[src*="share"] {
+  filter: brightness(0) invert(1);
 }
 
 /* ==========================================================================

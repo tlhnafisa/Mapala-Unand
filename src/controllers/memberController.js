@@ -6,7 +6,8 @@ const {
   generateTemplateWorkbook,
   previewExcelFile,
   commitImportedMembers,
-  exportMembersToExcel
+  exportMembersToExcel,
+  parseExcelDate
 } = require('../services/excelService');
 const { generatePrintableBiodataHTML } = require('../services/pdfService');
 
@@ -303,7 +304,7 @@ exports.createMember = async (req, res) => {
     const safeGoldar = ['A', 'B', 'AB', 'O'].includes((golongan_darah || '').trim().toUpperCase())
       ? (golongan_darah || '').trim().toUpperCase()
       : null;
-    const safeTanggalLahir = tanggal_lahir && tanggal_lahir.trim() !== '' ? tanggal_lahir.trim() : null;
+    const safeTanggalLahir = parseExcelDate(tanggal_lahir);
 
     // 1. Insert into MySQL `anggota`
     const insertAnggotaResult = await execute(`
@@ -664,23 +665,44 @@ exports.commitImport = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const defaultPasswordHash = bcrypt.hashSync(defaultPassword, salt);
 
-    // Fetch existing divisions map
+    // Fetch existing divisions map and build resolver
     const divisions = await query('SELECT id, nama, slug FROM divisi');
     const divMap = new Map();
     divisions.forEach(d => {
-      divMap.set(d.nama.toLowerCase(), d.id);
-      divMap.set(d.slug.toLowerCase(), d.id);
+      divMap.set(d.nama.toLowerCase().trim(), d.id);
+      divMap.set(d.slug.toLowerCase().trim(), d.id);
     });
 
+    const resolveDivisiId = (divName) => {
+      if (!divName) return null;
+      const clean = String(divName).toLowerCase().trim();
+      if (divMap.has(clean)) return divMap.get(clean);
+      if (clean.includes('rimba') || clean === 'rgm') return divMap.get('rimba gunung') || 1;
+      if (clean.includes('panjat') || clean.includes('tebing') || clean === 'pct') return divMap.get('panjat tebing') || 2;
+      if (clean.includes('air') || clean.includes('arus') || clean.includes('jeram') || clean === 'ora') return divMap.get('olahraga air') || 3;
+      if (clean.includes('caving') || clean.includes('gua') || clean === 'cvg') return divMap.get('caving') || 4;
+      return null;
+    };
+
     let successCount = 0;
+    const failureErrors = [];
 
     for (const row of validRows) {
-      const normalizedNoReg = row.no_reg;
+      const regValidation = validateAndNormalizeNoRegister(row.no_reg);
+      const normalizedNoReg = regValidation.valid ? regValidation.normalized : (row.no_reg || '').trim();
+
       const safeGoldar = ['A', 'B', 'AB', 'O'].includes((row.golongan_darah || '').trim().toUpperCase())
         ? (row.golongan_darah || '').trim().toUpperCase()
         : null;
-      const safeTanggal = row.tanggal_lahir && row.tanggal_lahir.trim() !== '' ? row.tanggal_lahir.trim() : null;
-      const divId = divMap.get((row.divisi || '').toLowerCase()) || null;
+
+      // Konversi tanggal lahir ke format YYYY-MM-DD standar MySQL
+      const safeTanggal = parseExcelDate(row.tanggal_lahir);
+      const divId = resolveDivisiId(row.divisi);
+      const safeNama = (row.nama || '').trim();
+      const safeAngkatan = parseInt(row.angkatan, 10) || 0;
+      const safeTempat = row.tempat_lahir ? String(row.tempat_lahir).trim() : '-';
+      const safeAyah = row.nama_ayah ? String(row.nama_ayah).trim() : '-';
+      const safeIbu = row.nama_ibu ? String(row.nama_ibu).trim() : '-';
 
       try {
         const insertRes = await execute(`
@@ -691,20 +713,26 @@ exports.commitImport = async (req, res) => {
           ON DUPLICATE KEY UPDATE
             nama = VALUES(nama),
             divisi_id = VALUES(divisi_id),
-            angkatan = VALUES(angkatan)
+            angkatan = VALUES(angkatan),
+            tempat_lahir = VALUES(tempat_lahir),
+            tanggal_lahir = VALUES(tanggal_lahir),
+            golongan_darah = VALUES(golongan_darah),
+            nama_ayah = VALUES(nama_ayah),
+            nama_ibu = VALUES(nama_ibu)
         `, [
           normalizedNoReg,
-          row.nama,
+          safeNama,
           divId,
-          parseInt(row.angkatan, 10),
-          row.tempat_lahir || '-',
+          safeAngkatan,
+          safeTempat,
           safeTanggal,
           safeGoldar,
-          row.nama_ayah || '-',
-          row.nama_ibu || '-'
+          safeAyah,
+          safeIbu
         ]);
 
-        const anggotaId = insertRes.insertId || (await query('SELECT id FROM anggota WHERE no_register = ?', [normalizedNoReg]))[0]?.id;
+        const anggotaRows = await query('SELECT id FROM anggota WHERE no_register = ? LIMIT 1', [normalizedNoReg]);
+        const anggotaId = (anggotaRows.length > 0) ? anggotaRows[0].id : insertRes.insertId;
 
         if (anggotaId) {
           await execute(`
@@ -716,8 +744,17 @@ exports.commitImport = async (req, res) => {
 
         successCount++;
       } catch (err) {
-        console.warn(`Warning importing row ${normalizedNoReg}:`, err.message);
+        console.error(`Error importing row ${normalizedNoReg}:`, err.message);
+        failureErrors.push(`${normalizedNoReg}: ${err.message}`);
       }
+    }
+
+    if (successCount === 0 && validRows.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Tidak ada data anggota yang berhasil disimpan ke database. Silakan periksa kembali data file impor.',
+        errors: failureErrors
+      });
     }
 
     const adminUser = req.user ? req.user.username : 'admin';
@@ -731,10 +768,16 @@ exports.commitImport = async (req, res) => {
     // Sync memory cache
     await db.syncFromMySQL().catch(e => console.warn('Sync memory notice:', e.message));
 
+    let responseMsg = `Berhasil mengimpor ${successCount} data anggota ke database.`;
+    if (failureErrors.length > 0) {
+      responseMsg += ` (${failureErrors.length} data dilewati karena kendala).`;
+    }
+
     return res.json({
       success: true,
-      message: `Berhasil mengimpor ${successCount} data anggota ke database.`,
-      count: successCount
+      message: responseMsg,
+      count: successCount,
+      errors: failureErrors.length > 0 ? failureErrors : undefined
     });
   } catch (error) {
     console.error('Error commitImport MySQL:', error);

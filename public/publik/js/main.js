@@ -719,14 +719,22 @@ function initLoginForm() {
   const togglePassBtn = document.getElementById('togglePassword');
   const passInput = document.getElementById('password');
 
+  const eyeSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>`;
+  const eyeOffSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>`;
+
   if (togglePassBtn && passInput) {
-    togglePassBtn.innerHTML = '<img src="/images/icons/eye.svg" alt="Show" style="width: 18px; height: 18px; opacity: 0.7;">';
+    togglePassBtn.innerHTML = eyeSvg;
     togglePassBtn.addEventListener('click', () => {
       const isPass = passInput.getAttribute('type') === 'password';
       passInput.setAttribute('type', isPass ? 'text' : 'password');
-      togglePassBtn.innerHTML = isPass 
-        ? '<img src="/images/icons/eye-off.svg" alt="Hide" style="width: 18px; height: 18px; opacity: 0.9;">' 
-        : '<img src="/images/icons/eye.svg" alt="Show" style="width: 18px; height: 18px; opacity: 0.7;">';
+      togglePassBtn.innerHTML = isPass ? eyeOffSvg : eyeSvg;
+      if (isPass) {
+        togglePassBtn.classList.add('is-active');
+        togglePassBtn.setAttribute('title', 'Sembunyikan kata sandi');
+      } else {
+        togglePassBtn.classList.remove('is-active');
+        togglePassBtn.setAttribute('title', 'Lihat kata sandi');
+      }
     });
   }
 

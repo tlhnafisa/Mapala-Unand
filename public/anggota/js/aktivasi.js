@@ -35,6 +35,26 @@ function initLucide() {
   }
 }
 
+// Toggle password visibility (Lihat / Sembunyikan Kata Sandi)
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+  btn.innerHTML = `<i data-lucide="${isPass ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>`;
+  if (isPass) {
+    btn.classList.add('text-[#FF6B00]');
+    btn.classList.remove('text-[#8C9BAE]');
+    btn.setAttribute('title', 'Sembunyikan kata sandi');
+  } else {
+    btn.classList.remove('text-[#FF6B00]');
+    btn.classList.add('text-[#8C9BAE]');
+    btn.setAttribute('title', 'Lihat kata sandi');
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+
 // Inisialisasi & Pengalihan Tema (Terang / Gelap)
 function initTheme() {
   const savedTheme = localStorage.getItem('mapala_theme') || 'dark';

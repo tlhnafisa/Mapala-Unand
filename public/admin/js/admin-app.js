@@ -1681,6 +1681,11 @@ async function handleDeleteStruktur() {
     if (fileInp) fileInp.value = '';
     const labelText = document.getElementById('strukturFileLabelText');
     if (labelText) labelText.innerText = 'Pilih berkas JPG / PNG / WEBP';
+    const valBox = document.getElementById('strukturValidationBox');
+    if (valBox) {
+      valBox.classList.add('hidden');
+      valBox.innerHTML = '';
+    }
     loadCMSStrukturOrganisasi();
   } else {
     showToast(res ? res.message : 'Gagal menghapus gambar bagan struktur.', 'error');
@@ -1688,25 +1693,90 @@ async function handleDeleteStruktur() {
 }
 
 function previewStrukturFile(input) {
-  if (input.files && input.files[0]) {
-    const file = input.files[0];
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
-    const isSvg = file.name.toLowerCase().endsWith('.svg');
-    if (!allowedTypes.includes(file.type) && !isSvg) {
-      showToast('Format berkas tidak valid. Harap gunakan format JPG, PNG, WEBP, atau SVG.', 'error');
-      input.value = '';
-      return;
+  const valBox = document.getElementById('strukturValidationBox');
+  const labelText = document.getElementById('strukturFileLabelText');
+  const previewImg = document.getElementById('strukturPreviewImg');
+
+  if (!input.files || !input.files[0]) {
+    if (valBox) {
+      valBox.classList.add('hidden');
+      valBox.innerHTML = '';
     }
-    if (file.size > 5 * 1024 * 1024) {
-      showToast('Ukuran berkas terlalu besar. Maksimal 5 MB.', 'error');
-      input.value = '';
-      return;
-    }
-    const previewImg = document.getElementById('strukturPreviewImg');
-    if (previewImg) previewImg.src = URL.createObjectURL(file);
-    const labelText = document.getElementById('strukturFileLabelText');
-    if (labelText) labelText.innerText = file.name;
+    if (labelText) labelText.innerText = 'Pilih berkas JPG / PNG / WEBP';
+    return;
   }
+
+  const file = input.files[0];
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'];
+  const isSvg = file.name.toLowerCase().endsWith('.svg');
+
+  if (!allowedTypes.includes(file.type) && !isSvg) {
+    showToast('Format berkas tidak valid. Harap gunakan format JPG, PNG, WEBP, atau SVG.', 'error');
+    input.value = '';
+    if (valBox) {
+      valBox.classList.remove('hidden');
+      valBox.className = 'mt-2.5 p-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs flex items-start gap-2';
+      valBox.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><strong>Format Tidak Sesuai:</strong> Harap gunakan format JPG, PNG, atau WEBP.</div>';
+      lucide.createIcons();
+    }
+    if (labelText) labelText.innerText = 'Pilih berkas JPG / PNG / WEBP';
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('Ukuran berkas terlalu besar. Maksimal 5 MB.', 'error');
+    input.value = '';
+    if (valBox) {
+      valBox.classList.remove('hidden');
+      valBox.className = 'mt-2.5 p-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs flex items-start gap-2';
+      const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+      valBox.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 shrink-0 mt-0.5"></i><div><strong>Ukuran Terlalu Besar (${sizeMb} MB):</strong> Melebihi batas maksimal 5 MB.</div>`;
+      lucide.createIcons();
+    }
+    if (labelText) labelText.innerText = 'Pilih berkas JPG / PNG / WEBP';
+    return;
+  }
+
+  if (labelText) labelText.innerText = file.name;
+  const objectUrl = URL.createObjectURL(file);
+  if (previewImg) previewImg.src = objectUrl;
+
+  // Baca dimensi dan aspek rasio gambar secara real-time
+  const img = new Image();
+  img.onload = function() {
+    const width = this.naturalWidth;
+    const height = this.naturalHeight;
+    const ratio = width / height;
+    const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+
+    if (!valBox) return;
+    valBox.classList.remove('hidden');
+
+    const isIdeal16x9 = ratio >= 1.65 && ratio <= 1.95;
+
+    if (isIdeal16x9) {
+      valBox.className = 'mt-2.5 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-300 text-xs flex items-start gap-2';
+      valBox.innerHTML = `
+        <i data-lucide="check-circle" class="w-4 h-4 shrink-0 mt-0.5 text-emerald-400"></i>
+        <div>
+          <div class="font-bold text-emerald-400">Rasio Valid (Wajib 16:9 Terpenuhi)</div>
+          <div class="text-[11px] text-emerald-300/80 mt-0.5">Dimensi: ${width} × ${height} px (${sizeMb} MB). Proporsi pas 16:9 Landscape, tampilan bagan di beranda akan presisi dan tidak terpotong.</div>
+        </div>
+      `;
+    } else {
+      valBox.className = 'mt-2.5 p-3 rounded-xl border border-red-500/40 bg-red-500/10 text-red-300 text-xs flex items-start gap-2';
+      valBox.innerHTML = `
+        <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 mt-0.5 text-red-400"></i>
+        <div>
+          <div class="font-bold text-red-400">Peringatan: Rasio Bukan 16:9 (${ratio.toFixed(2)}:1)</div>
+          <div class="text-[11px] text-red-300/80 mt-0.5">Dimensi berkas: ${width} × ${height} px. Bagan struktur <strong>wajib berasio 16:9 Landscape</strong> (contoh: 1920×1080 px atau 1600×900 px). Gambar dengan rasio lain akan otomatis terpotong pada tampilan beranda.</div>
+        </div>
+      `;
+      showToast('Perhatian: Berkas bagan wajib berasio 16:9 Landscape agar tidak terpotong.', 'error');
+    }
+    lucide.createIcons();
+  };
+  img.src = objectUrl;
 }
 
 async function handleSaveStrukturOrganisasi(e) {
@@ -1729,6 +1799,11 @@ async function handleSaveStrukturOrganisasi(e) {
 
   if (res && res.success) {
     showToast(res.message, 'success');
+    const valBox = document.getElementById('strukturValidationBox');
+    if (valBox) {
+      valBox.classList.add('hidden');
+      valBox.innerHTML = '';
+    }
     loadCMSStrukturOrganisasi();
   } else {
     showToast(res ? res.message : 'Gagal memperbarui bagan struktur organisasi.', 'error');
@@ -2189,6 +2264,26 @@ async function handleChangePassword(e) {
     showToast(res ? res.message : 'Gagal mengubah password.', 'error');
   }
 }
+
+// Toggle password visibility (Lihat / Sembunyikan Kata Sandi)
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPass = input.type === 'password';
+  input.type = isPass ? 'text' : 'password';
+  btn.innerHTML = `<i data-lucide="${isPass ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>`;
+  if (isPass) {
+    btn.classList.add('text-[#FF6B00]');
+    btn.classList.remove('text-[#8C9BAE]');
+    btn.setAttribute('title', 'Sembunyikan kata sandi');
+  } else {
+    btn.classList.remove('text-[#FF6B00]');
+    btn.classList.add('text-[#8C9BAE]');
+    btn.setAttribute('title', 'Lihat kata sandi');
+  }
+  if (window.lucide) window.lucide.createIcons();
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
 
 // Modal helper
 function closeModal(id) {
