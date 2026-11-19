@@ -1793,6 +1793,8 @@ function openCreatePrestasiModal() {
   document.getElementById('prsJudul').value = '';
   document.getElementById('prsDeskripsi').value = '';
   document.getElementById('prsInfoPenyelenggara').value = '';
+  const captionInput = document.getElementById('prsGambarCaption');
+  if (captionInput) captionInput.value = '';
   document.getElementById('prsIsSorotan').checked = false;
   const fileInput = document.getElementById('prsFotoFile');
   if (fileInput) fileInput.value = '';
@@ -1812,6 +1814,8 @@ function openEditPrestasiModal(id) {
   document.getElementById('prsJudul').value = p.judul || '';
   document.getElementById('prsDeskripsi').value = p.deskripsi || '';
   document.getElementById('prsInfoPenyelenggara').value = p.info_label_1 || '';
+  const captionInput = document.getElementById('prsGambarCaption');
+  if (captionInput) captionInput.value = p.gambar_caption || '';
   document.getElementById('prsIsSorotan').checked = Boolean(p.is_sorotan);
   const fileInput = document.getElementById('prsFotoFile');
   if (fileInput) fileInput.value = '';
@@ -1826,6 +1830,7 @@ async function handleSavePrestasi(e) {
 
   const fileInput = document.getElementById('prsFotoFile');
   const hasFile = fileInput && fileInput.files && fileInput.files[0];
+  const captionVal = (document.getElementById('prsGambarCaption')?.value || '').trim();
 
   let res;
   if (hasFile) {
@@ -1835,6 +1840,7 @@ async function handleSavePrestasi(e) {
     formData.append('judul', document.getElementById('prsJudul').value.trim());
     formData.append('deskripsi', document.getElementById('prsDeskripsi').value.trim());
     formData.append('info_label_1', document.getElementById('prsInfoPenyelenggara').value.trim());
+    formData.append('gambar_caption', captionVal);
     formData.append('is_sorotan', document.getElementById('prsIsSorotan').checked ? '1' : '0');
     formData.append('foto', fileInput.files[0]);
 
@@ -1848,6 +1854,7 @@ async function handleSavePrestasi(e) {
       judul: document.getElementById('prsJudul').value.trim(),
       deskripsi: document.getElementById('prsDeskripsi').value.trim(),
       info_label_1: document.getElementById('prsInfoPenyelenggara').value.trim(),
+      gambar_caption: captionVal,
       is_sorotan: document.getElementById('prsIsSorotan').checked ? 1 : 0
     };
 
@@ -1873,6 +1880,7 @@ async function handleSavePrestasi(e) {
         formData.append('judul', document.getElementById('prsJudul').value.trim());
         formData.append('deskripsi', document.getElementById('prsDeskripsi').value.trim());
         formData.append('info_label_1', document.getElementById('prsInfoPenyelenggara').value.trim());
+        formData.append('gambar_caption', captionVal);
         formData.append('is_sorotan', document.getElementById('prsIsSorotan').checked ? '1' : '0');
         formData.append('confirm_replace', '1');
         formData.append('foto', fileInput.files[0]);
@@ -1887,6 +1895,7 @@ async function handleSavePrestasi(e) {
           judul: document.getElementById('prsJudul').value.trim(),
           deskripsi: document.getElementById('prsDeskripsi').value.trim(),
           info_label_1: document.getElementById('prsInfoPenyelenggara').value.trim(),
+          gambar_caption: captionVal,
           is_sorotan: document.getElementById('prsIsSorotan').checked ? 1 : 0,
           confirm_replace: 1
         };

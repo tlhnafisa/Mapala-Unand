@@ -131,7 +131,7 @@ exports.getBerandaContent = async (req, res) => {
       if (!row) return '';
       const det = row.sorotan_detail;
       const desc = row.deskripsi;
-      if (det && desc && det.length === 140 && desc.length > 140 && desc.startsWith(det)) {
+      if (det && desc && desc.length > det.length && desc.startsWith(det)) {
         return desc;
       }
       return det || desc;

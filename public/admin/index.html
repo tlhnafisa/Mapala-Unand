@@ -549,12 +549,12 @@
 
             <!-- Division Management (Permanen, Hanya Diedit & Ditambah) -->
             <div class="card-alpine space-y-4">
-              <div class="flex items-center justify-between border-b border-white/5 pb-3">
+              <div class="flex items-center justify-between gap-3 border-b border-white/5 pb-3">
                 <div>
                   <h3 class="font-bold text-white text-base">Kelola Divisi Organisasi</h3>
                   <p class="text-xs text-[#8C9BAE]">Divisi bersifat permanen untuk integritas keanggotaan. Penamaan dapat diedit jika terjadi typo.</p>
                 </div>
-                <span id="totalDivisiBadge" class="badge-pill badge-orange font-bold">4 Divisi Aktif</span>
+                <span id="totalDivisiBadge" class="badge-pill badge-orange font-bold whitespace-nowrap shrink-0">4 Divisi Aktif</span>
               </div>
 
               <!-- Form Tambah Divisi Baru (Dengan Pop-up Validasi Konfirmasi) -->
@@ -661,7 +661,7 @@
             <div class="flex justify-between items-center">
               <div>
                 <h3 class="font-bold text-white text-base">Bagan Struktur Organisasi Pengurus</h3>
-                <p class="text-xs text-[#8C9BAE]">Unggah gambar bagan/organigram struktur organisasi resmi Mapala UNAND periode berjalan [P-01]</p>
+                <p class="text-xs text-[#8C9BAE]">Unggah gambar bagan/organigram struktur organisasi resmi Mapala UNAND periode berjalan</p>
               </div>
             </div>
 
@@ -967,7 +967,7 @@
             <div class="card-alpine lg:col-span-2 !p-0 overflow-hidden">
               <div class="p-4 border-b border-[#1C2530] flex items-center justify-between">
                 <div>
-                  <h3 class="font-bold text-white text-base">Audit Trail Log Aktivitas Admin [FR-36]</h3>
+                  <h3 class="font-bold text-white text-base">Audit Trail Log Aktivitas Admin</h3>
                   <p class="text-xs text-[#8C9BAE]">Rekam jejak setiap tindakan admin: siapa, apa yang diubah, dan kapan</p>
                 </div>
                 <button onclick="loadLogs()" class="btn-secondary !text-xs !py-1.5">
@@ -995,7 +995,7 @@
             <!-- Ganti Password Admin Form (FR-12) -->
             <div class="card-alpine space-y-4">
               <div class="border-b border-white/5 pb-2">
-                <h3 class="font-bold text-white text-base">Ganti Kata Sandi Admin [FR-12]</h3>
+                <h3 class="font-bold text-white text-base">Ganti Kata Sandi Admin</h3>
                 <p class="text-xs text-[#8C9BAE]">Perbarui password akun administrator yang sedang login</p>
               </div>
 
@@ -1151,7 +1151,7 @@
         </div>
 
         <div class="p-3 rounded-xl bg-white/5 text-[11px] text-[#94A3B8]">
-          <span class="font-bold text-[#FF6B00]">Password Awal:</span> Akun anggota akan dibuat otomatis dengan password default <code class="text-white">mapala123</code> dan diwajibkan ganti password saat login pertama [FR-10, FR-11].
+          <span class="font-bold text-[#FF6B00]">Password Awal:</span> Akun anggota akan dibuat otomatis dengan password default <code class="text-white">mapala123</code> dan diwajibkan ganti password saat login pertama.
         </div>
 
         <div class="flex justify-end gap-3 pt-3 border-t border-white/10">
@@ -1583,6 +1583,11 @@
             <label class="form-label">Unggah Foto Piagam / Trofi</label>
             <input id="prsFotoFile" type="file" accept="image/*" class="form-input">
           </div>
+        </div>
+
+        <div>
+          <label class="form-label">Keterangan / Caption Foto (Tampil di Foto Beranda)</label>
+          <input id="prsGambarCaption" type="text" placeholder="Contoh: Penyerahan piagam penghargaan di Kantor Gubernur Sumbar" class="form-input">
         </div>
 
         <!-- Highlight Checkbox (FR-41) -->

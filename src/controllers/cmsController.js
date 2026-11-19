@@ -754,7 +754,7 @@ exports.createPrestasi = async (req, res) => {
     const confirmReplaceVal = (confirm_replace === '1' || confirm_replace === 1 || confirm_replace === true || confirm_replace === 'true');
     const sorotanJudulVal = sorotan_judul || judul.trim();
     const sorotanSubVal = sorotan_subjudul || `Tahun ${tahun}`;
-    const sorotanDetVal = sorotan_detail || deskripsi.trim();
+    const sorotanDetVal = (sorotan_detail || deskripsi.trim()).slice(0, 255);
 
     // Aturan 3c: Sorotan Beranda hanya boleh 1
     if (isSorotanVal === 1) {
@@ -853,6 +853,7 @@ exports.updatePrestasi = async (req, res) => {
       sorotan_detail,
       info_label_1,
       info_label_2,
+      gambar_caption,
       confirm_replace
     } = req.body;
 
@@ -911,6 +912,7 @@ exports.updatePrestasi = async (req, res) => {
           info_label_1 = ?,
           info_label_2 = ?,
           gambar_path = ?,
+          gambar_caption = ?,
           is_sorotan = ?,
           sorotan_judul = ?,
           sorotan_subjudul = ?,
@@ -924,10 +926,11 @@ exports.updatePrestasi = async (req, res) => {
         info_label_1 !== undefined ? info_label_1 : current.info_label_1,
         info_label_2 !== undefined ? info_label_2 : current.info_label_2,
         foto,
+        gambar_caption !== undefined ? (gambar_caption.trim() || newJudul) : current.gambar_caption,
         isSorotanVal,
         sorotan_judul || newJudul,
         sorotan_subjudul || `Tahun ${newTahun}`,
-        sorotan_detail || newDeskripsi,
+        (sorotan_detail || newDeskripsi).slice(0, 255),
         current.id
       ]);
 
