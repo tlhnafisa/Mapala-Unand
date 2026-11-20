@@ -1012,33 +1012,16 @@ async function handleSaveOverride(e) {
   formData.append('media_sosial', document.getElementById('overrideMedsos').value);
   formData.append('kontak_darurat', document.getElementById('overrideOrtu').value);
 
-  // Check main member photo size
-  const overridePhotoInp = document.getElementById('overrideFoto');
-  if (overridePhotoInp && overridePhotoInp.files && overridePhotoInp.files[0]) {
-    if (overridePhotoInp.files[0].size > 5 * 1024 * 1024) {
-      const mb = (overridePhotoInp.files[0].size / (1024 * 1024)).toFixed(1);
-      showToast(`Ukuran pas foto terlalu besar (${mb} MB). Maksimal 5 MB.`, 'error');
-      overridePhotoInp.value = '';
-      return;
-    }
-  }
-
   // Collect attribute metadata and files
   const attrMeta = [];
-  let attrTooLarge = false;
   document.querySelectorAll('.attr-file-input').forEach(inp => {
     const attrId = inp.getAttribute('data-id');
     const attrNama = inp.getAttribute('data-nama');
     attrMeta.push({ atribut_id: attrId, nama: attrNama });
     if (inp.files && inp.files[0]) {
-      if (inp.files[0].size > 5 * 1024 * 1024) {
-        attrTooLarge = true;
-        showToast(`Ukuran berkas atribut '${attrNama}' terlalu besar. Maksimal 5 MB.`, 'error');
-      }
       formData.append(`attrFile_${attrId}`, inp.files[0]);
     }
   });
-  if (attrTooLarge) return;
   formData.append('atribut', JSON.stringify(attrMeta));
 
   const res = await api('/api/admin/registrations/override', {
@@ -1577,13 +1560,7 @@ async function handleSaveArticle(e) {
   const fileMulti = document.getElementById('artFileMulti');
   if (fileMulti && fileMulti.files && fileMulti.files.length > 0) {
     for (let i = 0; i < fileMulti.files.length; i++) {
-      const f = fileMulti.files[i];
-      if (f.size > 5 * 1024 * 1024) {
-        const mb = (f.size / (1024 * 1024)).toFixed(1);
-        showToast(`Ukuran foto '${f.name}' terlalu besar (${mb} MB). Maksimal yang diizinkan adalah 5 MB per berkas.`, 'error');
-        return;
-      }
-      formData.append('fotos', f);
+      formData.append('fotos', fileMulti.files[i]);
     }
   }
 
@@ -1928,12 +1905,6 @@ async function handleSavePrestasi(e) {
 
   const fileInput = document.getElementById('prsFotoFile');
   const hasFile = fileInput && fileInput.files && fileInput.files[0];
-  if (hasFile && fileInput.files[0].size > 5 * 1024 * 1024) {
-    const mb = (fileInput.files[0].size / (1024 * 1024)).toFixed(1);
-    showToast(`Ukuran foto prestasi terlalu besar (${mb} MB). Maksimal yang diizinkan adalah 5 MB.`, 'error');
-    fileInput.value = '';
-    return;
-  }
   const captionVal = (document.getElementById('prsGambarCaption')?.value || '').trim();
 
   let res;

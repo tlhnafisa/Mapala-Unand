@@ -127,20 +127,6 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  // Multer File Upload Errors
-  if (err && err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(413).json({
-      success: false,
-      message: 'Ukuran berkas terlalu besar. Batas maksimal yang diizinkan adalah 5 MB per berkas.'
-    });
-  }
-  if (err && err.message && err.message.includes('Tipe file tidak didukung')) {
-    return res.status(400).json({
-      success: false,
-      message: err.message
-    });
-  }
-
   console.error('[SERVER ERROR]:', err);
   res.status(err.status || 500).json({
     success: false,
