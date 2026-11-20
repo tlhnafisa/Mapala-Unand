@@ -82,8 +82,32 @@ document.addEventListener('DOMContentLoaded', () => {
   renderBiodata();
   renderRegistrasiForm();
   renderDirectory();
+  initFileUploadValidators();
   loadLiveDataFromMySQL();
 });
+
+function initFileUploadValidators() {
+  const inputs = [
+    { id: 'regFoto', label: 'Pas Foto Anggota' },
+    { id: 'regFotoAtributTopi', label: 'Foto Bukti Topi Rimba' },
+    { id: 'regFotoAtributBaju', label: 'Foto Bukti Baju Lapangan' }
+  ];
+
+  inputs.forEach(({ id, label }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('change', () => {
+      if (el.files && el.files[0]) {
+        const file = el.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+          const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+          showToast(`Ukuran ${label} terlalu besar (${sizeMb} MB). Maksimal yang diizinkan adalah 5 MB.`, 'error');
+          el.value = '';
+        }
+      }
+    });
+  });
+}
 
 // ========================================================================
 // THEME MANAGER (DARK & LIGHT THEME)
@@ -837,8 +861,32 @@ async function handleSubmitRegistrasi(e) {
     { jenis_atribut_id: 2, nama: 'Baju Lapangan', status: bajuStatus }
   ];
 
+  const MAX_UPLOAD_BYTES = 5 * 1024 * 1024; // 5 MB batas maksimal
+
   const fotoInput = document.getElementById('regFoto');
   const file = fotoInput && fotoInput.files && fotoInput.files[0] ? fotoInput.files[0] : null;
+
+  if (file && file.size > MAX_UPLOAD_BYTES) {
+    const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+    showToast(`Ukuran pas foto terlalu besar (${sizeMb} MB). Batas maksimal yang diizinkan adalah 5 MB.`, 'error');
+    fotoInput.value = '';
+    return;
+  }
+
+  // Foto Bukti Atribut Fisik Wajib untuk status "Ada"
+  const fileTopi = topiStatus === 'Ada' ? document.getElementById('regFotoAtributTopi')?.files?.[0] : null;
+  if (fileTopi && fileTopi.size > MAX_UPLOAD_BYTES) {
+    const sizeMb = (fileTopi.size / (1024 * 1024)).toFixed(1);
+    showToast(`Ukuran foto bukti Topi Rimba terlalu besar (${sizeMb} MB). Batas maksimal adalah 5 MB.`, 'error');
+    return;
+  }
+
+  const fileBaju = bajuStatus === 'Ada' ? document.getElementById('regFotoAtributBaju')?.files?.[0] : null;
+  if (fileBaju && fileBaju.size > MAX_UPLOAD_BYTES) {
+    const sizeMb = (fileBaju.size / (1024 * 1024)).toFixed(1);
+    showToast(`Ukuran foto bukti Baju Lapangan terlalu besar (${sizeMb} MB). Batas maksimal adalah 5 MB.`, 'error');
+    return;
+  }
 
   // Bangun Multipart FormData
   const formData = new FormData();
@@ -860,15 +908,8 @@ async function handleSubmitRegistrasi(e) {
     formData.append('foto_terbaru', file);
   }
 
-  // Foto Bukti Atribut Fisik Wajib untuk status "Ada"
-  if (topiStatus === 'Ada') {
-    const fileTopi = document.getElementById('regFotoAtributTopi')?.files?.[0];
-    if (fileTopi) formData.append('foto_atribut_1', fileTopi);
-  }
-  if (bajuStatus === 'Ada') {
-    const fileBaju = document.getElementById('regFotoAtributBaju')?.files?.[0];
-    if (fileBaju) formData.append('foto_atribut_2', fileBaju);
-  }
+  if (fileTopi) formData.append('foto_atribut_1', fileTopi);
+  if (fileBaju) formData.append('foto_atribut_2', fileBaju);
 
   const btn = document.getElementById('regSubmitBtn');
   if (btn) {
