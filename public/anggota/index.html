@@ -13,7 +13,6 @@
       theme: {
         extend: {
           colors: {
-            base: '#07090C',
             card: '#11161B',
             cardHover: '#161D24',
             primaryOrange: '#FF6B00',
@@ -35,6 +34,17 @@
 
   <!-- Custom Member CSS -->
   <link rel="stylesheet" href="/anggota/css/anggota.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('mapala_theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('theme-light');
+        document.addEventListener('DOMContentLoaded', () => {
+          document.body.classList.add('theme-light');
+        });
+      }
+    })();
+  </script>
 </head>
 <body class="bg-[#07090C] text-white min-h-screen md:h-screen md:overflow-hidden flex flex-col md:flex-row">
 
@@ -655,17 +665,32 @@
             <form id="formChangePassword" onsubmit="handleChangePassword(event)" class="space-y-4">
               <div>
                 <label class="form-label">Kata Sandi Saat Ini *</label>
-                <input id="settOldPass" type="password" required placeholder="Masukkan kata sandi lama" class="form-input">
+                <div class="relative">
+                  <input id="settOldPass" type="password" required placeholder="Masukkan kata sandi lama" class="form-input !pr-10">
+                  <button type="button" onclick="togglePasswordVisibility('settOldPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
               </div>
 
               <div>
                 <label class="form-label">Kata Sandi Baru *</label>
-                <input id="settNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input">
+                <div class="relative">
+                  <input id="settNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input !pr-10">
+                  <button type="button" onclick="togglePasswordVisibility('settNewPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
               </div>
 
               <div>
                 <label class="form-label">Konfirmasi Kata Sandi Baru *</label>
-                <input id="settConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input">
+                <div class="relative">
+                  <input id="settConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input !pr-10">
+                  <button type="button" onclick="togglePasswordVisibility('settConfPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
               </div>
 
               <div class="pt-3">
@@ -727,16 +752,31 @@
       <form onsubmit="handleMandatoryPassword(event)" class="space-y-4">
         <div>
           <label class="form-label">Kata Sandi Awal (Default) *</label>
-          <input id="mandOldPass" type="password" required value="mapala123" placeholder="Kata sandi awal (default: mapala123)" class="form-input">
+          <div class="relative">
+            <input id="mandOldPass" type="password" required value="mapala123" placeholder="Kata sandi awal (default: mapala123)" class="form-input !pr-10">
+            <button type="button" onclick="togglePasswordVisibility('mandOldPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
           <p class="text-[11px] text-[#8C9BAE] mt-1">Kata sandi default dari pengurus: <code class="text-[#FF6B00]">mapala123</code></p>
         </div>
         <div>
           <label class="form-label">Kata Sandi Baru *</label>
-          <input id="mandNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input">
+          <div class="relative">
+            <input id="mandNewPass" type="password" required minlength="6" placeholder="Minimal 6 karakter" class="form-input !pr-10">
+            <button type="button" onclick="togglePasswordVisibility('mandNewPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
         </div>
         <div>
           <label class="form-label">Konfirmasi Kata Sandi Baru *</label>
-          <input id="mandConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input">
+          <div class="relative">
+            <input id="mandConfPass" type="password" required minlength="6" placeholder="Ulangi kata sandi baru" class="form-input !pr-10">
+            <button type="button" onclick="togglePasswordVisibility('mandConfPass', this)" class="absolute right-3 top-3 text-[#8C9BAE] hover:text-[#FF6B00] transition-colors focus:outline-none" title="Lihat/Sembunyikan Kata Sandi">
+              <i data-lucide="eye" class="w-4 h-4"></i>
+            </button>
+          </div>
         </div>
         <button id="btnSubmitMandatoryPassword" type="submit" class="btn-primary w-full justify-center mt-2">
           Simpan & Lanjutkan

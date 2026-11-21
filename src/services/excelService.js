@@ -53,6 +53,87 @@ function generateTemplateWorkbook() {
 }
 
 /**
+ * Convert Excel date serial numbers (e.g. 38748), ISO dates (YYYY-MM-DD),
+ * and Indonesian formatted dates (DD/MM/YYYY or DD-MM-YYYY) to standard YYYY-MM-DD string.
+ */
+function parseExcelDate(val) {
+  if (val === null || val === undefined) return null;
+
+  // If already a valid Date object
+  if (val instanceof Date && !isNaN(val.getTime())) {
+    const y = val.getFullYear();
+    const m = String(val.getMonth() + 1).padStart(2, '0');
+    const d = String(val.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  // If numeric or numeric string (Excel serial date code, e.g. 38748 or 37945)
+  const num = typeof val === 'number'
+    ? val
+    : (typeof val === 'string' && /^\d{4,6}(\.\d+)?$/.test(val.trim()) ? parseFloat(val.trim()) : NaN);
+
+  if (!isNaN(num) && num > 1000 && num < 100000) {
+    // 25569 is Jan 1 1970 UTC in Excel serial system
+    const utcDays = Math.floor(num - 25569);
+    const utcValue = utcDays * 86400 * 1000;
+    const dateInfo = new Date(utcValue);
+    const y = dateInfo.getUTCFullYear();
+    const m = String(dateInfo.getUTCMonth() + 1).padStart(2, '0');
+    const d = String(dateInfo.getUTCDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  const str = String(val).trim();
+  if (!str) return null;
+
+  // Match ISO YYYY-MM-DD or YYYY/MM/DD
+  const isoMatch = str.match(/^(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})/);
+  if (isoMatch) {
+    const y = isoMatch[1];
+    const m = isoMatch[2].padStart(2, '0');
+    const d = isoMatch[3].padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  // Match DD/MM/YYYY or DD-MM-YYYY (Indonesian format)
+  const idMatch = str.match(/^(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})/);
+  if (idMatch) {
+    const d = idMatch[1].padStart(2, '0');
+    const m = idMatch[2].padStart(2, '0');
+    const y = idMatch[3];
+    return `${y}-${m}-${d}`;
+  }
+
+  // Fallback native Date parse for standard string representation
+  const parsed = new Date(str);
+  if (!isNaN(parsed.getTime()) && parsed.getFullYear() > 1900 && parsed.getFullYear() < 2100) {
+    const y = parsed.getFullYear();
+    const m = String(parsed.getMonth() + 1).padStart(2, '0');
+    const d = String(parsed.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  return null;
+}
+
+/**
+ * Helper to get a field value regardless of case or delimiter variations in header
+ */
+function getRowField(row, aliases) {
+  const rowKeys = Object.keys(row);
+  for (const alias of aliases) {
+    const cleanAlias = alias.trim().toLowerCase().replace(/[\s_.-]+/g, '');
+    for (const key of rowKeys) {
+      const cleanKey = key.trim().toLowerCase().replace(/[\s_.-]+/g, '');
+      if (cleanKey === cleanAlias) {
+        return row[key];
+      }
+    }
+  }
+  return '';
+}
+
+/**
  * Parse and Preview Excel or CSV file
  * Identifies errors, empty mandatory fields, and duplicates against MySQL (FR-31)
  */
@@ -82,15 +163,15 @@ async function previewExcelFile(filePath) {
 
   rows.forEach((row, index) => {
     const rowNum = index + 2; // Header is row 1
-    let raw_no_reg = (row['No_Register'] || row['no_register'] || '').toString().trim();
-    const nama = toTitleCase((row['Nama_Lengkap'] || row['nama_lengkap'] || row['Nama'] || '').toString());
-    const divisi = (row['Divisi'] || row['divisi'] || '').toString().trim();
-    const angkatan = parseInt(row['Angkatan'] || row['angkatan'] || 0, 10);
-    const tempat_lahir = (row['Tempat_Lahir'] || row['tempat_lahir'] || '').toString().trim();
-    const tanggal_lahir = (row['Tanggal_Lahir_YYYY_MM_DD'] || row['tanggal_lahir'] || '').toString().trim();
-    const golongan_darah = (row['Golongan_Darah'] || row['golongan_darah'] || '').toString().trim().toUpperCase();
-    const nama_ayah = (row['Nama_Ayah'] || row['nama_ayah'] || '').toString().trim();
-    const nama_ibu = (row['Nama_Ibu'] || row['nama_ibu'] || '').toString().trim();
+    const raw_no_reg = String(getRowField(row, ['No_Register', 'no_register', 'No Register', 'No. Register', 'No Reg', 'NoReg', 'Register']) || '').trim();
+    const nama = toTitleCase(String(getRowField(row, ['Nama_Lengkap', 'nama_lengkap', 'Nama Lengkap', 'Nama', 'nama', 'Nama_Lengkap_Sesuai_KTP']) || ''));
+    let divisi = String(getRowField(row, ['Divisi', 'divisi', 'Bidang', 'Spesialisasi']) || '').trim();
+    const angkatan = parseInt(getRowField(row, ['Angkatan', 'angkatan', 'Tahun_Angkatan', 'Tahun Angkatan']) || 0, 10);
+    const tempat_lahir = String(getRowField(row, ['Tempat_Lahir', 'tempat_lahir', 'Tempat Lahir', 'TempatLahir']) || '').trim();
+    const raw_tanggal = getRowField(row, ['Tanggal_Lahir_YYYY_MM_DD', 'tanggal_lahir', 'Tanggal_Lahir', 'Tanggal Lahir', 'Tgl_Lahir', 'Tgl Lahir', 'TglLahir', 'BirthDate']);
+    const golongan_darah = String(getRowField(row, ['Golongan_Darah', 'golongan_darah', 'Golongan Darah', 'Goldar', 'goldar', 'Gol Darah']) || '').trim().toUpperCase();
+    const nama_ayah = String(getRowField(row, ['Nama_Ayah', 'nama_ayah', 'Nama Ayah', 'Ayah']) || '').trim();
+    const nama_ibu = String(getRowField(row, ['Nama_Ibu', 'nama_ibu', 'Nama Ibu', 'Ibu']) || '').trim();
 
     const errors = [];
     let no_reg = raw_no_reg;
@@ -122,10 +203,33 @@ async function previewExcelFile(filePath) {
 
     if (!divisi) {
       errors.push('Divisi wajib diisi');
+    } else {
+      // Normalisasi nama divisi untuk display & matching
+      const divLower = divisi.toLowerCase();
+      if (divLower.includes('rimba') || divLower === 'rgm') {
+        divisi = 'Rimba Gunung';
+      } else if (divLower.includes('panjat') || divLower.includes('tebing') || divLower === 'pct') {
+        divisi = 'Panjat Tebing';
+      } else if (divLower.includes('air') || divLower.includes('arus') || divLower.includes('jeram') || divLower === 'ora') {
+        divisi = 'Olahraga Air';
+      } else if (divLower.includes('caving') || divLower.includes('gua') || divLower === 'cvg') {
+        divisi = 'Caving';
+      }
     }
 
     if (!angkatan || isNaN(angkatan) || angkatan < 1970 || angkatan > 2035) {
       errors.push('Angkatan harus berupa tahun valid (1970 - 2035)');
+    }
+
+    // Parse dan validasi Tanggal Lahir (mendukung format Excel serial, DD/MM/YYYY, YYYY-MM-DD)
+    let tanggal_lahir = '';
+    if (raw_tanggal !== '' && raw_tanggal !== undefined && raw_tanggal !== null) {
+      const parsedDate = parseExcelDate(raw_tanggal);
+      if (parsedDate) {
+        tanggal_lahir = parsedDate;
+      } else {
+        errors.push(`Format tanggal lahir '${raw_tanggal}' tidak valid (gunakan YYYY-MM-DD atau DD/MM/YYYY)`);
+      }
     }
 
     const isValid = errors.length === 0;
@@ -188,7 +292,7 @@ function commitImportedMembers(validRows) {
       divisi: row.divisi,
       angkatan: parseInt(row.angkatan, 10),
       tempat_lahir: row.tempat_lahir || '-',
-      tanggal_lahir: row.tanggal_lahir || '',
+      tanggal_lahir: parseExcelDate(row.tanggal_lahir) || '',
       golongan_darah: row.golongan_darah || '-',
       nama_ayah: row.nama_ayah || '-',
       nama_ibu: row.nama_ibu || '-',
@@ -259,5 +363,6 @@ module.exports = {
   generateTemplateWorkbook,
   previewExcelFile,
   commitImportedMembers,
-  exportMembersToExcel
+  exportMembersToExcel,
+  parseExcelDate
 };
