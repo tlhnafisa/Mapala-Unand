@@ -470,6 +470,7 @@ function renderBiodata() {
   if (elNamaIbu) elNamaIbu.value = d.nama_ibu || '';
 
   // Render Snapshot Data Berkala Terkini
+  const elTitle = document.getElementById('bioSnapshotTitle');
   const elDomisili = document.getElementById('bioSnapshotDomisili');
   const elHp = document.getElementById('bioSnapshotHp');
   const elEmail = document.getElementById('bioSnapshotEmail');
@@ -477,6 +478,8 @@ function renderBiodata() {
   const elDarurat = document.getElementById('bioSnapshotKontakDarurat');
 
   if (reg && (reg.alamat_rumah || reg.kota_kabupaten)) {
+    const tahunSnapshot = reg.tahun_registrasi || reg.periode_tahun || '';
+    if (elTitle) elTitle.textContent = tahunSnapshot ? `Snapshot Kontak & Domisili ${tahunSnapshot}` : 'Snapshot Kontak & Domisili';
     const alamatParts = [reg.alamat_rumah, reg.kota_kabupaten, reg.provinsi].filter(Boolean);
     if (elDomisili) elDomisili.textContent = alamatParts.join(', ');
     if (elHp) elHp.textContent = reg.no_hp || '-';
@@ -484,6 +487,7 @@ function renderBiodata() {
     if (elPekerjaan) elPekerjaan.textContent = reg.pekerjaan || '-';
     if (elDarurat) elDarurat.textContent = reg.kontak_darurat || '-';
   } else {
+    if (elTitle) elTitle.textContent = 'Snapshot Kontak & Domisili';
     if (elDomisili) elDomisili.textContent = 'Belum mengisi data registrasi ulang';
     if (elHp) elHp.textContent = '-';
     if (elEmail) elEmail.textContent = '-';
@@ -906,7 +910,9 @@ async function handleSubmitRegistrasi(e) {
   } finally {
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i><span>Kirim Formulir Registrasi Ulang 2026</span>';
+      const isRegistered = Boolean(memberData.data_registrasi_terkini);
+      const activeTahun = memberData.dashboard_cache?.periode_berjalan?.tahun || '';
+      btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span id="regSubmitBtnText">${isRegistered ? 'Perbarui' : 'Kirim'} Formulir Registrasi Ulang ${activeTahun}</span>`;
       initLucide();
     }
   }
