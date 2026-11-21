@@ -964,7 +964,7 @@ async function openOverrideModal(no_reg) {
         <div class="p-3 rounded-xl bg-[#0D1217] border border-white/5 attr-file-upload-wrapper" data-attr-id="${a.id}" data-attr-nama="${a.nama_atribut}">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs text-white font-semibold">${a.nama_atribut}</span>
-            ${a.wajib ? '<span class="badge-pill badge-orange text-[10px]">Wajib</span>' : '<span class="badge-pill text-[10px]" style="color:#94A3B8;background:rgba(148,163,184,0.1)">Opsional</span>'}
+            ${a.wajib ? '<span class="badge-pill badge-orange text-[10px]">Verifikasi Fisik</span>' : '<span class="badge-pill text-[10px]" style="color:#94A3B8;background:rgba(148,163,184,0.1)">Opsional</span>'}
           </div>
           <label for="${inputId}" class="attr-file-label">
             <i data-lucide="image" class="w-4 h-4 attr-file-icon"></i>

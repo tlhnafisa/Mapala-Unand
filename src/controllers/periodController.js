@@ -301,7 +301,7 @@ exports.deleteDivision = async (req, res) => {
     // Periksa apakah divisi digunakan oleh anggota
     const memberCount = await query('SELECT COUNT(*) AS total FROM anggota WHERE divisi_id = ?', [id]);
     if (memberCount[0]?.total > 0) {
-      return res.status(403).json({
+      return res.status(400).json({
         success: false,
         message: `Divisi '${existing[0].nama}' tidak dapat dihapus karena masih digunakan oleh ${memberCount[0].total} anggota. Silakan edit penamaannya jika terdapat salah ketik.`
       });

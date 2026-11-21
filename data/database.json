@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-21T05:37:59.000Z",
+      "last_login": "2026-11-21T09:38:49.000Z",
       "nama": "admin"
     },
     {
@@ -399,6 +399,36 @@
       "must_change_password": true,
       "last_login": null,
       "nama": "Zara"
+    },
+    {
+      "id": 86,
+      "username": "MU 500 Rgm.",
+      "password_hash": "$2b$10$px.3NdLj4rXQHa80/LH.6e2xkyecrKVSAVmk6.V.flGr1RHZHXs/6",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "Gilang Ramadhan"
+    },
+    {
+      "id": 87,
+      "username": "MU 001 Pct.",
+      "password_hash": "$2b$10$px.3NdLj4rXQHa80/LH.6e2xkyecrKVSAVmk6.V.flGr1RHZHXs/6",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "Nadia Safitri"
+    },
+    {
+      "id": 88,
+      "username": "MU 555 Ccc.",
+      "password_hash": "$2b$10$RIPLYERaMh6nejSxTpEQ3uDSEQqFLHBNk6AumriVRtuKTrhVmR006",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "A"
     }
   ],
   "members": [
@@ -1009,9 +1039,165 @@
       "profil_lengkap": false,
       "created_at": "2026-11-21T08:03:35.000Z",
       "updated_at": "2026-11-21T08:03:35.000Z"
+    },
+    {
+      "id": 84,
+      "no_register": "MU 500 Rgm.",
+      "nama": "Gilang Ramadhan",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2023,
+      "tempat_lahir": "Kota Padang",
+      "tanggal_lahir": "2004-05-12",
+      "golongan_darah": "O",
+      "nama_ayah": "Hasan Basri",
+      "nama_ibu": "Rosmawati",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-21T09:01:11.000Z",
+      "updated_at": "2026-11-21T09:01:11.000Z"
+    },
+    {
+      "id": 85,
+      "no_register": "MU 001 Pct.",
+      "nama": "Nadia Safitri",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2023,
+      "tempat_lahir": "Kota Bukittinggi",
+      "tanggal_lahir": "2003-11-20",
+      "golongan_darah": "B",
+      "nama_ayah": "Syahril",
+      "nama_ibu": "Nuraini",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-21T09:01:11.000Z",
+      "updated_at": "2026-11-21T09:01:11.000Z"
+    },
+    {
+      "id": 86,
+      "no_register": "MU 555 Ccc.",
+      "nama": "A",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2020,
+      "tempat_lahir": "a",
+      "tanggal_lahir": "0001-03-04",
+      "golongan_darah": "A",
+      "nama_ayah": "av",
+      "nama_ibu": "v",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-21T09:43:53.000Z",
+      "updated_at": "2026-11-21T09:43:53.000Z"
     }
   ],
   "reRegistrations": [
+    {
+      "id": 64,
+      "no_register": "MU 280 Rgm.",
+      "periode_tahun": 2020,
+      "foto_terbaru": "/uploads/foto_terbaru-1795250735252-760726296.jpg",
+      "alamat_rumah": "limau manis",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081222222222",
+      "email": "aaa@gmail.com",
+      "kontak_darurat": "0812678901111",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-21T08:45:35.000Z",
+      "updated_at": "2026-11-21T08:45:35.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 65,
+      "no_register": "MU 280 RGM",
+      "periode_tahun": 2020,
+      "foto_terbaru": null,
+      "alamat_rumah": "jhj",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "pegawai",
+      "no_hp": "0909898989",
+      "email": "ghagg@hbh",
+      "kontak_darurat": "0894897787878",
+      "sumber_input": "admin",
+      "input_by": "admin",
+      "submitted_at": "2026-11-21T09:08:09.000Z",
+      "updated_at": "2026-11-21T09:08:47.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 62,
+      "no_register": "MU 280 Rgm.",
+      "periode_tahun": 2023,
+      "foto_terbaru": "/uploads/foto_terbaru-1795249594764-404228100.jpg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081267890123",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "0812678901111",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-21T08:26:34.000Z",
+      "updated_at": "2026-11-21T08:26:34.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 58,
+      "no_register": "MU 888 Arf.",
+      "periode_tahun": 2025,
+      "foto_terbaru": "/uploads/foto_terbaru-1795146558082-670085191.jpg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "099888888888888",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "081267890100",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-20T03:48:21.000Z",
+      "updated_at": "2026-11-20T03:49:18.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 59,
+      "no_register": "MU 123 Aaa.",
+      "periode_tahun": 2025,
+      "foto_terbaru": "/uploads/foto_terbaru-1795147134858-951906098.jpg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081267890123",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "081267890100",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-20T03:57:56.000Z",
+      "updated_at": "2026-11-20T03:58:54.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 60,
+      "no_register": "MU 280 Rgm.",
+      "periode_tahun": 2025,
+      "foto_terbaru": "/uploads/foto_terbaru-1795242532901-545149274.jpg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081267890123",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "0812678901000",
+      "sumber_input": "mandiri",
+      "input_by": "admin",
+      "submitted_at": "2026-11-21T06:16:20.000Z",
+      "updated_at": "2026-11-21T06:28:52.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
     {
       "id": 1,
       "no_register": "MU 280 RGM",
@@ -1373,60 +1559,6 @@
       "status_registrasi": "Sudah Registrasi Ulang"
     },
     {
-      "id": 58,
-      "no_register": "MU 888 Arf.",
-      "periode_tahun": 2025,
-      "foto_terbaru": "/uploads/foto_terbaru-1795146558082-670085191.jpg",
-      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
-      "kota_kabupaten": "Kota Padang",
-      "provinsi": "Sumatera Barat",
-      "pekerjaan": "Software Engineer",
-      "no_hp": "099888888888888",
-      "email": "rahmat.hidayat@gmail.com",
-      "kontak_darurat": "081267890100",
-      "sumber_input": "mandiri",
-      "input_by": "mandiri",
-      "submitted_at": "2026-11-20T03:48:21.000Z",
-      "updated_at": "2026-11-20T03:49:18.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
-      "id": 59,
-      "no_register": "MU 123 Aaa.",
-      "periode_tahun": 2025,
-      "foto_terbaru": "/uploads/foto_terbaru-1795147134858-951906098.jpg",
-      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
-      "kota_kabupaten": "Kota Padang",
-      "provinsi": "Sumatera Barat",
-      "pekerjaan": "Software Engineer",
-      "no_hp": "081267890123",
-      "email": "rahmat.hidayat@gmail.com",
-      "kontak_darurat": "081267890100",
-      "sumber_input": "mandiri",
-      "input_by": "mandiri",
-      "submitted_at": "2026-11-20T03:57:56.000Z",
-      "updated_at": "2026-11-20T03:58:54.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
-      "id": 60,
-      "no_register": "MU 280 Rgm.",
-      "periode_tahun": 2025,
-      "foto_terbaru": "/uploads/foto_terbaru-1795242532901-545149274.jpg",
-      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
-      "kota_kabupaten": "Kota Padang",
-      "provinsi": "Sumatera Barat",
-      "pekerjaan": "Software Engineer",
-      "no_hp": "081267890123",
-      "email": "rahmat.hidayat@gmail.com",
-      "kontak_darurat": "0812678901000",
-      "sumber_input": "mandiri",
-      "input_by": "admin",
-      "submitted_at": "2026-11-21T06:16:20.000Z",
-      "updated_at": "2026-11-21T06:28:52.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
       "id": 61,
       "no_register": "MU 280 Rgm.",
       "periode_tahun": 2027,
@@ -1445,24 +1577,6 @@
       "status_registrasi": "Sudah Registrasi Ulang"
     },
     {
-      "id": 62,
-      "no_register": "MU 280 Rgm.",
-      "periode_tahun": 2023,
-      "foto_terbaru": "/uploads/foto_terbaru-1795249594764-404228100.jpg",
-      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
-      "kota_kabupaten": "Kota Padang",
-      "provinsi": "Sumatera Barat",
-      "pekerjaan": "Software Engineer",
-      "no_hp": "081267890123",
-      "email": "rahmat.hidayat@gmail.com",
-      "kontak_darurat": "0812678901111",
-      "sumber_input": "mandiri",
-      "input_by": "mandiri",
-      "submitted_at": "2026-11-21T08:26:34.000Z",
-      "updated_at": "2026-11-21T08:26:34.000Z",
-      "status_registrasi": "Sudah Registrasi Ulang"
-    },
-    {
       "id": 63,
       "no_register": "MU 280 Rgm.",
       "periode_tahun": 2028,
@@ -1478,6 +1592,24 @@
       "input_by": "mandiri",
       "submitted_at": "2026-11-21T08:37:47.000Z",
       "updated_at": "2026-11-21T08:37:47.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 66,
+      "no_register": "MU 111 Aaa.",
+      "periode_tahun": 2030,
+      "foto_terbaru": null,
+      "alamat_rumah": "gg",
+      "kota_kabupaten": "g",
+      "provinsi": "f",
+      "pekerjaan": "pegawai",
+      "no_hp": "081267890123",
+      "email": "humas.resmi@mapalaunand.org",
+      "kontak_darurat": "0909094984",
+      "sumber_input": "admin",
+      "input_by": "admin",
+      "submitted_at": "2026-11-21T09:40:09.000Z",
+      "updated_at": "2026-11-21T09:40:09.000Z",
       "status_registrasi": "Sudah Registrasi Ulang"
     }
   ],
@@ -1533,8 +1665,26 @@
       "nama_periode": "Registrasi Ulang Tahunan 2020",
       "tanggal_buka": "2020-01-01",
       "tanggal_tutup": "2020-12-31",
+      "is_active": false,
+      "status": "tutup"
+    },
+    {
+      "id": 10,
+      "tahun": 2030,
+      "nama_periode": "Registrasi Ulang Tahunan 2030",
+      "tanggal_buka": "2030-01-01",
+      "tanggal_tutup": "2030-12-31",
       "is_active": true,
       "status": "buka"
+    },
+    {
+      "id": 11,
+      "tahun": 2019,
+      "nama_periode": "Registrasi Ulang Tahunan 2019",
+      "tanggal_buka": "2019-01-01",
+      "tanggal_tutup": "2019-12-31",
+      "is_active": false,
+      "status": "tutup"
     }
   ],
   "divisions": [
@@ -1591,6 +1741,34 @@
   ],
   "articles": [
     {
+      "id": 51,
+      "judul": "hh",
+      "slug": "hh",
+      "kategori": "ekspedisi",
+      "foto": "/images/hero-mountain.jpg",
+      "tanggal": "2026-11-21",
+      "status": "draf",
+      "penulis": "admin",
+      "ringkasan": "gg",
+      "isi": "gg",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "Bidang Kesekretariatan & Humas"
+    },
+    {
+      "id": 49,
+      "judul": "a",
+      "slug": "a",
+      "kategori": "kegiatan-lapangan",
+      "foto": "/uploads/fotos-1795254474109-85617128.jpg",
+      "tanggal": "2026-11-21",
+      "status": "draf",
+      "penulis": "admin",
+      "ringkasan": "Riset keanekaragaman flora endemik dan pemetaan jalur evakuasi baru.",
+      "isi": "hghgh",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "Bidang Kesekretariatan & Humas"
+    },
+    {
       "id": 48,
       "judul": "ARIFAH AZRE",
       "slug": "arifah-azre",
@@ -1609,12 +1787,12 @@
       "judul": "ARIFAH NAIK GUNUNG",
       "slug": "arifah-naik-gunung",
       "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1795094741677-125306276.jpg",
+      "foto": "/uploads/fotos-1795254900903-820999087.jpeg",
       "tanggal": "2026-11-19",
       "status": "terbit",
       "penulis": "admin",
       "ringkasan": "COBA COBA AJA DULU MANA TAU JADI",
-      "isi": "HFFHFHFHFHFHFHGFGHFGFHFGHFHFHFHFHGFGHFGFGHFHFHFH",
+      "isi": "rill nih??",
       "status_kegiatan": "Selesai",
       "tim_capaian": "Bidang Kesekretariatan & Humas"
     },
@@ -1713,10 +1891,24 @@
       "info_label_1": "ddd",
       "info_label_2": null,
       "foto": "/uploads/foto-1795095236842-697855998.jpeg",
-      "is_sorotan": 1,
+      "is_sorotan": 0,
       "sorotan_judul": "Juara 1 mencintai dengan tulus",
       "sorotan_subjudul": "Tahun 2026",
       "sorotan_detail": "hgeyguw"
+    },
+    {
+      "id": 55,
+      "tahun": 2026,
+      "kategori": "Kompetisi",
+      "judul": "Sorotan KU",
+      "deskripsi": "Iya betul",
+      "info_label_1": "",
+      "info_label_2": null,
+      "foto": "/images/trophy-achievement.jpg",
+      "is_sorotan": 0,
+      "sorotan_judul": "Sorotan KU",
+      "sorotan_subjudul": "Tahun 2026",
+      "sorotan_detail": "Iya betul"
     },
     {
       "id": 1,
@@ -1777,10 +1969,10 @@
   ],
   "kontenStatis": {
     "hero_judul": "MAPALA UNAND",
-    "hero_tagline": "Menjelajahi dan Menelusuri Alam dengan Cinta.",
+    "hero_tagline": "gteyyyggygygyhhhhhhggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
     "hero_deskripsi": "Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati, dan dedikasi petualangan ilmiah rimba Nusantara sejak 1984.",
     "hero_foto": "/images/hero-mountain.jpg",
-    "sejarah": "Sejarah pembaruan uji sistem: Didirikan pada tahun 1984 di Universitas Andalas.",
+    "sejarah": "Sejarah pembaruan uji sistem: Didirikan pada tahun 1984 di Universitas Andalas. Sampai sekarang udah berada di tahun 2027",
     "sejarah_foto": "/images/about-unand.jpg",
     "sejarah_foto_caption": "Dokumentasi kegiatan lapangan perintis Mapala UNAND",
     "visi": "Menjadi organisasi kepencintaalaman yang terdepan dalam konservasi dan sains petualangan rimba 2026.",
@@ -1793,14 +1985,311 @@
     "kontak_instagram": "https://www.instagram.com/mapalaunand?knvt=bjB5dTRscTlpNWht",
     "kontak_facebook": "https://www.facebook.com/share/19j5fTkLDF/",
     "kontak_tiktok": "https://www.tiktok.com/@mapala.unand?_r=1&_t=ZS-9BXI7LudDpB",
-    "prestasi_boxes": "[{\"id\":1,\"title\":\"zara jelek dan busuk\",\"sub\":\"Tahun 2024\"},{\"id\":2,\"title\":\"Kalpataru\",\"sub\":\"Apresiasi Konservasi Kampus\"},{\"id\":3,\"title\":\"7 Summits\",\"sub\":\"Jalur Ekspedisi Nusantara\"},{\"id\":4,\"title\":\"30+ Riset\",\"sub\":\"Publikasi Ilmiah & Speleologi\"}]",
+    "prestasi_boxes": "[{\"id\":1,\"title\":\"zara jelek dan busuk\",\"sub\":\"Tahun 2024\"},{\"id\":2,\"title\":\"Apa ya\",\"sub\":\"Apresiasi Konservasi Kampus\"},{\"id\":3,\"title\":\"100 summit\",\"sub\":\"Jalur Ekspedisi Nusantara\"},{\"id\":4,\"title\":\"30+ Riset\",\"sub\":\"Publikasi Ilmiah & Speleologi\"}]",
     "kontak_youtube": "https://youtube.com/@mapalaunand2398?si=KGf8F6cqT65dnW_c",
     "kontak_twitter": "https://x.com/mapalaunand_padang",
     "hero_stat_puncak_angka": "125",
     "hero_stat_puncak_satuan": "+ Puncak",
-    "hero_stat_puncak_label": "Sumatera & Seven Summits"
+    "hero_stat_puncak_label": "Sumatera & Seven Summits",
+    "sejarah_fotos": "[{\"url\":\"/images/about-unand.jpg\",\"caption\":\"Dokumentasi kegiatan lapangan perintis Mapala UNAND\"},{\"url\":\"/images/hero-mountain.jpg\",\"caption\":\"Jejak Ekspedisi Rimba & Puncak Pegunungan Sejak 1984\"},{\"url\":\"/images/kerinci-expedition.jpg\",\"caption\":\"Dedikasi Generasi Insan Pencinta Alam Universitas Andalas\"}]"
   },
   "logs": [
+    {
+      "id": 683,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-21T10:31:26.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui konten statis bagian beranda"
+    },
+    {
+      "id": 682,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-21T10:21:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui konten statis bagian tentang_kami"
+    },
+    {
+      "id": 681,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-21T10:21:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui 3 foto slider halaman Tentang Kami"
+    },
+    {
+      "id": 680,
+      "aksi": "UPDATE_PRESTASI_BOXES",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-21T10:19:26.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui 4 kolom sorotan prestasi beranda"
+    },
+    {
+      "id": 679,
+      "aksi": "UPDATE_PRESTASI_BOXES",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-21T10:19:16.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui 4 kolom sorotan prestasi beranda"
+    },
+    {
+      "id": 678,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-21T10:18:37.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Sorotan KU (2026)"
+    },
+    {
+      "id": 677,
+      "aksi": "DELETE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-21T10:16:40.000Z",
+      "admin": "admin",
+      "detail": "Menghapus prestasi: ggggggg"
+    },
+    {
+      "id": 676,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-21T10:15:58.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: ggggggg (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 675,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-21T10:14:29.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: ggggggg (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 674,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-21T10:13:28.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: j (2026) "
+    },
+    {
+      "id": 673,
+      "aksi": "DELETE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-21T10:03:09.000Z",
+      "admin": "admin",
+      "detail": "Menghapus gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027) [ID: 70]"
+    },
+    {
+      "id": 672,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-21T10:02:49.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
+    },
+    {
+      "id": 671,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-21T10:02:41.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
+    },
+    {
+      "id": 670,
+      "aksi": "DELETE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:57:48.000Z",
+      "admin": "admin",
+      "detail": "Menghapus artikel: gg"
+    },
+    {
+      "id": 669,
+      "aksi": "UPDATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:55:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui artikel: ARIFAH NAIK GUNUNG (terbit)"
+    },
+    {
+      "id": 668,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:48:50.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: hh (draf) dengan 1 gambar"
+    },
+    {
+      "id": 667,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:48:38.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: gg (terbit) dengan 1 gambar"
+    },
+    {
+      "id": 666,
+      "aksi": "UPDATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:48:25.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui artikel: a (draf)"
+    },
+    {
+      "id": 665,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-21T09:47:54.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: a (terbit) dengan 1 gambar"
+    },
+    {
+      "id": 664,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:44:43.000Z",
+      "admin": "admin",
+      "detail": "Menghapus divisi: Arifah"
+    },
+    {
+      "id": 663,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-21T09:43:53.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: A (MU 555 Ccc.)"
+    },
+    {
+      "id": 662,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:41:13.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Arifah (ARF)"
+    },
+    {
+      "id": 661,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-21T09:40:09.000Z",
+      "admin": "admin",
+      "detail": "Admin mengisi data registrasi ulang tahun 2030 atas nama a (MU 111 Aaa.) [Override]"
+    },
+    {
+      "id": 660,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:22:49.000Z",
+      "admin": "admin",
+      "detail": "Menghapus divisi: Apa"
+    },
+    {
+      "id": 659,
+      "aksi": "UPDATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:22:13.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui nama divisi dari 'Arifa' menjadi 'Apa'"
+    },
+    {
+      "id": 658,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:22:06.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Arifa (CVG)"
+    },
+    {
+      "id": 657,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:16:44.000Z",
+      "admin": "admin",
+      "detail": "Menghapus divisi: Arifah"
+    },
+    {
+      "id": 656,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:14:10.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Arifah (ARF)"
+    },
+    {
+      "id": 655,
+      "aksi": "DELETE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:13:56.000Z",
+      "admin": "admin",
+      "detail": "Menghapus divisi: Arifah"
+    },
+    {
+      "id": 654,
+      "aksi": "CREATE_DIVISI",
+      "entitas": "divisi",
+      "waktu": "2026-11-21T09:13:47.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan divisi baru: Arifah (ARF)"
+    },
+    {
+      "id": 653,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-21T09:12:30.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2030 (2030) menjadi DIBUKA"
+    },
+    {
+      "id": 652,
+      "aksi": "CREATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-21T09:11:31.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2019 (2019)"
+    },
+    {
+      "id": 651,
+      "aksi": "CREATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-21T09:10:21.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2030 (2030)"
+    },
+    {
+      "id": 650,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-21T09:08:47.000Z",
+      "admin": "admin",
+      "detail": "Admin mengisi data registrasi ulang tahun 2020 atas nama Rahmat Hidayat (MU 280 RGM) [Override]"
+    },
+    {
+      "id": 649,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-21T09:08:09.000Z",
+      "admin": "admin",
+      "detail": "Admin mengisi data registrasi ulang tahun 2020 atas nama Rahmat Hidayat (MU 280 RGM) [Override]"
+    },
+    {
+      "id": 648,
+      "aksi": "IMPORT_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-21T09:01:11.000Z",
+      "admin": "admin",
+      "detail": "Berhasil mengimpor 2 anggota baru secara massal dari Excel ke MySQL."
+    },
+    {
+      "id": 647,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-21T08:45:35.000Z",
+      "admin": "MU 280 Rgm.",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
+    },
     {
       "id": 646,
       "aksi": "UPDATE_PERIODE",
@@ -1904,302 +2393,6 @@
       "waktu": "2026-11-21T08:18:14.000Z",
       "admin": "admin",
       "detail": "Memperbarui biodata tetap anggota MU 280 Rgm."
-    },
-    {
-      "id": 633,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T08:03:35.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Zara (MU 325 Ltn.)"
-    },
-    {
-      "id": 632,
-      "aksi": "UPDATE_STRUKTUR",
-      "entitas": "bagan_struktur",
-      "waktu": "2026-11-21T07:55:02.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
-    },
-    {
-      "id": 631,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-21T07:51:37.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: ARIFAH AZRE (draf)"
-    },
-    {
-      "id": 630,
-      "aksi": "GANTI_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-21T07:31:21.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "GANTI_PASSWORD"
-    },
-    {
-      "id": 629,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T07:26:13.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: A (MU 222 Bbb.)"
-    },
-    {
-      "id": 628,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T07:12:51.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 280 Rgm. menjadi diaktifkan"
-    },
-    {
-      "id": 627,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T07:10:11.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 280 Rgm. menjadi dinonaktifkan"
-    },
-    {
-      "id": 626,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T07:10:09.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 280 Rgm. menjadi diaktifkan"
-    },
-    {
-      "id": 625,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T07:09:16.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 280 Rgm. menjadi dinonaktifkan"
-    },
-    {
-      "id": 624,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:38:50.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 623,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:32:28.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 622,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-21T06:32:01.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2027 (2027) menjadi DIBUKA"
-    },
-    {
-      "id": 621,
-      "aksi": "CREATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-21T06:31:58.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2027 (2027)"
-    },
-    {
-      "id": 620,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:28:52.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 619,
-      "aksi": "INPUT_REGISTRASI_ADMIN",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:27:32.000Z",
-      "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2025 atas nama Arifah (MU 280 Rgm.) [Override]"
-    },
-    {
-      "id": 618,
-      "aksi": "UPDATE_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T06:27:06.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui biodata tetap anggota MU 280 Rgm."
-    },
-    {
-      "id": 617,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-21T06:23:40.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2025 (2025) menjadi DIBUKA"
-    },
-    {
-      "id": 616,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-21T06:23:38.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
-    },
-    {
-      "id": 615,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:23:26.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 614,
-      "aksi": "INPUT_REGISTRASI_ADMIN",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:22:38.000Z",
-      "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2025 atas nama ARifah (MU 280 Rgm.) [Override]"
-    },
-    {
-      "id": 613,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:16:32.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 612,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-21T06:16:20.000Z",
-      "admin": "MU 280 Rgm.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 611,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-21T05:43:04.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Arifah (MU 000 Aaa.)"
-    },
-    {
-      "id": 610,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:58:54.000Z",
-      "admin": "MU 123 Aaa.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 609,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:58:43.000Z",
-      "admin": "MU 123 Aaa.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 608,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:57:56.000Z",
-      "admin": "MU 123 Aaa.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 607,
-      "aksi": "AKTIVASI_AKUN_SELESAI",
-      "entitas": "anggota",
-      "waktu": "2026-11-20T03:51:10.000Z",
-      "admin": "MU 999 Arf.",
-      "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
-    },
-    {
-      "id": 606,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:49:18.000Z",
-      "admin": "MU 888 Arf.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 605,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:48:21.000Z",
-      "admin": "MU 888 Arf.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 604,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-20T03:46:10.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2025 (2025) menjadi DIBUKA"
-    },
-    {
-      "id": 603,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-20T03:46:09.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
-    },
-    {
-      "id": 602,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-20T03:46:05.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2025 (2025) menjadi DIBUKA"
-    },
-    {
-      "id": 601,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-20T03:46:04.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
-    },
-    {
-      "id": 600,
-      "aksi": "UPDATE_PERIODE",
-      "entitas": "periode_registrasi",
-      "waktu": "2026-11-20T03:45:45.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DITUTUP"
-    },
-    {
-      "id": 599,
-      "aksi": "GANTI_PASSWORD",
-      "entitas": "users",
-      "waktu": "2026-11-20T03:41:21.000Z",
-      "admin": "admin",
-      "detail": "GANTI_PASSWORD"
-    },
-    {
-      "id": 598,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-20T03:39:57.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: a (MU 999 Arf.)"
-    },
-    {
-      "id": 597,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-20T03:29:56.000Z",
-      "admin": "MU 888 Arf.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
     }
   ]
 }
