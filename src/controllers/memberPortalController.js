@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const { query, execute } = require('../config/mysql');
+const { toTitleCase } = require('../utils/formatters');
 
 // GET /api/member/privacy-policy
 exports.getPrivacyPolicy = async (req, res) => {
@@ -262,7 +263,7 @@ exports.updateProfile = async (req, res) => {
           updated_at = NOW()
       WHERE id = ?
     `, [
-      nama.trim(),
+      toTitleCase(nama),
       tempat_lahir ? tempat_lahir.trim() : null,
       tanggal_lahir || null,
       golongan_darah || null,
@@ -859,7 +860,7 @@ exports.completeActivation = async (req, res) => {
           updated_at = NOW()
       WHERE id = ?
     `, [
-      nama ? nama.trim() : null,
+      nama ? toTitleCase(nama) : null,
       tempat_lahir.trim(),
       tanggal_lahir,
       golongan_darah,

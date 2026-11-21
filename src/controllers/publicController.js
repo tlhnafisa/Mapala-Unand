@@ -202,12 +202,36 @@ exports.getTentangKamiContent = async (req, res) => {
 
     const missionRows = await query(`SELECT id, teks, urutan FROM misi_poin ORDER BY urutan ASC`);
 
+    let sejarahFotos = [
+      {
+        url: staticMap['sejarah_foto'] || '/images/about-unand.jpg',
+        caption: staticMap['sejarah_foto_caption'] || 'Pusat Kegiatan Mahasiswa (PKM) Unand & Gerbang Ekspedisi Bukit Barisan'
+      },
+      {
+        url: '/images/hero-mountain.jpg',
+        caption: 'Jejak Ekspedisi Rimba & Puncak Pegunungan Sejak 1984'
+      },
+      {
+        url: '/images/kerinci-expedition.jpg',
+        caption: 'Dedikasi Generasi Insan Pencinta Alam Universitas Andalas'
+      }
+    ];
+    if (staticMap['sejarah_fotos']) {
+      try {
+        const parsed = JSON.parse(staticMap['sejarah_fotos']);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          sejarahFotos = parsed.slice(0, 3);
+        }
+      } catch (_) {}
+    }
+
     return res.json({
       success: true,
       data: {
         sejarah: staticMap['sejarah'],
-        sejarah_foto: staticMap['sejarah_foto'] || '/images/about-unand.jpg',
-        sejarah_foto_caption: staticMap['sejarah_foto_caption'] || 'Dokumentasi perintis Mapala UNAND',
+        sejarah_foto: sejarahFotos[0]?.url || staticMap['sejarah_foto'] || '/images/about-unand.jpg',
+        sejarah_foto_caption: sejarahFotos[0]?.caption || staticMap['sejarah_foto_caption'] || 'Dokumentasi perintis Mapala UNAND',
+        sejarah_fotos: sejarahFotos,
         visi: staticMap['visi'],
         misi: missionRows,
         kode_etik: staticMap['kode_etik'],
@@ -355,7 +379,7 @@ exports.getArticleDetail = async (req, res) => {
              d.nama AS divisi, COALESCE(l.nama, 'Sumatera Barat') AS lokasi,
              a.ringkasan, a.isi, a.status_kegiatan, a.tim_capaian,
              DATE_FORMAT(a.tanggal_kegiatan, '%d %M %Y') AS tanggal,
-             COALESCE(u.username, 'Humas Mapala UNAND') AS penulis,
+             COALESCE(NULLIF(TRIM(a.tim_capaian), ''), u.username, 'Humas Mapala UNAND') AS penulis,
              COALESCE(ag.path, '/images/hero-mountain.jpg') AS foto_sampul
       FROM artikel a
       JOIN kategori_artikel k ON k.id = a.kategori_id

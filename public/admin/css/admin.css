@@ -451,6 +451,24 @@ body.theme-light .bg-white\/5 {
   border-color: #C8D8EC !important;
 }
 
+body.theme-light .bg-black\/20,
+body.theme-light .bg-black\/30,
+body.theme-light .bg-black\/40 {
+  background-color: #E8F0FA !important;
+  border-color: #C8D8EC !important;
+}
+
+body.theme-light .cms-tab-btn.bg-white\/5 {
+  background-color: #E1EBF8 !important;
+  border: 1px solid #C8D8EC !important;
+  color: #475569 !important;
+}
+
+body.theme-light .cms-tab-btn.bg-white\/5:hover {
+  background-color: #D4E2F4 !important;
+  color: #0F172A !important;
+}
+
 body.theme-light .bg-\[\#0A0E13\] {
   background-color: #F2F7FD !important;
 }
@@ -460,9 +478,18 @@ body.theme-light .bg-\[\#0D1217\] {
   border-color: #C8D8EC !important;
 }
 
-body.theme-light .bg-\[\#11161B\] {
+body.theme-light .bg-\[\#11161B\],
+body.theme-light .bg-\[\#131A22\] {
   background-color: #F2F7FD !important;
   border-color: #C8D8EC !important;
+}
+
+body.theme-light #exportDropdownMenu {
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14) !important;
+}
+
+body.theme-light #exportDropdownMenu button:hover {
+  background-color: #E2ECF9 !important;
 }
 
 body.theme-light .bg-\[\#1C2530\] {
@@ -595,13 +622,15 @@ body.theme-light .border-[#EF4444]/20 {
   border-color: rgba(220, 38, 38, 0.35) !important;
 }
 
-body.theme-light .text-[#38BDF8] {
+body.theme-light .text-\[\#38BDF8\] {
   color: #0284C7 !important;
 }
 
-body.theme-light .text-white/60,
-body.theme-light .text-white/70,
-body.theme-light .text-white/80 {
+body.theme-light .text-white\/50,
+body.theme-light .text-white\/60,
+body.theme-light .text-white\/70,
+body.theme-light .text-white\/80,
+body.theme-light .text-white\/90 {
   color: #475569 !important;
 }
 

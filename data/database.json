@@ -7,7 +7,7 @@
       "role": "admin",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-18T14:28:35.000Z",
+      "last_login": "2026-11-20T10:56:01.000Z",
       "nama": "admin"
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "username": "MU 280 RGM",
+      "username": "MU 280 Rgm.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "username": "MU 285 PCT",
+      "username": "MU 285 Pct.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "username": "MU 292 CAV",
+      "username": "MU 292 Cav.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -52,7 +52,7 @@
     },
     {
       "id": 6,
-      "username": "MU 301 OLA",
+      "username": "MU 301 Ola.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -62,7 +62,7 @@
     },
     {
       "id": 7,
-      "username": "MU 310 RGM",
+      "username": "MU 310 Rgm.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -72,7 +72,7 @@
     },
     {
       "id": 8,
-      "username": "MU 315 RGM",
+      "username": "MU 315 Rgm.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -82,7 +82,7 @@
     },
     {
       "id": 9,
-      "username": "MU 320 CAV",
+      "username": "MU 320 Cav.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -92,7 +92,7 @@
     },
     {
       "id": 10,
-      "username": "MU 325 PCT",
+      "username": "MU 325 Pct.",
       "password_hash": "$2b$10$RAvHjgRDmMtU3uPP0N.T1OcwTaiqpuhf/bzcAkiv1jzy.9BFw10wK",
       "role": "anggota",
       "status_aktif": true,
@@ -102,7 +102,7 @@
     },
     {
       "id": 11,
-      "username": "MU 330 OLA",
+      "username": "MU 330 Ola.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -112,7 +112,7 @@
     },
     {
       "id": 12,
-      "username": "MU 335 CAV",
+      "username": "MU 335 Cav.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -122,7 +122,7 @@
     },
     {
       "id": 13,
-      "username": "MU 120 RGM",
+      "username": "MU 120 Rgm.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -132,7 +132,7 @@
     },
     {
       "id": 14,
-      "username": "MU 145 PCT",
+      "username": "MU 145 Pct.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -142,7 +142,7 @@
     },
     {
       "id": 15,
-      "username": "MU 180 CAV",
+      "username": "MU 180 Cav.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -152,7 +152,7 @@
     },
     {
       "id": 16,
-      "username": "MU 215 OLA",
+      "username": "MU 215 Ola.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -162,7 +162,7 @@
     },
     {
       "id": 17,
-      "username": "MU 250 RGM",
+      "username": "MU 250 Rgm.",
       "password_hash": "$2b$10$YPAvIdrTKIWeTK92e.PR9OTHHffqjNaW/j4MRHJCWEO4r2Fvnm5zi",
       "role": "anggota",
       "status_aktif": true,
@@ -188,7 +188,7 @@
       "status_aktif": true,
       "must_change_password": true,
       "last_login": null,
-      "nama": "mk"
+      "nama": "Mk"
     },
     {
       "id": 50,
@@ -197,7 +197,7 @@
       "role": "anggota",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-16T08:54:34.000Z",
+      "last_login": "2026-11-20T11:25:25.000Z",
       "nama": "Aldian"
     },
     {
@@ -227,7 +227,7 @@
       "role": "anggota",
       "status_aktif": true,
       "must_change_password": false,
-      "last_login": "2026-11-18T13:58:53.000Z",
+      "last_login": "2026-11-19T04:17:25.000Z",
       "nama": "Mika"
     },
     {
@@ -238,13 +238,63 @@
       "status_aktif": true,
       "must_change_password": false,
       "last_login": "2026-11-18T14:20:17.000Z",
-      "nama": "ihiy"
+      "nama": "Ihiy"
+    },
+    {
+      "id": 55,
+      "username": "MU 344 Cav.",
+      "password_hash": "$2b$10$wM.d0bmMM3d9/irb3U9fK.tJ0FFsYA5GCKIvhmKoGkD2QIEpC3jKW",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": false,
+      "last_login": "2026-11-20T09:43:47.000Z",
+      "nama": "Aisyah Rahma Dani"
+    },
+    {
+      "id": 56,
+      "username": "MU 342 Pct.",
+      "password_hash": "$2b$10$MAx1aF6HsYUo8nAsybjRKeyaSNz/lvIO8MYjOTFIoMoqBbzFQVz3W",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": false,
+      "last_login": "2026-11-20T09:36:13.000Z",
+      "nama": "Nadia Putri Maharani"
+    },
+    {
+      "id": 57,
+      "username": "MU 347 Rgm.",
+      "password_hash": "$2b$10$dLRwgxBE48wj9bFkDwLd..1cYqeOR5xBIbftxN62V29Fnkkiw.2cy",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "Jeje"
+    },
+    {
+      "id": 58,
+      "username": "MU 389 Jvt.",
+      "password_hash": "$2b$10$.uYYeoKeUl.co1ptQYx3KewQRIhT/8WPiOz2t50WXuTZSXCn9QIZ6",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": true,
+      "last_login": null,
+      "nama": "Kiki"
+    },
+    {
+      "id": 59,
+      "username": "MU 355 Ltn.",
+      "password_hash": "$2b$10$KcGHEX0JNltNnTPYcQ0L4uDQR2pO0iUqneFwCwZgNWm1F2BrjRuZO",
+      "role": "anggota",
+      "status_aktif": true,
+      "must_change_password": false,
+      "last_login": "2026-11-20T10:08:27.000Z",
+      "nama": "Jekorrr"
     }
   ],
   "members": [
     {
       "id": 1,
-      "no_register": "MU 280 RGM",
+      "no_register": "MU 280 Rgm.",
       "nama": "Rahmat Hidayat",
       "divisi": "Rimba Gunung",
       "angkatan": 2018,
@@ -256,11 +306,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T08:34:32.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 2,
-      "no_register": "MU 285 PCT",
+      "no_register": "MU 285 Pct.",
       "nama": "Fajar Nugraha",
       "divisi": "Panjat Tebing",
       "angkatan": 2018,
@@ -272,11 +322,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 3,
-      "no_register": "MU 292 CAV",
+      "no_register": "MU 292 Cav.",
       "nama": "Dian Permata Sari",
       "divisi": "Caving",
       "angkatan": 2019,
@@ -288,11 +338,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 4,
-      "no_register": "MU 301 OLA",
+      "no_register": "MU 301 Ola.",
       "nama": "Ilham Syahputra",
       "divisi": "Olahraga Air",
       "angkatan": 2019,
@@ -304,14 +354,14 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 5,
-      "no_register": "MU 310 RGM",
+      "no_register": "MU 310 Rgm.",
       "nama": "Budi Santoso",
       "divisi": "Rimba Gunung",
-      "angkatan": 2020,
+      "angkatan": 2022,
       "tempat_lahir": "Kota Padang",
       "tanggal_lahir": "2000-01-10",
       "golongan_darah": "O",
@@ -320,11 +370,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T09:19:01.000Z"
     },
     {
       "id": 6,
-      "no_register": "MU 315 RGM",
+      "no_register": "MU 315 Rgm.",
       "nama": "Reza Pratama",
       "divisi": "Rimba Gunung",
       "angkatan": 2020,
@@ -336,11 +386,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 7,
-      "no_register": "MU 320 CAV",
+      "no_register": "MU 320 Cav.",
       "nama": "Siti Nurhaliza",
       "divisi": "Caving",
       "angkatan": 2021,
@@ -352,11 +402,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 8,
-      "no_register": "MU 325 PCT",
+      "no_register": "MU 325 Pct.",
       "nama": "Arif Gunawan",
       "divisi": "Panjat Tebing",
       "angkatan": 2021,
@@ -368,14 +418,14 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-11T09:33:20.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 9,
-      "no_register": "MU 330 OLA",
+      "no_register": "MU 330 Ola.",
       "nama": "Taufik Hidayat",
       "divisi": "Olahraga Air",
-      "angkatan": 2022,
+      "angkatan": 2021,
       "tempat_lahir": "Kota Bandung",
       "tanggal_lahir": "2002-04-18",
       "golongan_darah": "A",
@@ -384,11 +434,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T09:18:27.000Z"
     },
     {
       "id": 10,
-      "no_register": "MU 335 CAV",
+      "no_register": "MU 335 Cav.",
       "nama": "Aulia Rahman",
       "divisi": "Caving",
       "angkatan": 2022,
@@ -400,11 +450,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 11,
-      "no_register": "MU 120 RGM",
+      "no_register": "MU 120 Rgm.",
       "nama": "Indra Wijaya",
       "divisi": "Rimba Gunung",
       "angkatan": 1995,
@@ -416,11 +466,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 12,
-      "no_register": "MU 145 PCT",
+      "no_register": "MU 145 Pct.",
       "nama": "Yusuf Mansur",
       "divisi": "Panjat Tebing",
       "angkatan": 1998,
@@ -432,11 +482,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 13,
-      "no_register": "MU 180 CAV",
+      "no_register": "MU 180 Cav.",
       "nama": "Zulham Efendi",
       "divisi": "Caving",
       "angkatan": 2003,
@@ -448,11 +498,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 14,
-      "no_register": "MU 215 OLA",
+      "no_register": "MU 215 Ola.",
       "nama": "Hendri Marlis",
       "divisi": "Olahraga Air",
       "angkatan": 2008,
@@ -464,11 +514,11 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 15,
-      "no_register": "MU 250 RGM",
+      "no_register": "MU 250 Rgm.",
       "nama": "Doni Arman",
       "divisi": "Rimba Gunung",
       "angkatan": 2014,
@@ -480,7 +530,7 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-01-10T01:00:00.000Z",
-      "updated_at": "2026-11-10T06:14:21.000Z"
+      "updated_at": "2026-11-20T08:45:29.000Z"
     },
     {
       "id": 40,
@@ -501,7 +551,7 @@
     {
       "id": 47,
       "no_register": "MU 700 Opm.",
-      "nama": "mk",
+      "nama": "Mk",
       "divisi": "Rimba Gunung",
       "angkatan": 2026,
       "tempat_lahir": "padang",
@@ -512,7 +562,7 @@
       "status_aktif": true,
       "profil_lengkap": false,
       "created_at": "2026-11-11T14:47:09.000Z",
-      "updated_at": "2026-11-11T14:47:09.000Z"
+      "updated_at": "2026-11-20T08:52:34.000Z"
     },
     {
       "id": 48,
@@ -581,7 +631,7 @@
     {
       "id": 52,
       "no_register": "MU 020 Krn.",
-      "nama": "ihiy",
+      "nama": "Ihiy",
       "divisi": "Rimba Gunung",
       "angkatan": 2021,
       "tempat_lahir": "Sidempuan",
@@ -592,13 +642,93 @@
       "status_aktif": true,
       "profil_lengkap": true,
       "created_at": "2026-11-18T14:19:04.000Z",
-      "updated_at": "2026-11-18T14:20:57.000Z"
+      "updated_at": "2026-11-20T08:52:34.000Z"
+    },
+    {
+      "id": 53,
+      "no_register": "MU 344 Cav.",
+      "nama": "Aisyah Rahma Dani",
+      "divisi": "Caving",
+      "angkatan": 2025,
+      "tempat_lahir": "Kota Solok",
+      "tanggal_lahir": "2004-08-17",
+      "golongan_darah": "B",
+      "nama_ayah": "Budi Hartono",
+      "nama_ibu": "Ratna Dewi",
+      "status_aktif": true,
+      "profil_lengkap": true,
+      "created_at": "2026-11-20T08:39:21.000Z",
+      "updated_at": "2026-11-20T09:46:04.000Z"
+    },
+    {
+      "id": 54,
+      "no_register": "MU 342 Pct.",
+      "nama": "Nadia Putri Maharani",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2025,
+      "tempat_lahir": "Kota Bukittinggi",
+      "tanggal_lahir": "2005-07-22",
+      "golongan_darah": "A",
+      "nama_ayah": "Darwis Rahman",
+      "nama_ibu": "Siti Aminah",
+      "status_aktif": true,
+      "profil_lengkap": true,
+      "created_at": "2026-11-20T08:40:25.000Z",
+      "updated_at": "2026-11-20T09:30:46.000Z"
+    },
+    {
+      "id": 55,
+      "no_register": "MU 347 Rgm.",
+      "nama": "Jeje",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2023,
+      "tempat_lahir": "Kota Padang",
+      "tanggal_lahir": "2004-05-12",
+      "golongan_darah": "O",
+      "nama_ayah": "Hasan Basri",
+      "nama_ibu": "Rosmawati",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-20T09:14:34.000Z",
+      "updated_at": "2026-11-20T09:14:34.000Z"
+    },
+    {
+      "id": 56,
+      "no_register": "MU 389 Jvt.",
+      "nama": "Kiki",
+      "divisi": "Panjat Tebing",
+      "angkatan": 2026,
+      "tempat_lahir": "Kota Solok",
+      "tanggal_lahir": "2026-11-19",
+      "golongan_darah": "AB",
+      "nama_ayah": "Ayah Aldian",
+      "nama_ibu": "Ibu Aldian",
+      "status_aktif": true,
+      "profil_lengkap": false,
+      "created_at": "2026-11-20T09:16:02.000Z",
+      "updated_at": "2026-11-20T09:16:02.000Z"
+    },
+    {
+      "id": 57,
+      "no_register": "MU 355 Ltn.",
+      "nama": "Jekorrr",
+      "divisi": "Rimba Gunung",
+      "angkatan": 2024,
+      "tempat_lahir": "pariaman",
+      "tanggal_lahir": "2004-01-01",
+      "golongan_darah": "A",
+      "nama_ayah": "asep",
+      "nama_ibu": "dini",
+      "status_aktif": true,
+      "profil_lengkap": true,
+      "created_at": "2026-11-20T09:55:24.000Z",
+      "updated_at": "2026-11-20T10:09:33.000Z"
     }
   ],
   "reRegistrations": [
     {
       "id": 1,
-      "no_register": "MU 280 RGM",
+      "no_register": "MU 280 Rgm.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Gajah Mada No. 42, Kel. Gunung Pangilun",
@@ -616,7 +746,7 @@
     },
     {
       "id": 2,
-      "no_register": "MU 285 PCT",
+      "no_register": "MU 285 Pct.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Panorama No. 18, Kel. Kayu Kubuk",
@@ -634,7 +764,7 @@
     },
     {
       "id": 3,
-      "no_register": "MU 292 CAV",
+      "no_register": "MU 292 Cav.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Ahmad Yani No. 15, Kel. Simpang Rumbio",
@@ -652,7 +782,7 @@
     },
     {
       "id": 4,
-      "no_register": "MU 301 OLA",
+      "no_register": "MU 301 Ola.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Veteran No. 8, Kel. Tiakar",
@@ -670,7 +800,7 @@
     },
     {
       "id": 5,
-      "no_register": "MU 310 RGM",
+      "no_register": "MU 310 Rgm.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Diponegoro No. 3, Kel. Sukajadi",
@@ -688,7 +818,7 @@
     },
     {
       "id": 6,
-      "no_register": "MU 315 RGM",
+      "no_register": "MU 315 Rgm.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Melati Blok C No. 12",
@@ -706,7 +836,7 @@
     },
     {
       "id": 7,
-      "no_register": "MU 325 PCT",
+      "no_register": "MU 325 Pct.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Komp. Griya Indah Blok C/8, Cilandak",
@@ -724,7 +854,7 @@
     },
     {
       "id": 8,
-      "no_register": "MU 335 CAV",
+      "no_register": "MU 335 Cav.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Jl. Dago Asri No. 55",
@@ -742,7 +872,7 @@
     },
     {
       "id": 9,
-      "no_register": "MU 120 RGM",
+      "no_register": "MU 120 Rgm.",
       "periode_tahun": 2026,
       "foto_terbaru": "/uploads/default-avatar.png",
       "alamat_rumah": "Komp. Unand Blok B/4, Limau Manis",
@@ -760,7 +890,7 @@
     },
     {
       "id": 12,
-      "no_register": "MU 145 PCT",
+      "no_register": "MU 145 Pct.",
       "periode_tahun": 2026,
       "foto_terbaru": null,
       "alamat_rumah": "Jl. Unand No. 45, Limau Manis",
@@ -829,6 +959,42 @@
       "submitted_at": "2026-11-18T14:21:49.000Z",
       "updated_at": "2026-11-18T14:21:49.000Z",
       "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 39,
+      "no_register": "MU 342 Pct.",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/foto_terbaru-1795167164593-147301757.jpg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Padang",
+      "provinsi": "Sumatera Barat",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081267890321",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "081267890100",
+      "sumber_input": "admin",
+      "input_by": "admin",
+      "submitted_at": "2026-11-20T09:32:44.000Z",
+      "updated_at": "2026-11-20T09:57:15.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
+    },
+    {
+      "id": 40,
+      "no_register": "MU 344 Cav.",
+      "periode_tahun": 2026,
+      "foto_terbaru": "/uploads/foto_terbaru-1795168166076-808046586.jpeg",
+      "alamat_rumah": "Jl. Gajah Mada No. 42, Gunung Pangilun",
+      "kota_kabupaten": "Kota Medan",
+      "provinsi": "Sumatera Utara",
+      "pekerjaan": "Software Engineer",
+      "no_hp": "081267890123",
+      "email": "rahmat.hidayat@gmail.com",
+      "kontak_darurat": "081267890355",
+      "sumber_input": "mandiri",
+      "input_by": "mandiri",
+      "submitted_at": "2026-11-20T09:47:42.000Z",
+      "updated_at": "2026-11-20T09:49:26.000Z",
+      "status_registrasi": "Sudah Registrasi Ulang"
     }
   ],
   "periodes": [
@@ -847,6 +1013,15 @@
       "nama_periode": "Registrasi Ulang Tahunan 2025",
       "tanggal_buka": "2025-01-01",
       "tanggal_tutup": "2025-12-31",
+      "is_active": false,
+      "status": "tutup"
+    },
+    {
+      "id": 3,
+      "tahun": 2027,
+      "nama_periode": "Registrasi Ulang Tahunan 2027",
+      "tanggal_buka": "2027-01-01",
+      "tanggal_tutup": "2027-12-31",
       "is_active": false,
       "status": "tutup"
     }
@@ -905,88 +1080,88 @@
   ],
   "articles": [
     {
-      "id": 33,
-      "judul": "Zeri",
-      "slug": "zeri",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794639383380-684250922.png",
-      "tanggal": "2026-11-09",
+      "id": 39,
+      "judul": "bedah gunung kerinci via solok selatan",
+      "slug": "bedah-gunung-kerinci-via-solok-selatan",
+      "kategori": "pendakian-rimba",
+      "foto": "/uploads/fotos-1795168907795-536821660.jpeg",
+      "tanggal": "2026-10-20",
       "status": "terbit",
       "penulis": "admin",
-      "ringkasan": "jddshcjsdjdjfjdjfdjfjdshfjhjd",
-      "isi": "ujfjjfjfsjkdjgfjksdfjsjdfhsjdfhksfdshjkdsfhjkfshdj",
+      "ringkasan": "bedah gunung merupakan kegiatan merapikan jalur pendakian agar sesuai dengan SOP",
+      "isi": "adffjhigjkiewjv jvniegjie",
       "status_kegiatan": "Selesai",
-      "tim_capaian": "Bidang Kesekretariatan & Humas"
+      "tim_capaian": "jekorrr"
     },
     {
-      "id": 24,
-      "judul": "Ekspedisi Penjelajahan Uji Integrasi CMS 202789887887",
-      "slug": "ekspedisi-penjelajahan-uji-integrasi-cms-2026-5755",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794406523535-458682318.jpeg",
+      "id": 38,
+      "judul": "Acid Manjat Tebing",
+      "slug": "acid-manjat-tebing",
+      "kategori": "program-divisi",
+      "foto": "/uploads/fotos-1795166611400-895876155.jpeg",
+      "tanggal": "2026-11-20",
+      "status": "terbit",
+      "penulis": "admin",
+      "ringkasan": "jdnjns",
+      "isi": "Saya berenang sambil naik perahu",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "Acid"
+    },
+    {
+      "id": 37,
+      "judul": "Eksplorasi Speleologi & Pemetaan 3D Gua Karst Ngalau Indah",
+      "slug": "eksplorasi-speleologi-pemetaan-3d-gua-karst-ngalau-indah",
+      "kategori": "program-divisi",
+      "foto": "/uploads/fotos-1795161651075-501387386.jpg",
+      "tanggal": "2026-02-11",
+      "status": "terbit",
+      "penulis": "admin",
+      "ringkasan": "Pemetaan topografi lorong horizontal-vertikal sepanjang 640 meter serta observasi kualitas sumber air bawah tanah karst.",
+      "isi": "<p>Divisi Caving Mapala UNAND melakukan ekspedisi pemetaan bawah tanah di salah satu sistem gua karst di Payakumbuh. Menggunakan standar survei UIS Grade 5, tim mengukur sudut inklinasi, azimuth lorong, serta dimensi ruang gua menggunakan clinometer, kompas, dan meteran laser.</p>\r\n<h2>Temuan Hidrogeologi & Fauna Gua</h2>\r\n<p>Selama tiga hari eksplorasi, tim berhasil memetakan total panjang lorong 640 meter termasuk dua cabang sungai bawah tanah yang mengalir stabil sepanjang tahun. Observasi biologis juga mencatat keberadaan koloni kelelawar pemakan serangga dan beberapa spesies serangga gua tanpa menyentuh maupun merusak ornamen stalaktit dan stalagmit.</p>",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "BukSur"
+    },
+    {
+      "id": 36,
+      "judul": "Ekspedisi Navigasi Arus Deras & Pemetaan Jeram Sungai Batang Anai",
+      "slug": "ekspedisi-navigasi-arus-deras-pemetaan-jeram-sungai-batang-anai",
+      "kategori": "program-divisi",
+      "foto": "/uploads/fotos-1795161553121-716505182.jpg",
       "tanggal": "2026-11-10",
       "status": "terbit",
       "penulis": "admin",
-      "ringkasan": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.uhuuyyyyyyy...",
-      "isi": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.uhuuyyyyyyy",
-      "status_kegiatan": "Selesai Riset",
-      "tim_capaian": "12 Anggota Tim Peneliti"
-    },
-    {
-      "id": 23,
-      "judul": "Ekspedisi Penjelajahan Uji Integrasi CMS 2026",
-      "slug": "ekspedisi-penjelajahan-uji-integrasi-cms-2026",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794395231410-811173400.jpeg",
-      "tanggal": "2026-11-10",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Riset keanekaragaman flora endemik dan pemetaan jalur evakuasi baru.",
-      "isi": "Kegiatan ekspedisi riset jalur baru Gunung Talang berhasil memetakan 3 titik sumber air bersih dan 18 spesies anggrek hutan tropis basah.",
-      "status_kegiatan": "Selesai Riset",
-      "tim_capaian": "12 Anggota Tim Peneliti"
-    },
-    {
-      "id": 8,
-      "judul": "Ekspedisi Penjelajahan Punggung Rimba Singgalang 2026 (E2E Test)",
-      "slug": "ekspedisi-penjelajahan-punggung-rimba-singgalang-2026-e2e-test",
-      "kategori": "ekspedisi",
-      "foto": "/uploads/fotos-1794395275777-222133593.jpeg",
-      "tanggal": "2026-05-15",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Laporan narasi mendalam penjelajahan alam bebas Mapala UNAND melewati lintasan hutan lumut....",
-      "isi": "Laporan narasi mendalam penjelajahan alam bebas Mapala UNAND melewati lintasan hutan lumut.",
+      "ringkasan": "Pengarungan teknis sejauh 22 km untuk memetakan profil jeram grade III–IV serta titik rawan luapan debit air musiman.",
+      "isi": "<p>Mengawali musim penghujan, Divisi Olahraga Air Mapala Universitas Andalas menuntaskan pengarungan eksplorasi di aliran Sungai Batang Anai sejauh 22 kilometer. Ekspedisi ini menggabungkan uji ketangkasan navigasi perahu karet dengan pemetaan karakteristik jeram sungai.</p>\r\n<h2>Pemetaan Titik Rawan & Latihan Throw Bag</h2>\r\n<p>Sepanjang lintasan, tim mendokumentasikan delapan titik jeram kategori grade III hingga IV, lengkap dengan catatan perubahan alur sungai akibat sedimentasi batu dan batang kayu tumbang. Di setiap segmen berarus deras, tim juga melakukan simulasi penyelamatan perenang hanyut menggunakan throw bag dan teknik flip recovery.</p>\r\n<h2>Manfaat Bagi Masyarakat Sekitar</h2>\r\n<p>Data profil debit dan titik penyempitan alur sungai dibagikan kepada kelompok sadar wisata arung jeram lokal sebagai rujukan keselamatan operasional.</p>",
       "status_kegiatan": "Selesai",
-      "tim_capaian": "Humas Mapala UNAND"
+      "tim_capaian": "Zuhdi"
     },
     {
-      "id": 5,
-      "judul": "Pelatihan Navigasi Darat dan Survival Anggota Muda 2026",
-      "slug": "pelatihan-navigasi-darat-survival-2026",
-      "kategori": "berita-edukasi",
-      "foto": "/uploads/fotos-1794395251441-335483914.jpeg",
-      "tanggal": "2026-02-15",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Draf kurikulum pembekalan dasar operasional hutan gunung mencakup penguasaan peta topografi skala 1:25.000, penggunaan klinometer, pemahaman navigasi bintan",
-      "isi": "<p>Draf kurikulum pembekalan dasar operasional hutan gunung mencakup penguasaan peta topografi skala 1:25.000, penggunaan klinometer, pemahaman navigasi bintang, dan teknik bivak darurat di bawah kanopi basah.</p>",
-      "status_kegiatan": "Tahap Persiapan",
-      "tim_capaian": "Instruktur Senior"
-    },
-    {
-      "id": 4,
-      "judul": "Arung Jeram & Navigasi Batang Tarusan",
-      "slug": "arung-jeram-navigasi-batang-tarusan",
+      "id": 35,
+      "judul": "Latihan Gabungan Vertical Rescue & Pembersihan Jalur Lembah Harau",
+      "slug": "latihan-gabungan-vertical-rescue-pembersihan-jalur-lembah-harau",
       "kategori": "kegiatan-lapangan",
-      "foto": "/images/rafting.jpg",
-      "tanggal": "2024-07-05",
+      "foto": "/uploads/fotos-1795161477726-46641785.jpg",
+      "tanggal": "2026-06-09",
       "status": "terbit",
       "penulis": "admin",
-      "ringkasan": "Pengarungan jeram grade IV+, pemetaan titik bahaya hidrologi, serta edukasi kesiapsiagaan banjir bandang nagari.",
-      "isi": "<p>Divisi Olahraga Air Mapala UNAND sukses menuntaskan ekspedisi pengarungan Sungai Batang Tarusan di Kabupaten Pesisir Selatan. Pengarungan sejauh 28 kilometer ini menembus jeram-jeram teknis kelas IV+ sekaligus melakukan pemetaan profil hidrologi dan titik penumpukan sedimentasi kayu untuk peringatan dini mitigasi banjir luapan.</p>",
-      "status_kegiatan": "Sukses Lapangan",
-      "tim_capaian": "14 Skipper & Rescue"
+      "ringkasan": "Simulasi evakuasi korban di tebing vertikal 80 meter disertai pembersihan residu pengaman pada jalur pemanjatan alami.",
+      "isi": "<p>Divisi Panjat Tebing Mapala UNAND menggelar latihan gabungan teknik penyelamatan vertikal (vertical rescue) di dinding granit Lembah Harau. Kegiatan ini bertujuan mengasah kesiapsiagaan anggota menghadapi skenario kecelakaan pemanjatan maupun evakuasi di medan terjal Sumatera Barat.</p>\r\n<h2>Skenario Evakuasi & Audit Pengaman</h2>\r\n<p>Tim mempraktikkan sistem hauling 3:1, teknik lowering dua tali, serta stabilisasi tandu gantung pada ketinggian 80 meter. Selain latihan teknis, tim juga melakukan pengecekan kelayakan hanger dan pembersihan sampah plastik di dasar tebing guna menjaga kebersihan kawasan cagar alam.</p>\r\n<h2>Komitmen Pemanjatan Beretika</h2>\r\n<p>Seluruh kegiatan dilaksanakan dengan prinsip clean climbing agar struktur batuan alami tebing tetap terjaga bagi generasi pemanjat berikutnya.</p>",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "Mika, Zeri, Rasyid"
+    },
+    {
+      "id": 34,
+      "judul": "Ekspedisi Pemetaan Jalur & Vegetasi Gunung Talang 2026",
+      "slug": "ekspedisi-pemetaan-jalur-vegetasi-gunung-talang-2026",
+      "kategori": "ekspedisi",
+      "foto": "/uploads/fotos-1795161300796-645990644.jpg",
+      "tanggal": "2026-08-08",
+      "status": "terbit",
+      "penulis": "admin",
+      "ringkasan": "Pemetaan jalur evakuasi darurat serta inventarisasi flora hutan lumut dan anggrek epifit di lereng Gunung Talang.",
+      "isi": "<p>Tim Ekspedisi Divisi Rimba Gunung Mapala Universitas Andalas melaksanakan penjelajahan dan riset lapangan selama lima hari di kawasan Gunung Talang, Kabupaten Solok. Fokus utama kegiatan ini adalah pemetaan ulang jalur pendakian alternatif serta pendataan titik sumber air bersih untuk kebutuhan mitigasi darurat.</p>\r\n<h2>Metodologi Pemetaan & Inventarisasi Flora</h2>\r\n<p>Dengan memadukan pembacaan kompas bidik, peta topografi skala 1:25.000, dan perekaman koordinat GPS, tim berhasil memetakan tiga titik shelter darurat yang aman dari embusan angin puncak. Di sepanjang zona hutan lumut pada ketinggian 2.100–2.450 MDPL, tim botani mencatat 27 spesies anggrek hutan tropis serta beberapa koloni kantong semar endemik Sumatera.</p>\r\n<blockquote>\"Setiap langkah di rimba harus meninggalkan jejak pengetahuan yang bermanfaat bagi keselamatan pendaki dan kelestarian ekosistem gunung.\"</blockquote>\r\n<h2>Hasil & Rekomendasi</h2>\r\n<p>Laporan teknis hasil pemetaan telah diserahkan kepada pengelola pos pendakian setempat sebagai bahan pembaruan papan informasi jalur dan rambu peringatan dini cuaca ekstrem.</p>",
+      "status_kegiatan": "Selesai",
+      "tim_capaian": "Zumba Niga"
     },
     {
       "id": 3,
@@ -1015,505 +1190,506 @@
       "isi": "<p>Kawasan karst Halaban di Kabupaten Lima Puluh Kota menyimpan jaringan lorong gua bawah tanah yang belum terpetakan secara komprehensif. Divisi Speleologi Mapala UNAND menerjunkan tim spesialis susur gua (caving) tingkat mahir untuk melakukan pemetaan lorong vertikal dan horizontal dengan standar UIS (Union Internationale de Sp??l??ologie) Grade 5.</p><h2>Riset Biospeleologi Gua Gelap Abadi</h2><p>Dalam zona kegelapan total (deep zone) yang berjarak lebih dari 450 meter dari mulut gua, tim berhasil mengidentifikasi populasi fauna troglobit yang telah teradaptasi secara evolusioner tanpa pigmen mata. Pengukuran kualitas air tanah karst menunjukkan tingkat kemurnian kalsium karbonat alami yang sangat vital sebagai sumber air minum bagi tiga nagari sekitar.</p>",
       "status_kegiatan": "Publikasi Riset",
       "tim_capaian": "12 Anggota Caver"
-    },
-    {
-      "id": 1,
-      "judul": "Ekspedisi Gunung Kerinci 3.805 MDPL",
-      "slug": "ekspedisi-gunung-kerinci-3805-mdpl",
-      "kategori": "ekspedisi",
-      "foto": "/images/kerinci-expedition.jpg",
-      "tanggal": "2024-10-14",
-      "status": "terbit",
-      "penulis": "admin",
-      "ringkasan": "Pendakian riset vegetasi di batas tinggi, pemetaan jalur evakuasi, dan pendataan keanekaragaman flora endemik batas vegetasi.",
-      "isi": "<p>Gunung Kerinci, sebagai atap tertinggi Pulau Sumatera dengan elevasi 3.805 meter di atas permukaan laut, menjadi laboratorium alam terbuka bagi tim ekspedisi Mapala Universitas Andalas. Ekspedisi yang berlangsung selama tujuh hari ini difokuskan pada riset zonasi vegetasi sub-alpin serta pemetaan titik-titik krusial mitigasi bencana erupsi dan jalur evakuasi darurat.</p><h2>Fokus Riset & Metodologi</h2><p>Tim riset membagi kelompok kerja menjadi tiga gugus: tim navigasi & pemetaan digital topografi, tim botani hutan hujan dataran tinggi, dan tim survival operasional. Sepanjang jalur Kersik Tuo menuju Shelter 3 dan batas vegetasi (Plawangan), tim berhasil menginventarisasi 42 spesies tumbuhan lumut dan anggrek epifit endemik Sumatera.</p><blockquote>\"Ekspedisi rimba bukan sekadar perlombaan menapakkan kaki di titik puncak, melainkan bagaimana seorang pencinta alam membawa pulang data saintifik yang berguna bagi perlindungan ekosistem jangka panjang.\"</blockquote><h2>Temuan Lapangan & Rekomendasi Mitigasi</h2><p>Berdasarkan hasil pemetaan menggunakan GPS frekuensi ganda dan observasi kestabilan lereng, ditemukan abrasi jalur setapak aktif di lintasan Shelter 2 ke Shelter 3 akibat intensitas pendaki publik yang tinggi. Tim Mapala UNAND telah menyusun dokumen rekomendasi konservasi jalur dan revitalisasi rambu peringatan dini erupsi untuk diserahkan ke Balai Besar Taman Nasional Kerinci Seblat (BBTNKS).</p>",
-      "status_kegiatan": "Rampung",
-      "tim_capaian": "18 Anggota Tim Riset"
     }
   ],
   "prestasi": [
     {
+      "id": 16,
+      "tahun": 2026,
+      "kategori": "Kompetisi",
+      "judul": "Juara 1 Kejuaraan Nasional Wall Climbing Tingkat Mahasiswa Kategori Speed & Lead",
+      "deskripsi": "Tim Panjat Tebing Mapala Universitas Andalas berhasil meraih medali emas pada ajang Kejuaraan Nasional Wall Climbing Mahasiswa Indonesia 2026 yang diselenggarakan di Yogyakarta. Kemenangan ini diraih setelah menyisihkan 48 kontingen universitas dari seluruh Indonesia melalui latihan intensif selama enam bulan penuh dengan catatan waktu tercepat di babak final.",
+      "info_label_1": "FPTI & Kemenpora RI",
+      "info_label_2": null,
+      "foto": "/uploads/foto-1795161956942-514224384.jpg",
+      "is_sorotan": 1,
+      "sorotan_judul": "Juara 1 Kejuaraan Nasional Wall Climbing Tingkat Mahasiswa Kategori Speed & Lead",
+      "sorotan_subjudul": "Tahun 2026",
+      "sorotan_detail": "Tim Panjat Tebing Mapala Universitas Andalas berhasil meraih medali emas pada ajang Kejuaraan Nasional Wall Climbing Mahasiswa Indonesia 2026 yang diselenggarakan di Yogyakarta. Kemenangan ini diraih setelah menyisihkan 48 kontingen universitas dari selur"
+    },
+    {
+      "id": 17,
+      "tahun": 2026,
+      "kategori": "Konservasi",
+      "judul": "Penghargaan Pelopor Konservasi Hutan & Daerah Aliran Sungai Sumatera Barat",
+      "deskripsi": "Diberikan oleh Pemerintah Provinsi Sumatera Barat bersama Balai Konservasi Sumber Daya Alam atas konsistensi Mapala UNAND dalam program penanaman 2.500 bibit pohon endemik, pemulihan sempadan sungai, serta edukasi lingkungan di kawasan penyangga Taman Nasional.",
+      "info_label_1": "Pemprov Sumbar & BKSDA",
+      "info_label_2": null,
+      "foto": "/uploads/foto-1795162010877-133829283.jpg",
+      "is_sorotan": 0,
+      "sorotan_judul": "Penghargaan Pelopor Konservasi Hutan & Daerah Aliran Sungai Sumatera Barat",
+      "sorotan_subjudul": "Tahun 2026",
+      "sorotan_detail": "Diberikan oleh Pemerintah Provinsi Sumatera Barat bersama Balai Konservasi Sumber Daya Alam atas konsistensi Mapala UNAND dalam program penanaman 2.500 bibit pohon endemik, pemulihan sempadan sungai, serta edukasi lingkungan di kawasan penyangga Taman Nas"
+    },
+    {
       "id": 1,
       "tahun": 2025,
       "kategori": "Kejuaraan Nasional Panjat Tebing",
-      "judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di",
+      "judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang",
       "deskripsi": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pecinta alam dari seluruh Indonesia. Pencapaian membanggakan ini membuktikan ketangguhan fisik, ketepatan navigasi darat, manajemen perjalanan, serta soliditas kerja sama tim Mapala UNAND dalam menaklukkan medan pegunungan ekstrem di wilayah Sumatera Barat.",
       "info_label_1": "Tingkat: Nasional Mahasiswa",
       "info_label_2": "Kategori: Lead Climbing",
-      "foto": "/images/trophy-achievement.jpg",
-      "is_sorotan": 1,
-      "sorotan_judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di",
+      "foto": "/uploads/foto-1795162845773-553483310.jpeg",
+      "is_sorotan": 0,
+      "sorotan_judul": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang",
       "sorotan_subjudul": "Tahun 2025",
       "sorotan_detail": "Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen mahasiswa pecinta alam dari seluruh Indonesia. Pencapaian membanggakan ini membuktikan ketangguhan fisik, ketepatan navigasi dar"
     },
     {
-      "id": 2,
-      "tahun": 2024,
-      "kategori": "Konservasi Lingkungan Hidup",
-      "judul": "Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat",
-      "deskripsi": "Meraih Juara 2 Kategori Putra pada Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen se-Indonesia, membuktikan ketangguhan fisik, navigasi darat, dan soliditas tim Mapala UNAND di medan ekstrem.",
-      "info_label_1": "Tingkat: Provinsi Sumbar",
-      "info_label_2": "Kategori: Penyelamat Lingkungan",
-      "foto": "/uploads/foto-1794739189933-549286393.jpeg",
+      "id": 18,
+      "tahun": 2025,
+      "kategori": "Kompetisi",
+      "judul": "Juara Umum Lomba Lintas Alam & Navigasi Rimba Nasional",
+      "deskripsi": "Meraih peringkat pertama kategori beregu putra dan putri pada kompetisi lintas alam tingkat nasional sejauh 42 kilometer dengan penilaian ketepatan plotting koordinat, manajemen perjalanan, serta ketahanan fisik tim di medan hutan tropis.",
+      "info_label_1": "Wanadri & Komunitas Mapala Nusantara",
+      "info_label_2": null,
+      "foto": "/uploads/foto-1795162053828-19000250.jpg",
       "is_sorotan": 0,
-      "sorotan_judul": "Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat",
-      "sorotan_subjudul": "Tahun 2024",
-      "sorotan_detail": "Meraih Juara 2 Kategori Putra pada Lomba Lintas Alam Nasional di Padang Panjang yang diikuti puluhan kontingen se-Indonesia, membuktikan ketangguhan fisik, navigasi darat, dan soliditas tim Mapala UNAND di medan ekstrem."
+      "sorotan_judul": "Juara Umum Lomba Lintas Alam & Navigasi Rimba Nasional",
+      "sorotan_subjudul": "Tahun 2025",
+      "sorotan_detail": "Meraih peringkat pertama kategori beregu putra dan putri pada kompetisi lintas alam tingkat nasional sejauh 42 kilometer dengan penilaian ketepatan plotting koordinat, manajemen perjalanan, serta ketahanan fisik tim di medan hutan tropis."
     },
     {
-      "id": 3,
-      "tahun": 2023,
-      "kategori": "Ekspedisi Speleologi Ilmiah",
-      "judul": "Rekor Pemetaan Sistem Gua Vertikal hhhTerdalam Sumatera",
-      "deskripsi": "Berhasil memetakan sistem lorong vertikal bertingkat kedalaman -180 meter di kawasan Karst Payakumbuh.",
-      "info_label_1": "Tingkat: Riset Eksplorasi",
-      "info_label_2": "Standar: UIS Grade 5",
-      "foto": "/uploads/foto-1794310208566-688594823.jpg",
+      "id": 19,
+      "tahun": 2025,
+      "kategori": "Riset & Eksplorasi",
+      "judul": "Publikasi Riset Pemetaan Karst Terbaik Simposium Speleologi Nasional",
+      "deskripsi": "Tim Riset Divisi Caving Mapala UNAND memperoleh penghargaan karya tulis ilmiah dan peta 3D gua terbaik pada Simposium Speleologi Indonesia melalui kajian hidrologi bawah tanah kawasan karst Sumatera Barat.",
+      "info_label_1": "Masyarakat Speleologi Indonesia",
+      "info_label_2": null,
+      "foto": "/uploads/foto-1795162102895-306863952.jpg",
       "is_sorotan": 0,
-      "sorotan_judul": "Rekor Pemetaan Sistem Gua Vertikal hhhTerdalam Sumatera",
-      "sorotan_subjudul": "Tahun 2023",
-      "sorotan_detail": "Berhasil memetakan sistem lorong vertikal bertingkat kedalaman -180 meter di kawasan Karst Payakumbuh."
-    },
-    {
-      "id": 4,
-      "tahun": 2022,
-      "kategori": "Navigasi Rimba Darat",
-      "judul": "Juara Umum Lomba Lintas Alam Nusantara",
-      "deskripsi": "Menjuarai navigasi darat ketahanan fisik beregu 45 km melintasi Taman Nasional Kerinci Seblat.",
-      "info_label_1": "Tingkat: Nasional",
-      "info_label_2": "Peserta: 64 Tim Mapala se-Indonesia",
-      "foto": "/images/about-unand.jpg",
-      "is_sorotan": 0,
-      "sorotan_judul": null,
-      "sorotan_subjudul": null,
-      "sorotan_detail": null
+      "sorotan_judul": "Publikasi Riset Pemetaan Karst Terbaik Simposium Speleologi Nasional",
+      "sorotan_subjudul": "Tahun 2025",
+      "sorotan_detail": "Tim Riset Divisi Caving Mapala UNAND memperoleh penghargaan karya tulis ilmiah dan peta 3D gua terbaik pada Simposium Speleologi Indonesia melalui kajian hidrologi bawah tanah kawasan karst Sumatera Barat."
     }
   ],
   "kontenStatis": {
     "hero_judul": "MAPALA UNAND",
-    "hero_tagline": "Menjelajahi dan Menelusuri Alam dengan Cinta",
+    "hero_tagline": "Menjelajah Rimba, Menjaga Lestari, Mengabdi Sepanjang Hayat.",
     "hero_deskripsi": "Wadah penempaan karakter, kecintaan konservasi keanekaragaman hayati, dan dedikasi petualangan ilmiah rimba Nusantara sejak 1984.",
     "hero_foto": "/images/hero-mountain.jpg",
-    "sejarah": "Sejarah pembaruan uji sistem: Didirikan pada tahun 1984 di Universitas Andalas.",
-    "sejarah_foto": "/images/about-unand.jpg",
-    "sejarah_foto_caption": "Dokumentasi kegiatan lapangan perintis Mapala UNAND",
-    "visi": "Menjadi organisasi kepencintaalaman yang terdepan dalam konservasi dan sains petualangan rimba 2026.",
+    "sejarah": "Mapala Universitas Andalas (MAPALA UNAND) berdiri pada tahun 1984 sebagai Unit Kegiatan Mahasiswa yang mewadahi minat dan bakat mahasiswa di bidang kepencintaalaman, petualangan alam bebas, riset ilmiah, serta pelestarian lingkungan hidup. Selama lebih dari empat dekade, Mapala UNAND konsisten melahirkan kader-kader tangguh yang berkontribusi dalam ekspedisi nusantara maupun misi kemanusiaan kebencanaan.",
+    "sejarah_foto": "/uploads/foto_0-1795169131640-996945107.jpeg",
+    "sejarah_foto_caption": "MU 352 Ltn.",
+    "visi": "Menjadi organisasi kepencintaalaman ditingkat mahasiswa yang unggul, profesional, dan berintegritas dalam petualangan ilmiah, konservasi alam, serta pengabdian kemanusiaan.",
     "kode_etik": "Pencinta Alam Indonesia sadar bahwa alam beserta isinya adalah ciptaan Tuhan Yang Maha Esa. Pencinta Alam Indonesia sebagai bagian dari masyarakat Indonesia sadar akan tanggung jawabnya kepada Tuhan, bangsa, dan tanah air. Pencinta Alam Indonesia sadar bahwa segenap pecinta alam adalah saudara sebagai makhluk yang mencintai alam sebagai ciptaan yang Maha Kuasa.",
     "kode_etik_keterangan": "Ditetapkan pada Gladian IV Ujung Pandang, 1974.",
-    "kontak_email": "humas.resmi@mapalaunand.org",
+    "kontak_email": "mapalaunand1312@gmail.com",
     "kontak_whatsapp": "628132299341",
-    "kontak_alamat": "Gedung PKM Lt. 1 Kampus Unand Limau Manis Padang 25163",
+    "kontak_alamat": "Gedung PKM Lt. 2 Sayap Kanan Kampus Unand Limau Manis Padang 25163",
     "footer_deskripsi": "Organisasi kemahasiswaan pecinta alam pelopor konservasi, ekspedisi ilmiah, dan persaudaraan seumur hidup sejak 1984.",
-    "kontak_instagram": "https://instagram.com/mapalaunand_official",
-    "kontak_facebook": "https://facebook.com/mapalaunandofficial",
-    "kontak_tiktok": "https://tiktok.com/@mapalaunand_id",
-    "prestasi_boxes": "[{\"id\":1,\"title\":\"Fisa\",\"sub\":\"Tahun 2024\"},{\"id\":2,\"title\":\"Kalpataru\",\"sub\":\"Apresiasi Konservasi Kampus\"},{\"id\":3,\"title\":\"7 Summits\",\"sub\":\"Jalur Ekspedisi Nusantara\"},{\"id\":4,\"title\":\"30+ Riset\",\"sub\":\"Publikasi Ilmiah & Speleologi\"}]",
-    "kontak_youtube": "https://youtube.com/@mapalaunand",
+    "kontak_instagram": "https://www.instagram.com/mapalaunand?utm_source=ig_web_button_share_sheet&jplx=ZDNlZDc0MzIxNw==",
+    "kontak_facebook": "https://www.facebook.com/mapalaunandcom?rdid=1YTztzytke22V0T3&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19j5fTkLDF%2F#",
+    "kontak_tiktok": "https://www.tiktok.com/@mapala.unand?is_from_webapp=1&sender_device=pc",
+    "prestasi_boxes": "[{\"id\":1,\"title\":\"Puncak Cartenz\",\"sub\":\"Tahun 2024\"},{\"id\":2,\"title\":\"Kalpataru\",\"sub\":\"Apresiasi Konservasi Kampus\"},{\"id\":3,\"title\":\"7 Summits\",\"sub\":\"Jalur Ekspedisi Nusantara\"},{\"id\":4,\"title\":\"30+ Riset\",\"sub\":\"Publikasi Ilmiah & Speleologi\"}]",
+    "kontak_youtube": "http://www.youtube.com/@mapalaunand2398",
     "kontak_twitter": "https://x.com/mapalaunand_padang",
     "hero_stat_puncak_angka": "120",
     "hero_stat_puncak_satuan": "+ Puncak",
-    "hero_stat_puncak_label": "Sumatera & Seven Summits"
+    "hero_stat_puncak_label": "Sumatera & Seven Summits",
+    "sejarah_fotos": "[{\"url\":\"/uploads/foto_0-1795169131640-996945107.jpeg\",\"caption\":\"MU 352 Ltn.\"},{\"url\":\"/images/hero-mountain.jpg\",\"caption\":\"Jejak Ekspedisi Rimba & Puncak Pegunungan Sejak 1984\"},{\"url\":\"/images/kerinci-expedition.jpg\",\"caption\":\"Dedikasi Generasi Insan Pencinta Alam Universitas Andalas\"}]"
   },
   "logs": [
     {
-      "id": 359,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-18T14:38:48.000Z",
+      "id": 425,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-20T11:24:11.000Z",
       "admin": "admin",
-      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di (2025) [Sorotan Beranda]"
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
     },
     {
-      "id": 358,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-18T14:35:54.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024) [Sorotan Beranda]"
-    },
-    {
-      "id": 357,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-18T14:30:23.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024) [Sorotan Beranda]"
-    },
-    {
-      "id": 356,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-18T14:30:07.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024) [Sorotan Beranda]"
-    },
-    {
-      "id": 355,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-18T14:21:49.000Z",
-      "admin": "MU 020 Krn.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 354,
-      "aksi": "AKTIVASI_AKUN_SELESAI",
-      "entitas": "anggota",
-      "waktu": "2026-11-18T14:20:57.000Z",
-      "admin": "MU 020 Krn.",
-      "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
-    },
-    {
-      "id": 353,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-18T14:19:05.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: ihiy (MU 020 Krn.)"
-    },
-    {
-      "id": 352,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-18T14:18:19.000Z",
-      "admin": "MU 500 Kak.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 351,
-      "aksi": "REGISTRASI_MANDIRI",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-18T14:15:05.000Z",
-      "admin": "MU 500 Kak.",
-      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
-    },
-    {
-      "id": 350,
-      "aksi": "UPDATE_PROFILE",
-      "entitas": "anggota",
-      "waktu": "2026-11-18T14:02:11.000Z",
-      "admin": "MU 019 Krn.",
-      "detail": "Anggota memperbarui biodata tetap dan menyelesaikan aktivasi"
-    },
-    {
-      "id": 349,
-      "aksi": "AKTIVASI_AKUN_SELESAI",
-      "entitas": "anggota",
-      "waktu": "2026-11-18T14:00:06.000Z",
-      "admin": "MU 019 Krn.",
-      "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
-    },
-    {
-      "id": 348,
-      "aksi": "TAMBAH_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-18T13:58:13.000Z",
-      "admin": "admin",
-      "detail": "Menambahkan anggota baru: Mika (MU 019 Krn.)"
-    },
-    {
-      "id": 347,
+      "id": 424,
       "aksi": "IMPORT_ANGGOTA",
       "entitas": "anggota",
-      "waktu": "2026-11-15T15:11:21.000Z",
+      "waktu": "2026-11-20T10:14:29.000Z",
       "admin": "admin",
-      "detail": "Berhasil mengimpor 2 anggota baru secara massal dari Excel ke MySQL."
+      "detail": "Berhasil mengimpor 0 anggota baru secara massal dari Excel ke MySQL."
     },
     {
-      "id": 346,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:43.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Caving' menjadi 'Caving'"
-    },
-    {
-      "id": 345,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:36.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Olahraga Air' menjadi 'Olahraga Air'"
-    },
-    {
-      "id": 344,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:27.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Panjat Tebing' menjadi 'Panjat Tebing'"
-    },
-    {
-      "id": 343,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:16.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Rimba Gunung' menjadi 'Rimba Gunung'"
-    },
-    {
-      "id": 342,
-      "aksi": "UPDATE_DIVISI",
-      "entitas": "divisi",
-      "waktu": "2026-11-15T15:04:06.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui nama divisi dari 'Rimba Gunung' menjadi 'Rimba Gunung'"
-    },
-    {
-      "id": 341,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T11:39:36.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di (2025)"
-    },
-    {
-      "id": 340,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:41:09.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Juara 1 Lead Climbing Mahasiswa Nasional (2025)"
-    },
-    {
-      "id": 339,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:39:49.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
-    },
-    {
-      "id": 338,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:37:12.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
-    },
-    {
-      "id": 337,
-      "aksi": "UPDATE_PRESTASI",
-      "entitas": "prestasi",
-      "waktu": "2026-11-15T10:33:36.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui prestasi: Penghargaan Kalpataru Tingkat Provinsi Sumatera Barat (2024)"
-    },
-    {
-      "id": 336,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:17:44.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 335,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:11:07.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 334,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:05:00.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 333,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:04:37.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 332,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-15T10:03:46.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
-    },
-    {
-      "id": 331,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:57:27.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
-    },
-    {
-      "id": 330,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:56:22.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
-    },
-    {
-      "id": 329,
+      "id": 423,
       "aksi": "AKTIVASI_AKUN_SELESAI",
       "entitas": "anggota",
-      "waktu": "2026-11-15T09:56:11.000Z",
-      "admin": "MU 018 Krn.",
+      "waktu": "2026-11-20T10:09:33.000Z",
+      "admin": "MU 355 Ltn.",
       "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
     },
     {
-      "id": 328,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-15T09:52:12.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
-    },
-    {
-      "id": 327,
+      "id": 422,
       "aksi": "UPDATE_STATIC_CONTENT",
       "entitas": "konten_statis",
-      "waktu": "2026-11-15T09:47:24.000Z",
+      "waktu": "2026-11-20T10:05:31.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui konten statis bagian tentang_kami"
+    },
+    {
+      "id": 421,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-20T10:05:31.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui 3 foto slider halaman Tentang Kami"
+    },
+    {
+      "id": 420,
+      "aksi": "UPDATE_STATIC_CONTENT",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-20T10:04:40.000Z",
       "admin": "admin",
       "detail": "Memperbarui konten statis bagian kontak"
     },
     {
-      "id": 326,
+      "id": 419,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T10:03:38.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Juara 1 Kejuaraan Nasional Wall Climbing Tingkat Mahasiswa Kategori Speed & Lead (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 418,
+      "aksi": "UPDATE_STRUKTUR",
+      "entitas": "bagan_struktur",
+      "waktu": "2026-11-20T10:02:12.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui gambar bagan struktur organisasi periode 2026/2027 (Bagan Struktur Organisasi Resmi Mapala UNAND Periode 2026/2027)"
+    },
+    {
+      "id": 417,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-20T10:01:47.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: bedah gunung kerinci via solok selatan (terbit) dengan 1 gambar"
+    },
+    {
+      "id": 416,
       "aksi": "RESET_PASSWORD",
       "entitas": "users",
-      "waktu": "2026-11-15T09:28:40.000Z",
+      "waktu": "2026-11-20T09:59:18.000Z",
       "admin": "admin",
-      "detail": "Mereset password anggota MU 018 Krn. ke password default sementara"
+      "detail": "Mereset password anggota MU 355 Ltn. ke password default sementara"
     },
     {
-      "id": 325,
+      "id": 415,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-20T09:57:39.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2027 (2027) menjadi DIBUKA"
+    },
+    {
+      "id": 414,
+      "aksi": "INPUT_REGISTRASI_ADMIN",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-20T09:57:15.000Z",
+      "admin": "admin",
+      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Nadia Putri Maharani (MU 342 Pct.) [Override]"
+    },
+    {
+      "id": 413,
       "aksi": "TOGGLE_STATUS_ANGGOTA",
       "entitas": "anggota",
-      "waktu": "2026-11-15T09:28:01.000Z",
+      "waktu": "2026-11-20T09:56:02.000Z",
       "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
+      "detail": "Mengubah status anggota MU 355 Ltn. menjadi diaktifkan"
     },
     {
-      "id": 324,
-      "aksi": "RESET_PASSWORD",
+      "id": 412,
+      "aksi": "TOGGLE_STATUS_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:56:00.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status anggota MU 355 Ltn. menjadi dinonaktifkan"
+    },
+    {
+      "id": 411,
+      "aksi": "UPDATE_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:55:49.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui biodata tetap anggota MU 355 Ltn."
+    },
+    {
+      "id": 410,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:55:24.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: Jekor (MU 355 Ltn.)"
+    },
+    {
+      "id": 409,
+      "aksi": "GANTI_PASSWORD",
       "entitas": "users",
-      "waktu": "2026-11-14T13:22:09.000Z",
-      "admin": "admin",
-      "detail": "Mereset password anggota MU 018 Krn. ke password default sementara"
+      "waktu": "2026-11-20T09:51:37.000Z",
+      "admin": "MU 344 Cav.",
+      "detail": "GANTI_PASSWORD"
     },
     {
-      "id": 323,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-14T13:10:04.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi diaktifkan"
+      "id": 408,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-20T09:49:26.000Z",
+      "admin": "MU 344 Cav.",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
     },
     {
-      "id": 322,
-      "aksi": "TOGGLE_STATUS_ANGGOTA",
-      "entitas": "anggota",
-      "waktu": "2026-11-14T13:09:51.000Z",
-      "admin": "admin",
-      "detail": "Mengubah status anggota MU 018 Krn. menjadi dinonaktifkan"
+      "id": 407,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-20T09:48:38.000Z",
+      "admin": "MU 344 Cav.",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
     },
     {
-      "id": 321,
+      "id": 406,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-20T09:47:42.000Z",
+      "admin": "MU 344 Cav.",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
+    },
+    {
+      "id": 405,
       "aksi": "AKTIVASI_AKUN_SELESAI",
       "entitas": "anggota",
-      "waktu": "2026-11-14T13:07:27.000Z",
-      "admin": "MU 018 Krn.",
+      "waktu": "2026-11-20T09:46:04.000Z",
+      "admin": "MU 344 Cav.",
       "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
     },
     {
-      "id": 320,
+      "id": 404,
+      "aksi": "REGISTRASI_MANDIRI",
+      "entitas": "registrasi_ulang",
+      "waktu": "2026-11-20T09:32:44.000Z",
+      "admin": "MU 342 Pct.",
+      "detail": "Anggota mengirim formulir registrasi ulang mandiri"
+    },
+    {
+      "id": 403,
+      "aksi": "AKTIVASI_AKUN_SELESAI",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:30:46.000Z",
+      "admin": "MU 342 Pct.",
+      "detail": "Anggota berhasil menyelesaikan seluruh alur aktivasi akun 3-langkah (Ganti Password, Privasi PDP, & Biodata Esensial)"
+    },
+    {
+      "id": 402,
+      "aksi": "DELETE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T09:27:15.000Z",
+      "admin": "admin",
+      "detail": "Menghapus prestasi: makan kerupuk"
+    },
+    {
+      "id": 401,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T09:26:30.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: makan kerupuk (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 400,
+      "aksi": "CREATE_ARTICLE",
+      "entitas": "artikel",
+      "waktu": "2026-11-20T09:23:31.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan artikel: Acid Manjat Tebing (terbit) dengan 1 gambar"
+    },
+    {
+      "id": 399,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-20T09:21:10.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2026 (2026) menjadi DIBUKA"
+    },
+    {
+      "id": 398,
+      "aksi": "UPDATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-20T09:20:58.000Z",
+      "admin": "admin",
+      "detail": "Mengubah status periode Registrasi Ulang Tahunan 2027 (2027) menjadi DIBUKA"
+    },
+    {
+      "id": 397,
+      "aksi": "CREATE_PERIODE",
+      "entitas": "periode_registrasi",
+      "waktu": "2026-11-20T09:20:55.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan periode registrasi baru: Registrasi Ulang Tahunan 2027 (2027)"
+    },
+    {
+      "id": 396,
+      "aksi": "UPDATE_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:19:01.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui biodata tetap anggota MU 310 Rgm."
+    },
+    {
+      "id": 395,
+      "aksi": "UPDATE_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:18:27.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui biodata tetap anggota MU 330 Ola."
+    },
+    {
+      "id": 394,
       "aksi": "TAMBAH_ANGGOTA",
       "entitas": "anggota",
-      "waktu": "2026-11-14T12:58:29.000Z",
+      "waktu": "2026-11-20T09:16:02.000Z",
       "admin": "admin",
-      "detail": "Menambahkan anggota baru: Aldian (MU 018 Krn.)"
+      "detail": "Menambahkan anggota baru: Kiki (MU 389 Jvt.)"
     },
     {
-      "id": 319,
+      "id": 393,
+      "aksi": "IMPORT_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T09:14:34.000Z",
+      "admin": "admin",
+      "detail": "Berhasil mengimpor 1 anggota baru secara massal dari Excel ke MySQL."
+    },
+    {
+      "id": 392,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T08:40:25.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: Nadia Putri Maharani (MU 342 Pct.)"
+    },
+    {
+      "id": 391,
+      "aksi": "TAMBAH_ANGGOTA",
+      "entitas": "anggota",
+      "waktu": "2026-11-20T08:39:21.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan anggota baru: Aisyah Rahma Dani (MU 344 Cav.)"
+    },
+    {
+      "id": 390,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:20:45.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang (2025)"
+    },
+    {
+      "id": 389,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:18:41.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Penghargaan Pelopor Konservasi Hutan & Daerah Aliran Sungai Sumatera Barat (2026) [Sorotan Beranda]"
+    },
+    {
+      "id": 388,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:18:27.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Publikasi Riset Pemetaan Karst Terbaik Simposium Speleologi Nasional (2025) [Sorotan Beranda]"
+    },
+    {
+      "id": 387,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:17:46.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang (2025) [Sorotan Beranda]"
+    },
+    {
+      "id": 386,
+      "aksi": "UPDATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:17:18.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui prestasi: Meraih Juara 2 Kategori Putra pada ajang bergengsi Lomba Lintas Alam Nasional di Padang Panjang (2025) [Sorotan Beranda]"
+    },
+    {
+      "id": 385,
+      "aksi": "UPDATE_PRESTASI_BOXES",
+      "entitas": "konten_statis",
+      "waktu": "2026-11-20T08:16:24.000Z",
+      "admin": "admin",
+      "detail": "Memperbarui 4 kolom sorotan prestasi beranda"
+    },
+    {
+      "id": 384,
       "aksi": "UPDATE_ARTICLE",
       "entitas": "artikel",
-      "waktu": "2026-11-14T12:32:05.000Z",
+      "waktu": "2026-11-20T08:12:23.000Z",
       "admin": "admin",
-      "detail": "Memperbarui artikel: Pelatihan Navigasi Darat dan Survival Anggota Muda 2026 (terbit)"
+      "detail": "Memperbarui artikel: Ekspedisi Navigasi Arus Deras & Pemetaan Jeram Sungai Batang Anai (terbit)"
     },
     {
-      "id": 318,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T12:19:02.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
-    },
-    {
-      "id": 317,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T06:56:23.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
-    },
-    {
-      "id": 316,
-      "aksi": "UPDATE_ARTICLE",
-      "entitas": "artikel",
-      "waktu": "2026-11-14T06:55:26.000Z",
-      "admin": "admin",
-      "detail": "Memperbarui artikel: Zeri (terbit)"
-    },
-    {
-      "id": 315,
-      "aksi": "INPUT_REGISTRASI_ADMIN",
-      "entitas": "registrasi_ulang",
-      "waktu": "2026-11-13T09:53:19.000Z",
-      "admin": "admin",
-      "detail": "Admin mengisi data registrasi ulang tahun 2026 atas nama Fajar Nugraha (MU 285 PCT) [Override]"
-    },
-    {
-      "id": 314,
+      "id": 383,
       "aksi": "UPDATE_STATIC_CONTENT",
       "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:02:08.000Z",
+      "waktu": "2026-11-20T08:09:47.000Z",
       "admin": "admin",
       "detail": "Memperbarui konten statis bagian beranda"
     },
     {
-      "id": 313,
+      "id": 382,
       "aksi": "UPDATE_STATIC_CONTENT",
       "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:00:34.000Z",
+      "waktu": "2026-11-20T08:09:44.000Z",
       "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
+      "detail": "Memperbarui konten statis bagian tentang_kami"
     },
     {
-      "id": 312,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T15:00:24.000Z",
+      "id": 381,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:08:22.000Z",
       "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
+      "detail": "Menambahkan prestasi: Publikasi Riset Pemetaan Karst Terbaik Simposium Speleologi Nasional (2025) "
     },
     {
-      "id": 311,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:58:16.000Z",
+      "id": 380,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:07:33.000Z",
       "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
+      "detail": "Menambahkan prestasi: Juara Umum Lomba Lintas Alam & Navigasi Rimba Nasional (2025) "
     },
     {
-      "id": 310,
-      "aksi": "UPDATE_STATIC_CONTENT",
-      "entitas": "konten_statis",
-      "waktu": "2026-11-11T14:58:00.000Z",
+      "id": 379,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:06:50.000Z",
       "admin": "admin",
-      "detail": "Memperbarui konten statis bagian beranda"
+      "detail": "Menambahkan prestasi: Penghargaan Pelopor Konservasi Hutan & Daerah Aliran Sungai Sumatera Barat (2026) "
+    },
+    {
+      "id": 378,
+      "aksi": "CREATE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:05:56.000Z",
+      "admin": "admin",
+      "detail": "Menambahkan prestasi: Juara 1 Kejuaraan Nasional Wall Climbing Mahasiswa Kategori Speed & Lead (2026) "
+    },
+    {
+      "id": 377,
+      "aksi": "DELETE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:04:47.000Z",
+      "admin": "admin",
+      "detail": "Menghapus prestasi: Juara Umum Lomba Lintas Alam Nusantara"
+    },
+    {
+      "id": 376,
+      "aksi": "DELETE_PRESTASI",
+      "entitas": "prestasi",
+      "waktu": "2026-11-20T08:04:44.000Z",
+      "admin": "admin",
+      "detail": "Menghapus prestasi: Rekor Pemetaan Sistem Gua Vertikal hhhTerdalam Sumatera"
     }
   ]
 }

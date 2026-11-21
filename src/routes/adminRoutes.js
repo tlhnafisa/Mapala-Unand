@@ -75,6 +75,11 @@ router.delete('/cms/prestasi/:id', cmsController.deletePrestasi);
 // Static Content
 router.get('/cms/static-content', cmsController.getStaticContent);
 router.put('/cms/static-content', cmsController.updateStaticContent);
+router.post('/cms/tentang-kami/fotos', upload.fields([
+  { name: 'foto_0', maxCount: 1 },
+  { name: 'foto_1', maxCount: 1 },
+  { name: 'foto_2', maxCount: 1 }
+]), cmsController.updateSejarahFotos);
 
 // 6. Log Aktivitas Admin [FR-36]
 router.get('/logs', logController.getActivityLogs);

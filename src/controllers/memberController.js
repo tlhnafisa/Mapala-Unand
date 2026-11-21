@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const { query, execute } = require('../config/mysql');
 const db = require('../config/db');
 const { logActivity } = require('../services/loggerService');
+const { toTitleCase } = require('../utils/formatters');
 const {
   generateTemplateWorkbook,
   previewExcelFile,
@@ -314,7 +315,7 @@ exports.createMember = async (req, res) => {
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0)
     `, [
       normalizedNoReg,
-      nama.trim(),
+      toTitleCase(nama),
       divisiId,
       parseInt(angkatan, 10),
       tempat_lahir ? tempat_lahir.trim() : '-',
@@ -346,7 +347,7 @@ exports.createMember = async (req, res) => {
     await logActivity(
       adminUser,
       'TAMBAH_ANGGOTA',
-      `Menambahkan anggota baru: ${nama.trim()} (${normalizedNoReg})`,
+      `Menambahkan anggota baru: ${toTitleCase(nama)} (${normalizedNoReg})`,
       { entitas: 'anggota', entitas_id: normalizedNoReg }
     );
 
@@ -356,7 +357,7 @@ exports.createMember = async (req, res) => {
     const newMember = {
       id: newMemberId,
       no_register: normalizedNoReg,
-      nama: nama.trim(),
+      nama: toTitleCase(nama),
       divisi: divisi,
       divisi_id: divisiId,
       angkatan: parseInt(angkatan, 10),
@@ -443,7 +444,7 @@ exports.updateMember = async (req, res) => {
         nama_ibu = ?
       WHERE id = ?
     `, [
-      nama ? nama.trim() : current.nama,
+      nama ? toTitleCase(nama) : current.nama,
       divisiId,
       angkatan ? parseInt(angkatan, 10) : current.angkatan,
       tempat_lahir !== undefined ? tempat_lahir : current.tempat_lahir,
@@ -694,7 +695,7 @@ exports.commitImport = async (req, res) => {
             angkatan = VALUES(angkatan)
         `, [
           normalizedNoReg,
-          row.nama,
+          toTitleCase(row.nama),
           divId,
           parseInt(row.angkatan, 10),
           row.tempat_lahir || '-',

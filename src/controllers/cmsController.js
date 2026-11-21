@@ -44,7 +44,7 @@ exports.getArticles = async (req, res) => {
         a.status_publikasi AS status,
         a.published_at,
         a.created_at,
-        COALESCE(u.username, 'Admin Mapala UNAND') AS penulis,
+        COALESCE(NULLIF(TRIM(a.tim_capaian), ''), u.username, 'Admin Mapala UNAND') AS penulis,
         COALESCE(ag.path, '/images/hero-mountain.jpg') AS foto
       FROM artikel a
       JOIN kategori_artikel k ON k.id = a.kategori_id
@@ -386,7 +386,7 @@ exports.updateArticle = async (req, res) => {
       newSummary,
       newIsi,
       status_kegiatan || current.status_kegiatan,
-      tim_capaian || current.tim_capaian,
+      (tim_capaian && tim_capaian.trim()) || (penulis && penulis.trim()) || current.tim_capaian,
       dateVal,
       newStatus,
       newPublishedAt,
@@ -1072,6 +1072,32 @@ exports.updatePrestasiBoxes = async (req, res) => {
 // ============================================================================
 // 4. CMS KONTEN STATIS & KONTAK (tabel konten_statis, misi_poin, tautan_sosial)
 // ============================================================================
+function parseSejarahFotos(staticMap) {
+  const defaults = [
+    {
+      url: staticMap['sejarah_foto'] || '/images/about-unand.jpg',
+      caption: staticMap['sejarah_foto_caption'] || 'Pusat Kegiatan Mahasiswa (PKM) Unand & Gerbang Ekspedisi Bukit Barisan'
+    },
+    {
+      url: '/images/hero-mountain.jpg',
+      caption: 'Jejak Ekspedisi Rimba & Puncak Pegunungan Sejak 1984'
+    },
+    {
+      url: '/images/kerinci-expedition.jpg',
+      caption: 'Dedikasi Generasi Insan Pencinta Alam Universitas Andalas'
+    }
+  ];
+  if (staticMap['sejarah_fotos']) {
+    try {
+      const parsed = JSON.parse(staticMap['sejarah_fotos']);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed.slice(0, 3);
+      }
+    } catch (_) {}
+  }
+  return defaults;
+}
+
 exports.getStaticContent = async (req, res) => {
   try {
     const rows = await query('SELECT kunci, nilai, kelompok FROM konten_statis');
@@ -1089,6 +1115,7 @@ exports.getStaticContent = async (req, res) => {
       tentang_kami: {
         sejarah: staticMap['sejarah'] || '',
         sejarah_foto: staticMap['sejarah_foto'] || '/images/about-unand.jpg',
+        sejarah_fotos: parseSejarahFotos(staticMap),
         visi: staticMap['visi'] || '',
         misi: missionText,
         misi_poin: missionRows,
@@ -1128,6 +1155,52 @@ async function upsertStatic(kunci, nilai, kelompok) {
     ON DUPLICATE KEY UPDATE nilai = VALUES(nilai), kelompok = VALUES(kelompok)
   `, [kunci, nilai, kelompok]);
 }
+
+exports.updateSejarahFotos = async (req, res) => {
+  try {
+    const files = req.files || {};
+    const slides = [];
+    for (let i = 0; i < 3; i++) {
+      const uploaded = files[`foto_${i}`] && files[`foto_${i}`][0];
+      const existingUrl = (req.body[`existing_url_${i}`] || '').trim();
+      const caption = (req.body[`caption_${i}`] || '').trim();
+      const removed = req.body[`removed_${i}`] === '1' || req.body[`removed_${i}`] === 'true';
+
+      if (removed && !uploaded) continue;
+
+      const finalUrl = uploaded ? `/uploads/${uploaded.filename}` : existingUrl;
+      if (finalUrl) {
+        slides.push({
+          url: finalUrl,
+          caption: caption || 'Dokumentasi Mapala UNAND'
+        });
+      }
+    }
+
+    if (slides.length === 0) {
+      return res.status(400).json({ success: false, message: 'Minimal harus ada 1 foto untuk halaman Tentang Kami.' });
+    }
+
+    await upsertStatic('sejarah_fotos', JSON.stringify(slides.slice(0, 3)), 'tentang');
+    await upsertStatic('sejarah_foto', slides[0].url, 'tentang');
+    await upsertStatic('sejarah_foto_caption', slides[0].caption, 'tentang');
+
+    const adminUser = req.user ? req.user.username : 'admin';
+    await logActivity(
+      adminUser,
+      'UPDATE_STATIC_CONTENT',
+      `Memperbarui ${slides.length} foto slider halaman Tentang Kami`,
+      { entitas: 'konten_statis', entitas_id: 'sejarah_fotos' }
+    );
+
+    await db.syncFromMySQL().catch(e => console.warn('Sync memory notice:', e.message));
+
+    return res.json({ success: true, message: 'Foto halaman Tentang Kami berhasil diperbarui.', data: slides });
+  } catch (err) {
+    console.error('Error updateSejarahFotos:', err);
+    return res.status(500).json({ success: false, message: 'Gagal menyimpan foto Tentang Kami: ' + err.message });
+  }
+};
 
 exports.updateStaticContent = async (req, res) => {
   try {

@@ -383,6 +383,28 @@ async function fetchLivePublicData() {
               const kodeEtikQuote = document.querySelector('.kode-etik-quote');
               if (kodeEtikQuote) kodeEtikQuote.textContent = `"${tk.kode_etik}"`;
             }
+            if (tk.sejarah_fotos && Array.isArray(tk.sejarah_fotos) && tk.sejarah_fotos.length > 0) {
+              const slider = document.getElementById('historySlider');
+              if (slider) {
+                const slidesWrap = slider.querySelector('.history-slides');
+                const dotsWrap = slider.querySelector('.history-slider-dots');
+                const slides = tk.sejarah_fotos.slice(0, 3);
+                if (slidesWrap) {
+                  slidesWrap.innerHTML = slides.map((item, idx) => `
+                    <div class="history-slide ${idx === 0 ? 'active' : ''}">
+                      <img src="${item.url}" alt="Sejarah Mapala Unand ${idx + 1}">
+                      <div class="prestasi-caption">${item.caption || 'Dokumentasi Mapala UNAND'}</div>
+                    </div>
+                  `).join('');
+                }
+                if (dotsWrap) {
+                  dotsWrap.innerHTML = slides.length > 1
+                    ? slides.map((_, idx) => `<span class="history-dot ${idx === 0 ? 'active' : ''}" data-slide="${idx}"></span>`).join('')
+                    : '';
+                }
+                initHistorySlider();
+              }
+            }
           }
         }
       } catch (_) {}
@@ -858,8 +880,12 @@ function initHistorySlider() {
   const dots = slider.querySelectorAll('.history-dot');
   if (!slides.length) return;
 
+  if (slider._historyInterval) {
+    clearInterval(slider._historyInterval);
+    slider._historyInterval = null;
+  }
+
   let currentIdx = 0;
-  let intervalId = null;
 
   function showSlide(index) {
     slides.forEach((s, i) => {
@@ -878,13 +904,15 @@ function initHistorySlider() {
 
   function startAutoPlay() {
     stopAutoPlay();
-    intervalId = setInterval(nextSlide, 3000); // 3 seconds interval
+    if (slides.length > 1) {
+      slider._historyInterval = setInterval(nextSlide, 3000);
+    }
   }
 
   function stopAutoPlay() {
-    if (intervalId) {
-      clearInterval(intervalId);
-      intervalId = null;
+    if (slider._historyInterval) {
+      clearInterval(slider._historyInterval);
+      slider._historyInterval = null;
     }
   }
 

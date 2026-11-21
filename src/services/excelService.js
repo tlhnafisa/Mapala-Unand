@@ -2,6 +2,7 @@ const xlsx = require('xlsx');
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const { query } = require('../config/mysql');
+const { toTitleCase } = require('../utils/formatters');
 
 /**
  * Generate Excel Template for bulk importing members (FR-31)
@@ -82,7 +83,7 @@ async function previewExcelFile(filePath) {
   rows.forEach((row, index) => {
     const rowNum = index + 2; // Header is row 1
     let raw_no_reg = (row['No_Register'] || row['no_register'] || '').toString().trim();
-    const nama = (row['Nama_Lengkap'] || row['nama_lengkap'] || row['Nama'] || '').toString().trim();
+    const nama = toTitleCase((row['Nama_Lengkap'] || row['nama_lengkap'] || row['Nama'] || '').toString());
     const divisi = (row['Divisi'] || row['divisi'] || '').toString().trim();
     const angkatan = parseInt(row['Angkatan'] || row['angkatan'] || 0, 10);
     const tempat_lahir = (row['Tempat_Lahir'] || row['tempat_lahir'] || '').toString().trim();

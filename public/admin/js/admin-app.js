@@ -1498,7 +1498,7 @@ function openEditArticleModal(id) {
   document.getElementById('artLokasi').value = a.lokasi || '';
   document.getElementById('artTanggal').value = a.tanggal_raw || (a.tanggal ? a.tanggal.split('T')[0] : '');
   document.getElementById('artStatus').value = a.status || 'terbit';
-  document.getElementById('artPenulis').value = a.penulis || '';
+  document.getElementById('artPenulis').value = a.tim_capaian || a.penulis || '';
   document.getElementById('artRingkasan').value = a.ringkasan || '';
   document.getElementById('artFotoUrl').value = (a.foto && a.foto.startsWith('http')) ? a.foto : '';
   document.getElementById('artIsi').value = a.isi || '';
@@ -2028,6 +2028,7 @@ async function loadStaticContent() {
     document.getElementById('staticSejarah').value = tentang_kami.sejarah || '';
     document.getElementById('staticVisi').value = tentang_kami.visi || '';
     document.getElementById('staticMisi').value = tentang_kami.misi || '';
+    renderSejarahFotosEditor(tentang_kami.sejarah_fotos || []);
   }
   if (kontak) {
     document.getElementById('staticEmail').value = kontak.email || '';
@@ -2086,6 +2087,66 @@ function updateBerandaCharCounters() {
   }
 }
 
+function renderSejarahFotosEditor(fotos) {
+  const container = document.getElementById('sejarahFotosEditor');
+  if (!container) return;
+
+  const slots = [0, 1, 2].map(i => {
+    const item = fotos[i] || null;
+    return {
+      url: item ? (item.url || '') : '',
+      caption: item ? (item.caption || '') : '',
+      removed: !item
+    };
+  });
+  STATE.sejarahFotoSlots = slots;
+
+  container.innerHTML = slots.map((slot, idx) => {
+    const hasImg = Boolean(slot.url) && !slot.removed;
+    const safeCaption = (slot.caption || '').replace(/"/g, '&quot;');
+    return `
+      <div class="p-2.5 rounded-xl bg-black/20 border border-white/5 flex items-start gap-3">
+        <div class="w-16 h-12 rounded-lg overflow-hidden bg-white/5 border border-white/10 flex-shrink-0 flex items-center justify-center">
+          <img id="sejarahFotoPreview_${idx}" src="${hasImg ? slot.url : '/images/about-unand.jpg'}" alt="Foto ${idx + 1}" class="w-full h-full object-cover ${hasImg ? '' : 'opacity-25'}">
+        </div>
+        <div class="flex-1 min-w-0 space-y-1.5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[11px] font-bold text-white">Foto Slide #${idx + 1}${idx === 0 ? ' (Utama)' : ' (Opsional)'}</span>
+            ${idx > 0 ? `<button type="button" onclick="removeSejarahFotoSlot(${idx})" class="text-[10px] text-[#EF4444] hover:underline">Kosongkan</button>` : ''}
+          </div>
+          <input type="file" id="sejarahFotoFile_${idx}" accept="image/jpeg,image/png,image/webp" onchange="handleSejarahFotoPreview(${idx}, this)" class="form-input !text-[11px] !py-1">
+          <input type="text" id="sejarahFotoCaption_${idx}" value="${safeCaption}" placeholder="Keterangan foto slide #${idx + 1}..." class="form-input !text-[11px] !py-1">
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function handleSejarahFotoPreview(idx, input) {
+  const file = input && input.files && input.files[0];
+  if (!file || !STATE.sejarahFotoSlots || !STATE.sejarahFotoSlots[idx]) return;
+  STATE.sejarahFotoSlots[idx].removed = false;
+  const img = document.getElementById(`sejarahFotoPreview_${idx}`);
+  if (img) {
+    img.src = URL.createObjectURL(file);
+    img.classList.remove('opacity-25');
+  }
+}
+
+function removeSejarahFotoSlot(idx) {
+  if (!STATE.sejarahFotoSlots || !STATE.sejarahFotoSlots[idx]) return;
+  STATE.sejarahFotoSlots[idx] = { url: '', caption: '', removed: true };
+  const fileEl = document.getElementById(`sejarahFotoFile_${idx}`);
+  if (fileEl) fileEl.value = '';
+  const capEl = document.getElementById(`sejarahFotoCaption_${idx}`);
+  if (capEl) capEl.value = '';
+  const img = document.getElementById(`sejarahFotoPreview_${idx}`);
+  if (img) {
+    img.src = '/images/about-unand.jpg';
+    img.classList.add('opacity-25');
+  }
+}
+
 async function saveStaticContent(section) {
   let data = {};
   if (section === 'tentang_kami') {
@@ -2094,6 +2155,25 @@ async function saveStaticContent(section) {
       visi: document.getElementById('staticVisi').value,
       misi: document.getElementById('staticMisi').value
     };
+
+    const formData = new FormData();
+    const slots = STATE.sejarahFotoSlots || [];
+    for (let i = 0; i < 3; i++) {
+      const slot = slots[i] || { url: '', removed: true };
+      const fileEl = document.getElementById(`sejarahFotoFile_${i}`);
+      const capEl = document.getElementById(`sejarahFotoCaption_${i}`);
+      const file = fileEl && fileEl.files && fileEl.files[0];
+      if (file) formData.append(`foto_${i}`, file);
+      formData.append(`existing_url_${i}`, slot.url || '');
+      formData.append(`caption_${i}`, capEl ? capEl.value.trim() : '');
+      formData.append(`removed_${i}`, slot.removed && !file ? '1' : '0');
+    }
+
+    const fotoRes = await api('/api/admin/cms/tentang-kami/fotos', { method: 'POST', body: formData });
+    if (fotoRes && !fotoRes.success) {
+      showToast(fotoRes.message || 'Gagal memperbarui foto Tentang Kami.', 'error');
+      return;
+    }
   } else if (section === 'kontak') {
     const ytEl = document.getElementById('staticYouTube');
     const fbEl = document.getElementById('staticFacebook');
